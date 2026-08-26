@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZtotheZ Design Engineering quality-gate fixture</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: #17202a;
+        background: #ffffff;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      main {
+        width: min(100% - 32px, 800px);
+        margin: 32px auto;
+      }
+
+      h1 {
+        overflow-wrap: anywhere;
+      }
+
+      button,
+      input {
+        min-height: 44px;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        margin: 8px 0 16px;
+        padding: 8px 12px;
+      }
+
+      button {
+        padding: 8px 16px;
+      }
+
+      button:focus-visible,
+      input:focus-visible {
+        outline: 3px solid #067a6f;
+        outline-offset: 2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>SOC Readiness Command Center</h1>
+      <label for="target">ATT&amp;CK technique or target</label>
+      <input id="target" aria-label="ATT&amp;CK technique or target" value="T1059.001" />
+      <button type="button">Run Pipeline</button>
+      <section>
+        <h2>READINESS GATES</h2>
+        <p>Coverage Gate PENDING</p>
+      </section>
+      <section>
+        <h2>LIVE MONITOR</h2>
+        <p>IDLE</p>
+      </section>
+    </main>
+  </body>
+</html>

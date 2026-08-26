@@ -1,0 +1,128 @@
+{
+  "version": "1.0",
+  "contract": "scenestart",
+  "profiles": [
+    {
+      "id": "studio-export",
+      "name": "Compose, save and export a production",
+      "environment": [
+        "SceneStart is running with a fresh browser context",
+        "Downloads are enabled",
+        "No cloud project service is configured"
+      ],
+      "journeys": [
+        {
+          "id": "compose-save-export",
+          "name": "compose-save-export",
+          "steps": [
+            { "action": "navigate", "value": "/studio" },
+            { "action": "expectText", "selector": "h1", "value": "Demo Studio" },
+            { "action": "fill", "selector": "label:has-text(\"HANDLE\") input", "value": "ZSCENE" },
+            { "action": "fill", "selector": "label:has-text(\"CONCEPT\") input", "value": "A local-first three-scene arc" },
+            { "action": "fill", "selector": "label:has-text(\"TITLE\") input", "value": "Signal opening" },
+            { "action": "expectValue", "selector": "label:has-text(\"HANDLE\") input", "value": "ZSCENE" },
+            { "action": "expectValue", "selector": "label:has-text(\"TITLE\") input", "value": "Signal opening" },
+            { "action": "click", "selector": "button:has-text(\"PLAY PRODUCTION\")" },
+            { "action": "expectText", "selector": "button", "value": "PAUSE" },
+            { "action": "click", "selector": "button:has-text(\"RESTART\")" },
+            { "action": "expectDownload", "selector": "button:has-text(\"SAVE PROJECT\")", "filenameIncludes": "scenestart-production.json" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "Project saved locally." },
+            { "action": "expectDownload", "selector": "button:has-text(\"EXPORT OFFLINE HTML\")", "filenameIncludes": "my-production.html" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guided-workshop",
+      "name": "Complete the guided first production",
+      "environment": [
+        "SceneStart is running with a fresh browser context",
+        "Browser localStorage and downloads are available",
+        "The workshop uses its deterministic default three-scene project"
+      ],
+      "journeys": [
+        {
+          "id": "complete-guided-production",
+          "name": "complete-guided-production",
+          "steps": [
+            { "action": "navigate", "value": "/workshop" },
+            { "action": "expectText", "selector": "h1", "value": "Build your first production" },
+            { "action": "fill", "selector": "label:has-text(\"YOUR HANDLE\") input", "value": "NOVA" },
+            { "action": "expectValue", "selector": "label:has-text(\"YOUR HANDLE\") input", "value": "NOVA" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Create depth" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Build interference" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Aim for the ending" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Watch the whole arc" },
+            { "action": "click", "selector": "button:has-text(\"PLAY THE 20-SECOND PRODUCTION\")" },
+            { "action": "expectText", "selector": "button", "value": "PAUSE" },
+            { "action": "click", "selector": "button:has-text(\"PAUSE\")" },
+            { "action": "click", "selector": "button:has-text(\"FINISH WORKSHOP\")" },
+            { "action": "expectText", "selector": "body", "value": "You built a timed opening, escalation and ending." },
+            { "action": "expectDownload", "selector": "button:has-text(\"EXPORT OFFLINE HTML\")", "filenameIncludes": "my-production.html" },
+            { "action": "click", "selector": "a:has-text(\"CONTINUE IN DEMO STUDIO\")" },
+            { "action": "expectText", "selector": "h1", "value": "Demo Studio" },
+            { "action": "expectValue", "selector": "label:has-text(\"HANDLE\") input", "value": "NOVA" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "learning-persistence",
+      "name": "Complete and resume local learning progress",
+      "environment": [
+        "SceneStart is running with a fresh browser context",
+        "Browser localStorage is available",
+        "Core Demo Craft begins with no completed lessons"
+      ],
+      "journeys": [
+        {
+          "id": "complete-and-resume-lesson",
+          "name": "complete-and-resume-lesson",
+          "steps": [
+            { "action": "navigate", "value": "/learn/core-demo-craft" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "0/9 LESSONS COMPLETE" },
+            { "action": "click", "selector": "button:has-text(\"I understand what a demo is\")" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "1/9 LESSONS COMPLETE" },
+            { "action": "navigate", "value": "/learn" },
+            { "action": "expectText", "selector": "body", "value": "1/9 DONE" },
+            { "action": "navigate", "value": "/learn/core-demo-craft" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "1/9 LESSONS COMPLETE" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "release-provenance",
+      "name": "Document provenance and export release notes",
+      "environment": [
+        "SceneStart is running with a fresh browser context",
+        "Browser localStorage and downloads are available",
+        "No legal or competition certification service is present"
+      ],
+      "journeys": [
+        {
+          "id": "document-asset-and-readme",
+          "name": "document-asset-and-readme",
+          "steps": [
+            { "action": "navigate", "value": "/learn/release" },
+            { "action": "expectText", "selector": "body", "value": "does not certify originality, authorship, rights ownership, or official competition eligibility" },
+            { "action": "click", "selector": "button:has-text(\"ADD ASSET\")" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "1 entry has unresolved rights" },
+            { "action": "fill", "selector": "label:has-text(\"Asset name\") + input", "value": "Original soundtrack" },
+            { "action": "fill", "selector": "label:has-text(\"Creator\") + input", "value": "NOVA" },
+            { "action": "fill", "selector": "label:has-text(\"Licence\") + input", "value": "Creator-owned" },
+            { "action": "click", "selector": "label:has-text(\"RIGHTS CONFIRMED\") input" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "No unresolved asset rights." },
+            { "action": "fill", "selector": "#release-productionTitle", "value": "Signal Arc" },
+            { "action": "fill", "selector": "#release-aiDisclosure", "value": "Interface planning assistance disclosed by the creator." },
+            { "action": "expectDownload", "selector": "button:has-text(\"DOWNLOAD readme.txt\")", "filenameIncludes": "readme.txt" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blob download fixture</title>
+    <style>
+      body { margin: 32px; background: #071018; color: #f8fafc; font: 16px/1.5 system-ui; }
+      button { min-width: 44px; min-height: 44px; }
+      button:focus-visible { outline: 3px solid #2dd4bf; outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Offline export</h1>
+      <button id="blob-download" type="button">Export project</button>
+    </main>
+    <script>
+      document.querySelector("#blob-download").addEventListener("click", () => {
+        const blob = new Blob(["captured offline export\n"], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "offline-export.txt";
+        anchor.click();
+        URL.revokeObjectURL(url);
+      });
+    </script>
+  </body>
+</html>

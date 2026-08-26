@@ -1,0 +1,95 @@
+# Dependencies and package-manager state
+node_modules/
+.npm/
+.npmrc
+*.tgz
+
+# Compiled output, caches, and coverage
+dist/
+dist-test/
+coverage/
+.nyc_output/
+*.tsbuildinfo
+.cache/
+.turbo/
+
+# Runtime and quality-gate evidence
+.ztothez-design-runtime/
+.ztothez-design-quality-gate/
+.uix-runtime/
+.uix-quality-gate/
+playwright-report/
+test-results/
+
+# Logs and temporary files
+*.log
+*.pid
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.local
+*.pem
+*.key
+*.p12
+*.pfx
+
+# IDE, agent, and operating-system state
+.agents/
+.codex/
+.claude/
+.cursor/
+.windsurf/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Python artifacts from local document tooling
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Local-only raw research and design inputs
+/local-usability-reference/
+/older-design-data/
+/external-design-reference-skill-main/
+/Custom UI_UX Skill Prompt Generation.md
+/The-Complete-Guide-to-Building-Skill-for-Claude.pdf
+/Vibe Coding, Spaghetti Code, and AI Slop A Deep-Research Engineering Guide.md
+/deep-research-report-figma.md
+
+# Archived third-party, conversation, and superseded sources
+/knowledge-base/legacy-sources/*
+!/knowledge-base/legacy-sources/design-system/
+!/knowledge-base/legacy-sources/design-system/**
+
+# Converted third-party UX books, articles, and course handouts
+/knowledge-base/usability-evaluation/sources/
+/knowledge-base/ux-patterns/HR Software_ Exploring UX Patterns  Benchmarking Solutions _ by Creative Navy _ Medium.md
+/knowledge-base/ux-patterns/The Ultimate Guide to Web Wizard Design _ by Creative Navy _ Medium.md
+/knowledge-base/ux-patterns/User Area Design  Guidance for Dashboards _ by Creative Navy _ Medium.md
+/knowledge-base/ux-patterns/communicatingtheuserexperience.md
+/knowledge-base/ux-patterns/designingsearch.md
+/knowledge-base/ux-patterns/evilbydesign.md
+/knowledge-base/ux-patterns/theessentialguidetouserinterfacedesign.md
+/knowledge-base/ux-patterns/usableusability.md
+
+# Local binary research artifacts
+*.pdf
+*.epub
+*.mobi
+*.docx
+*.xlsx
+*.pptx
+*.napkin
+*.zip

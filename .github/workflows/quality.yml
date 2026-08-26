@@ -1,0 +1,99 @@
+name: Quality
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Build, test, and fixture gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      CI: true
+      ZTOTHEZ_DESIGN_FIXTURE_HOST: 127.0.0.1
+      ZTOTHEZ_DESIGN_FIXTURE_PORT: 4173
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx --no-install playwright-core install --with-deps chromium
+
+      - name: Build
+        run: npm run build
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Validate benchmark contracts
+        run: |
+          npm run validate-contract -- \
+            --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
+            --project-root .
+          npm run validate-contract -- \
+            --contract knowledge-base/benchmarks/scenestart/product-contract.yaml \
+            --project-root .
+
+      - name: Run regression suite
+        run: npm test
+
+      - name: Start deterministic fixture
+        run: |
+          node ci/fixture-server.mjs > /tmp/ztothez-design-fixture.log 2>&1 &
+          echo "$!" > /tmp/ztothez-design-fixture.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent "http://${ZTOTHEZ_DESIGN_FIXTURE_HOST}:${ZTOTHEZ_DESIGN_FIXTURE_PORT}/health" >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/ztothez-design-fixture.log
+          exit 1
+
+      - name: Run fixture quality gate
+        run: |
+          npm run quality-gate -- \
+            --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
+            --repo tests/fixtures/passing \
+            --project-root . \
+            --url "http://${ZTOTHEZ_DESIGN_FIXTURE_HOST}:${ZTOTHEZ_DESIGN_FIXTURE_PORT}" \
+            --profile responsive-overview \
+            --output .ztothez-design-quality-gate/ci-responsive-overview \
+            --fail-on error
+
+      - name: Stop deterministic fixture
+        if: always()
+        run: |
+          if [[ -f /tmp/ztothez-design-fixture.pid ]]; then
+            kill "$(cat /tmp/ztothez-design-fixture.pid)" 2>/dev/null || true
+          fi
+          cat /tmp/ztothez-design-fixture.log 2>/dev/null || true
+
+      - name: Upload fixture evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ztothez-design-fixture-quality-gate
+          path: .ztothez-design-quality-gate/ci-responsive-overview
+          if-no-files-found: error
+          retention-days: 14

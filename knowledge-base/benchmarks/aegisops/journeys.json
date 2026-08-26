@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "contract": "aegisops",
+  "profiles": [
+    {
+      "id": "demo-success",
+      "name": "Deterministic demo pipeline success",
+      "environment": [
+        "Frontend and API are running",
+        "Demo mode returns a deterministic successful stream",
+        "Export service is available"
+      ],
+      "journeys": [
+        {
+          "id": "single-technique-success",
+          "name": "single-technique-success",
+          "steps": [
+            { "action": "fill", "selector": "input[aria-label=\"ATT&CK technique or target\"]", "value": "T1059.001" },
+            { "action": "click", "selector": "button:has-text(\"Single Technique\")" },
+            { "action": "expectAttribute", "selector": "[role=\"switch\"]", "name": "aria-checked", "value": "true" },
+            { "action": "expectResponse", "selector": "button:has-text(\"Run Pipeline\")", "urlIncludes": "/run", "status": 200, "method": "POST" },
+            { "action": "expectText", "selector": "body", "value": "Pipeline complete" },
+            { "action": "expectText", "selector": "body", "value": "DEPLOYABLE ARTIFACTS" },
+            { "action": "expectText", "selector": "body", "value": "Coverage Gate" },
+            { "action": "expectText", "selector": "body", "value": "READY" },
+            { "action": "expectDownload", "selector": "button:has-text(\"Download SIGMA\")", "filenameIncludes": "sigma_T1059.001.yml" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "offline-recovery",
+      "name": "Unavailable backend recovery",
+      "environment": [
+        "Frontend is running",
+        "Pipeline API is unavailable or returns a controlled failure"
+      ],
+      "expectedNetwork": [
+        {
+          "id": "health-unavailable",
+          "method": "GET",
+          "urlIncludes": "/health",
+          "status": 500,
+          "minOccurrences": 1
+        },
+        {
+          "id": "pipeline-run-unavailable",
+          "method": "POST",
+          "urlIncludes": "/run",
+          "status": 500,
+          "minOccurrences": 1,
+          "maxOccurrences": 1
+        }
+      ],
+      "journeys": [
+        {
+          "id": "preserve-and-retry",
+          "name": "preserve-and-retry",
+          "steps": [
+            { "action": "fill", "selector": "input[aria-label=\"ATT&CK technique or target\"]", "value": "T1059.001" },
+            { "action": "expectResponse", "selector": "button:has-text(\"Run Pipeline\")", "urlIncludes": "/run", "status": 500, "method": "POST" },
+            { "action": "expectText", "selector": "body", "value": "Pipeline failed" },
+            { "action": "expectText", "selector": "body", "value": "Enable Demo mode" },
+            { "action": "expectVisible", "selector": "button:has-text(\"Retry\")" },
+            { "action": "expectValue", "selector": "input[aria-label=\"ATT&CK technique or target\"]", "value": "T1059.001" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "responsive-overview",
+      "name": "Responsive operational overview",
+      "environment": [
+        "Frontend is running",
+        "No successful pipeline run is required"
+      ],
+      "journeys": [
+        {
+          "id": "overview-integrity",
+          "name": "overview-integrity",
+          "steps": [
+            { "action": "expectVisible", "selector": "input[aria-label=\"ATT&CK technique or target\"]" },
+            { "action": "expectVisible", "selector": "button:has-text(\"Run Pipeline\")" },
+            { "action": "expectText", "selector": "body", "value": "READINESS GATES" },
+            { "action": "expectText", "selector": "body", "value": "LIVE MONITOR" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://local.ztothez-design-engineering/schemas/heuristic-review-1.0.schema.json
+title: ZtotheZ Design Engineering Heuristic Review
+description: >-
+  Versioned expert-review artifact. Evidence levels are descriptive provenance and do not
+  constitute product-contract acceptance attestations.
+type: object
+additionalProperties: false
+required: [version, id, product, target, preparedAt, preparedBy, tasks, findings]
+properties:
+  version:
+    const: "1.0"
+  id:
+    $ref: "#/$defs/id"
+  product:
+    $ref: "#/$defs/shortText"
+  target:
+    $ref: "#/$defs/text"
+  preparedAt:
+    type: string
+    format: date-time
+  preparedBy:
+    type: object
+    additionalProperties: false
+    required: [type, name]
+    properties:
+      type:
+        enum: [agent, human, mixed]
+      name:
+        $ref: "#/$defs/shortText"
+  tasks:
+    type: array
+    minItems: 1
+    maxItems: 100
+    items:
+      $ref: "#/$defs/task"
+  findings:
+    type: array
+    maxItems: 1000
+    items:
+      $ref: "#/$defs/finding"
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,47}$"
+  shortText:
+    type: string
+    minLength: 1
+    maxLength: 256
+  text:
+    type: string
+    minLength: 1
+    maxLength: 2048
+  task:
+    type: object
+    additionalProperties: false
+    required: [id, actor, scenario, successCriteria, modes]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      actor:
+        $ref: "#/$defs/shortText"
+      scenario:
+        type: string
+        minLength: 1
+        maxLength: 1024
+      successCriteria:
+        type: array
+        minItems: 1
+        maxItems: 20
+        items:
+          type: string
+          minLength: 1
+          maxLength: 512
+      modes:
+        type: array
+        minItems: 1
+        maxItems: 20
+        items:
+          $ref: "#/$defs/id"
+  evidence:
+    type: object
+    additionalProperties: false
+    required: [level, source, detail]
+    properties:
+      level:
+        enum: [automated, ai-assisted-expert, human-expert, representative-user]
+      source:
+        type: string
+        minLength: 1
+        maxLength: 1024
+      detail:
+        $ref: "#/$defs/text"
+      contributor:
+        $ref: "#/$defs/shortText"
+      recordedAt:
+        type: string
+        format: date-time
+    allOf:
+      - if:
+          properties:
+            level:
+              enum: [human-expert, representative-user]
+          required: [level]
+        then:
+          required: [contributor, recordedAt]
+  resolution:
+    type: object
+    additionalProperties: false
+    required: [rationale, decidedBy, decidedAt]
+    properties:
+      rationale:
+        $ref: "#/$defs/text"
+      decidedBy:
+        $ref: "#/$defs/shortText"
+      decidedAt:
+        type: string
+        format: date-time
+  finding:
+    type: object
+    additionalProperties: false
+    required:
+      - id
+      - title
+      - task
+      - heuristic
+      - location
+      - trigger
+      - observation
+      - impact
+      - evidence
+      - severity
+      - confidence
+      - status
+      - remediation
+      - validation
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      title:
+        type: string
+        minLength: 1
+        maxLength: 160
+      task:
+        $ref: "#/$defs/id"
+      heuristic:
+        type: object
+        additionalProperties: false
+        required: [id, name]
+        properties:
+          id:
+            $ref: "#/$defs/id"
+          name:
+            $ref: "#/$defs/shortText"
+      location:
+        type: string
+        minLength: 1
+        maxLength: 1024
+      trigger:
+        type: string
+        minLength: 1
+        maxLength: 1024
+      observation:
+        $ref: "#/$defs/text"
+      impact:
+        $ref: "#/$defs/text"
+      evidence:
+        type: array
+        minItems: 1
+        maxItems: 50
+        items:
+          $ref: "#/$defs/evidence"
+      severity:
+        type: integer
+        minimum: 0
+        maximum: 4
+      confidence:
+        enum: [high, medium, low]
+      status:
+        enum: [open, resolved, accepted-risk]
+      remediation:
+        $ref: "#/$defs/text"
+      validation:
+        type: object
+        additionalProperties: false
+        required: [method, procedure]
+        properties:
+          method:
+            enum:
+              - runtime
+              - accessibility
+              - screenshot-review
+              - expert-review
+              - representative-user-test
+              - analytics
+          procedure:
+            $ref: "#/$defs/text"
+      resolution:
+        $ref: "#/$defs/resolution"
+    allOf:
+      - if:
+          properties:
+            status:
+              const: open
+          required: [status]
+        then:
+          not:
+            required: [resolution]
+        else:
+          required: [resolution]

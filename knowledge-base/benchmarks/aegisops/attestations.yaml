@@ -1,0 +1,115 @@
+version: "1.0"
+contract: aegisops
+attestations:
+  - criterion: evidence-backed-results
+    status: pass
+    reviewer: "ZtotheZ"
+    reviewedAt: "2026-08-25T19:30:00+03:00"
+    notes: |
+      Inspected three claims about the generated Sigma rule and detection pipeline:
+
+      1. CLAIM: Rule refers to T1059.001
+         EVIDENCE: Rule ID explicitly tagged `attack.t1059.001`, mapped to correct technique,
+         referenced in MITRE ATT&CK link (https://attack.mitre.org/techniques/T1059.001/).
+         Screenshot UI shows mission input targeting T1059.001 directly.
+         STATUS: ✓ PASS
+
+      2. CLAIM: Detection logic traces to observable Windows signals
+         EVIDENCE: Rule breaks into five concrete signal layers:
+         - Office parent (WINWORD/EXCEL/OUTLOOK) spawning powershell.exe with -EncodedCommand
+         - PowerShell Event ID 4104 script block logging with Invoke-Expression/IEX patterns
+         - Sysmon Event ID 11 temp file writes to AppData\Local\Temp\*.ps1
+         - Sysmon Event ID 3 network connections from powershell.exe to ports 80/443/5985
+         - Windows Event ID 4624 LogonType 3 for lateral WinRM movement detection
+         All observables are real Windows events; no fabricated fields or invented event codes.
+         STATUS: ✓ PASS
+
+      3. CLAIM: No unrelated or fabricated outputs
+         EVIDENCE: Verified all EventIDs (4104, 11, 3, 4624) are real Windows security events.
+         All field names (ParentImage, CommandLine, ScriptBlockText) are authentic Windows log fields.
+         False positives are realistic (Office macros, IT admin tools, patch management) not generic padding.
+         Rule marked as "experimental" status—honest about maturity level.
+         STATUS: ✓ PASS
+
+      OVERALL: All three claims verified. The Sigma rule is real, properly mapped to T1059.001,
+      uses observable Windows signals, and contains no fabrication. Ready for detection engineering use.
+    evidence:
+      - ".uix-quality-gate/aegis-demo-evidence/runtime/journey-single-technique-success.png"
+      - ".uix-quality-gate/aegis-demo-evidence/runtime/journey-single-technique-success-step-9-sigma_T1059.001.yml"
+
+  - criterion: evidence-backed-metrics
+    status: pass
+    reviewer: "ZtotheZ"
+    reviewedAt: "2026-08-25T19:30:00+03:00"
+    notes: |
+      Inspected how displayed metrics (coverage=97%, product_readiness=96%, safety_verdict=PASS)
+      trace to the structured demo result.
+
+      EVIDENCE CHAIN:
+      1. Source: demo_output.py contains hardcoded DEMO_VERIFIER_OUTPUT with JSON metrics:
+         - coverage_score: 97
+         - product_readiness_score: 96
+         - safety_verdict: "PASS"
+         - verdict: "PASS"
+
+      2. Pipeline: DEMO_INVOKE_RESULT wraps this output and is returned by server.py when
+         demo mode is active (line 356: "if req.demo_mode: result = DEMO_INVOKE_RESULT")
+
+      3. SSE Stream: server.py parses verifier output via _parse_verifier() (lines 80-99),
+         extracting coverage, product_readiness, safety_verdict, and passing to frontend
+         in the "done" SSE event payload
+
+      4. Frontend: page.tsx receives metrics in run.scores object and displays them in:
+         - Console logs (line 186: coverage=${run.scores.coverage}%)
+         - Alert history cards (line 294: coverage {run.scores.coverage}%)
+         - Readiness gates (derived from run.scores status)
+
+      VERIFICATION:
+      - Screenshots show Coverage Gate READY, Product Readiness ENABLED, Safety Gate PASS
+      - These match the demo_output.py metrics exactly (97%, 96%, PASS)
+      - Verifier model labeled "Qwen Validator Demo" (from demo_output.py line 691)
+      - System status shows "OFFLINE · DEMO FALLBACK ACTIVE" when endpoint unreachable
+
+      ASSESSMENT: Metrics are fully traceable to structured demo data. No live computation;
+      all values come from hardcoded demo result. Frontend correctly presents verifier model
+      name and validation verdict. System can distinguish demo vs. live mode via SSE flag.
+
+      PARTIAL NOTE: Individual metric cards could benefit from explicit "Demo" badge watermark
+      for additional clarity (currently relies on system-level "Demo Fallback" indicator).
+      This is a UI/UX enhancement, not a correctness issue.
+
+      STATUS: ✓ PASS
+    evidence:
+      - ".uix-quality-gate/aegis-demo-evidence/runtime/journey-single-technique-success.png"
+      - "/home/ztothez/Studio/portfolio/AegisOPS/demo_output.py"
+      - "/home/ztothez/Studio/portfolio/AegisOPS/server.py"
+      - "/home/ztothez/Studio/portfolio/AegisOPS/frontend/src/app/page.tsx"
+
+  - criterion: authorized-scope
+    status: pass
+    reviewer: "ZtotheZ"
+    reviewedAt: "2026-08-25T19:30:00+03:00"
+    notes: |
+      Inspected the generated output for zero-day claims, unauthorized exploitation,
+      offensive guidance, and unsupported production-readiness claims.
+
+      The material is explicitly framed as authorized purple-team validation for public
+      MITRE ATT&CK technique T1059.001. Validation commands are described as non-weaponized
+      telemetry references, use placeholders for sensitive values, and support detection
+      engineering rather than exploitation.
+
+      The Sigma rule remains experimental and requires environment-specific tuning,
+      baselining, fleet logging verification, and another validation run before promotion.
+      Documented limitations include SIEM correlation requirements, backend-specific regex,
+      separate Sysmon DNS coverage, and cross-host authentication aggregation. These gaps
+      prevent the output from implying complete or automatic production readiness.
+
+      Response guidance is limited to defensive triage, containment, hunting, mitigation,
+      hardening, and escalation. Deployment and suppression decisions require owner review.
+
+      PASS: authorized defensive scope is explicit; no zero-day, unauthorized-use, or
+      automatic-production claims were found.
+    evidence:
+      - ".uix-quality-gate/aegis-demo-evidence/runtime/journey-single-technique-success-step-9-sigma_T1059.001.yml"
+      - "knowledge-base/benchmarks/aegisops/product-contract.yaml"
+      - "/home/ztothez/Studio/portfolio/AegisOPS/demo_output.py"

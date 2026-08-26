@@ -1,0 +1,37 @@
+version: "1.0"
+id: replace-with-review-id
+product: Replace with product name
+target: Replace with reviewed build, route, or prototype
+preparedAt: 2026-08-25T12:00:00+03:00
+preparedBy:
+  type: agent
+  name: Replace with the actual preparer
+tasks:
+  - id: primary-task
+    actor: Replace with the intended user role
+    scenario: Replace with the task and operating context
+    successCriteria:
+      - Replace with an observable successful outcome
+    modes: [primary-mode]
+findings:
+  - id: replace-with-finding-id
+    title: Replace with a concise problem statement
+    task: primary-task
+    heuristic:
+      id: visibility-of-system-status
+      name: Visibility of system status
+    location: Replace with route, state, and component
+    trigger: Replace with the action or condition that exposes the problem
+    observation: Replace with the concrete observed behavior
+    impact: Replace with the task consequence and affected users
+    evidence:
+      - level: ai-assisted-expert
+        source: Replace with screenshot, report, command, or review session reference
+        detail: Replace with what the source establishes
+    severity: 3
+    confidence: high
+    status: open
+    remediation: Replace with the required behavior, not only a visual suggestion
+    validation:
+      method: expert-review
+      procedure: Replace with the test that will demonstrate the correction

@@ -1,0 +1,49 @@
+{
+  "name": "@ztothez/design-engineering",
+  "version": "2.0.0",
+  "description": "ZtotheZ Design Engineering System: MCP-backed product design architecture, knowledge, verification, and quality gates.",
+  "main": "dist/src/server.js",
+  "types": "dist/src/server.d.ts",
+  "bin": {
+    "ztothez-design": "dist/cli/index.js",
+    "zz-design": "dist/cli/index.js"
+  },
+  "scripts": {
+    "audit": "tsx cli/audit.ts",
+    "aggregate-gates": "npm run build --silent && node dist/cli/aggregate-gates.js",
+    "build": "tsc",
+    "quality-gate": "npm run build --silent && node dist/cli/quality-gate.js",
+    "review-heuristics": "npm run build --silent && node dist/cli/review-heuristics.js",
+    "start": "node dist/cli/index.js",
+    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/tests/*.test.js",
+    "typecheck": "tsc --noEmit",
+    "validate-contract": "npm run build --silent && node dist/cli/validate-contract.js",
+    "verify-ui": "npm run build --silent && node dist/cli/verify-ui.js"
+  },
+  "keywords": [
+    "design-engineering",
+    "mcp",
+    "product-design",
+    "quality-gate",
+    "ui",
+    "ux"
+  ],
+  "author": "ZtotheZ",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ztothez/ztothez-design-engineering.git"
+  },
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "playwright-core": "^1.62.1",
+    "yaml": "^2.9.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^26.3.0",
+    "tsx": "^4.23.12",
+    "typescript": "^5.9.3"
+  }
+}

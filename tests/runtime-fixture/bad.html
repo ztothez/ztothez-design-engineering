@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Broken runtime fixture</title>
+    <style>
+      body { margin: 0; font-family: system-ui; }
+      main { width: 1200px; padding: 20px; }
+      canvas { width: 240px; height: 100px; border: 1px solid; }
+      .clip-container { width: 120px; overflow: hidden; white-space: nowrap; }
+      .clipped-label { display: inline-block; width: 320px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Broken fixture</h1>
+      <button type="button"><svg width="20" height="20" aria-hidden="true"><circle cx="10" cy="10" r="8" /></svg></button>
+      <img src="/missing.png" alt="Expected product preview" />
+      <canvas id="blank" width="240" height="100"></canvas>
+      <div id="clip-container" class="clip-container">
+        <span id="clipped-label" class="clipped-label">Critical status must remain readable</span>
+      </div>
+    </main>
+    <script>
+      console.error('fixture console failure');
+      fetch('/api/failure');
+    </script>
+  </body>
+</html>

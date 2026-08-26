@@ -1,0 +1,78 @@
+version: "1.0"
+id: checkout-review
+product: Fixture Checkout
+target: http://127.0.0.1:3000/checkout
+preparedAt: 2026-08-25T12:00:00+03:00
+preparedBy:
+  type: mixed
+  name: ZtotheZ Design Engineering fixture team
+tasks:
+  - id: submit-order
+    actor: Returning customer
+    scenario: Review the order and submit payment without duplicating the purchase.
+    successCriteria:
+      - The customer sees progress immediately after submission.
+      - The order is submitted only once.
+    modes: [checkout]
+findings:
+  - id: missing-submit-state
+    title: Submission provides no immediate progress state
+    task: submit-order
+    heuristic:
+      id: visibility-of-system-status
+      name: Visibility of system status
+    location: Checkout payment action
+    trigger: Activate the Pay now button on a slow connection.
+    observation: The button remains enabled and no progress message appears before navigation.
+    impact: Customers may submit repeatedly and create duplicate payment attempts.
+    evidence:
+      - level: automated
+        source: runtime/journey-report.json
+        detail: Two activations were accepted while the first request remained pending.
+      - level: ai-assisted-expert
+        source: screenshots/payment-pending.png
+        detail: The pending state contains no visible or announced progress indicator.
+      - level: human-expert
+        source: review-session-01
+        detail: The reviewer confirmed that the pending state does not communicate submission.
+        contributor: Fixture reviewer
+        recordedAt: 2026-08-25T12:10:00+03:00
+      - level: representative-user
+        source: usability-session-p01
+        detail: The participant activated Pay now twice after receiving no feedback.
+        contributor: Participant P-01
+        recordedAt: 2026-08-25T12:20:00+03:00
+    severity: 4
+    confidence: high
+    status: open
+    remediation: Disable duplicate submission and expose a visible, programmatically announced pending state.
+    validation:
+      method: accessibility
+      procedure: Verify one request, disabled repeat activation, visible progress, and an aria-live announcement.
+  - id: unclear-secondary-copy
+    title: Secondary action wording was ambiguous
+    task: submit-order
+    heuristic:
+      id: match-system-real-world
+      name: Match between the system and the real world
+    location: Checkout order summary
+    trigger: Review the secondary action before payment.
+    observation: The earlier label did not describe whether the action edited or cancelled the order.
+    impact: Customers could hesitate but could still complete checkout.
+    evidence:
+      - level: human-expert
+        source: review-session-02
+        detail: The revised label now states the resulting action directly.
+        contributor: Fixture reviewer
+        recordedAt: 2026-08-25T13:00:00+03:00
+    severity: 2
+    confidence: medium
+    status: resolved
+    remediation: Use an action-specific label that states the destination.
+    validation:
+      method: expert-review
+      procedure: Confirm the rendered label identifies the destination without surrounding instructions.
+    resolution:
+      rationale: The action was relabeled and verified in the updated checkout build.
+      decidedBy: Fixture product owner
+      decidedAt: 2026-08-25T13:15:00+03:00

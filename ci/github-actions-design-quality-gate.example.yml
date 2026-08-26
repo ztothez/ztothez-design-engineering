@@ -1,0 +1,107 @@
+name: ZtotheZ Design Engineering quality gate
+
+on:
+  workflow_dispatch:
+
+jobs:
+  profile-gate:
+    name: ZtotheZ Design Engineering profile - ${{ matrix.profile }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile:
+          - demo-success
+          - offline-recovery
+          - responsive-overview
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # Implement these repository scripts so each profile starts the exact service state
+      # declared by its journey environment. Do not make one service fake every profile.
+      - name: Start profile environment
+        run: npm run "ztothez-design:start:${{ matrix.profile }}" > /tmp/ztothez-design-app.log 2>&1 &
+
+      - name: Wait for UI
+        env:
+          ZTOTHEZ_DESIGN_BASE_URL: http://127.0.0.1:3000
+        run: |
+          for attempt in $(seq 1 60); do
+            curl --fail --silent "$ZTOTHEZ_DESIGN_BASE_URL" >/dev/null && exit 0
+            sleep 1
+          done
+          cat /tmp/ztothez-design-app.log
+          exit 1
+
+      - name: Run profile quality gate
+        id: gate
+        env:
+          ZTOTHEZ_DESIGN_BASE_URL: http://127.0.0.1:3000
+        run: |
+          status=0
+          npm run quality-gate -- \
+            --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
+            --repo . \
+            --url "$ZTOTHEZ_DESIGN_BASE_URL" \
+            --profile "${{ matrix.profile }}" \
+            --output ".ztothez-design-quality-gate/${{ matrix.profile }}" \
+            --fail-on error || status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      - name: Upload profile evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ztothez-design-${{ matrix.profile }}
+          path: .ztothez-design-quality-gate/${{ matrix.profile }}
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Enforce profile result
+        if: always()
+        run: exit "${{ steps.gate.outputs.status || 1 }}"
+
+  release-gate:
+    name: ZtotheZ Design Engineering release decision
+    if: always()
+    needs: profile-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ztothez-design-*
+          path: .ztothez-design-profile-evidence
+
+      - name: Aggregate required profiles
+        run: |
+          npm run aggregate-gates -- \
+            --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
+            --reports .ztothez-design-profile-evidence/ztothez-design-demo-success,.ztothez-design-profile-evidence/ztothez-design-offline-recovery,.ztothez-design-profile-evidence/ztothez-design-responsive-overview \
+            --output .ztothez-design-quality-gate/release \
+            --fail-on error
+
+      - name: Upload release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ztothez-design-release-decision
+          path: .ztothez-design-quality-gate/release
+          if-no-files-found: error
+          retention-days: 30

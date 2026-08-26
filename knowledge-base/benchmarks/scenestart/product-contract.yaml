@@ -1,0 +1,361 @@
+version: "1.0"
+id: scenestart
+name: SceneStart Local-First Demoscene Learning Studio
+status: benchmark
+purpose: >-
+  Help a complete beginner or independent maker learn demoscene concepts through direct
+  experimentation, compose a coherent timed production, preserve editable work locally,
+  export a self-contained offline artifact, and document release provenance without
+  implying certification, rights ownership, or competition eligibility.
+
+authority:
+  behavior: Current SceneStart behavior summarized in SOURCE-EVIDENCE.md overrides historical product plans and visual mockups.
+  visual: Current SceneStart components and tokens guide identity, but task completion, readable state, and responsive accessibility override fixed compositions.
+  precedence:
+    - path: SOURCE-EVIDENCE.md
+      role: Current implementation snapshot, behavior boundaries, and source hashes.
+      authority: primary
+    - path: MANIFEST.md
+      role: Benchmark scope, authority order, and clean-room usage rules.
+      authority: supporting
+    - path: ../../../SKILL.md
+      role: Authoritative implementation, provenance, local-first, and abstention requirements.
+      authority: supporting
+
+actors:
+  - id: beginner-maker
+    name: Beginner demoscene maker
+    goals:
+      - See a meaningful visual result before specialist setup becomes a barrier.
+      - Understand how parameter changes affect motion, rhythm, depth, and composition.
+      - Finish and keep a working production that can be replayed offline.
+    responsibilities:
+      - Choose a handle and creative direction without treating starter content as proof of originality.
+      - Preview and review the complete sequence before export.
+      - Preserve downloaded project and production files on their own device.
+  - id: independent-producer
+    name: Independent producer
+    goals:
+      - Compose, reorder, preview, save, reopen, and export a multi-scene production.
+      - Document contributors, tools, external assets, licences, and run instructions.
+      - Distinguish technical readiness from event-specific and rights review.
+    responsibilities:
+      - Resolve external-asset rights and required credits before release.
+      - Test the exported artifact in the intended environment.
+      - Check current event rules independently.
+  - id: workshop-facilitator
+    name: Workshop facilitator
+    goals:
+      - Guide beginners through a bounded first-success path without accounts or cloud setup.
+      - Observe where learners require assistance and whether concepts transfer.
+      - Hand each learner an editable and playable artifact they control.
+    responsibilities:
+      - Avoid presenting estimated completion time as a countdown or guarantee.
+      - Record representative-user evidence only with participant consent.
+      - Separate observed task outcomes from product analytics or fabricated success claims.
+
+outputs:
+  - id: editable-project
+    name: Editable SceneStart project
+    sourceOfTruth: Sanitized version 2 production project with shared identity, palette, and one to eight ordered scenes.
+    requiredEvidence:
+      - Versioned JSON schema and filename
+      - Scene order, effect, message, duration, transition, cue, and parameters
+      - Successful parse or actionable rejection
+  - id: offline-production
+    name: Self-contained browser production
+    sourceOfTruth: HTML generated directly from the current sanitized production project.
+    requiredEvidence:
+      - Current handle, palette, ordered scenes, durations, transitions, and effect parameters
+      - Inline playback implementation with start and Escape behavior
+      - No runtime network dependencies
+  - id: local-progress
+    name: Local learning progress
+    sourceOfTruth: Versioned browser storage owned by the applicable workshop or learning path.
+    requiredEvidence:
+      - Completed step, lesson, mission, or requirement identifiers
+      - Coercion against the current registry
+      - Visible progress derived from stored state
+  - id: provenance-ledger
+    name: Release provenance ledger
+    sourceOfTruth: Current local release state containing assets, creators, sources, licences, modifications, credits, and rights decisions.
+    requiredEvidence:
+      - Unresolved entries remain visibly unresolved
+      - Rights confirmation is explicit and user-controlled
+      - No certification claim is inferred from completion
+  - id: release-readme
+    name: Plain-text release readme
+    sourceOfTruth: Deterministic text generated from the current release state and local handle.
+    requiredEvidence:
+      - Run instructions, target, requirements, contributors, tools, assets, credits, and AI-use disclosure
+      - Unresolved rights remain marked
+      - SceneStart non-certification disclaimer
+
+modes:
+  - id: studio-production
+    name: Demo Studio
+    purpose: Compose and export a complete timed production with direct control over scenes and shared project identity.
+    input: Local production fields or a valid version 2 SceneStart JSON project under 64 KB.
+    outputs: [editable-project, offline-production]
+  - id: guided-workshop
+    name: Guided Workshop
+    purpose: Complete a six-step opening, build, ending workflow and continue with the same project in Studio.
+    input: A valid two-to-eight-character handle and guided parameter decisions.
+    outputs: [editable-project, offline-production, local-progress]
+  - id: learning-path
+    name: Learning Paths
+    purpose: Complete bounded concepts and hands-on activities while preserving progress on the current device.
+    input: A selected goal, role, lesson, or activity response.
+    outputs: [local-progress]
+  - id: release-preparation
+    name: Release, Rights and Community
+    purpose: Document provenance and technical release information without replacing legal, authorship, or event review.
+    input: Local contributor, asset, licence, disclosure, run, and checklist information.
+    outputs: [provenance-ledger, release-readme, local-progress]
+
+stateMachines:
+  - id: production-authoring
+    initial: loaded
+    states:
+      - id: loaded
+        category: idle
+        userVisible: true
+        requirement: A valid local default, migrated project, or imported project is visible and editable.
+      - id: editing
+        category: idle
+        userVisible: true
+        requirement: Every change updates the current project and preview without disconnecting scene identity or timeline order.
+      - id: previewing
+        category: loading
+        userVisible: true
+        requirement: Playback exposes current scene and elapsed time and remains stoppable without losing edits.
+      - id: export-ready
+        category: success
+        userVisible: true
+        requirement: At least three valid scenes exist and both editable-project and offline-production actions are available.
+      - id: exported
+        category: terminal
+        userVisible: true
+        requirement: The downloaded filename and content derive from the current project without mutating it.
+      - id: invalid-project
+        category: error
+        userVisible: true
+        requirement: Invalid, unsupported, unreadable, or oversized files produce an actionable message and preserve the current project.
+    transitions:
+      - from: loaded
+        to: editing
+        trigger: Change a project or scene field
+      - from: editing
+        to: previewing
+        trigger: Start production playback
+      - from: previewing
+        to: editing
+        trigger: Pause, restart, finish, or stop playback
+      - from: editing
+        to: export-ready
+        trigger: Project contains at least three valid scenes
+      - from: export-ready
+        to: exported
+        trigger: Save project or export offline HTML
+      - from: loaded
+        to: invalid-project
+        trigger: Open an invalid or unsupported project file
+      - from: invalid-project
+        to: editing
+        trigger: Continue editing the preserved project
+  - id: guided-progression
+    initial: not-started
+    states:
+      - id: not-started
+        category: idle
+        userVisible: true
+        requirement: The first task and six-step scope are visible without a countdown.
+      - id: in-progress
+        category: loading
+        userVisible: true
+        requirement: Current, completed, and remaining steps are distinguishable and the project is saved locally.
+      - id: workshop-complete
+        category: success
+        userVisible: true
+        requirement: Export and Continue in Demo Studio actions use the completed workshop project.
+      - id: storage-unavailable
+        category: fallback
+        userVisible: true
+        requirement: The workshop remains usable for the current session and does not claim progress was saved.
+    transitions:
+      - from: not-started
+        to: in-progress
+        trigger: Enter a valid handle and continue
+      - from: in-progress
+        to: workshop-complete
+        trigger: Finish the watch-the-whole-arc step
+      - from: not-started
+        to: storage-unavailable
+        trigger: Browser storage is unavailable
+      - from: in-progress
+        to: storage-unavailable
+        trigger: Persisting workshop state fails
+  - id: release-documentation
+    initial: draft
+    states:
+      - id: draft
+        category: idle
+        userVisible: true
+        requirement: Release fields, checklist state, and provenance entries remain editable locally.
+      - id: rights-unresolved
+        category: error
+        userVisible: true
+        requirement: Incomplete asset provenance is counted and explained without blocking continued documentation.
+      - id: documented
+        category: success
+        userVisible: true
+        requirement: The readme reflects current data while retaining the non-certification disclaimer.
+    transitions:
+      - from: draft
+        to: rights-unresolved
+        trigger: Add an incomplete or unconfirmed external asset
+      - from: rights-unresolved
+        to: documented
+        trigger: Complete provenance and explicitly confirm rights
+      - from: draft
+        to: documented
+        trigger: Generate readme with no external assets
+
+metrics:
+  - id: scene-count
+    name: Production scene count
+    definition: Number of sanitized ordered scenes in the current editable production.
+    sourceOfTruth: Current version 2 project scenes array.
+    format: count
+    evidenceRequired: true
+    range: { min: 1, max: 8 }
+  - id: production-duration
+    name: Production duration
+    definition: Sum of current sanitized scene durations, not a separately entered estimate.
+    sourceOfTruth: Current project scene durationMs values.
+    format: duration
+    evidenceRequired: true
+    range: { min: 2, max: 480 }
+  - id: learning-progress
+    name: Learning path progress
+    definition: Completed requirements divided by the current path registry total.
+    sourceOfTruth: Coerced versioned local progress and current lesson or requirement registry.
+    format: percentage
+    evidenceRequired: true
+    range: { min: 0, max: 100 }
+  - id: release-checklist-count
+    name: Release checklist completion
+    definition: Number of current release checklist items explicitly checked by the producer.
+    sourceOfTruth: Current local release checklist record.
+    format: count
+    evidenceRequired: true
+    range: { min: 0, max: 9 }
+
+constraints:
+  outOfScope:
+    - Certifying competition eligibility, originality, authorship, rights ownership, or event acceptance.
+    - Replacing specialist trackers, graphics tools, video editors, game engines, or hardware testing.
+    - Accounts, social feeds, cloud project storage, marketplace features, or public engagement statistics.
+    - Automatic publication or submission of exported work.
+  prohibitedClaims:
+    - Assembly-ready, competition-compliant, rights-cleared, original, or certified without independent current review.
+    - Representative-user success, completion time, or learning effectiveness without consented study evidence.
+    - Offline public application operation when only downloaded production artifacts are guaranteed offline.
+    - Community scale, popularity, creator counts, or completion statistics without a current source of truth.
+  mockData:
+    allowedEnvironments: [development, test, demo]
+    mustBeLabeled: true
+    prohibitedInProduction: true
+    fallbackDisclosure: Starter projects, preset effects, example copy, and tutorial state must remain labeled as editable starting material and never be presented as user authorship, rights evidence, or competition readiness.
+
+acceptanceCriteria:
+  - id: project-state-integrity
+    title: Project state remains coherent and recoverable
+    severity: blocker
+    requirement: Identity, palette, scene order, timing, transitions, messages, cues, and effect parameters share one sanitized project source of truth; invalid imports preserve the current work and explain the rejection.
+    evidence: [contract, runtime]
+    appliesToModes: [studio-production, guided-workshop]
+  - id: offline-export-integrity
+    title: Export matches the current production and runs offline
+    severity: blocker
+    requirement: The downloaded production contains the current sanitized project, meaningful filename, start and Escape controls, deterministic renderers, and no playback-time network dependency.
+    evidence: [contract, runtime, export]
+    appliesToModes: [studio-production, guided-workshop]
+  - id: editable-project-integrity
+    title: Editable project download preserves current work
+    severity: blocker
+    requirement: Saving the project downloads a versioned, size-bounded JSON recipe representing the current production without uploading or mutating it.
+    evidence: [contract, runtime, export]
+    appliesToModes: [studio-production]
+  - id: guided-task-continuity
+    title: Guided workshop produces a transferable project
+    severity: blocker
+    requirement: The six-step route shows current progress, never imposes a countdown, and transfers the same completed project into Studio or offline export.
+    evidence: [runtime, screenshot]
+    appliesToModes: [guided-workshop]
+  - id: learning-progress-persistence
+    title: Learning progress is local, derived, and durable
+    severity: blocker
+    requirement: Completing a lesson updates versioned device-local state, survives navigation, and is recomputed against the current registry instead of duplicated as presentation-only progress.
+    evidence: [contract, runtime]
+    appliesToModes: [learning-path]
+  - id: provenance-workflow-integrity
+    title: Release provenance remains explicit
+    severity: blocker
+    requirement: Incomplete external-asset records remain unresolved until asset, creator, licence, and explicit rights confirmation exist; generated readme output preserves unresolved status and disclosure fields.
+    evidence: [contract, runtime, export]
+    appliesToModes: [release-preparation]
+  - id: honest-product-scope
+    title: Product scope and non-certification are explicit
+    severity: blocker
+    requirement: SceneStart distinguishes technical preparation from legal, originality, authorship, and event review and does not turn checklist completion into certification.
+    evidence: [contract, runtime]
+    appliesToModes: [studio-production, guided-workshop, learning-path, release-preparation]
+  - id: local-first-boundary
+    title: Creative state remains local to the user
+    severity: blocker
+    requirement: Project content, learning progress, workshop state, and provenance data are not sent to an application backend; hosting operations and optional external links are disclosed separately.
+    evidence: [contract, manual-review]
+    appliesToModes: [studio-production, guided-workshop, learning-path, release-preparation]
+  - id: responsive-integrity
+    title: Creation and learning tasks reflow without loss
+    severity: blocker
+    requirement: At 320, 390, 768, 1024, and 1440 CSS pixels, controls, timeline state, preview, progress, provenance fields, and download actions remain readable, operable, and free from page-level horizontal overflow.
+    evidence: [runtime, screenshot]
+    appliesToModes: [studio-production, guided-workshop, learning-path, release-preparation]
+  - id: accessible-operation
+    title: Critical workflows are keyboard and assistive-technology operable
+    severity: blocker
+    requirement: Inputs and controls have accessible names, focus remains visible and unobscured, progress and errors are announced, touch targets remain operable, status is not color-only, and authoring motion respects reduced-motion preferences.
+    evidence: [runtime, accessibility]
+    appliesToModes: [studio-production, guided-workshop, learning-path, release-preparation]
+
+verification:
+  journeyFile: journeys.json
+  viewports:
+    - { name: mobile-320, width: 320, height: 800 }
+    - { name: mobile-390, width: 390, height: 844 }
+    - { name: tablet-768, width: 768, height: 1024 }
+    - { name: desktop-1024, width: 1024, height: 768 }
+    - { name: wide-1440, width: 1440, height: 900 }
+  bindings:
+    - profile: studio-export
+      journey: compose-save-export
+      actor: independent-producer
+      mode: studio-production
+      acceptanceCriteria: [project-state-integrity, offline-export-integrity, editable-project-integrity, honest-product-scope, responsive-integrity, accessible-operation]
+    - profile: guided-workshop
+      journey: complete-guided-production
+      actor: beginner-maker
+      mode: guided-workshop
+      acceptanceCriteria: [project-state-integrity, offline-export-integrity, guided-task-continuity, honest-product-scope, responsive-integrity, accessible-operation]
+    - profile: learning-persistence
+      journey: complete-and-resume-lesson
+      actor: beginner-maker
+      mode: learning-path
+      acceptanceCriteria: [learning-progress-persistence, honest-product-scope, responsive-integrity, accessible-operation]
+    - profile: release-provenance
+      journey: document-asset-and-readme
+      actor: independent-producer
+      mode: release-preparation
+      acceptanceCriteria: [provenance-workflow-integrity, honest-product-scope, local-first-boundary, responsive-integrity, accessible-operation]

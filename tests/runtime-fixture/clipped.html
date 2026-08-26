@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clipped content fixture</title>
+    <style>
+      body { margin: 0; font: 16px/1.5 system-ui; }
+      main { width: min(100% - 32px, 640px); margin: 32px auto; }
+      .mask { width: 120px; overflow: hidden; white-space: nowrap; }
+      .wide-label { display: inline-block; width: 320px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Clipping fixture</h1>
+      <div id="clip-container" class="mask">
+        <span id="clipped-label" class="wide-label">Critical status must remain readable</span>
+      </div>
+      <div class="mask" data-ztothez-design-allow-clipping>
+        <span id="allowed-label" class="wide-label">Intentional clipped carousel preview</span>
+      </div>
+    </main>
+  </body>
+</html>
