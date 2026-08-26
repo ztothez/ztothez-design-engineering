@@ -25,10 +25,10 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -91,7 +91,7 @@ jobs:
 
       - name: Upload fixture evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ztothez-design-fixture-quality-gate
           path: .ztothez-design-quality-gate/ci-responsive-overview
