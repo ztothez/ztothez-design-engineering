@@ -19,6 +19,7 @@
     "knowledge-base/INDEX.md",
     "knowledge-base/retrieval-scope.yaml",
     "knowledge-base/architecture/",
+    "knowledge-base/design-intelligence/",
     "knowledge-base/benchmarks/aegisops/CALIBRATION.md",
     "knowledge-base/benchmarks/aegisops/MANIFEST.md",
     "knowledge-base/benchmarks/aegisops/SOURCE-EVIDENCE.md",
@@ -62,6 +63,7 @@
     "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=1 dist-test/tests/*.test.js",
     "typecheck": "tsc --noEmit",
     "validate-contract": "npm run build --silent && node dist/cli/validate-contract.js",
+    "validate-design": "npm run build --silent && node dist/cli/validate-design.js",
     "verify-ui": "npm run build --silent && node dist/cli/verify-ui.js"
   },
   "keywords": [

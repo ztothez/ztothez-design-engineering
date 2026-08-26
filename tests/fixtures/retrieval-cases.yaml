@@ -21,6 +21,20 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md
     maxRank: 2
+  - id: design-intelligence-provenance
+    query: generated asset provider model prompt record rights evidence human contributions
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/asset-generation.md
+    maxRank: 2
+  - id: design-intelligence-presentation
+    query: presentation master layouts reading order slide purpose approved assets
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/presentation-design.md
+    maxRank: 2
   - id: usability-evidence
     query: heuristic evaluation representative-user evidence severity remediation
     categories:

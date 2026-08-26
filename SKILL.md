@@ -1,6 +1,6 @@
 ---
 name: ztothez-design-engineering
-description: Design, implement, audit, or refactor production UI/UX systems with architecture evaluation, semantic design tokens, accessible components, AI workspaces, and operational dashboards. Use when user asks to "design a new dashboard", "generate frontend UI", "create workspace patterns", "build a design system", "review UI architecture", "improve UX", or "standardize design tokens". Apply to Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, and Lovable workflows.
+description: Design, implement, audit, or refactor production UI/UX systems with architecture evaluation, semantic tokens, accessible components, workspaces, dashboards, brand systems, Figma libraries, assets, icons, and presentations. Use when user asks to "design a new dashboard", "generate frontend UI", "build a design system", "create a brand identity", "generate visual assets", "design an icon system", "create presentation slides", "review UI architecture", or "improve UX". Apply to Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, and Lovable workflows.
 ---
 
 # ZtotheZ Design Engineering System
@@ -21,7 +21,7 @@ Use ZtotheZ Design Engineering to create task-centered interfaces whose visual s
 
 ### Step 1: Search The Approved Scope
 
-Use `search_design_knowledge` when the task needs guidance beyond this skill. Write a specific query containing the design problem, relevant quality attribute, and product context. Restrict `categories` when the task clearly belongs to architecture, Figma and design systems, UX patterns, or usability evaluation.
+Use `search_design_knowledge` when the task needs guidance beyond this skill. Write a specific query containing the design problem, relevant quality attribute, and product context. Restrict `categories` when the task clearly belongs to architecture, design intelligence, Figma and design systems, UX patterns, or usability evaluation.
 
 The search result must include ranked repository-relative source paths, section excerpts, confidence, and matched terms. Treat `SKILL.md` results as authoritative and other indexed files as approved supporting guidance.
 
@@ -270,6 +270,38 @@ For production or enterprise-facing tools, include these requirements in archite
 - Secrets, certificates, generated histories, exports, caches, seed data, and local state excluded from source control unless intentionally versioned.
 - Production startup failure when identity configuration, sufficiently protected secrets, explicit hosts, or documented retention and export locations are missing.
 
+## Design Intelligence Workflow
+
+### Step 1: Declare Deliverables
+
+Use this workflow when the request includes a brand system, Figma library, generated or sourced assets, iconography, or presentation design. Read `knowledge-base/design-intelligence/MASTER.md`, then load only the modules matching the requested deliverables.
+
+Create a version 1.0 design-deliverable manifest from `knowledge-base/design-intelligence/design-deliverable.template.yaml`. Record the audience, channels, deliverable types, token system, accessibility declarations, and evidence. Do not declare work that is outside the request.
+
+### Step 2: Build One Canonical System
+
+1. Define brand promise, attributes, prohibited traits, voice, and mark constraints before visual exploration.
+2. Define primitive, semantic, and component tokens before applying values in Figma, code, slides, icons, or generated media.
+3. Map Figma collections and modes to canonical tokens. Give components explicit properties, states, resizing behavior, and usage documentation.
+4. Give every asset a stable identifier, source, creator, rights status, rights basis, evidence, restrictions, and alternative-content classification.
+5. For generated assets, record provider, model, prompt artifact, human contributions, and every reference asset with approved rights.
+6. Give every icon one meaning and one approved asset. Require an accessible name for semantic icons unless equivalent visible text provides it; hide decorative icons from assistive technology.
+7. Build presentations from declared masters. Give every slide a literal title, one purpose, explicit reading order, and approved asset references.
+
+Do not treat visual novelty, generation metadata, a provider subscription, or asset possession as evidence of task fit, accessibility, ownership, permission, or legal clearance.
+
+### Step 3: Validate Declarations
+
+Run `validate_design_deliverable` against the manifest. Resolve every error before shipping. Review warnings against product context and document the decision.
+
+CLI fallback:
+
+```bash
+npm run validate-design -- --manifest PATH
+```
+
+The validator checks structure, references, token chains, contrast math, provenance records, icon semantics, and presentation masters. It does not inspect Figma, SVG geometry, raster content, exported reading order, or rendered pixels. Complete those checks with source inspection, browser verification, export inspection, and qualified human review.
+
 ## Compatibility & Output Rules
 
 Generate artifacts that parse consistently in Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, and Lovable.
@@ -299,13 +331,14 @@ Before declaring completion:
 4. Check responsive layouts at 375, 768, 1024, and 1440 CSS pixels. Verify 200% zoom reflow at effective widths down to 320 CSS pixels and 200% text-only resizing, including long labels, dense data, code, and tables.
 5. Check minimum text contrast, 24 CSS-pixel target size, and the 44 CSS-pixel touch recommendation. Check that hover, loading, validation, and dynamic content do not shift fixed-format controls, overlap adjacent content, or hide focused controls behind sticky UI.
 6. Confirm tokens are semantic, centralized, and consumed by components without stray raw values.
-7. Inspect dependency direction, package cycles, component contracts, and ownership of state and side effects.
-8. Run the repository's formatter, lint, typecheck, focused tests, and build when available. Report what ran and any residual risk; never imply unrun checks passed.
-9. When a matching benchmark product contract exists, validate it with `validate_product_contract` before implementation and use its actors, modes, states, sources of truth, acceptance criteria, and journey profiles as the task model. Current product requirements and working behavior override archived examples. CLI fallback: `npm run validate-contract -- --contract PATH` from the ZtotheZ Design Engineering project.
-10. When `audit_repository_architecture` is available, run it before handoff. Treat error findings as blockers and review every warning against product context. The static audit does not replace browser, interaction, accessibility, or responsive verification. If MCP is unavailable in this repository, use `npm run audit -- --repo PATH` from the ZtotheZ Design Engineering project.
-11. When the application can run, use `verify_ui_runtime` against the local URL with representative product journeys. Inspect its screenshots and evidence for contrast, target size, focus, keyboard flow, reflow, text resizing, motion, collision, media, console, and network findings. Treat runtime errors as blockers and resolve or explicitly justify warnings. If MCP is unavailable, run `npm run verify-ui -- --url URL` from the ZtotheZ Design Engineering project. Runtime automation supplements, but does not replace, human review of content hierarchy, task fit, and visual quality.
-12. When `run_design_quality_gate` is available, prefer it for final handoff because it consolidates contract, architecture, runtime, and profile-scoped acceptance evidence under one failure policy. Every blocker criterion must pass; `UNVERIFIED` is not success. The target application must already be running. CLI fallback: `npm run quality-gate -- --contract PATH --repo PATH --url URL --profile ID`. Never report a skipped runtime stage as a passing gate, and never invent or self-author a manual-review attestation.
-13. Run every profile required by the contract in its declared service environment, preserving a separate evidence directory for each. Controlled offline profiles may declare expected network failures only with narrow method, URL, status, and occurrence bounds; an unobserved expectation is a failure, not permission to suppress errors. Aggregate profile reports with `aggregate_design_quality_gates` or `npm run aggregate-gates -- --contract PATH --reports DIR,DIR`. Release only when the aggregate report is complete and passing.
+7. When design-intelligence deliverables are in scope, validate their manifest and inspect final assets, Figma source, presentation exports, provenance evidence, and alternative content. A passing declaration is not rendered or legal proof.
+8. Inspect dependency direction, package cycles, component contracts, and ownership of state and side effects.
+9. Run the repository's formatter, lint, typecheck, focused tests, and build when available. Report what ran and any residual risk; never imply unrun checks passed.
+10. When a matching benchmark product contract exists, validate it with `validate_product_contract` before implementation and use its actors, modes, states, sources of truth, acceptance criteria, and journey profiles as the task model. Current product requirements and working behavior override archived examples. CLI fallback: `npm run validate-contract -- --contract PATH` from the ZtotheZ Design Engineering project.
+11. When `audit_repository_architecture` is available, run it before handoff. Treat error findings as blockers and review every warning against product context. The static audit does not replace browser, interaction, accessibility, or responsive verification. If MCP is unavailable in this repository, use `npm run audit -- --repo PATH` from the ZtotheZ Design Engineering project.
+12. When the application can run, use `verify_ui_runtime` against the local URL with representative product journeys. Inspect its screenshots and evidence for contrast, target size, focus, keyboard flow, reflow, text resizing, motion, collision, media, console, and network findings. Treat runtime errors as blockers and resolve or explicitly justify warnings. If MCP is unavailable, run `npm run verify-ui -- --url URL` from the ZtotheZ Design Engineering project. Runtime automation supplements, but does not replace, human review of content hierarchy, task fit, and visual quality.
+13. When `run_design_quality_gate` is available, prefer it for final handoff because it consolidates contract, architecture, runtime, and profile-scoped acceptance evidence under one failure policy. Every blocker criterion must pass; `UNVERIFIED` is not success. The target application must already be running. CLI fallback: `npm run quality-gate -- --contract PATH --repo PATH --url URL --profile ID`. Never report a skipped runtime stage as a passing gate, and never invent or self-author a manual-review attestation.
+14. Run every profile required by the contract in its declared service environment, preserving a separate evidence directory for each. Controlled offline profiles may declare expected network failures only with narrow method, URL, status, and occurrence bounds; an unobserved expectation is a failure, not permission to suppress errors. Aggregate profile reports with `aggregate_design_quality_gates` or `npm run aggregate-gates -- --contract PATH --reports DIR,DIR`. Release only when the aggregate report is complete and passing.
 
 ## Examples
 
@@ -350,6 +383,19 @@ Action sequence:
 5. Preserve public behavior and visual intent while adding missing focus, disabled, loading, validation, and status states.
 6. Verify no unresolved raw values remain outside the canonical token source, run visual and interaction checks, then run lint, tests, and build.
 
+### Example 4: Build A Brand And Asset System
+
+User trigger: `Create a brand identity, icon system, and presentation deck for this product.`
+
+Action sequence:
+
+1. Inspect the product task, users, existing marks, assets, tokens, competitors, and delivery channels.
+2. Load the brand, asset, icon, presentation, licensing, and visual-accessibility design-intelligence modules.
+3. Create the design-deliverable manifest and define brand promise, attributes, avoid-list, voice, token layers, and required mark variants.
+4. Create or source only the assets required by the product brief; record rights and generation evidence before use.
+5. Define icon meanings and geometry, then build presentation masters and slide purposes from the product narrative.
+6. Validate the manifest, inspect final assets and exports, verify actual contrast and alternatives, and report remaining rights or human-review obligations.
+
 ## Troubleshooting
 
 | Problem | Diagnosis | Resolution |
@@ -369,3 +415,7 @@ Action sequence:
 | Mobile scroll conflict | Split panes or nested tables create competing scroll regions | Replace simultaneous panes with tabs, drawers, or stacking; keep the primary action reachable and retest at 375 CSS pixels |
 | Unsafe destructive action | Delete, reset, approval, or bulk mutation resembles a primary action | Separate it visually and structurally, show impact and selection count, require confirmation, and provide recovery copy where possible |
 | Production trust gap | Users cannot tell auth context, processing location, retention, health, or failure identity | Surface workspace and auth context, processing boundaries, retention, status, rate-limit details, and request ID near the relevant workflow |
+| Untraceable design asset | A logo, image, font, icon, or generated asset has no source, rights basis, or evidence | Remove it from shipping output until an approved asset record identifies origin, creator, rights basis, evidence, restrictions, and attribution |
+| Inconsistent icon family | Icons mix grids, stroke weights, fill strategies, or meanings | Select one approved source strategy; normalize geometry and semantics; replace Unicode or one-off glyphs through the icon component boundary |
+| Figma implementation drift | Variables, components, and code tokens evolve independently | Declare one canonical token source, map collections and modes to it, compare exports, and document synchronization direction and conflict policy |
+| Presentation is decorative but unclear | Slides use inconsistent layouts, vague titles, tiny screenshots, or unlicensed imagery | Rebuild from a decision narrative and master layouts; give every slide one purpose, explicit reading order, and approved evidence-bearing assets |

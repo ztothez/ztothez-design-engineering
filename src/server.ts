@@ -23,6 +23,10 @@ import { aggregateReportSchema } from "./aggregate/schema.js";
 import { formatContractValidationReport } from "./contracts/report.js";
 import { contractValidationReportSchema } from "./contracts/schema.js";
 import { validateProductContract } from "./contracts/validator.js";
+import { loadDesignDeliverable } from "./design-intelligence/loader.js";
+import { formatDesignDeliverableReport } from "./design-intelligence/report.js";
+import { designDeliverableReportSchema } from "./design-intelligence/schema.js";
+import { validateDesignDeliverable } from "./design-intelligence/validator.js";
 import { formatQualityGateReport } from "./quality-gate/report.js";
 import { runQualityGate } from "./quality-gate/runner.js";
 import { qualityGateReportSchema } from "./quality-gate/schema.js";
@@ -88,6 +92,7 @@ function resolveProjectRoot(): string {
 const PROJECT_ROOT = resolveProjectRoot();
 const KNOWLEDGE_BASE_ROOT = join(PROJECT_ROOT, "knowledge-base");
 const BENCHMARK_ROOT = join(KNOWLEDGE_BASE_ROOT, "benchmarks");
+const DESIGN_INTELLIGENCE_ROOT = join(KNOWLEDGE_BASE_ROOT, "design-intelligence");
 const RETRIEVAL_SCOPE_PATH = join(KNOWLEDGE_BASE_ROOT, "retrieval-scope.yaml");
 let knowledgeIndexPromise: Promise<KnowledgeIndex> | undefined;
 
@@ -105,6 +110,10 @@ const knowledgeAreas = {
   architecture: {
     directory: join(KNOWLEDGE_BASE_ROOT, "architecture"),
     label: "architecture",
+  },
+  designIntelligence: {
+    directory: DESIGN_INTELLIGENCE_ROOT,
+    label: "design intelligence",
   },
   figmaAndSystems: {
     directory: join(KNOWLEDGE_BASE_ROOT, "figma-and-systems"),
@@ -352,6 +361,57 @@ async function configuredHeuristicReviewRoots(): Promise<string[]> {
   return resolvedRoots;
 }
 
+async function configuredDesignDeliverableRoots(): Promise<string[]> {
+  const configuredRoots = process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS?.split(delimiter)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0);
+  const roots = configuredRoots?.length ? configuredRoots : [PROJECT_ROOT];
+  const resolvedRoots: string[] = [];
+  for (const root of roots) {
+    const resolvedRoot = await realpath(resolve(root));
+    if (!(await stat(resolvedRoot)).isDirectory()) {
+      throw new Error(`Configured design deliverable root is not a directory: ${root}`);
+    }
+    resolvedRoots.push(resolvedRoot);
+  }
+  return resolvedRoots;
+}
+
+async function resolveAllowedDesignDeliverable(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0")) {
+    throw new Error("The design deliverable path contains an invalid null byte");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Design deliverable manifests must end in .json, .yaml, or .yml");
+  }
+
+  const roots = await configuredDesignDeliverableRoots();
+  const candidates = isAbsolute(requestedFile)
+    ? [requestedFile]
+    : roots.map((root) => resolve(root, requestedFile));
+
+  for (const candidate of candidates) {
+    let resolvedCandidate: string;
+    try {
+      resolvedCandidate = await realpath(candidate);
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!roots.some((root) => isPathContained(root, resolvedCandidate))) continue;
+    const fileStats = await stat(resolvedCandidate);
+    if (!fileStats.isFile()) throw new Error("Design deliverable path must be a regular file");
+    if (fileStats.size > MAX_FILE_BYTES) {
+      throw new Error(`Design deliverable exceeds the ${MAX_FILE_BYTES}-byte read limit`);
+    }
+    return resolvedCandidate;
+  }
+
+  throw new Error(
+    "Design deliverable is unavailable or outside ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS. Configure explicit allowed roots before reading external manifests.",
+  );
+}
+
 async function resolveAllowedHeuristicReview(requestedFile: string): Promise<string> {
   if (requestedFile.includes("\0")) {
     throw new Error("The heuristic review path contains an invalid null byte");
@@ -576,6 +636,57 @@ registerKnowledgeTool(
   "get_figma_system_rules",
   "List or read Markdown guidance for Figma, visual design, product design, and design systems.",
   knowledgeAreas.figmaAndSystems,
+);
+
+registerKnowledgeTool(
+  "get_design_intelligence",
+  "List or read maintained brand, Figma production, asset generation, iconography, presentation, licensing, and visual-accessibility modules.",
+  knowledgeAreas.designIntelligence,
+);
+
+server.registerTool(
+  "validate_design_deliverable",
+  {
+    title: "Validate design deliverable",
+    description:
+      "Validates a versioned design-deliverable YAML or JSON manifest for three-level tokens, Figma library structure, brand marks, asset and generated-media provenance, icon semantics, presentation masters, declared contrast pairs, and non-color cues. This is a deterministic declaration check, not legal advice or rendered accessibility proof.",
+    inputSchema: {
+      manifestFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative manifest. External roots must be listed in ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS.",
+        ),
+    },
+    outputSchema: designDeliverableReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ manifestFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedDesignDeliverable(manifestFile);
+      const manifest = await loadDesignDeliverable(resolvedFile);
+      const report = validateDesignDeliverable(manifest, resolvedFile);
+      return {
+        content: [{ type: "text" as const, text: formatDesignDeliverableReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[validate_design_deliverable] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
 );
 
 registerKnowledgeTool(

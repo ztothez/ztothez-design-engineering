@@ -3,6 +3,7 @@ import { z } from "zod";
 export const retrievalCategories = [
   "skill",
   "architecture",
+  "design-intelligence",
   "figma-and-systems",
   "ux-patterns",
   "usability-evaluation",
@@ -26,6 +27,7 @@ export const retrievalScopeSchema = z
       .object({
         skill: scopeCategorySchema,
         architecture: scopeCategorySchema,
+        "design-intelligence": scopeCategorySchema,
         "figma-and-systems": scopeCategorySchema,
         "ux-patterns": scopeCategorySchema,
         "usability-evaluation": scopeCategorySchema,
@@ -40,7 +42,7 @@ export const knowledgeSearchInputSchema = z
     categories: z
       .array(retrievalCategorySchema)
       .min(1)
-      .max(5)
+      .max(6)
       .refine((categories) => new Set(categories).size === categories.length, {
         message: "Retrieval categories must be unique",
       })

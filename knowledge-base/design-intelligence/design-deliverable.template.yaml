@@ -1,0 +1,232 @@
+version: "1.0"
+id: example-product-design-system
+product: Example Product
+preparedAt: 2026-08-26T12:00:00+03:00
+preparedBy:
+  type: mixed
+  name: Product design team
+scope:
+  deliverables: [brand-system, figma-library, asset-set, icon-system, presentation]
+  audience: Operations professionals evaluating and acting on product evidence
+  channels: [web, mobile, presentation]
+tokenSystem:
+  tokens:
+    - name: color.primitive.ink-950
+      type: color
+      level: primitive
+      value: "#0b0f14"
+      description: Darkest neutral for high-emphasis text
+    - name: color.primitive.white
+      type: color
+      level: primitive
+      value: "#ffffff"
+      description: Lightest neutral surface
+    - name: color.primitive.blue-700
+      type: color
+      level: primitive
+      value: "#1455b8"
+      description: Accessible blue action primitive
+    - name: color.semantic.text-primary
+      type: color
+      level: semantic
+      reference: color.primitive.ink-950
+      description: Primary foreground on light surfaces
+    - name: color.semantic.surface
+      type: color
+      level: semantic
+      reference: color.primitive.white
+      description: Default application surface
+    - name: color.semantic.action-primary
+      type: color
+      level: semantic
+      reference: color.primitive.blue-700
+      description: Primary action and focus treatment
+    - name: color.component.button-primary-label
+      type: color
+      level: component
+      reference: color.primitive.white
+      description: Label foreground for primary buttons
+  modes:
+    - name: dark
+      overrides:
+        - token: color.semantic.text-primary
+          reference: color.primitive.white
+        - token: color.semantic.surface
+          reference: color.primitive.ink-950
+brand:
+  promise: Make consequential operational work understandable and verifiable
+  audiences:
+    - Operations professionals
+    - Product reviewers
+  attributes: [precise, calm, accountable]
+  avoid: [decorative ambiguity, fake metrics, trend-only styling]
+  voicePrinciples:
+    - Name actions by their outcome
+    - State evidence and limitations directly
+  marks:
+    - id: primary-wordmark
+      role: primary
+      asset: brand-wordmark
+      clearSpace: Keep one symbol-width clear on every side
+      minimumSize: 96 CSS pixels wide on screen
+      allowedBackgrounds: [light-neutral, dark-neutral]
+figma:
+  pages:
+    - name: Foundations
+      role: foundations
+      purpose: Tokens, type roles, grids, motion, and accessibility examples
+    - name: Components
+      role: components
+      purpose: Published components, properties, states, and usage notes
+    - name: Patterns
+      role: patterns
+      purpose: Task-centered compositions using published components
+  collections:
+    - name: Semantic color
+      modes: [light, dark]
+      tokens:
+        - color.semantic.text-primary
+        - color.semantic.surface
+        - color.semantic.action-primary
+        - color.component.button-primary-label
+  components:
+    - name: Button
+      purpose: Trigger one named product action
+      interactive: true
+      properties:
+        - name: Label
+          type: text
+        - name: State
+          type: variant
+        - name: Leading icon
+          type: instance-swap
+      states: [default, hover, focus, active, disabled, loading]
+      documented: true
+assets:
+  - id: brand-wordmark
+    kind: logo
+    path: assets/brand/wordmark.svg
+    source:
+      origin: original
+      creator: Product design team
+    rights:
+      status: approved
+      basis: owned
+      evidence: evidence/rights/brand-wordmark.md
+      restrictions: []
+      reviewedBy: Product owner
+      reviewedAt: 2026-08-26T12:00:00+03:00
+    alternative:
+      kind: short-text
+      content: Example Product
+  - id: icon-analyze
+    kind: icon
+    path: assets/icons/analyze.svg
+    source:
+      origin: original
+      creator: Product design team
+    rights:
+      status: approved
+      basis: owned
+      evidence: evidence/rights/icon-analyze.md
+      restrictions: []
+    alternative:
+      kind: short-text
+      content: Analyze
+  - id: workspace-illustration
+    kind: illustration
+    path: assets/illustrations/workspace.png
+    source:
+      origin: generated
+      creator: Product design team with an image-generation model
+      sourceUrl: https://example.com/provider-terms
+    rights:
+      status: approved
+      basis: terms-of-service
+      evidence: evidence/rights/workspace-illustration.md
+      restrictions: [Do not use as a product screenshot]
+      reviewedBy: Product owner
+      reviewedAt: 2026-08-26T12:00:00+03:00
+    generation:
+      provider: Example image provider
+      model: Example model version
+      promptRecord: evidence/prompts/workspace-illustration.md
+      humanContributions:
+        - Art direction, selection, compositing, and final retouching
+      references: []
+    alternative:
+      kind: short-text
+      content: Analyst comparing source evidence with a structured result panel
+iconSystem:
+  name: Example Product Icons
+  grid: 24
+  sizes: [16, 20, 24]
+  stroke:
+    style: outline
+    weight: 1.75
+    linecap: round
+    linejoin: round
+  icons:
+    - id: analyze
+      name: Analyze
+      meaning: Start analysis of the current validated input
+      asset: icon-analyze
+      decorative: false
+      accessibleName: Analyze
+presentations:
+  - id: product-review
+    purpose: Support a product-readiness decision with evidence and trade-offs
+    audience: Product and engineering reviewers
+    aspectRatio: "16:9"
+    masterLayouts: [title, content]
+    slides:
+      - id: opening
+        title: Example Product makes operational evidence reviewable
+        purpose: Establish the product promise and review scope
+        layout: title
+        readingOrder: [title, subtitle, brand-mark]
+        assets: [brand-wordmark]
+        speakerNotes: Introduce the review boundary and decision required.
+      - id: workflow
+        title: One task model connects input, evidence, and action
+        purpose: Explain the primary workflow and its states
+        layout: content
+        readingOrder: [title, workflow-diagram, evidence-note]
+        assets: [workspace-illustration]
+accessibility:
+  contrastPairs:
+    - id: primary-text-on-surface
+      foreground: color.semantic.text-primary
+      background: color.semantic.surface
+      usage: normal-text
+    - id: button-label-on-primary
+      foreground: color.component.button-primary-label
+      background: color.semantic.action-primary
+      usage: normal-text
+    - id: dark-primary-text-on-surface
+      foreground: color.semantic.text-primary
+      background: color.semantic.surface
+      usage: normal-text
+      mode: dark
+    - id: focus-on-surface
+      foreground: color.semantic.action-primary
+      background: color.semantic.surface
+      usage: non-text
+  nonColorCues:
+    - meaning: Validation error
+      cues: [color, text, icon]
+    - meaning: Selected item
+      cues: [color, shape]
+evidence:
+  - id: brand-review
+    kind: review
+    path: evidence/reviews/brand-review.md
+    detail: Product owner reviewed positioning, mark family, and prohibited uses
+  - id: contrast-calculation
+    kind: contrast
+    path: evidence/accessibility/contrast.json
+    detail: Canonical token pairs evaluated before rendered verification
+  - id: figma-export
+    kind: export
+    path: evidence/figma/library-export.json
+    detail: Exported variable and component inventory for implementation comparison

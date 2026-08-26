@@ -100,6 +100,8 @@ export async function validatePackageArchive(report) {
     "docs/installation.md",
     "knowledge-base/INDEX.md",
     "knowledge-base/retrieval-scope.yaml",
+    "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
+    "knowledge-base/design-intelligence/design-deliverable.template.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
     ...scopedKnowledgePaths,
@@ -126,6 +128,8 @@ export async function validatePackageArchive(report) {
   const allowedKnowledgePaths = new Set([
     "knowledge-base/INDEX.md",
     "knowledge-base/retrieval-scope.yaml",
+    "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
+    "knowledge-base/design-intelligence/design-deliverable.template.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
     ...scopedKnowledgePaths,

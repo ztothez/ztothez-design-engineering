@@ -10,6 +10,8 @@ This project focuses on design engineering instead of style recommendation. It c
 
 - Production-ready Agent Skill in [`SKILL.md`](SKILL.md).
 - Scoped MCP access to architecture, Figma, design-system, UX-pattern, and usability guidance.
+- Independently authored brand, Figma production, asset-generation, iconography, presentation, licensing, and visual-accessibility modules.
+- Versioned design-deliverable manifests with deterministic token, contrast, provenance, icon, and presentation validation.
 - Repository architecture audits for coupling, component size, raw design values, mock production paths, network states, accessible names, and placeholder interactions.
 - Structured heuristic reviews with evidence provenance and severity-based acceptance candidates.
 - Browser verification for responsive layout, clipping, overlap, focus, contrast, target sizing, keyboard behavior, text resizing, reflow, reduced motion, media, console errors, and network failures.
@@ -93,6 +95,8 @@ The release archive is checked against an explicit distribution allowlist and in
 | `search_design_knowledge` | Search approved knowledge with deterministic BM25 ranking, source paths, excerpts, confidence, and explicit no-match output. |
 | `get_architecture_spec` | List or read approved architecture guidance. |
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
+| `get_design_intelligence` | List or read maintained brand, asset, icon, presentation, licensing, and visual-accessibility modules. |
+| `validate_design_deliverable` | Validate a versioned design manifest, token chains, contrast pairs, asset provenance, icon semantics, and presentation masters. |
 | `get_dashboard_pattern` | List or read approved dashboard and UX patterns. |
 | `get_usability_evaluation` | List or read usability-evaluation guidance and schemas. |
 | `validate_product_contract` | Validate a product contract, source references, journeys, and cross-references. |
@@ -136,6 +140,13 @@ Evaluate a heuristic review:
 ```bash
 npm run review-heuristics -- \
   --review knowledge-base/usability-evaluation/heuristic-review.template.yaml
+```
+
+Validate a design-intelligence deliverable:
+
+```bash
+npm run validate-design -- \
+  --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
 ```
 
 Verify a running interface:
@@ -196,6 +207,7 @@ Third-party archives are comparative and historical references. They are not run
 | `src/runtime/` | Browser verification and evidence capture. |
 | `src/contracts/` | Product-contract and journey validation. |
 | `src/heuristics/` | Structured heuristic-review evaluation. |
+| `src/design-intelligence/` | Design-deliverable schema, provenance, token, contrast, icon, and presentation validation. |
 | `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
 | `src/quality-gate/` | Consolidated profile quality gate. |
 | `src/aggregate/` | Multi-profile release aggregation. |
@@ -217,6 +229,6 @@ The active GitHub workflow also validates both benchmark contracts, starts the d
 
 ## Project Status
 
-The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, scoped knowledge retrieval, and installation packaging are complete. The next implementation target is design intelligence expansion.
+The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, scoped knowledge retrieval, installation packaging, and design intelligence expansion are complete. The next implementation target is corpus benchmarking.
 
 See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria. Clean-room independence remains the final certification phase after retrieval, packaging, design-intelligence expansion, and corpus benchmarking.

@@ -24,6 +24,7 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 | Path | Contents | Use when |
 |---|---|---|
 | `architecture/` | Software architecture, SOLID, design smells, components and interfaces, package design, design patterns, architectural styles, ATAM, evaluation, and product platforms | Evaluating architecture, resolving coupling or cohesion problems, documenting trade-offs, selecting a pattern or style, or designing reusable platforms |
+| `design-intelligence/` | Maintained brand, Figma production, asset generation, iconography, presentation, licensing, visual-accessibility, and manifest-validation modules | Creating visual-system deliverables that need structured provenance, token, accessibility, and handoff evidence |
 | `ux-patterns/` | Maintained product-owned UX and software-architecture patterns; raw books, articles, and research conversions remain local-only | Investigating a specialized UX question or applying an approved product pattern beyond the core skill |
 | `legacy-sources/design-system/` | AI workspace, operational dashboard, and enterprise-readiness pattern libraries | Implementing a concrete AI workspace or dashboard page and needing detailed page anatomy, states, tokens, or runtime requirements |
 | `legacy-sources/historical-readiness-source-ai-uix-readiness-plan/` | Earlier readiness plan and duplicated design-system source material | Auditing history or comparing the synthesized skill against the earlier plan; do not load by default |
@@ -44,7 +45,7 @@ The tool returns:
 - Numeric relevance scores and `high`, `medium`, or `low` confidence.
 - An explicit `no-match` result when no approved source contains the searchable query terms.
 
-Available scopes are `skill`, `architecture`, `figma-and-systems`, `ux-patterns`, and `usability-evaluation`. Search all scopes only when the task crosses domains. After ranking, read the selected file through its category-specific MCP tool so constraints outside the excerpt are not lost.
+Available scopes are `skill`, `architecture`, `design-intelligence`, `figma-and-systems`, `ux-patterns`, and `usability-evaluation`. Search all scopes only when the task crosses domains. After ranking, read the selected file through its category-specific MCP tool so constraints outside the excerpt are not lost.
 
 Ignored books, raw local research, usability source conversions, benchmark evidence, and every `legacy-sources/` directory are outside the retrieval manifest. A no-match result must not trigger an archive fallback. Refine the query, broaden approved categories, or record a knowledge gap instead.
 
@@ -182,3 +183,15 @@ Use this category when work needs deeper visual-system grounding than the root `
 - `figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md` - operational product-design instructions and implementation workflow for AI coding agents.
 
 Load the research handbook to understand rationale, terminology, and design-system evidence. Load the operational skill when translating those rules into implementation steps. When both are used, keep the root `SKILL.md` authoritative and use these files as focused supporting context.
+
+## Design Intelligence Routing
+
+Start with `design-intelligence/MASTER.md` when the task includes brand identity, Figma production, generated or sourced assets, iconography, presentation design, licensing, or visual accessibility. Load only the matching focused modules.
+
+Create structured evidence from `design-intelligence/design-deliverable.template.yaml`; use `design-intelligence/design-deliverable.schema.yaml` as the portable version 1.0 contract. Validate it through MCP with `validate_design_deliverable`, or through CLI:
+
+```bash
+npm run validate-design -- --manifest PATH_TO_DESIGN_DELIVERABLE
+```
+
+The validator checks declaration structure, token references and cycles, mode-aware contrast, Figma mappings, brand and presentation references, asset rights records, generated-media provenance, icon semantics, and non-color cues. It does not inspect design-source files, exported media, rendered pixels, or legal sufficiency. Preserve those as separate evidence and human-review obligations.

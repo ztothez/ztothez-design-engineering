@@ -1,0 +1,617 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://local.ztothez-design-engineering/schemas/design-deliverable-1.0.schema.json
+title: ZtotheZ Design Engineering Design Deliverable
+description: >-
+  Version 1.0 declaration for design tokens, brand systems, Figma libraries, assets,
+  iconography, presentations, rights evidence, and visual-accessibility checks.
+type: object
+additionalProperties: false
+required:
+  - version
+  - id
+  - product
+  - preparedAt
+  - preparedBy
+  - scope
+  - tokenSystem
+  - accessibility
+  - evidence
+properties:
+  version:
+    const: "1.0"
+  id:
+    $ref: "#/$defs/id"
+  product:
+    $ref: "#/$defs/shortText"
+  preparedAt:
+    type: string
+    format: date-time
+  preparedBy:
+    type: object
+    additionalProperties: false
+    required: [type, name]
+    properties:
+      type:
+        enum: [agent, human, mixed]
+      name:
+        $ref: "#/$defs/shortText"
+  scope:
+    type: object
+    additionalProperties: false
+    required: [deliverables, audience, channels]
+    properties:
+      deliverables:
+        type: array
+        minItems: 1
+        maxItems: 5
+        uniqueItems: true
+        items:
+          enum: [brand-system, figma-library, asset-set, icon-system, presentation]
+      audience:
+        $ref: "#/$defs/text"
+      channels:
+        type: array
+        minItems: 1
+        maxItems: 6
+        uniqueItems: true
+        items:
+          enum: [web, mobile, desktop, presentation, print, social]
+  tokenSystem:
+    type: object
+    additionalProperties: false
+    required: [tokens]
+    properties:
+      tokens:
+        type: array
+        minItems: 1
+        maxItems: 10000
+        items:
+          $ref: "#/$defs/token"
+      modes:
+        type: array
+        maxItems: 50
+        default: []
+        items:
+          $ref: "#/$defs/tokenMode"
+  brand:
+    $ref: "#/$defs/brand"
+  figma:
+    $ref: "#/$defs/figma"
+  assets:
+    type: array
+    default: []
+    items:
+      $ref: "#/$defs/asset"
+  iconSystem:
+    $ref: "#/$defs/iconSystem"
+  presentations:
+    type: array
+    default: []
+    items:
+      $ref: "#/$defs/presentation"
+  accessibility:
+    $ref: "#/$defs/accessibility"
+  evidence:
+    type: array
+    minItems: 1
+    maxItems: 1000
+    items:
+      $ref: "#/$defs/evidence"
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  tokenName:
+    type: string
+    pattern: "^[a-z][a-z0-9-]*(?:[.][a-z0-9][a-z0-9-]*)+$"
+  shortText:
+    type: string
+    minLength: 1
+    maxLength: 256
+  text:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  path:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  token:
+    type: object
+    additionalProperties: false
+    required: [name, type, level, description]
+    properties:
+      name:
+        $ref: "#/$defs/tokenName"
+      type:
+        enum: [color, dimension, font-family, font-weight, duration, number]
+      level:
+        enum: [primitive, semantic, component]
+      value:
+        type: [string, number]
+      reference:
+        $ref: "#/$defs/tokenName"
+      description:
+        type: string
+        minLength: 1
+        maxLength: 512
+    allOf:
+      - if:
+          properties:
+            level:
+              const: primitive
+        then:
+          required: [value]
+          not:
+            required: [reference]
+        else:
+          required: [reference]
+          not:
+            required: [value]
+      - if:
+          properties:
+            type:
+              const: color
+          required: [value]
+        then:
+          properties:
+            value:
+              type: string
+              pattern: "^#[0-9a-fA-F]{6}$"
+  tokenMode:
+    type: object
+    additionalProperties: false
+    required: [name, overrides]
+    properties:
+      name:
+        $ref: "#/$defs/id"
+      overrides:
+        type: array
+        minItems: 1
+        maxItems: 2000
+        items:
+          type: object
+          additionalProperties: false
+          required: [token]
+          properties:
+            token:
+              $ref: "#/$defs/tokenName"
+            value:
+              type: [string, number]
+            reference:
+              $ref: "#/$defs/tokenName"
+          oneOf:
+            - required: [value]
+            - required: [reference]
+  brand:
+    type: object
+    additionalProperties: false
+    required: [promise, audiences, attributes, avoid, voicePrinciples, marks]
+    properties:
+      promise:
+        $ref: "#/$defs/text"
+      audiences:
+        type: array
+        minItems: 1
+        maxItems: 20
+        items:
+          $ref: "#/$defs/shortText"
+      attributes:
+        type: array
+        minItems: 2
+        maxItems: 8
+        items:
+          type: string
+          minLength: 1
+          maxLength: 80
+      avoid:
+        type: array
+        minItems: 1
+        maxItems: 12
+        items:
+          type: string
+          minLength: 1
+          maxLength: 160
+      voicePrinciples:
+        type: array
+        minItems: 2
+        maxItems: 12
+        items:
+          $ref: "#/$defs/shortText"
+      marks:
+        type: array
+        minItems: 1
+        maxItems: 30
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, role, asset, clearSpace, minimumSize, allowedBackgrounds]
+          properties:
+            id:
+              $ref: "#/$defs/id"
+            role:
+              enum: [primary, compact, monochrome, symbol, wordmark]
+            asset:
+              $ref: "#/$defs/id"
+            clearSpace:
+              $ref: "#/$defs/shortText"
+            minimumSize:
+              $ref: "#/$defs/shortText"
+            allowedBackgrounds:
+              type: array
+              minItems: 1
+              maxItems: 12
+              items:
+                type: string
+                minLength: 1
+                maxLength: 128
+  figma:
+    type: object
+    additionalProperties: false
+    required: [pages, collections, components]
+    properties:
+      pages:
+        type: array
+        minItems: 2
+        maxItems: 50
+        items:
+          type: object
+          additionalProperties: false
+          required: [name, role, purpose]
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 128
+            role:
+              enum: [cover, foundations, components, patterns, templates, sandbox, archive]
+            purpose:
+              type: string
+              minLength: 1
+              maxLength: 512
+      collections:
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          type: object
+          additionalProperties: false
+          required: [name, modes, tokens]
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 128
+            modes:
+              type: array
+              minItems: 1
+              maxItems: 20
+              items:
+                $ref: "#/$defs/id"
+            tokens:
+              type: array
+              minItems: 1
+              maxItems: 5000
+              items:
+                $ref: "#/$defs/tokenName"
+      components:
+        type: array
+        minItems: 1
+        maxItems: 1000
+        items:
+          type: object
+          additionalProperties: false
+          required: [name, purpose, interactive, properties, states, documented]
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 160
+            purpose:
+              type: string
+              minLength: 1
+              maxLength: 512
+            interactive:
+              type: boolean
+            properties:
+              type: array
+              maxItems: 40
+              items:
+                type: object
+                additionalProperties: false
+                required: [name, type]
+                properties:
+                  name:
+                    type: string
+                    minLength: 1
+                    maxLength: 128
+                  type:
+                    enum: [boolean, instance-swap, text, variant, slot]
+            states:
+              type: array
+              minItems: 1
+              maxItems: 30
+              items:
+                $ref: "#/$defs/id"
+            documented:
+              type: boolean
+  asset:
+    type: object
+    additionalProperties: false
+    required: [id, kind, path, source, rights, alternative]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      kind:
+        enum: [logo, icon, illustration, photo, texture, chart, screenshot, video, audio, font]
+      path:
+        $ref: "#/$defs/path"
+      source:
+        type: object
+        additionalProperties: false
+        required: [origin, creator]
+        properties:
+          origin:
+            enum: [original, user-provided, generated, commissioned, licensed, open-source, public-domain]
+          creator:
+            $ref: "#/$defs/shortText"
+          sourceUrl:
+            type: string
+            format: uri
+      rights:
+        $ref: "#/$defs/rights"
+      generation:
+        $ref: "#/$defs/generation"
+      alternative:
+        type: object
+        additionalProperties: false
+        required: [kind]
+        properties:
+          kind:
+            enum: [decorative, short-text, long-description, data-table, caption, transcript]
+          content:
+            type: string
+            minLength: 1
+            maxLength: 4096
+  rights:
+    type: object
+    additionalProperties: false
+    required: [status, basis]
+    properties:
+      status:
+        enum: [approved, pending, rejected, unknown]
+      basis:
+        enum: [owned, contract, terms-of-service, spdx-license, public-domain, permission]
+      spdxExpression:
+        $ref: "#/$defs/shortText"
+      evidence:
+        $ref: "#/$defs/path"
+      attribution:
+        $ref: "#/$defs/text"
+      restrictions:
+        type: array
+        default: []
+        maxItems: 30
+        items:
+          type: string
+          minLength: 1
+          maxLength: 512
+      reviewedBy:
+        $ref: "#/$defs/shortText"
+      reviewedAt:
+        type: string
+        format: date-time
+  generation:
+    type: object
+    additionalProperties: false
+    required: [provider, model, promptRecord, humanContributions, references]
+    properties:
+      provider:
+        $ref: "#/$defs/shortText"
+      model:
+        $ref: "#/$defs/shortText"
+      promptRecord:
+        $ref: "#/$defs/path"
+      humanContributions:
+        type: array
+        minItems: 1
+        maxItems: 30
+        items:
+          type: string
+          minLength: 1
+          maxLength: 512
+      references:
+        type: array
+        maxItems: 50
+        items:
+          type: object
+          additionalProperties: false
+          required: [source, rightsStatus]
+          properties:
+            source:
+              $ref: "#/$defs/text"
+            rightsStatus:
+              enum: [approved, pending, rejected, unknown]
+            evidence:
+              $ref: "#/$defs/path"
+  iconSystem:
+    type: object
+    additionalProperties: false
+    required: [name, grid, sizes, stroke, icons]
+    properties:
+      name:
+        type: string
+        minLength: 1
+        maxLength: 160
+      grid:
+        type: integer
+        minimum: 8
+        maximum: 128
+      sizes:
+        type: array
+        minItems: 1
+        maxItems: 20
+        items:
+          type: integer
+          minimum: 8
+          maximum: 512
+      stroke:
+        type: object
+        additionalProperties: false
+        required: [style, weight, linecap, linejoin]
+        properties:
+          style:
+            enum: [outline, filled, duotone, mixed]
+          weight:
+            type: number
+            exclusiveMinimum: 0
+            maximum: 16
+          linecap:
+            enum: [round, square, butt]
+          linejoin:
+            enum: [round, bevel, miter]
+      icons:
+        type: array
+        minItems: 1
+        maxItems: 2000
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, name, meaning, asset, decorative]
+          properties:
+            id:
+              $ref: "#/$defs/id"
+            name:
+              type: string
+              minLength: 1
+              maxLength: 128
+            meaning:
+              type: string
+              minLength: 1
+              maxLength: 512
+            asset:
+              $ref: "#/$defs/id"
+            decorative:
+              type: boolean
+            accessibleName:
+              $ref: "#/$defs/shortText"
+  presentation:
+    type: object
+    additionalProperties: false
+    required: [id, purpose, audience, aspectRatio, masterLayouts, slides]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      purpose:
+        type: string
+        minLength: 1
+        maxLength: 512
+      audience:
+        $ref: "#/$defs/shortText"
+      aspectRatio:
+        enum: ["16:9", "4:3", "1:1", a4-landscape, a4-portrait]
+      masterLayouts:
+        type: array
+        minItems: 2
+        maxItems: 40
+        items:
+          $ref: "#/$defs/id"
+      slides:
+        type: array
+        minItems: 1
+        maxItems: 500
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, title, purpose, layout, readingOrder, assets]
+          properties:
+            id:
+              $ref: "#/$defs/id"
+            title:
+              $ref: "#/$defs/shortText"
+            purpose:
+              type: string
+              minLength: 1
+              maxLength: 512
+            layout:
+              $ref: "#/$defs/id"
+            readingOrder:
+              type: array
+              minItems: 1
+              maxItems: 50
+              items:
+                type: string
+                minLength: 1
+                maxLength: 128
+            assets:
+              type: array
+              maxItems: 50
+              items:
+                $ref: "#/$defs/id"
+            speakerNotes:
+              type: string
+              minLength: 1
+              maxLength: 4096
+  accessibility:
+    type: object
+    additionalProperties: false
+    required: [contrastPairs, nonColorCues]
+    properties:
+      contrastPairs:
+        type: array
+        minItems: 1
+        maxItems: 2000
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, foreground, background, usage]
+          properties:
+            id:
+              $ref: "#/$defs/id"
+            foreground:
+              $ref: "#/$defs/tokenName"
+            background:
+              $ref: "#/$defs/tokenName"
+            usage:
+              enum: [normal-text, large-text, non-text]
+            mode:
+              $ref: "#/$defs/id"
+            fontSizePx:
+              type: number
+              exclusiveMinimum: 0
+              maximum: 1000
+            fontWeight:
+              type: integer
+              minimum: 100
+              maximum: 1000
+      nonColorCues:
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          type: object
+          additionalProperties: false
+          required: [meaning, cues]
+          properties:
+            meaning:
+              $ref: "#/$defs/shortText"
+            cues:
+              type: array
+              minItems: 2
+              maxItems: 8
+              uniqueItems: true
+              items:
+                enum: [color, text, icon, shape, pattern, position, value, underline]
+  evidence:
+    type: object
+    additionalProperties: false
+    required: [id, kind, path, detail]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      kind:
+        enum: [source, review, contrast, export, license, runtime]
+      path:
+        $ref: "#/$defs/path"
+      detail:
+        $ref: "#/$defs/text"

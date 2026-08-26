@@ -54,6 +54,11 @@ jobs:
             --contract knowledge-base/benchmarks/scenestart/product-contract.yaml \
             --project-root .
 
+      - name: Validate design intelligence template
+        run: |
+          npm run validate-design -- \
+            --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
+
       - name: Run regression suite
         run: npm test
 

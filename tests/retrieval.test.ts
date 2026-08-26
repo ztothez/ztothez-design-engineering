@@ -16,9 +16,9 @@ test("retrieval indexes only the explicit approved distributable scope", async (
   const index = await buildKnowledgeIndex(process.cwd());
 
   assert.equal(index.authorityPath, "SKILL.md");
-  assert.equal(index.documents.length, 35);
+  assert.equal(index.documents.length, 43);
   assert.ok(index.chunks.length > 500);
-  assert.equal(new Set(index.documents.map((document) => document.path)).size, 35);
+  assert.equal(new Set(index.documents.map((document) => document.path)).size, 43);
   assert.ok(index.documents.some((document) => document.path === "SKILL.md"));
   assert.equal(
     index.documents.some((document) => document.path.includes("legacy-sources")),
@@ -121,6 +121,10 @@ test("retrieval scope rejects category escape paths", async (context) => {
           label: "Architecture",
           files: ["knowledge-base/legacy-sources/forbidden.md"],
         },
+        "design-intelligence": {
+          label: "Design intelligence",
+          files: ["knowledge-base/design-intelligence/allowed.md"],
+        },
         "figma-and-systems": {
           label: "Figma",
           files: ["knowledge-base/figma-and-systems/allowed.md"],
@@ -150,7 +154,12 @@ type RetrievalEvaluationFixture = {
     id: string;
     query: string;
     categories?: Array<
-      "skill" | "architecture" | "figma-and-systems" | "ux-patterns" | "usability-evaluation"
+      | "skill"
+      | "architecture"
+      | "design-intelligence"
+      | "figma-and-systems"
+      | "ux-patterns"
+      | "usability-evaluation"
     >;
     expectedStatus: "matches" | "no-match";
     expectedPath?: string;

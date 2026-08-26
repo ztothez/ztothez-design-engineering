@@ -10,6 +10,7 @@ This roadmap tracks the work required to turn the skill, local knowledge base, M
 - The published repository runs a deterministic GitHub Actions quality workflow and retains fixture-gate evidence.
 - AegisOPS provides the first executable product benchmark.
 - Approved design knowledge is available through deterministic, authority-aware BM25 retrieval with explicit abstention.
+- Independently authored design-intelligence modules and a versioned deliverable manifest provide executable checks for tokens, provenance, visual accessibility, icon semantics, and presentation structure.
 
 ## Roadmap Items
 
@@ -57,7 +58,7 @@ Status: **Done**
 
 Add deterministic full-text or BM25 retrieval across approved knowledge categories. Return source paths, excerpts, confidence, and explicit no-match results while keeping `SKILL.md` authoritative.
 
-Evidence: `knowledge-base/retrieval-scope.yaml` explicitly approves 35 distributable Markdown files across five categories and marks `SKILL.md` authoritative. `src/retrieval/` builds a deterministic 550-chunk Markdown index, applies BM25 ranking with bounded title and authority boosts, and returns source paths, sections, bounded excerpts, scores, confidence, matched terms, and explicit `no-match` reports. The `search_design_knowledge` MCP tool exposes structured and Markdown output. `tests/fixtures/retrieval-cases.yaml`, `tests/retrieval.test.ts`, and `tests/mcp.test.ts` verify ranking, category isolation, authority precedence, abstention, archive exclusion, category-escape rejection, and MCP behavior. The complete 26-test regression suite passes.
+Evidence: `knowledge-base/retrieval-scope.yaml` explicitly approves 43 distributable Markdown files across six categories and marks `SKILL.md` authoritative. `src/retrieval/` builds a deterministic 609-chunk Markdown index, applies BM25 ranking with bounded title and authority boosts, and returns source paths, sections, bounded excerpts, scores, confidence, matched terms, and explicit `no-match` reports. The `search_design_knowledge` MCP tool exposes structured and Markdown output. `tests/fixtures/retrieval-cases.yaml`, `tests/retrieval.test.ts`, and `tests/mcp.test.ts` verify ranking, category isolation, authority precedence, abstention, archive exclusion, category-escape rejection, and MCP behavior. The complete 30-test regression suite passes.
 
 ### 6. Installation And Packaging
 
@@ -69,11 +70,11 @@ Evidence: package `@ztothez/design-engineering` defines Node.js 22 compatibility
 
 ### 7. Design Intelligence Expansion
 
-Status: **Partial**
+Status: **Done**
 
 Add independently authored, structured modules for brand systems, Figma workflows, asset generation, iconography, presentation design, licensing, and visual-accessibility verification.
 
-Evidence: `knowledge-base/figma-and-systems/` provides substantial independently authored Figma and design-system guidance, `get_figma_system_rules` exposes it through MCP, and runtime verification covers visual accessibility. Remaining: dedicated brand-system, asset-generation, iconography, presentation, and licensing modules plus executable validation workflows are not implemented.
+Evidence: `knowledge-base/design-intelligence/` contains an independently authored coordinating module and seven focused modules for brand systems, Figma production, asset generation, iconography, presentation design, licensing and provenance, and visual accessibility. The versioned `design-deliverable.schema.yaml` and passing `design-deliverable.template.yaml` define a portable contract for token architecture, brand references, Figma mappings, asset rights and generation provenance, icon semantics, presentation masters, and mode-aware contrast evidence. `src/design-intelligence/` implements deterministic `ZTDE-DI-*` findings, reference validation, token-cycle detection, WCAG contrast calculations, non-color-cue checks, and explicit limits around rendered proof and legal clearance. The `validate_design_deliverable` MCP tool and `validate-design` CLI expose the workflow with external-root restrictions. `get_design_intelligence` and the approved retrieval manifest expose the maintained guidance without admitting legacy archives. CI validates the maintained template, package checks enforce its distribution allowlist, packed-install smoke testing passes, and the complete 30-test regression suite covers valid, invalid, traversal, retrieval, and MCP behavior.
 
 ### 8. Corpus Benchmarking
 
@@ -123,8 +124,7 @@ SceneStart product remediation can proceed separately from skill development. Ae
 
 Implement the remaining skill work in this order:
 
-1. Item 7: Design Intelligence Expansion.
-2. Item 8: Corpus Benchmarking.
-3. Item 9: Clean-Room Independence And Supply Resilience.
+1. Item 8: Corpus Benchmarking.
+2. Item 9: Clean-Room Independence And Supply Resilience.
 
 Item 9 is the final certification and hardening phase. Its independence rules still constrain all earlier implementation choices, but its completion checks, archive-removal tests, provenance audit, identity verification, and offline release bundle run only after Items 6 through 8 are complete.

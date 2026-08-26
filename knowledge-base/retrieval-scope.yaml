@@ -38,6 +38,17 @@ categories:
       - knowledge-base/architecture/Styles1.md
       - knowledge-base/architecture/Styles2.md
       - knowledge-base/architecture/Styles3.md
+  design-intelligence:
+    label: Maintained design intelligence
+    files:
+      - knowledge-base/design-intelligence/MASTER.md
+      - knowledge-base/design-intelligence/asset-generation.md
+      - knowledge-base/design-intelligence/brand-systems.md
+      - knowledge-base/design-intelligence/figma-production.md
+      - knowledge-base/design-intelligence/iconography.md
+      - knowledge-base/design-intelligence/licensing-and-provenance.md
+      - knowledge-base/design-intelligence/presentation-design.md
+      - knowledge-base/design-intelligence/visual-accessibility.md
   figma-and-systems:
     label: Figma, visual design, and design systems
     files:

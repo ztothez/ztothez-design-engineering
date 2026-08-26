@@ -50,6 +50,7 @@ const stopWords = new Set([
 const categoryRoots: Record<RetrievalCategory, string> = {
   skill: "SKILL.md",
   architecture: "knowledge-base/architecture",
+  "design-intelligence": "knowledge-base/design-intelligence",
   "figma-and-systems": "knowledge-base/figma-and-systems",
   "ux-patterns": "knowledge-base/ux-patterns",
   "usability-evaluation": "knowledge-base/usability-evaluation",

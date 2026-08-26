@@ -1,0 +1,112 @@
+version: "1.0"
+id: invalid-design-system
+product: Invalid Example
+preparedAt: 2026-08-26T12:00:00+03:00
+preparedBy:
+  type: agent
+  name: Test agent
+scope:
+  deliverables: [brand-system, figma-library, asset-set, icon-system, presentation]
+  audience: Product reviewers
+  channels: [web, presentation]
+tokenSystem:
+  tokens:
+    - name: color.primitive.white
+      type: color
+      level: primitive
+      value: "#ffffff"
+      description: White
+    - name: color.primitive.near-white
+      type: color
+      level: primitive
+      value: "#f5f5f5"
+      description: Near white
+    - name: color.semantic.cycle-a
+      type: color
+      level: semantic
+      reference: color.semantic.cycle-b
+      description: Invalid cycle start
+    - name: color.semantic.cycle-b
+      type: color
+      level: semantic
+      reference: color.semantic.cycle-a
+      description: Invalid cycle end
+  modes: []
+figma:
+  pages:
+    - name: Cover
+      role: cover
+      purpose: Cover only
+    - name: Archive
+      role: archive
+      purpose: Archived work only
+  collections:
+    - name: Broken collection
+      modes: [light]
+      tokens: [color.semantic.missing]
+  components:
+    - name: Broken Button
+      purpose: Demonstrate invalid state coverage
+      interactive: true
+      properties: []
+      states: [hover]
+      documented: false
+assets:
+  - id: unresolved-image
+    kind: illustration
+    path: assets/unresolved.png
+    source:
+      origin: generated
+      creator: Test agent
+    rights:
+      status: pending
+      basis: terms-of-service
+      restrictions: []
+    alternative:
+      kind: short-text
+iconSystem:
+  name: Broken Icons
+  grid: 24
+  sizes: [24]
+  stroke:
+    style: outline
+    weight: 2
+    linecap: round
+    linejoin: round
+  icons:
+    - id: mystery
+      name: Mystery
+      meaning: Unknown action
+      asset: missing-icon
+      decorative: false
+presentations:
+  - id: broken-deck
+    purpose: Demonstrate invalid references
+    audience: Reviewers
+    aspectRatio: "16:9"
+    masterLayouts: [title, content]
+    slides:
+      - id: broken-slide
+        title: Broken slide
+        purpose: Demonstrate invalid layout and asset references
+        layout: missing-layout
+        readingOrder: [title]
+        assets: [missing-asset]
+accessibility:
+  contrastPairs:
+    - id: low-contrast
+      foreground: color.primitive.white
+      background: color.primitive.near-white
+      usage: normal-text
+    - id: unresolved-contrast
+      foreground: color.semantic.cycle-a
+      background: color.primitive.white
+      usage: non-text
+  nonColorCues:
+    - meaning: Error
+      cues: [color, color]
+evidence:
+  - id: invalid-review
+    kind: review
+    path: evidence/missing.md
+    detail: Negative fixture evidence record

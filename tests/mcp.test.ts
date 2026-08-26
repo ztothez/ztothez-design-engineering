@@ -10,6 +10,10 @@ test("MCP exposes the repository auditor with structured output", async () => {
   process.env.ZTOTHEZ_DESIGN_HEURISTIC_REVIEW_ROOTS = [
     resolve(process.cwd(), "tests", "fixtures"),
   ].join(delimiter);
+  process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS = [
+    resolve(process.cwd(), "tests", "fixtures"),
+    resolve(process.cwd(), "knowledge-base", "design-intelligence"),
+  ].join(delimiter);
   const { server } = await import("../src/server.js");
   const client = new Client({ name: "ztothez-design-audit-test", version: "1.0.0" });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
@@ -31,6 +35,8 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "get_usability_evaluation"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_heuristic_review"));
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
+    assert.ok(tools.tools.some((tool) => tool.name === "get_design_intelligence"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_design_deliverable"));
 
     const knowledgeSearch = await client.callTool({
       name: "search_design_knowledge",
@@ -64,6 +70,34 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(noKnowledgeMatch.isError, undefined);
     assert.equal(noMatchReport?.status, "no-match");
     assert.deepEqual(noMatchReport?.results, []);
+
+    const designListing = await client.callTool({
+      name: "get_design_intelligence",
+      arguments: {},
+    });
+    const designListingText = (designListing.content as Array<{ type: string; text?: string }>).find(
+      (entry) => entry.type === "text",
+    );
+    assert.equal(designListing.isError, undefined);
+    assert.match(designListingText?.text ?? "", /brand-systems[.]md/);
+    assert.match(designListingText?.text ?? "", /visual-accessibility[.]md/);
+
+    const designManifest = await client.callTool({
+      name: "validate_design_deliverable",
+      arguments: { manifestFile: "design-deliverable.template.yaml" },
+    });
+    const designReport = designManifest.structuredContent as
+      | { passed?: unknown; contrastResults?: unknown[] }
+      | undefined;
+    assert.equal(designManifest.isError, undefined);
+    assert.equal(designReport?.passed, true);
+    assert.equal(designReport?.contrastResults?.length, 4);
+
+    const deniedDesignManifest = await client.callTool({
+      name: "validate_design_deliverable",
+      arguments: { manifestFile: resolve(process.cwd(), "package.json") },
+    });
+    assert.equal(deniedDesignManifest.isError, true);
 
     const usabilityListing = await client.callTool({
       name: "get_usability_evaluation",
@@ -182,5 +216,6 @@ test("MCP exposes the repository auditor with structured output", async () => {
     await server.close();
     delete process.env.ZTOTHEZ_DESIGN_AUDIT_ROOTS;
     delete process.env.ZTOTHEZ_DESIGN_HEURISTIC_REVIEW_ROOTS;
+    delete process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS;
   }
 });
