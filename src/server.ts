@@ -27,6 +27,16 @@ import { formatQualityGateReport } from "./quality-gate/report.js";
 import { runQualityGate } from "./quality-gate/runner.js";
 import { qualityGateReportSchema } from "./quality-gate/schema.js";
 import { PRODUCT_ID, VERSION } from "./product.js";
+import { formatKnowledgeSearchReport } from "./retrieval/report.js";
+import {
+  knowledgeSearchInputSchema,
+  knowledgeSearchReportSchema,
+} from "./retrieval/schema.js";
+import {
+  buildKnowledgeIndex,
+  searchKnowledge,
+  type KnowledgeIndex,
+} from "./retrieval/search.js";
 import { evaluateHeuristicReview } from "./heuristics/evaluator.js";
 import { loadHeuristicReview } from "./heuristics/loader.js";
 import { formatHeuristicReviewReport } from "./heuristics/report.js";
@@ -78,6 +88,18 @@ function resolveProjectRoot(): string {
 const PROJECT_ROOT = resolveProjectRoot();
 const KNOWLEDGE_BASE_ROOT = join(PROJECT_ROOT, "knowledge-base");
 const BENCHMARK_ROOT = join(KNOWLEDGE_BASE_ROOT, "benchmarks");
+const RETRIEVAL_SCOPE_PATH = join(KNOWLEDGE_BASE_ROOT, "retrieval-scope.yaml");
+let knowledgeIndexPromise: Promise<KnowledgeIndex> | undefined;
+
+function getKnowledgeIndex(): Promise<KnowledgeIndex> {
+  knowledgeIndexPromise ??= buildKnowledgeIndex(PROJECT_ROOT, RETRIEVAL_SCOPE_PATH).catch(
+    (error: unknown) => {
+      knowledgeIndexPromise = undefined;
+      throw error;
+    },
+  );
+  return knowledgeIndexPromise;
+}
 
 const knowledgeAreas = {
   architecture: {
@@ -467,6 +489,40 @@ export const server = new McpServer({
   name: PRODUCT_ID,
   version: VERSION,
 });
+
+server.registerTool(
+  "search_design_knowledge",
+  {
+    title: "Search approved design knowledge",
+    description:
+      "Runs deterministic BM25 retrieval over the explicit approved knowledge scope. Returns ranked source paths, section excerpts, confidence, and an explicit no-match result. SKILL.md is marked authoritative, and legacy archives or local raw research are never indexed.",
+    inputSchema: knowledgeSearchInputSchema.shape,
+    outputSchema: knowledgeSearchReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async (input) => {
+    try {
+      const index = await getKnowledgeIndex();
+      const report = searchKnowledge(index, input);
+      return {
+        content: [{ type: "text" as const, text: formatKnowledgeSearchReport(report) }],
+        structuredContent: report,
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[search_design_knowledge] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
 
 registerKnowledgeTool(
   "get_architecture_spec",

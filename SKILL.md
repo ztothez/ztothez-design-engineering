@@ -17,6 +17,24 @@ Use ZtotheZ Design Engineering to create task-centered interfaces whose visual s
 6. Work iteratively. Implement the smallest coherent slice, verify behavior, and refactor without changing observable behavior before expanding the surface.
 7. Never present a mock interaction as implemented. Distinguish verified behavior, proposed behavior, and untested assumptions.
 
+## Knowledge Retrieval Workflow
+
+### Step 1: Search The Approved Scope
+
+Use `search_design_knowledge` when the task needs guidance beyond this skill. Write a specific query containing the design problem, relevant quality attribute, and product context. Restrict `categories` when the task clearly belongs to architecture, Figma and design systems, UX patterns, or usability evaluation.
+
+The search result must include ranked repository-relative source paths, section excerpts, confidence, and matched terms. Treat `SKILL.md` results as authoritative and other indexed files as approved supporting guidance.
+
+### Step 2: Inspect Exact Sources
+
+Read the highest-value result through its category-specific MCP tool before applying detailed rules. Load only the files needed to resolve the task. Do not treat a search excerpt as a complete specification when the surrounding section contains constraints, exceptions, or validation requirements.
+
+### Step 3: Handle No-Match Results
+
+When retrieval returns `no-match`, refine the query or broaden only the approved categories. If no approved source matches, state the knowledge gap and proceed from current product requirements, repository evidence, public standards, or official platform documentation as appropriate. Never fill the gap from legacy archives, ignored local research, or a third-party design product.
+
+Do not let supporting retrieval override current repository behavior, product contracts, user requirements, or this root skill. Cite the repository-relative paths that materially affected a recommendation or implementation.
+
 ## Design & Architecture Workflow
 
 ### Step 1: Frame The System

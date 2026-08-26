@@ -30,6 +30,23 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 | `legacy-sources/external-design-reference-skill-main/` | Archived third-party repository retained for provenance and comparative behavioral research | Comparing externally observable capabilities or auditing provenance; never import, adapt, package, or treat it as a production dependency |
 | `benchmarks/` | Executable product contracts, journey profiles, acceptance criteria, and anti-pattern corpora | Evaluating whether generated UI is behaviorally coherent, evidence-backed, and production-ready for a specific product domain |
 | `usability-evaluation/` | Maintained heuristic-evaluation workflow, portable schema, and review template | Conducting a UX audit, defining human-review evidence, separating automated findings from user-testing claims, or turning usability risks into acceptance criteria |
+| `retrieval-scope.yaml` | Explicit allowlist for the distributable BM25 index | Auditing or changing which knowledge files can appear in ranked retrieval |
+
+## Scoped Knowledge Retrieval
+
+Use `search_design_knowledge` to search the approved distributable corpus before opening deep source files. The deterministic BM25 index is governed by `retrieval-scope.yaml`, which names every eligible Markdown file and marks the root `SKILL.md` as authoritative.
+
+The tool returns:
+
+- Ranked repository-relative source paths.
+- The matching document title and section.
+- Bounded excerpts and normalized matched terms.
+- Numeric relevance scores and `high`, `medium`, or `low` confidence.
+- An explicit `no-match` result when no approved source contains the searchable query terms.
+
+Available scopes are `skill`, `architecture`, `figma-and-systems`, `ux-patterns`, and `usability-evaluation`. Search all scopes only when the task crosses domains. After ranking, read the selected file through its category-specific MCP tool so constraints outside the excerpt are not lost.
+
+Ignored books, raw local research, usability source conversions, benchmark evidence, and every `legacy-sources/` directory are outside the retrieval manifest. A no-match result must not trigger an archive fallback. Refine the query, broaden approved categories, or record a knowledge gap instead.
 
 ## Product Benchmarks
 

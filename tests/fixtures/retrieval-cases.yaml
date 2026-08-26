@@ -1,0 +1,48 @@
+version: "1.0"
+cases:
+  - id: architecture-atam
+    query: ATAM utility tree sensitivity trade-off points
+    categories:
+      - architecture
+    expectedStatus: matches
+    expectedPath: knowledge-base/architecture/ATAM.md
+    maxRank: 1
+  - id: architecture-package-coupling
+    query: package coupling acyclic dependency graph stability abstractions
+    categories:
+      - architecture
+    expectedStatus: matches
+    expectedPath: knowledge-base/architecture/SDA_Packages and Coupling.md
+    maxRank: 1
+  - id: figma-construction
+    query: Figma auto layout component variants semantic variables
+    categories:
+      - figma-and-systems
+    expectedStatus: matches
+    expectedPath: knowledge-base/figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md
+    maxRank: 2
+  - id: usability-evidence
+    query: heuristic evaluation representative-user evidence severity remediation
+    categories:
+      - usability-evaluation
+    expectedStatus: matches
+    expectedPath: knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md
+    maxRank: 1
+  - id: ux-curation-pipeline
+    query: web curator curation pipeline source verification
+    categories:
+      - ux-patterns
+    expectedStatus: matches
+    expectedPath: knowledge-base/ux-patterns/web-curator-tool-software-architecture-document.md
+    maxRank: 1
+  - id: authoritative-ai-workspace
+    query: AI workspace progress evidence human approval
+    categories:
+      - skill
+      - figma-and-systems
+    expectedStatus: matches
+    expectedPath: SKILL.md
+    maxRank: 1
+  - id: explicit-no-match
+    query: xyzzynonexistentknowledge
+    expectedStatus: no-match

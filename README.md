@@ -18,7 +18,7 @@ This project focuses on design engineering instead of style recommendation. It c
 - Executable AegisOPS and SceneStart benchmark contracts.
 - GitHub Actions verification with retained fixture evidence.
 
-Exact filename knowledge retrieval is available now. Ranked full-text and BM25 retrieval is roadmap item 5 and is not yet implemented.
+Ranked BM25 knowledge retrieval and exact filename reads are available now. The versioned retrieval scope contains only explicitly approved distributable files and excludes local raw research and legacy archives.
 
 ## Requirements
 
@@ -79,6 +79,7 @@ The npm release and installer adapters are planned under roadmap item 6. Until t
 
 | Tool | Purpose |
 |---|---|
+| `search_design_knowledge` | Search approved knowledge with deterministic BM25 ranking, source paths, excerpts, confidence, and explicit no-match output. |
 | `get_architecture_spec` | List or read approved architecture guidance. |
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
 | `get_dashboard_pattern` | List or read approved dashboard and UX patterns. |
@@ -91,6 +92,17 @@ The npm release and installer adapters are planned under roadmap item 6. Until t
 | `aggregate_design_quality_gates` | Combine required journey-profile reports into a release decision. |
 
 Knowledge tools enforce category boundaries, Markdown-only reads, file-size limits, and path-traversal protection. `SKILL.md` remains authoritative when supporting documents conflict.
+
+Search before opening deep reference files:
+
+```text
+Call search_design_knowledge with:
+query: "semantic design tokens for operational status states"
+categories: ["skill", "figma-and-systems", "architecture"]
+limit: 5
+```
+
+The search index is defined by `knowledge-base/retrieval-scope.yaml`. A no-match response is a valid result. Do not replace it with content from ignored research or legacy archives.
 
 ## Command Line Workflows
 
@@ -173,6 +185,7 @@ Third-party archives are comparative and historical references. They are not run
 | `src/runtime/` | Browser verification and evidence capture. |
 | `src/contracts/` | Product-contract and journey validation. |
 | `src/heuristics/` | Structured heuristic-review evaluation. |
+| `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
 | `src/quality-gate/` | Consolidated profile quality gate. |
 | `src/aggregate/` | Multi-profile release aggregation. |
 | `cli/` | Stdio server and command-line entrypoints. |
@@ -193,6 +206,6 @@ The active GitHub workflow also validates both benchmark contracts, starts the d
 
 ## Project Status
 
-The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, and SceneStart benchmark are complete. The next implementation target is scoped knowledge retrieval.
+The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, and scoped knowledge retrieval are complete. The next implementation target is installation and packaging.
 
 See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria. Clean-room independence remains the final certification phase after retrieval, packaging, design-intelligence expansion, and corpus benchmarking.

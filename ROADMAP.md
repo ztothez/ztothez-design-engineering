@@ -9,6 +9,7 @@ This roadmap tracks the work required to turn the skill, local knowledge base, M
 - Browser verification covers responsive integrity, accessibility, focus, contrast, target sizing, text resizing, reflow, and reduced motion.
 - The published repository runs a deterministic GitHub Actions quality workflow and retains fixture-gate evidence.
 - AegisOPS provides the first executable product benchmark.
+- Approved design knowledge is available through deterministic, authority-aware BM25 retrieval with explicit abstention.
 
 ## Roadmap Items
 
@@ -52,11 +53,11 @@ Evidence: `knowledge-base/benchmarks/scenestart/` contains the contract, four jo
 
 ### 5. Scoped Knowledge Retrieval
 
-Status: **Not started**
+Status: **Done**
 
 Add deterministic full-text or BM25 retrieval across approved knowledge categories. Return source paths, excerpts, confidence, and explicit no-match results while keeping `SKILL.md` authoritative.
 
-Evidence: none for the roadmap-specific retrieval capability. MCP currently lists or reads exact filenames through category-scoped tools; there is no full-text or BM25 index, ranked result schema, confidence calculation, explicit no-match result, or retrieval evaluation suite.
+Evidence: `knowledge-base/retrieval-scope.yaml` explicitly approves 35 distributable Markdown files across five categories and marks `SKILL.md` authoritative. `src/retrieval/` builds a deterministic 550-chunk Markdown index, applies BM25 ranking with bounded title and authority boosts, and returns source paths, sections, bounded excerpts, scores, confidence, matched terms, and explicit `no-match` reports. The `search_design_knowledge` MCP tool exposes structured and Markdown output. `tests/fixtures/retrieval-cases.yaml`, `tests/retrieval.test.ts`, and `tests/mcp.test.ts` verify ranking, category isolation, authority precedence, abstention, archive exclusion, category-escape rejection, and MCP behavior. The complete 26-test regression suite passes.
 
 ### 6. Installation And Packaging
 
@@ -88,7 +89,7 @@ Status: **Partial**
 
 Maintain independently owned clean-room capability contracts. External design products are comparative references only; they must not become production dependencies, sources of copied implementation, or authorities over this system.
 
-Evidence: the clean-room capability specification exists; static audits exclude knowledge and legacy directories; the SceneStart contract test rejects third-party authority paths; and the independently owned ZtotheZ Design Engineering identity is applied to the skill, package, MCP server, CLI, rule IDs, runtime annotations, reports, and CI. Remaining: active guidance still points into legacy sources, and there is no project-owned provenance manifest, dependency inventory, global reference-import CI check, archive-removal test, retrieval-exclusion suite, installation isolation test, or offline release bundle.
+Evidence: the clean-room capability specification exists; static audits exclude knowledge and legacy directories; the SceneStart contract test rejects third-party authority paths; the scoped retrieval manifest excludes raw research and legacy archives; retrieval tests verify those exclusions and reject category escapes; and the independently owned ZtotheZ Design Engineering identity is applied to the skill, package, MCP server, CLI, rule IDs, runtime annotations, reports, and CI. Remaining: active guidance still points into legacy sources, and there is no project-owned provenance manifest, dependency inventory, global reference-import CI check, archive-removal test, installation isolation test, or offline release bundle.
 
 #### Independence Rules
 
@@ -122,10 +123,9 @@ SceneStart product remediation can proceed separately from skill development. Ae
 
 Implement the remaining skill work in this order:
 
-1. Item 5: Scoped Knowledge Retrieval.
-2. Item 6: Installation And Packaging.
-3. Item 7: Design Intelligence Expansion.
-4. Item 8: Corpus Benchmarking.
-5. Item 9: Clean-Room Independence And Supply Resilience.
+1. Item 6: Installation And Packaging.
+2. Item 7: Design Intelligence Expansion.
+3. Item 8: Corpus Benchmarking.
+4. Item 9: Clean-Room Independence And Supply Resilience.
 
-Item 9 is the final certification and hardening phase. Its independence rules still constrain all earlier implementation choices, but its completion checks, archive-removal tests, provenance audit, identity verification, and offline release bundle run only after Items 5 through 8 are complete.
+Item 9 is the final certification and hardening phase. Its independence rules still constrain all earlier implementation choices, but its completion checks, archive-removal tests, provenance audit, identity verification, and offline release bundle run only after Items 6 through 8 are complete.

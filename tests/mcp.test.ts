@@ -30,6 +30,40 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "aggregate_design_quality_gates"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_usability_evaluation"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_heuristic_review"));
+    assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
+
+    const knowledgeSearch = await client.callTool({
+      name: "search_design_knowledge",
+      arguments: {
+        query: "semantic design tokens component states",
+        categories: ["skill", "figma-and-systems"],
+        limit: 3,
+      },
+    });
+    const knowledgeReport = knowledgeSearch.structuredContent as
+      | {
+          status?: unknown;
+          authorityPath?: unknown;
+          results?: Array<{ path?: unknown; authority?: unknown; excerpt?: unknown }>;
+        }
+      | undefined;
+    assert.equal(knowledgeSearch.isError, undefined);
+    assert.equal(knowledgeReport?.status, "matches");
+    assert.equal(knowledgeReport?.authorityPath, "SKILL.md");
+    assert.equal(knowledgeReport?.results?.[0]?.path, "SKILL.md");
+    assert.equal(knowledgeReport?.results?.[0]?.authority, "authoritative");
+    assert.equal(typeof knowledgeReport?.results?.[0]?.excerpt, "string");
+
+    const noKnowledgeMatch = await client.callTool({
+      name: "search_design_knowledge",
+      arguments: { query: "xyzzynonexistentknowledge" },
+    });
+    const noMatchReport = noKnowledgeMatch.structuredContent as
+      | { status?: unknown; results?: unknown[] }
+      | undefined;
+    assert.equal(noKnowledgeMatch.isError, undefined);
+    assert.equal(noMatchReport?.status, "no-match");
+    assert.deepEqual(noMatchReport?.results, []);
 
     const usabilityListing = await client.callTool({
       name: "get_usability_evaluation",

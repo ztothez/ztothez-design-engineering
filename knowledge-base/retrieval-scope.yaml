@@ -1,0 +1,53 @@
+version: "1.0"
+authority: SKILL.md
+categories:
+  skill:
+    label: Authoritative Agent Skill
+    files:
+      - SKILL.md
+  architecture:
+    label: Architecture and design engineering
+    files:
+      - knowledge-base/architecture/ATAM.md
+      - knowledge-base/architecture/DOOS_2 updated.md
+      - knowledge-base/architecture/Evaluation.md
+      - knowledge-base/architecture/Master_Digital_Product_UIX_Architecture_Handbook.md
+      - knowledge-base/architecture/ProductPlatforms.md
+      - knowledge-base/architecture/SDA Components and Interfaces.md
+      - knowledge-base/architecture/SDA1.md
+      - knowledge-base/architecture/SDA10.md
+      - knowledge-base/architecture/SDA11.md
+      - knowledge-base/architecture/SDA12.md
+      - knowledge-base/architecture/SDA2.md
+      - knowledge-base/architecture/SDA3.md
+      - knowledge-base/architecture/SDA4.1.md
+      - knowledge-base/architecture/SDA4.2.md
+      - knowledge-base/architecture/SDA5.md
+      - knowledge-base/architecture/SDA6.md
+      - knowledge-base/architecture/SDA7.md
+      - knowledge-base/architecture/SDA8.md
+      - knowledge-base/architecture/SDA9.md
+      - knowledge-base/architecture/SDA_Architecture.md
+      - knowledge-base/architecture/SDA_Architecture2.md
+      - knowledge-base/architecture/SDA_DP_set1.md
+      - knowledge-base/architecture/SDA_DP_set2.md
+      - knowledge-base/architecture/SDA_DP_set3.md
+      - knowledge-base/architecture/SDA_Packages and Cohesion.md
+      - knowledge-base/architecture/SDA_Packages and Coupling.md
+      - knowledge-base/architecture/SDA_whatisdesign.md
+      - knowledge-base/architecture/Styles1.md
+      - knowledge-base/architecture/Styles2.md
+      - knowledge-base/architecture/Styles3.md
+  figma-and-systems:
+    label: Figma, visual design, and design systems
+    files:
+      - knowledge-base/figma-and-systems/AI_Design_Skill_Research_Handbook.md
+      - knowledge-base/figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md
+  ux-patterns:
+    label: Maintained UX and dashboard patterns
+    files:
+      - knowledge-base/ux-patterns/web-curator-tool-software-architecture-document.md
+  usability-evaluation:
+    label: Usability and heuristic evaluation
+    files:
+      - knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md
