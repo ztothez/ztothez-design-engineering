@@ -61,11 +61,11 @@ Evidence: `knowledge-base/retrieval-scope.yaml` explicitly approves 35 distribut
 
 ### 6. Installation And Packaging
 
-Status: **Partial**
+Status: **Done**
 
 Package the MCP server and document repeatable installation for Codex, Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Qoder, and Lovable.
 
-Evidence: the TypeScript package builds, exposes the `ztothez-design-engineering` stdio MCP server, has a lockfile, and starts locally with `npm start`. Package `@ztothez/design-engineering` now declares the equivalent `ztothez-design` and `zz-design` executable aliases. Remaining: `package.json` has no safe distributable `files` contract, no installer adapters or release archive exist, supported-agent setup documentation is incomplete, and there are no packed-installation smoke tests.
+Evidence: package `@ztothez/design-engineering` defines Node.js 22 compatibility, ESM exports, public scoped-package metadata, and the equivalent `ztothez-design` and `zz-design` executable aliases. Its explicit `files` allowlist includes the compiled runtime, authoritative skill, approved retrieval corpus, usability schemas, and benchmark contracts while excluding source archives, raw research, and tests. `npm run package:check` validates every approved retrieval file and benchmark artifact against the packed manifest. `npm run package:smoke` installs the tarball into an empty temporary project, verifies both CLI metadata contracts, starts the installed server over stdio, lists MCP tools, and executes authoritative scoped retrieval. `npm run release:pack` creates a versioned tarball and SHA-256 checksum. `docs/installation.md` documents repeatable setup for Codex, Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Qoder, and Lovable Desktop. `.github/workflows/quality.yml` runs the packed-install smoke test and retains the release archive as a CI artifact.
 
 ### 7. Design Intelligence Expansion
 
@@ -123,9 +123,8 @@ SceneStart product remediation can proceed separately from skill development. Ae
 
 Implement the remaining skill work in this order:
 
-1. Item 6: Installation And Packaging.
-2. Item 7: Design Intelligence Expansion.
-3. Item 8: Corpus Benchmarking.
-4. Item 9: Clean-Room Independence And Supply Resilience.
+1. Item 7: Design Intelligence Expansion.
+2. Item 8: Corpus Benchmarking.
+3. Item 9: Clean-Room Independence And Supply Resilience.
 
 Item 9 is the final certification and hardening phase. Its independence rules still constrain all earlier implementation choices, but its completion checks, archive-removal tests, provenance audit, identity verification, and offline release bundle run only after Items 6 through 8 are complete.

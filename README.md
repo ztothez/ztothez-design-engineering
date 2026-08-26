@@ -38,6 +38,17 @@ npm run build
 npm test
 ```
 
+Build, install, and verify the distributable package:
+
+```bash
+npm run package:smoke
+npm run release:pack
+npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.0.tgz
+zz-design --version
+```
+
+See [`docs/installation.md`](docs/installation.md) for source and package installation plus exact setup for Codex, Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Qoder, and Lovable.
+
 Start the stdio MCP server:
 
 ```bash
@@ -66,14 +77,14 @@ Build the project first, then register the compiled entrypoint as a stdio MCP se
 }
 ```
 
-Use the equivalent stdio MCP fields in Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, or another MCP-capable environment. Lovable workflows can use the repository through a connected Git provider and reference `SKILL.md` plus the smallest relevant knowledge files.
+Use the equivalent stdio MCP fields in Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, or another MCP-capable environment. Lovable Desktop can register the same executable as a custom local MCP server.
 
-The package declares two equivalent MCP executable names for future packaged installation:
+The package declares two equivalent MCP executable names:
 
 - `ztothez-design`
 - `zz-design`
 
-The npm release and installer adapters are planned under roadmap item 6. Until that work is complete, use the compiled local entrypoint shown above.
+The release archive is checked against an explicit distribution allowlist and installed into an empty temporary project during `npm run package:smoke`. Raw research and legacy sources are not included.
 
 ## MCP Tools
 
@@ -206,6 +217,6 @@ The active GitHub workflow also validates both benchmark contracts, starts the d
 
 ## Project Status
 
-The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, and scoped knowledge retrieval are complete. The next implementation target is installation and packaging.
+The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, scoped knowledge retrieval, and installation packaging are complete. The next implementation target is design intelligence expansion.
 
 See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria. Clean-room independence remains the final certification phase after retrieval, packaging, design-intelligence expansion, and corpus benchmarking.

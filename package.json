@@ -4,6 +4,46 @@
   "description": "ZtotheZ Design Engineering System: MCP-backed product design architecture, knowledge, verification, and quality gates.",
   "main": "dist/src/server.js",
   "types": "dist/src/server.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/server.d.ts",
+      "import": "./dist/src/server.js"
+    }
+  },
+  "files": [
+    "dist/",
+    "docs/installation.md",
+    "LICENSE",
+    "README.md",
+    "SKILL.md",
+    "knowledge-base/INDEX.md",
+    "knowledge-base/retrieval-scope.yaml",
+    "knowledge-base/architecture/",
+    "knowledge-base/benchmarks/aegisops/CALIBRATION.md",
+    "knowledge-base/benchmarks/aegisops/MANIFEST.md",
+    "knowledge-base/benchmarks/aegisops/SOURCE-EVIDENCE.md",
+    "knowledge-base/benchmarks/aegisops/acceptance-criteria.md",
+    "knowledge-base/benchmarks/aegisops/anti-patterns.md",
+    "knowledge-base/benchmarks/aegisops/attestations.template.yaml",
+    "knowledge-base/benchmarks/aegisops/attestations.yaml",
+    "knowledge-base/benchmarks/aegisops/journeys.json",
+    "knowledge-base/benchmarks/aegisops/product-contract.yaml",
+    "knowledge-base/benchmarks/scenestart/CALIBRATION.md",
+    "knowledge-base/benchmarks/scenestart/MANIFEST.md",
+    "knowledge-base/benchmarks/scenestart/SOURCE-EVIDENCE.md",
+    "knowledge-base/benchmarks/scenestart/acceptance-criteria.md",
+    "knowledge-base/benchmarks/scenestart/anti-patterns.md",
+    "knowledge-base/benchmarks/scenestart/attestations.template.yaml",
+    "knowledge-base/benchmarks/scenestart/human-review.template.md",
+    "knowledge-base/benchmarks/scenestart/journeys.json",
+    "knowledge-base/benchmarks/scenestart/product-contract.yaml",
+    "knowledge-base/figma-and-systems/AI_Design_Skill_Research_Handbook.md",
+    "knowledge-base/figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md",
+    "knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md",
+    "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
+    "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
+    "knowledge-base/ux-patterns/web-curator-tool-software-architecture-document.md"
+  ],
   "bin": {
     "ztothez-design": "dist/cli/index.js",
     "zz-design": "dist/cli/index.js"
@@ -12,7 +52,11 @@
     "audit": "tsx cli/audit.ts",
     "aggregate-gates": "npm run build --silent && node dist/cli/aggregate-gates.js",
     "build": "tsc",
+    "package:check": "npm run build --silent && node scripts/package-check.mjs",
+    "package:smoke": "npm run build --silent && node scripts/package-smoke.mjs",
+    "prepack": "npm run build",
     "quality-gate": "npm run build --silent && node dist/cli/quality-gate.js",
+    "release:pack": "npm run build --silent && node scripts/create-release.mjs",
     "review-heuristics": "npm run build --silent && node dist/cli/review-heuristics.js",
     "start": "node dist/cli/index.js",
     "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=1 dist-test/tests/*.test.js",
@@ -33,17 +77,27 @@
     "type": "git",
     "url": "git+https://github.com/ztothez/ztothez-design-engineering.git"
   },
+  "homepage": "https://github.com/ztothez/ztothez-design-engineering#readme",
+  "bugs": {
+    "url": "https://github.com/ztothez/ztothez-design-engineering/issues"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
     "playwright-core": "^1.62.1",
+    "typescript": "^5.9.3",
     "yaml": "^2.9.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^26.3.0",
-    "tsx": "^4.23.12",
-    "typescript": "^5.9.3"
+    "tsx": "^4.23.12"
   }
 }

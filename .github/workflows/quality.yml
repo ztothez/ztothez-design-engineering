@@ -57,6 +57,12 @@ jobs:
       - name: Run regression suite
         run: npm test
 
+      - name: Validate packed installation
+        run: npm run package:smoke
+
+      - name: Build release archive
+        run: npm run release:pack
+
       - name: Start deterministic fixture
         run: |
           node ci/fixture-server.mjs > /tmp/ztothez-design-fixture.log 2>&1 &
@@ -95,6 +101,16 @@ jobs:
         with:
           name: ztothez-design-fixture-quality-gate
           path: .ztothez-design-quality-gate/ci-responsive-overview
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload release archive
+        if: success()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-engineering-package
+          path: .ztothez-design-release
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
