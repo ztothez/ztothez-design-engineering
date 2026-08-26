@@ -332,6 +332,41 @@ npm run evaluate-corpus
 
 Require every dimension threshold, the overall score, and recommendation mean reciprocal rank to pass. Preserve the per-case observation, rank, rule IDs, issue codes, polarity, and provenance source. A passing corpus proves only the included deterministic behaviors; it does not prove general design quality, universal retrieval relevance, product usability, accessibility, or legal clearance.
 
+## Supply Independence Workflow
+
+Use this workflow when changing the skill, approved knowledge, retrieval, dependencies, packaging, release automation, or compatibility behavior.
+
+### Step 1: Preserve The Authority Boundary
+
+1. Keep `SKILL.md` authoritative and retrieve supporting guidance only from `knowledge-base/retrieval-scope.yaml`.
+2. Build maintained guidance from original project rules, user-owned evidence, public standards, official platform documentation, or material with recorded reuse rights.
+3. Treat historical research and comparative products as removable review inputs. Never import, execute, package, call, or silently search them from production workflows.
+4. Reimplement behavior from independent input, output, state, and error contracts. Do not copy private implementation structure, proprietary wording, unverified assets, or vendor-specific internal identifiers.
+5. Preserve explicit `no-match` behavior when the approved corpus lacks evidence.
+
+### Step 2: Maintain Provenance And Dependency Records
+
+1. Add every distributable knowledge or design artifact to `knowledge-base/provenance.yaml` with source, ownership, license status, review attribution, review date, and transformation history.
+2. Keep direct packages in `knowledge-base/dependencies.yaml`. Classify them as replaceable infrastructure, record their exact lockfile version and license, define their narrow boundary, and provide a fallback plus replacement trigger.
+3. Keep strategic product behavior, schemas, rule identities, quality thresholds, and design guidance project-owned. A dependency may implement transport, parsing, browser control, or validation mechanics, but it must not become the authority for product decisions.
+4. Reject license ambiguity, missing provenance, unapproved status, path traversal, symlink escapes, archive imports, and package files outside the explicit distribution allowlist.
+
+### Step 3: Certify A Release
+
+Run these checks after changing a distributable artifact or dependency:
+
+```bash
+npm run independence:check
+npm run evaluate-corpus
+npm test
+npm run package:smoke
+npm run release:pack
+npm run release:check
+npm run independence:archive-smoke
+```
+
+The archive-removal check must build an isolated workspace containing only active project-owned inputs and approved dependencies, then pass build, typecheck, MCP and retrieval regression tests, corpus evaluation, and the browser fixture quality gate. The offline release must contain the compiled CLI and MCP runtime, authoritative skill, approved knowledge and schemas, serialized retrieval index, production dependencies, manifest, and checksums. Do not claim independence if any supported operation needs a vendor account, hosted design service, reference repository, or non-distributable local file.
+
 ## Compatibility & Output Rules
 
 Generate artifacts that parse consistently in Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, and Lovable.
@@ -370,6 +405,7 @@ Before declaring completion:
 13. When `run_design_quality_gate` is available, prefer it for final handoff because it consolidates contract, architecture, runtime, and profile-scoped acceptance evidence under one failure policy. Every blocker criterion must pass; `UNVERIFIED` is not success. The target application must already be running. CLI fallback: `npm run quality-gate -- --contract PATH --repo PATH --url URL --profile ID`. Never report a skipped runtime stage as a passing gate, and never invent or self-author a manual-review attestation.
 14. Run every profile required by the contract in its declared service environment, preserving a separate evidence directory for each. Controlled offline profiles may declare expected network failures only with narrow method, URL, status, and occurrence bounds; an unobserved expectation is a failure, not permission to suppress errors. Aggregate profile reports with `aggregate_design_quality_gates` or `npm run aggregate-gates -- --contract PATH --reports DIR,DIR`. Release only when the aggregate report is complete and passing.
 15. After changing this skill, approved knowledge, retrieval, audit rules, product-contract validation, or anti-slop enforcement, run `evaluate_corpus_benchmark` or `npm run evaluate-corpus`. Treat a missed dimension threshold or MRR floor as a release blocker unless the corpus contract is intentionally revised with provenance and review.
+16. When changing this design-engineering system itself, validate provenance and dependencies, test the packed installation, verify the offline release, and run the archive-removal certification. A normal product UI implementation does not need to run these system-maintainer checks.
 
 ## Examples
 

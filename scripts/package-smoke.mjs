@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { lstat, mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -51,6 +51,16 @@ try {
   );
   const cliPath = join(installedRoot, installedPackage.bin["zz-design"]);
 
+  for (const prohibitedPath of [
+    join("knowledge-base", "architecture"),
+    join("knowledge-base", "figma-and-systems"),
+    join("knowledge-base", ["legacy", "sources"].join("-")),
+    join("knowledge-base", "ux-patterns"),
+    join("knowledge-base", "usability-evaluation", "sources"),
+  ]) {
+    await assert.rejects(lstat(join(installedRoot, prohibitedPath)), { code: "ENOENT" });
+  }
+
   assert.equal(runNode([cliPath, "--version"]).trim(), installedPackage.version);
   assert.match(runNode([cliPath, "--help"]), /ztothez-design-engineering/);
 
@@ -76,11 +86,27 @@ try {
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
 
+    const architecture = await client.callTool({
+      name: "get_architecture_spec",
+      arguments: {},
+    });
+    const architectureText = architecture.content.find((entry) => entry.type === "text");
+    assert.equal(architecture.isError, undefined);
+    assert.match(architectureText?.text ?? "", /component-boundaries[.]md/);
+
+    const dashboards = await client.callTool({
+      name: "get_dashboard_pattern",
+      arguments: {},
+    });
+    const dashboardsText = dashboards.content.find((entry) => entry.type === "text");
+    assert.equal(dashboards.isError, undefined);
+    assert.match(dashboardsText?.text ?? "", /operational-dashboards[.]md/);
+
     const result = await client.callTool({
       name: "search_design_knowledge",
       arguments: {
         query: "semantic design tokens component states",
-        categories: ["skill", "figma-and-systems"],
+        categories: ["skill", "design-intelligence"],
         limit: 3,
       },
     });

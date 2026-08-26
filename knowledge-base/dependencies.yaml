@@ -1,0 +1,69 @@
+version: "1.0"
+lockfile: package-lock.json
+policy:
+  strategicCapabilitiesMustRemainProjectOwned: true
+  allowedLicenses: [MIT, ISC, Apache-2.0, BSD-2-Clause, BSD-3-Clause]
+dependencies:
+  - name: "@modelcontextprotocol/sdk"
+    scope: runtime
+    versionRange: "^1.30.0"
+    resolvedVersion: "1.30.0"
+    license: MIT
+    role: replaceable-infrastructure
+    boundary: MCP server registration, transports, and protocol client tests.
+    fallback: CLI validators and quality-gate commands remain usable without an MCP host.
+    replacementTrigger: Protocol incompatibility, unacceptable license change, or unmaintained security risk.
+  - name: playwright-core
+    scope: runtime
+    versionRange: "^1.62.1"
+    resolvedVersion: "1.62.1"
+    license: Apache-2.0
+    role: replaceable-infrastructure
+    boundary: Browser launch, page automation, screenshots, and rendered evidence capture.
+    fallback: Static architecture audit, contract validation, and explicit runtime-unavailable reporting.
+    replacementTrigger: Unsupported target browsers, unacceptable installation cost, or unresolved security risk.
+  - name: typescript
+    scope: runtime
+    versionRange: "^5.9.3"
+    resolvedVersion: "5.9.3"
+    license: Apache-2.0
+    role: replaceable-infrastructure
+    boundary: Source parsing for deterministic audits and project compilation.
+    fallback: Contract, retrieval, heuristic, and manifest validators do not depend on compiler execution.
+    replacementTrigger: Parser incompatibility with supported source syntax or unacceptable license change.
+  - name: yaml
+    scope: runtime
+    versionRange: "^2.9.0"
+    resolvedVersion: "2.9.0"
+    license: ISC
+    role: replaceable-infrastructure
+    boundary: Parsing versioned local contracts, manifests, reviews, provenance, and dependency inventories.
+    fallback: Every executable contract accepts JSON where its public schema permits it.
+    replacementTrigger: Security issue, specification incompatibility, or unacceptable license change.
+  - name: zod
+    scope: runtime
+    versionRange: "^4.4.3"
+    resolvedVersion: "4.4.3"
+    license: MIT
+    role: replaceable-infrastructure
+    boundary: Runtime validation and MCP structured-output schemas.
+    fallback: Portable JSON Schemas preserve public artifact contracts for independent validators.
+    replacementTrigger: Runtime incompatibility, unacceptable bundle cost, or license change.
+  - name: "@types/node"
+    scope: development
+    versionRange: "^26.3.0"
+    resolvedVersion: "26.3.0"
+    license: MIT
+    role: replaceable-infrastructure
+    boundary: Compile-time Node.js API declarations only.
+    fallback: Pin a compatible declarations release or maintain minimal local declarations temporarily.
+    replacementTrigger: Node.js support mismatch or incompatible declaration changes.
+  - name: tsx
+    scope: development
+    versionRange: "^4.23.12"
+    resolvedVersion: "4.23.12"
+    license: MIT
+    role: replaceable-infrastructure
+    boundary: Development-only execution of the audit CLI before compilation.
+    fallback: Build with TypeScript and run the compiled JavaScript CLI.
+    replacementTrigger: Node.js incompatibility, security risk, or unacceptable license change.

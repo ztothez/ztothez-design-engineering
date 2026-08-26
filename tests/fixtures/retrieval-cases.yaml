@@ -5,21 +5,21 @@ cases:
     categories:
       - architecture
     expectedStatus: matches
-    expectedPath: knowledge-base/architecture/ATAM.md
+    expectedPath: knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md
     maxRank: 1
   - id: architecture-package-coupling
     query: package coupling acyclic dependency graph stability abstractions
     categories:
       - architecture
     expectedStatus: matches
-    expectedPath: knowledge-base/architecture/SDA_Packages and Coupling.md
+    expectedPath: knowledge-base/maintained/architecture/component-boundaries.md
     maxRank: 1
   - id: figma-construction
     query: Figma auto layout component variants semantic variables
     categories:
-      - figma-and-systems
+      - design-intelligence
     expectedStatus: matches
-    expectedPath: knowledge-base/figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md
+    expectedPath: knowledge-base/design-intelligence/figma-production.md
     maxRank: 2
   - id: design-intelligence-provenance
     query: generated asset provider model prompt record rights evidence human contributions
@@ -42,18 +42,18 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md
     maxRank: 1
-  - id: ux-curation-pipeline
-    query: web curator curation pipeline source verification
+  - id: operational-dashboard-pattern
+    query: operational dashboard records filters evidence lifecycle actions
     categories:
       - ux-patterns
     expectedStatus: matches
-    expectedPath: knowledge-base/ux-patterns/web-curator-tool-software-architecture-document.md
+    expectedPath: knowledge-base/maintained/product-patterns/operational-dashboards.md
     maxRank: 1
   - id: authoritative-ai-workspace
     query: AI workspace progress evidence human approval
     categories:
       - skill
-      - figma-and-systems
+      - design-intelligence
     expectedStatus: matches
     expectedPath: SKILL.md
     maxRank: 1

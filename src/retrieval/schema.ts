@@ -4,7 +4,6 @@ export const retrievalCategories = [
   "skill",
   "architecture",
   "design-intelligence",
-  "figma-and-systems",
   "ux-patterns",
   "usability-evaluation",
 ] as const;
@@ -28,7 +27,6 @@ export const retrievalScopeSchema = z
         skill: scopeCategorySchema,
         architecture: scopeCategorySchema,
         "design-intelligence": scopeCategorySchema,
-        "figma-and-systems": scopeCategorySchema,
         "ux-patterns": scopeCategorySchema,
         "usability-evaluation": scopeCategorySchema,
       })

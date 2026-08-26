@@ -112,7 +112,7 @@ function getKnowledgeIndex(): Promise<KnowledgeIndex> {
 
 const knowledgeAreas = {
   architecture: {
-    directory: join(KNOWLEDGE_BASE_ROOT, "architecture"),
+    directory: join(KNOWLEDGE_BASE_ROOT, "maintained", "architecture"),
     label: "architecture",
   },
   designIntelligence: {
@@ -120,11 +120,11 @@ const knowledgeAreas = {
     label: "design intelligence",
   },
   figmaAndSystems: {
-    directory: join(KNOWLEDGE_BASE_ROOT, "figma-and-systems"),
+    directory: DESIGN_INTELLIGENCE_ROOT,
     label: "Figma and design systems",
   },
   uxPatterns: {
-    directory: join(KNOWLEDGE_BASE_ROOT, "ux-patterns"),
+    directory: join(KNOWLEDGE_BASE_ROOT, "maintained", "product-patterns"),
     label: "dashboard and UX patterns",
   },
   usabilityEvaluation: {
@@ -656,7 +656,7 @@ server.registerTool(
 
 registerKnowledgeTool(
   "get_architecture_spec",
-  "List or read Markdown architecture specifications, evaluations, styles, patterns, and package-design references.",
+  "List or read maintained project-owned architecture specifications, evaluations, component boundaries, and product-platform guidance.",
   knowledgeAreas.architecture,
 );
 
@@ -704,7 +704,7 @@ server.registerTool(
 
 registerKnowledgeTool(
   "get_figma_system_rules",
-  "List or read Markdown guidance for Figma, visual design, product design, and design systems.",
+  "List or read maintained project-owned Figma production, visual design, and design-system guidance.",
   knowledgeAreas.figmaAndSystems,
 );
 
@@ -761,13 +761,13 @@ server.registerTool(
 
 registerKnowledgeTool(
   "get_dashboard_pattern",
-  "List or read Markdown UX research and dashboard-pattern references.",
+  "List or read maintained project-owned AI-workspace and operational-dashboard patterns.",
   knowledgeAreas.uxPatterns,
 );
 
 registerKnowledgeTool(
   "get_usability_evaluation",
-  "List or read maintained heuristic-evaluation guidance and converted usability-method references.",
+  "List or read maintained project-owned heuristic-evaluation guidance.",
   knowledgeAreas.usabilityEvaluation,
 );
 

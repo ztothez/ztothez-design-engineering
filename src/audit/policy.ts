@@ -23,7 +23,6 @@ export const DEFAULT_AUDIT_POLICY: AuditPolicy = {
     "backups",
     "knowledge-base",
     "legacy",
-    "legacy-sources",
     "node_modules",
     "public",
     "vendor",

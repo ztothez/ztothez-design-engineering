@@ -43,7 +43,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
       name: "search_design_knowledge",
       arguments: {
         query: "semantic design tokens component states",
-        categories: ["skill", "figma-and-systems"],
+        categories: ["skill", "design-intelligence"],
         limit: 3,
       },
     });

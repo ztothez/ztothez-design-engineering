@@ -39,6 +39,9 @@ jobs:
       - name: Install Chromium
         run: npx --no-install playwright-core install --with-deps chromium
 
+      - name: Validate clean-room independence
+        run: node scripts/validate-independence.mjs | tee .ztothez-design-independence.json
+
       - name: Build
         run: npm run build
 
@@ -70,6 +73,12 @@ jobs:
 
       - name: Build release archive
         run: npm run release:pack
+
+      - name: Verify offline release
+        run: npm run release:check
+
+      - name: Certify operation without reference archives
+        run: node scripts/archive-removal-smoke.mjs | tee .ztothez-design-archive-removal.json
 
       - name: Start deterministic fixture
         run: |
@@ -129,6 +138,18 @@ jobs:
         with:
           name: ztothez-design-engineering-package
           path: .ztothez-design-release
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload independence evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-independence
+          path: |
+            .ztothez-design-independence.json
+            .ztothez-design-archive-removal.json
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true

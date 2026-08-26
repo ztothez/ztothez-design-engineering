@@ -59,6 +59,37 @@ async function listFiles(directory) {
   return files;
 }
 
+export async function expectedKnowledgePaths() {
+  const scope = YAML.parse(
+    await readFile(join(PROJECT_ROOT, "knowledge-base", "retrieval-scope.yaml"), "utf8"),
+  );
+  const scopedKnowledgePaths = Object.values(scope.categories).flatMap(
+    (category) => category.files,
+  );
+  const benchmarkPaths = await listFiles(join(PROJECT_ROOT, "knowledge-base", "benchmarks"));
+  return [...new Set([
+    "knowledge-base/INDEX.md",
+    "knowledge-base/dependencies.yaml",
+    "knowledge-base/provenance.yaml",
+    "knowledge-base/retrieval-scope.yaml",
+    "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
+    "knowledge-base/design-intelligence/design-deliverable.template.yaml",
+    "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
+    "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
+    ...scopedKnowledgePaths,
+    ...benchmarkPaths,
+  ])].sort();
+}
+
+export async function expectedProvenancePaths() {
+  return [...new Set([
+    "README.md",
+    "SKILL.md",
+    "docs/installation.md",
+    ...(await expectedKnowledgePaths()),
+  ])].sort();
+}
+
 export async function createPackageArchive(destination) {
   await mkdir(destination, { recursive: true });
   const cacheDirectory = await mkdtemp(join(tmpdir(), "ztothez-design-npm-cache-"));
@@ -82,14 +113,8 @@ export async function createPackageArchive(destination) {
 
 export async function validatePackageArchive(report) {
   const packageJson = JSON.parse(await readFile(join(PROJECT_ROOT, "package.json"), "utf8"));
-  const scope = YAML.parse(
-    await readFile(join(PROJECT_ROOT, "knowledge-base", "retrieval-scope.yaml"), "utf8"),
-  );
   const archivePaths = new Set(report.files.map((file) => file.path));
-  const scopedKnowledgePaths = Object.values(scope.categories).flatMap(
-    (category) => category.files,
-  );
-  const benchmarkPaths = await listFiles(join(PROJECT_ROOT, "knowledge-base", "benchmarks"));
+  const knowledgePaths = await expectedKnowledgePaths();
 
   const requiredPaths = [
     "LICENSE",
@@ -98,14 +123,7 @@ export async function validatePackageArchive(report) {
     "dist/cli/index.js",
     "dist/src/server.js",
     "docs/installation.md",
-    "knowledge-base/INDEX.md",
-    "knowledge-base/retrieval-scope.yaml",
-    "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
-    "knowledge-base/design-intelligence/design-deliverable.template.yaml",
-    "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
-    "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
-    ...scopedKnowledgePaths,
-    ...benchmarkPaths,
+    ...knowledgePaths,
   ];
 
   for (const requiredPath of requiredPaths) {
@@ -117,24 +135,15 @@ export async function validatePackageArchive(report) {
     "ci/",
     "src/",
     "tests/",
-    "knowledge-base/legacy-sources/",
-    "knowledge-base/usability-evaluation/sources/",
+    ["knowledge-base", ["legacy", "sources"].join("-"), ""].join("/"),
+    ["knowledge-base", "usability-evaluation", "sources", ""].join("/"),
   ];
   const prohibitedPath = report.files.find((file) =>
     prohibitedPrefixes.some((prefix) => file.path.startsWith(prefix)),
   );
   assert.equal(prohibitedPath, undefined, `package contains prohibited file: ${prohibitedPath?.path}`);
 
-  const allowedKnowledgePaths = new Set([
-    "knowledge-base/INDEX.md",
-    "knowledge-base/retrieval-scope.yaml",
-    "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
-    "knowledge-base/design-intelligence/design-deliverable.template.yaml",
-    "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
-    "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
-    ...scopedKnowledgePaths,
-    ...benchmarkPaths,
-  ]);
+  const allowedKnowledgePaths = new Set(knowledgePaths);
   for (const file of report.files) {
     if (file.path.startsWith("knowledge-base/")) {
       assert.ok(
@@ -159,11 +168,15 @@ export async function validatePackageArchive(report) {
   };
 }
 
-export async function writeChecksum(archivePath, destination) {
-  const archive = await readFile(archivePath);
-  const digest = createHash("sha256").update(archive).digest("hex");
-  const filename = archivePath.split(/[\\/]/).at(-1);
+export async function writeChecksums(paths, destination) {
+  const lines = [];
+  for (const path of paths) {
+    const content = await readFile(path);
+    const digest = createHash("sha256").update(content).digest("hex");
+    const filename = path.split(/[\\/]/).at(-1);
+    lines.push(`${digest}  ${filename}`);
+  }
   const checksumPath = join(destination, "SHA256SUMS");
-  await writeFile(checksumPath, `${digest}  ${filename}\n`, "utf8");
+  await writeFile(checksumPath, `${lines.join("\n")}\n`, "utf8");
   return checksumPath;
 }

@@ -1,0 +1,72 @@
+import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { readFile, readdir } from "node:fs/promises";
+import { join } from "node:path";
+
+import YAML from "yaml";
+
+import { PROJECT_ROOT } from "./package-artifact.mjs";
+import { digestTree } from "./offline-release.mjs";
+
+const destination = join(PROJECT_ROOT, ".ztothez-design-release");
+const manifest = JSON.parse(await readFile(join(destination, "OFFLINE-MANIFEST.json"), "utf8"));
+const checksumLines = (await readFile(join(destination, "SHA256SUMS"), "utf8"))
+  .trim()
+  .split(/\r?\n/);
+for (const line of checksumLines) {
+  const match = /^([a-f0-9]{64})  (.+)$/.exec(line);
+  assert.ok(match, `invalid checksum line: ${line}`);
+  const digest = createHash("sha256")
+    .update(await readFile(join(destination, match[2])))
+    .digest("hex");
+  assert.equal(digest, match[1], `checksum mismatch: ${match[2]}`);
+}
+
+const runtimeRoot = join(destination, manifest.runtimeDirectory);
+assert.deepEqual(await digestTree(runtimeRoot), manifest.runtimeIntegrity);
+const index = JSON.parse(await readFile(join(destination, manifest.retrievalIndex), "utf8"));
+assert.equal(index.authorityPath, "SKILL.md");
+const scope = YAML.parse(
+  await readFile(join(PROJECT_ROOT, "knowledge-base", "retrieval-scope.yaml"), "utf8"),
+);
+assert.deepEqual(
+  index.documents.map((document) => document.path).sort(),
+  Object.values(scope.categories).flatMap((category) => category.files).sort(),
+);
+
+const forbiddenFragments = [
+  ["legacy", "sources"].join("-"),
+  ["external", "reference"].join("-"),
+  ["external", "reference"].join("-"),
+];
+const runtimeKnowledge = await readdir(join(runtimeRoot, "knowledge-base"), { recursive: true });
+for (const path of runtimeKnowledge) {
+  const normalized = String(path).toLowerCase();
+  assert.equal(
+    forbiddenFragments.some((fragment) => normalized.includes(fragment)),
+    false,
+    `offline runtime contains a prohibited reference path: ${path}`,
+  );
+}
+
+const cliPath = join(destination, manifest.entrypoint);
+const result = spawnSync(process.execPath, [cliPath, "--version"], {
+  cwd: destination,
+  encoding: "utf8",
+  env: { PATH: process.env.PATH ?? "" },
+});
+if (result.error) throw result.error;
+assert.equal(result.status, 0, result.stderr || result.stdout);
+assert.equal(result.stdout.trim(), manifest.packageVersion);
+
+process.stdout.write(`${JSON.stringify({
+  version: manifest.version,
+  checksums: checksumLines.length,
+  knowledgeDocuments: index.documents.length,
+  knowledgeChunks: index.chunks.length,
+  runtimeFiles: manifest.runtimeIntegrity.files,
+  offlineLaunch: "passed",
+  prohibitedReferencePaths: 0,
+  passed: true,
+}, null, 2)}\n`);

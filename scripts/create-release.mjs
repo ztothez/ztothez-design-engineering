@@ -5,8 +5,8 @@ import {
   PROJECT_ROOT,
   createPackageArchive,
   validatePackageArchive,
-  writeChecksum,
 } from "./package-artifact.mjs";
+import { createOfflineRelease } from "./offline-release.mjs";
 
 const destination = join(PROJECT_ROOT, ".ztothez-design-release");
 await rm(destination, { recursive: true, force: true });
@@ -14,8 +14,8 @@ await mkdir(destination, { recursive: true });
 
 const { archivePath, report } = await createPackageArchive(destination);
 const summary = await validatePackageArchive(report);
-const checksumPath = await writeChecksum(archivePath, destination);
+const offline = await createOfflineRelease(destination, archivePath, report);
 
 process.stdout.write(
-  `${JSON.stringify({ ...summary, archivePath, checksumPath }, null, 2)}\n`,
+  `${JSON.stringify({ ...summary, archivePath, ...offline }, null, 2)}\n`,
 );

@@ -1,6 +1,6 @@
 # ZtotheZ Design Engineering Knowledge Base
 
-This directory archives the source material used by the ZtotheZ Design Engineering System and its root [`SKILL.md`](../SKILL.md). Treat `SKILL.md` as the primary, production-ready instruction set. [`ROADMAP.md`](../ROADMAP.md) governs planned work and clean-room independence. Load archived material only when a task needs deeper rationale, source-specific detail, historical examples, or implementation patterns not required by the core skill.
+This directory contains the maintained, distributable knowledge used by the ZtotheZ Design Engineering System and its root [`SKILL.md`](../SKILL.md). Treat `SKILL.md` as the primary instruction set. [`ROADMAP.md`](../ROADMAP.md) governs planned work and clean-room certification. Local historical material outside the approved retrieval scope is not an implementation authority and is not distributed.
 
 ## Product Identity
 
@@ -23,15 +23,14 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 
 | Path | Contents | Use when |
 |---|---|---|
-| `architecture/` | Software architecture, SOLID, design smells, components and interfaces, package design, design patterns, architectural styles, ATAM, evaluation, and product platforms | Evaluating architecture, resolving coupling or cohesion problems, documenting trade-offs, selecting a pattern or style, or designing reusable platforms |
+| `maintained/architecture/` | Independently authored quality-attribute, architecture-evaluation, component-boundary, and product-platform guidance | Evaluating architecture, coupling, cohesion, trade-offs, and shared product variation |
+| `maintained/product-patterns/` | Independently authored AI-workspace and operational-dashboard contracts | Designing task-centered workspaces and operational tools without importing a template catalog |
 | `design-intelligence/` | Maintained brand, Figma production, asset generation, iconography, presentation, licensing, visual-accessibility, and manifest-validation modules | Creating visual-system deliverables that need structured provenance, token, accessibility, and handoff evidence |
-| `ux-patterns/` | Maintained product-owned UX and software-architecture patterns; raw books, articles, and research conversions remain local-only | Investigating a specialized UX question or applying an approved product pattern beyond the core skill |
-| `legacy-sources/design-system/` | AI workspace, operational dashboard, and enterprise-readiness pattern libraries | Implementing a concrete AI workspace or dashboard page and needing detailed page anatomy, states, tokens, or runtime requirements |
-| `legacy-sources/historical-readiness-source-ai-uix-readiness-plan/` | Earlier readiness plan and duplicated design-system source material | Auditing history or comparing the synthesized skill against the earlier plan; do not load by default |
-| `legacy-sources/external-design-reference-skill-main/` | Archived third-party repository retained for provenance and comparative behavioral research | Comparing externally observable capabilities or auditing provenance; never import, adapt, package, or treat it as a production dependency |
 | `benchmarks/` | Executable product contracts, journey profiles, acceptance criteria, and anti-pattern corpora | Evaluating whether generated UI is behaviorally coherent, evidence-backed, and production-ready for a specific product domain |
 | `usability-evaluation/` | Maintained heuristic-evaluation workflow, portable schema, and review template | Conducting a UX audit, defining human-review evidence, separating automated findings from user-testing claims, or turning usability risks into acceptance criteria |
 | `retrieval-scope.yaml` | Explicit allowlist for the distributable BM25 index | Auditing or changing which knowledge files can appear in ranked retrieval |
+| `provenance.yaml` | Machine-readable ownership, license, transformation, and distribution records | Auditing every shipped knowledge artifact before release |
+| `dependencies.yaml` | Direct dependency role, boundary, license, fallback, and replacement plan | Reviewing supply-chain exposure and local fallback behavior |
 
 ## Scoped Knowledge Retrieval
 
@@ -45,13 +44,13 @@ The tool returns:
 - Numeric relevance scores and `high`, `medium`, or `low` confidence.
 - An explicit `no-match` result when no approved source contains the searchable query terms.
 
-Available scopes are `skill`, `architecture`, `design-intelligence`, `figma-and-systems`, `ux-patterns`, and `usability-evaluation`. Search all scopes only when the task crosses domains. After ranking, read the selected file through its category-specific MCP tool so constraints outside the excerpt are not lost.
+Available scopes are `skill`, `architecture`, `design-intelligence`, `ux-patterns`, and `usability-evaluation`. Search all scopes only when the task crosses domains. After ranking, read the selected file through its category-specific MCP tool so constraints outside the excerpt are not lost.
 
-Ignored books, raw local research, usability source conversions, benchmark evidence, and every `legacy-sources/` directory are outside the retrieval manifest. A no-match result must not trigger an archive fallback. Refine the query, broaden approved categories, or record a knowledge gap instead.
+Ignored books, raw local research, historical conversions, and benchmark evidence are outside the retrieval manifest. A no-match result must not trigger a historical-source fallback. Refine the query, broaden approved categories, use current product evidence, consult an official standard, or record a knowledge gap instead.
 
 ## Product Benchmarks
 
-Product benchmarks supplement the root skill with domain semantics and executable acceptance evidence. Validate the selected contract before implementation, load only its manifest and contract by default, and add historical sources only when a criterion needs deeper grounding.
+Product benchmarks supplement the root skill with domain semantics and executable acceptance evidence. Validate the selected contract before implementation, load only its manifest and contract by default, and inspect its approved source-evidence summary only when a criterion needs deeper grounding.
 
 - AegisOPS SOC readiness command center: `benchmarks/aegisops/MANIFEST.md` and `benchmarks/aegisops/product-contract.yaml`.
 - AegisOPS runtime journey profiles: `benchmarks/aegisops/journeys.json`.
@@ -114,17 +113,11 @@ The aggregator rejects missing or duplicate profiles, contract and failure-polic
 
 ## Architecture Routing
 
-Load the smallest relevant file set instead of the complete archive:
+Start with `maintained/architecture/MASTER.md`, then load one focused module:
 
-- Comprehensive digital-product UI/UX architecture: `architecture/Master_Digital_Product_UIX_Architecture_Handbook.md`.
-- Architecture foundations and documentation: `architecture/SDA5.md`, `architecture/SDA7.md`, `architecture/SDA_Architecture.md`, and `architecture/SDA_Architecture2.md`.
-- SOLID, cohesion, and interface boundaries: `architecture/SDA3.md`, `architecture/SDA6.md`, and `architecture/SDA Components and Interfaces.md`.
-- Design smells and refactoring pressure: `architecture/SDA2.md` and `architecture/DOOS_2 updated.md`.
-- Design patterns: `architecture/SDA4.1.md`, `architecture/SDA4.2.md`, and `architecture/SDA_DP_set1.md` through `architecture/SDA_DP_set3.md`.
-- Architectural styles: `architecture/SDA8.md` and `architecture/Styles1.md` through `architecture/Styles3.md`.
-- Architecture quality evaluation: `architecture/ATAM.md`, `architecture/Evaluation.md`, `architecture/SDA10.md`, and `architecture/SDA11.md`.
-- Package cohesion and coupling: `architecture/SDA12.md`, `architecture/SDA_Packages and Cohesion.md`, and `architecture/SDA_Packages and Coupling.md`.
-- Product lines and reusable platforms: `architecture/SDA9.md` and `architecture/ProductPlatforms.md`.
+- Measurable quality scenarios, utility trees, sensitivity, and trade-offs: `maintained/architecture/quality-attributes-and-evaluation.md`.
+- Component ownership, coupling, cohesion, package direction, and contracts: `maintained/architecture/component-boundaries.md`.
+- Shared product scope, variation points, plugins, configuration, and platform economics: `maintained/architecture/product-platforms.md`.
 
 ## Usability Evaluation Routing
 
@@ -140,13 +133,12 @@ Use `--candidates` for a contract-ready YAML fragment and opt into a nonzero pol
 
 The distributable repository intentionally excludes raw course handouts, converted books, and extended local research. Use the maintained workflow, schema, and template as the only MCP-accessible usability authority. Treat automated quality-gate findings as rendered evidence, AI-assisted expert review as likely-risk evidence, attributable human-expert review as expert evidence, and representative-user testing as task-performance evidence; never present one as another.
 
-## Design-System Routing
+## Product Pattern Routing
 
-For implementation work, start with one master document and add only the matching page pattern:
+For implementation work, start with `maintained/product-patterns/MASTER.md` and load only the matching project-owned pattern:
 
-- Shared routing and enterprise requirements: `legacy-sources/design-system/MASTER.md` and `legacy-sources/design-system/ENTERPRISE_READINESS.md`.
-- AI workspaces: `legacy-sources/design-system/ai-workspace-patterns/MASTER.md` and `UX-FOUNDATIONS.md`, then one of `pages/agent.md`, `pages/analyze.md`, or `pages/landing.md`.
-- Operational dashboards: `legacy-sources/design-system/operational-dashboard-patterns/MASTER.md`, then one matching page under `pages/` for document conversion, media processing, period records, pipeline tracking, or repayment tracking.
+- AI analysis, generation, review, and evidence workspaces: `maintained/product-patterns/ai-workspaces.md`.
+- Pipelines, records, jobs, obligations, media, and document operations: `maintained/product-patterns/operational-dashboards.md`.
 
 ## AI Development Environment Guide
 
@@ -157,41 +149,30 @@ For repository-aware coding agents:
 1. Start the request with the root `SKILL.md` as the governing instruction source.
 2. Name the smallest relevant knowledge-base path in the request.
 3. Ask the agent to inspect those files before proposing or implementing changes.
-4. Require the agent to preserve the current stack and treat archived examples as guidance rather than code that must be copied.
+4. Require the agent to preserve the current stack and use only maintained guidance or approved benchmark evidence.
 5. Ask it to report which sources materially affected the implementation and which verification commands it ran.
 
 Example request:
 
 ```text
 Use SKILL.md as the primary workflow. Before implementing this AI analysis screen,
-read knowledge-base/legacy-sources/design-system/ai-workspace-patterns/MASTER.md,
-knowledge-base/legacy-sources/design-system/ai-workspace-patterns/UX-FOUNDATIONS.md,
-and knowledge-base/legacy-sources/design-system/ai-workspace-patterns/pages/analyze.md.
-Use knowledge-base/architecture/ATAM.md only to evaluate consequential trade-offs.
+read knowledge-base/maintained/product-patterns/ai-workspaces.md and
+knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md.
 Preserve the existing framework and validate the completed interaction states.
 ```
 
-In Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, and Qoder, attach, mention, or request the repository-relative paths through the environment's normal file-context mechanism. Path syntax may differ by product, but the source files and precedence remain the same: `SKILL.md` first, targeted archive files second.
+In Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, and Qoder, attach, mention, or request the repository-relative paths through the environment's normal file-context mechanism. Path syntax may differ by product, but the source files and precedence remain the same: `SKILL.md` first, targeted maintained files second.
 
-For Lovable, keep this repository synchronized with the connected Git provider so the archived files are available in project context. Refer to the same repository-relative paths in the task. If the environment cannot read non-application Markdown automatically, provide only the relevant file as task context rather than importing the whole knowledge base into application code.
+For Lovable, keep this repository synchronized with the connected Git provider so maintained files are available in project context. Refer to the same repository-relative paths in the task. If the environment cannot read non-application Markdown automatically, provide only the relevant file as task context rather than importing the whole knowledge base into application code.
 
 ## Grounding Rules
 
-- `SKILL.md` overrides archived guidance when wording or scope conflicts.
+- `SKILL.md` overrides supporting guidance when wording or scope conflicts.
 - Prefer current project code and requirements over historical examples.
-- Do not load all archives for routine UI work; broad context increases duplication and contradictory guidance.
-- Do not copy private names, fixed personal color choices, obsolete framework decisions, or generated artifacts into new implementations.
+- Load only the maintained modules relevant to the task; broad context increases duplication and contradictory guidance.
+- Do not copy private names, fixed personal color choices, obsolete framework decisions, or historical generated artifacts into new implementations.
 - Convert source concepts into measurable requirements, explicit component contracts, semantic tokens, and testable interaction states.
 - Record architectural decisions and trade-offs when deep sources materially change the implementation.
-
-## Figma, Visual Design & Design Systems
-
-Use this category when work needs deeper visual-system grounding than the root `SKILL.md` provides:
-
-- `figma-and-systems/AI_Design_Skill_Research_Handbook.md` - research guidance for Figma workflows, visual design principles, and design-system construction.
-- `figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md` - operational product-design instructions and implementation workflow for AI coding agents.
-
-Load the research handbook to understand rationale, terminology, and design-system evidence. Load the operational skill when translating those rules into implementation steps. When both are used, keep the root `SKILL.md` authoritative and use these files as focused supporting context.
 
 ## Design Intelligence Routing
 

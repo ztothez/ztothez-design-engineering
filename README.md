@@ -19,6 +19,8 @@ This project focuses on design engineering instead of style recommendation. It c
 - Consolidated quality gates and multi-profile release decisions.
 - Executable AegisOPS and SceneStart benchmark contracts.
 - Versioned positive and negative corpus benchmarks with provenance, per-dimension scoring, recommendation MRR, and explicit abstention checks.
+- Exact provenance and dependency inventories with active-reference isolation checks.
+- A self-contained offline runtime with approved knowledge, a serialized retrieval index, production dependencies, and SHA-256 integrity evidence.
 - GitHub Actions verification with retained fixture evidence.
 
 Ranked BM25 knowledge retrieval and exact filename reads are available now. The versioned retrieval scope contains only explicitly approved distributable files and excludes local raw research and legacy archives.
@@ -46,6 +48,7 @@ Build, install, and verify the distributable package:
 ```bash
 npm run package:smoke
 npm run release:pack
+npm run release:check
 npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.0.tgz
 zz-design --version
 ```
@@ -87,7 +90,7 @@ The package declares two equivalent MCP executable names:
 - `ztothez-design`
 - `zz-design`
 
-The release archive is checked against an explicit distribution allowlist and installed into an empty temporary project during `npm run package:smoke`. Raw research and legacy sources are not included.
+The release archive is checked against an explicit distribution allowlist and installed into an empty temporary project during `npm run package:smoke`. Raw research and historical sources are not included. `npm run release:check` verifies the offline runtime, checksums, approved retrieval index, and launch path without using the repository's installed packages.
 
 ## MCP Tools
 
@@ -115,7 +118,7 @@ Search before opening deep reference files:
 ```text
 Call search_design_knowledge with:
 query: "semantic design tokens for operational status states"
-categories: ["skill", "figma-and-systems", "architecture"]
+categories: ["skill", "design-intelligence", "architecture"]
 limit: 5
 ```
 
@@ -201,9 +204,9 @@ Use sources in this order:
 2. Root [`SKILL.md`](SKILL.md).
 3. The selected benchmark contract and manifest.
 4. Maintained files in [`knowledge-base/`](knowledge-base/INDEX.md).
-5. Archived sources only when deeper rationale is required.
+5. Public standards or official platform documentation when the maintained corpus has a declared gap.
 
-Third-party archives are comparative and historical references. They are not runtime dependencies, implementation authorities, or sources to copy into production code. The authoritative workflow in [`SKILL.md`](SKILL.md) and the independence rules in [`ROADMAP.md`](ROADMAP.md) govern all new capabilities.
+Historical research is outside the supported workflow. It is not a runtime dependency, retrieval fallback, implementation authority, or source to copy into production code. The authoritative workflow in [`SKILL.md`](SKILL.md) and the independence rules in [`ROADMAP.md`](ROADMAP.md) govern all new capabilities.
 
 ## Repository Layout
 
@@ -221,7 +224,7 @@ Third-party archives are comparative and historical references. They are not run
 | `src/quality-gate/` | Consolidated profile quality gate. |
 | `src/aggregate/` | Multi-profile release aggregation. |
 | `cli/` | Stdio server and command-line entrypoints. |
-| `knowledge-base/` | Approved guidance, schemas, benchmarks, and archives. |
+| `knowledge-base/` | Approved maintained guidance, schemas, benchmarks, provenance, and dependency records. |
 | `tests/` | Contract, MCP, audit, runtime, and quality-gate regression tests. |
 | `ci/` | Deterministic fixture and product-workflow example. |
 | `.github/workflows/quality.yml` | Active repository quality workflow. |
@@ -232,12 +235,12 @@ Third-party archives are comparative and historical references. They are not run
 npm run build
 npm run typecheck
 npm test
+npm run independence:check
+npm run release:check
 ```
 
-The active GitHub workflow also validates both benchmark contracts, evaluates the maintained corpus, starts the deterministic browser fixture, runs a complete quality gate, and uploads the resulting evidence directory. See [`ci/README.md`](ci/README.md) before adapting the multi-profile workflow to a product repository.
+The active GitHub workflow also validates clean-room isolation, both benchmark contracts, the maintained corpus, packed installation, offline release, an archive-free workspace mirror, and the deterministic browser fixture gate. It uploads the resulting evidence. See [`ci/README.md`](ci/README.md) before adapting the multi-profile workflow to a product repository.
 
 ## Project Status
 
-The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, scoped knowledge retrieval, installation packaging, design intelligence expansion, and corpus benchmarking are complete. The next implementation target is clean-room independence and supply resilience.
-
-See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria. Clean-room independence remains the final certification phase after retrieval, packaging, design-intelligence expansion, and corpus benchmarking.
+All nine roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria.

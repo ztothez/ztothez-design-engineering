@@ -23,9 +23,10 @@ Build and validate a local release from the repository:
 npm ci
 npm run package:smoke
 npm run release:pack
+npm run release:check
 ```
 
-The release command creates a versioned package and `SHA256SUMS` under `.ztothez-design-release/`. Install the generated archive globally:
+The release command creates a versioned npm package, a self-contained `offline-runtime/`, `knowledge-index.json`, `OFFLINE-MANIFEST.json`, and `SHA256SUMS` under `.ztothez-design-release/`. The release check verifies their integrity and launches the offline CLI from outside the source tree. Install the generated npm archive globally:
 
 ```bash
 npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.0.tgz
@@ -44,6 +45,15 @@ On Windows, use:
 ```powershell
 where.exe zz-design
 ```
+
+For a machine that cannot access a package registry, transfer the complete `.ztothez-design-release/` directory and launch the included runtime directly:
+
+```bash
+node .ztothez-design-release/offline-runtime/dist/cli/index.js --version
+node .ztothez-design-release/offline-runtime/dist/cli/index.js
+```
+
+Keep `offline-runtime/` intact because its local production dependencies and knowledge files are part of the verified bundle. Chromium is still an optional host prerequisite for rendered browser checks.
 
 The npm registry command below becomes available only after version `2.0.0` is published. Do not use it as the current local installation path:
 
@@ -282,6 +292,9 @@ Run:
 ```bash
 npm run package:check
 npm run package:smoke
+npm run independence:check
+npm run release:pack
+npm run release:check
 ```
 
-The first command checks archive contents and exclusions. The second installs the tarball into an empty temporary project, launches the installed server, lists tools, and performs a real knowledge search.
+These commands check package contents, install the tarball into an empty temporary project, validate provenance and dependency boundaries, build the offline release, verify checksums, launch its isolated CLI, and confirm the approved retrieval index.

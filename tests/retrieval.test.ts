@@ -16,9 +16,9 @@ test("retrieval indexes only the explicit approved distributable scope", async (
   const index = await buildKnowledgeIndex(process.cwd());
 
   assert.equal(index.authorityPath, "SKILL.md");
-  assert.equal(index.documents.length, 43);
-  assert.ok(index.chunks.length > 500);
-  assert.equal(new Set(index.documents.map((document) => document.path)).size, 43);
+  assert.equal(index.documents.length, 17);
+  assert.ok(index.chunks.length > 100);
+  assert.equal(new Set(index.documents.map((document) => document.path)).size, 17);
   assert.ok(index.documents.some((document) => document.path === "SKILL.md"));
   assert.equal(
     index.documents.some((document) => document.path.includes("legacy-sources")),
@@ -46,7 +46,10 @@ test("BM25 retrieval is deterministic, category scoped, and authority aware", as
 
   assert.deepEqual(second, first);
   assert.equal(first.status, "matches");
-  assert.equal(first.results[0]?.path, "knowledge-base/architecture/ATAM.md");
+  assert.equal(
+    first.results[0]?.path,
+    "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+  );
   assert.equal(first.results[0]?.confidence, "high");
   assert.ok(first.results.every((result) => result.category === "architecture"));
   assert.ok(first.results.every((result) => result.excerpt.length <= 566));
@@ -132,13 +135,9 @@ test("retrieval scope rejects category escape paths", async (context) => {
           label: "Design intelligence",
           files: ["knowledge-base/design-intelligence/allowed.md"],
         },
-        "figma-and-systems": {
-          label: "Figma",
-          files: ["knowledge-base/figma-and-systems/allowed.md"],
-        },
         "ux-patterns": {
           label: "UX",
-          files: ["knowledge-base/ux-patterns/allowed.md"],
+          files: ["knowledge-base/maintained/product-patterns/allowed.md"],
         },
         "usability-evaluation": {
           label: "Usability",
@@ -164,7 +163,6 @@ type RetrievalEvaluationFixture = {
       | "skill"
       | "architecture"
       | "design-intelligence"
-      | "figma-and-systems"
       | "ux-patterns"
       | "usability-evaluation"
     >;
