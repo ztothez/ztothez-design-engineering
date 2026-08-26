@@ -1,0 +1,15 @@
+:root {
+  --surface-canvas: #ffffff;
+  --text-primary: #111827;
+  --action-primary: #075985;
+}
+
+body {
+  background: var(--surface-canvas);
+  color: var(--text-primary);
+}
+
+button {
+  background: var(--action-primary);
+  color: var(--surface-canvas);
+}

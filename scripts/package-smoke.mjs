@@ -74,6 +74,7 @@ try {
     });
     const tools = await client.listTools();
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
+    assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
 
     const result = await client.callTool({
       name: "search_design_knowledge",
@@ -87,6 +88,14 @@ try {
     assert.equal(result.isError, undefined);
     assert.equal(structured?.status, "matches");
     assert.equal(structured?.authorityPath, "SKILL.md");
+
+    const corpus = await client.callTool({
+      name: "evaluate_corpus_benchmark",
+      arguments: {},
+    });
+    assert.equal(corpus.isError, undefined);
+    assert.equal(corpus.structuredContent?.passed, true);
+    assert.equal(corpus.structuredContent?.overallScore, 1);
   } catch (error) {
     const detail = serverDiagnostics.trim();
     throw new Error(

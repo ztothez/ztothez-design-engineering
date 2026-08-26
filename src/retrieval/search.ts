@@ -436,13 +436,19 @@ export function searchKnowledge(
     );
 
   const limit = options.limit ?? 5;
+  const minimumMatchedTerms = queryTerms.length >= 4
+    ? Math.max(2, Math.ceil(queryTerms.length * 0.2))
+    : 1;
   const sourceCounts = new Map<string, number>();
-  const selected = scored.filter((candidate) => {
-    const count = sourceCounts.get(candidate.chunk.path) ?? 0;
-    if (count >= 2) return false;
-    sourceCounts.set(candidate.chunk.path, count + 1);
-    return true;
-  }).slice(0, limit);
+  const selected = scored
+    .filter((candidate) => candidate.exactPhrase || candidate.matchedTerms.length >= minimumMatchedTerms)
+    .filter((candidate) => {
+      const count = sourceCounts.get(candidate.chunk.path) ?? 0;
+      if (count >= 2) return false;
+      sourceCounts.set(candidate.chunk.path, count + 1);
+      return true;
+    })
+    .slice(0, limit);
 
   if (selected.length === 0) {
     return {

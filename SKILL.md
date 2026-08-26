@@ -302,6 +302,36 @@ npm run validate-design -- --manifest PATH
 
 The validator checks structure, references, token chains, contrast math, provenance records, icon semantics, and presentation masters. It does not inspect Figma, SVG geometry, raster content, exported reading order, or rendered pixels. Complete those checks with source inspection, browser verification, export inspection, and qualified human review.
 
+## Corpus Benchmark Workflow
+
+Use the maintained corpus after changing retrieval, architecture rules, product-contract validation, anti-slop rules, or the approved knowledge scope. The corpus is a regression gate for the design-engineering system itself, not a substitute for evaluating the target product.
+
+### Step 1: Preserve Case Provenance
+
+Add a case only when its source is user-owned or appropriately licensed. Record the owner, license, evidence path, redistribution boundary, and an original derivation statement. Never use a reference archive or third-party design product as a corpus authority. Keep positive and negative cases behaviorally minimal so one case tests one declared capability.
+
+### Step 2: Declare Expected Behavior
+
+Use `knowledge-base/benchmarks/corpus/corpus.yaml` and its versioned schema. Classify each case as retrieval, audit, or contract evidence and assign exactly one dimension:
+
+- `recommendation-relevance`: the expected approved source appears within the maximum rank.
+- `abstention`: an out-of-scope query returns `no-match` without archive fallback.
+- `architectural-integrity`: a clean repository is accepted or declared architecture defects are detected.
+- `task-completeness`: a coherent product contract passes or broken task references are rejected.
+- `anti-slop-rejection`: a functional surface passes or known mock and placeholder behavior is rejected.
+
+Declare required and forbidden rule IDs or issue codes. Do not change an expected result merely to make a regression pass; correct the implementation or document and review an intentional contract change.
+
+### Step 3: Evaluate And Interpret
+
+Run `evaluate_corpus_benchmark` or the CLI fallback:
+
+```bash
+npm run evaluate-corpus
+```
+
+Require every dimension threshold, the overall score, and recommendation mean reciprocal rank to pass. Preserve the per-case observation, rank, rule IDs, issue codes, polarity, and provenance source. A passing corpus proves only the included deterministic behaviors; it does not prove general design quality, universal retrieval relevance, product usability, accessibility, or legal clearance.
+
 ## Compatibility & Output Rules
 
 Generate artifacts that parse consistently in Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, and Lovable.
@@ -339,6 +369,7 @@ Before declaring completion:
 12. When the application can run, use `verify_ui_runtime` against the local URL with representative product journeys. Inspect its screenshots and evidence for contrast, target size, focus, keyboard flow, reflow, text resizing, motion, collision, media, console, and network findings. Treat runtime errors as blockers and resolve or explicitly justify warnings. If MCP is unavailable, run `npm run verify-ui -- --url URL` from the ZtotheZ Design Engineering project. Runtime automation supplements, but does not replace, human review of content hierarchy, task fit, and visual quality.
 13. When `run_design_quality_gate` is available, prefer it for final handoff because it consolidates contract, architecture, runtime, and profile-scoped acceptance evidence under one failure policy. Every blocker criterion must pass; `UNVERIFIED` is not success. The target application must already be running. CLI fallback: `npm run quality-gate -- --contract PATH --repo PATH --url URL --profile ID`. Never report a skipped runtime stage as a passing gate, and never invent or self-author a manual-review attestation.
 14. Run every profile required by the contract in its declared service environment, preserving a separate evidence directory for each. Controlled offline profiles may declare expected network failures only with narrow method, URL, status, and occurrence bounds; an unobserved expectation is a failure, not permission to suppress errors. Aggregate profile reports with `aggregate_design_quality_gates` or `npm run aggregate-gates -- --contract PATH --reports DIR,DIR`. Release only when the aggregate report is complete and passing.
+15. After changing this skill, approved knowledge, retrieval, audit rules, product-contract validation, or anti-slop enforcement, run `evaluate_corpus_benchmark` or `npm run evaluate-corpus`. Treat a missed dimension threshold or MRR floor as a release blocker unless the corpus contract is intentionally revised with provenance and review.
 
 ## Examples
 

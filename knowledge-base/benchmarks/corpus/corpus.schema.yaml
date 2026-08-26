@@ -1,0 +1,159 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://ztothez.dev/schemas/corpus-benchmark-1.0.schema.json
+title: ZtotheZ Design Engineering Corpus Benchmark
+type: object
+additionalProperties: false
+required: [version, id, description, thresholds, sources, cases]
+properties:
+  version:
+    const: "1.0"
+  id:
+    $ref: "#/$defs/id"
+  description:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  thresholds:
+    type: object
+    additionalProperties: false
+    required: [overallMinimumScore, dimensions]
+    properties:
+      overallMinimumScore:
+        type: number
+        minimum: 0
+        maximum: 1
+      dimensions:
+        type: object
+        additionalProperties: false
+        required:
+          - recommendation-relevance
+          - abstention
+          - architectural-integrity
+          - task-completeness
+          - anti-slop-rejection
+        properties:
+          recommendation-relevance: { $ref: "#/$defs/threshold" }
+          abstention: { $ref: "#/$defs/threshold" }
+          architectural-integrity: { $ref: "#/$defs/threshold" }
+          task-completeness: { $ref: "#/$defs/threshold" }
+          anti-slop-rejection: { $ref: "#/$defs/threshold" }
+  sources:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, title, origin, owner, license, evidence, redistribution]
+      properties:
+        id: { $ref: "#/$defs/id" }
+        title: { type: string, minLength: 1, maxLength: 256 }
+        origin: { enum: [user-owned, licensed-standard] }
+        owner: { type: string, minLength: 1, maxLength: 256 }
+        license: { type: string, minLength: 1, maxLength: 128 }
+        sourceUrl: { type: string, format: uri }
+        evidence: { $ref: "#/$defs/path" }
+        redistribution: { type: string, minLength: 1, maxLength: 512 }
+  cases:
+    type: array
+    minItems: 5
+    items:
+      oneOf:
+        - $ref: "#/$defs/retrievalCase"
+        - $ref: "#/$defs/auditCase"
+        - $ref: "#/$defs/contractCase"
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  path:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  threshold:
+    type: object
+    additionalProperties: false
+    required: [minimumScore]
+    properties:
+      minimumScore: { type: number, minimum: 0, maximum: 1 }
+      minimumMeanReciprocalRank: { type: number, minimum: 0, maximum: 1 }
+  caseBase:
+    type: object
+    required: [id, kind, dimension, polarity, source, derivation, expected]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      polarity: { enum: [positive, negative] }
+      source: { $ref: "#/$defs/id" }
+      derivation: { type: string, minLength: 1, maxLength: 1024 }
+  retrievalCase:
+    allOf:
+      - $ref: "#/$defs/caseBase"
+      - type: object
+        additionalProperties: false
+        required: [id, kind, dimension, polarity, source, derivation, query, expected]
+        properties:
+          id: { $ref: "#/$defs/id" }
+          kind: { const: retrieval }
+          dimension: { enum: [recommendation-relevance, abstention] }
+          polarity: { enum: [positive, negative] }
+          source: { $ref: "#/$defs/id" }
+          derivation: { type: string, minLength: 1, maxLength: 1024 }
+          query: { type: string, minLength: 1, maxLength: 512 }
+          categories:
+            type: array
+            minItems: 1
+            maxItems: 10
+            items: { type: string }
+          expected:
+            type: object
+            additionalProperties: false
+            required: [status]
+            properties:
+              status: { enum: [matches, no-match] }
+              path: { $ref: "#/$defs/path" }
+              maxRank: { type: integer, minimum: 1, maximum: 20 }
+  auditCase:
+    allOf:
+      - $ref: "#/$defs/caseBase"
+      - type: object
+        additionalProperties: false
+        required: [id, kind, dimension, polarity, source, derivation, target, expected]
+        properties:
+          id: { $ref: "#/$defs/id" }
+          kind: { const: audit }
+          dimension: { enum: [architectural-integrity, anti-slop-rejection] }
+          polarity: { enum: [positive, negative] }
+          source: { $ref: "#/$defs/id" }
+          derivation: { type: string, minLength: 1, maxLength: 1024 }
+          target: { $ref: "#/$defs/path" }
+          policy: { type: object }
+          expected:
+            type: object
+            additionalProperties: false
+            required: [verdict]
+            properties:
+              verdict: { enum: [accept, reject] }
+              requiredRuleIds: { type: array, items: { type: string } }
+              forbiddenRuleIds: { type: array, items: { type: string } }
+              maximumFindings: { type: integer, minimum: 0 }
+  contractCase:
+    allOf:
+      - $ref: "#/$defs/caseBase"
+      - type: object
+        additionalProperties: false
+        required: [id, kind, dimension, polarity, source, derivation, contract, expected]
+        properties:
+          id: { $ref: "#/$defs/id" }
+          kind: { const: contract }
+          dimension: { const: task-completeness }
+          polarity: { enum: [positive, negative] }
+          source: { $ref: "#/$defs/id" }
+          derivation: { type: string, minLength: 1, maxLength: 1024 }
+          contract: { $ref: "#/$defs/path" }
+          expected:
+            type: object
+            additionalProperties: false
+            required: [verdict]
+            properties:
+              verdict: { enum: [accept, reject] }
+              requiredIssueCodes: { type: array, items: { type: string } }
+              forbiddenIssueCodes: { type: array, items: { type: string } }

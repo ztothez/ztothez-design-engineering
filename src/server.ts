@@ -23,6 +23,9 @@ import { aggregateReportSchema } from "./aggregate/schema.js";
 import { formatContractValidationReport } from "./contracts/report.js";
 import { contractValidationReportSchema } from "./contracts/schema.js";
 import { validateProductContract } from "./contracts/validator.js";
+import { evaluateCorpusBenchmark } from "./corpus/evaluator.js";
+import { formatCorpusReport } from "./corpus/report.js";
+import { corpusReportSchema } from "./corpus/schema.js";
 import { loadDesignDeliverable } from "./design-intelligence/loader.js";
 import { formatDesignDeliverableReport } from "./design-intelligence/report.js";
 import { designDeliverableReportSchema } from "./design-intelligence/schema.js";
@@ -92,6 +95,7 @@ function resolveProjectRoot(): string {
 const PROJECT_ROOT = resolveProjectRoot();
 const KNOWLEDGE_BASE_ROOT = join(PROJECT_ROOT, "knowledge-base");
 const BENCHMARK_ROOT = join(KNOWLEDGE_BASE_ROOT, "benchmarks");
+const CORPUS_ROOT = join(BENCHMARK_ROOT, "corpus");
 const DESIGN_INTELLIGENCE_ROOT = join(KNOWLEDGE_BASE_ROOT, "design-intelligence");
 const RETRIEVAL_SCOPE_PATH = join(KNOWLEDGE_BASE_ROOT, "retrieval-scope.yaml");
 let knowledgeIndexPromise: Promise<KnowledgeIndex> | undefined;
@@ -260,6 +264,29 @@ async function resolveBenchmarkContract(requestedFile: string): Promise<string> 
   const fileStats = await stat(resolvedFile);
   if (!fileStats.isFile() || fileStats.size > MAX_FILE_BYTES) {
     throw new Error("The requested contract is unavailable or exceeds the file-size limit");
+  }
+  return resolvedFile;
+}
+
+async function resolveCorpusManifest(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0") || isAbsolute(requestedFile)) {
+    throw new Error("Provide a path relative to the maintained corpus directory");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Corpus manifests must end in .json, .yaml, or .yml");
+  }
+  const corpusRoot = await realpath(CORPUS_ROOT);
+  const candidate = resolve(corpusRoot, requestedFile);
+  if (!isPathContained(corpusRoot, candidate)) {
+    throw new Error("The requested corpus manifest is outside the maintained corpus directory");
+  }
+  const resolvedFile = await realpath(candidate);
+  if (!isPathContained(corpusRoot, resolvedFile)) {
+    throw new Error("The requested corpus manifest resolves outside the maintained corpus directory");
+  }
+  const fileStats = await stat(resolvedFile);
+  if (!fileStats.isFile() || fileStats.size > MAX_FILE_BYTES) {
+    throw new Error("The requested corpus manifest is unavailable or exceeds the file-size limit");
   }
   return resolvedFile;
 }
@@ -576,6 +603,49 @@ server.registerTool(
     } catch (error) {
       const message = errorMessage(error);
       console.error(`[search_design_knowledge] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "evaluate_corpus_benchmark",
+  {
+    title: "Evaluate corpus benchmark",
+    description:
+      "Runs the maintained positive and negative corpus for recommendation relevance, abstention, architectural integrity, task completeness, and anti-slop rejection. Returns case evidence, per-dimension scores, mean reciprocal rank, thresholds, and one deterministic pass or fail decision.",
+    inputSchema: {
+      manifest: z
+        .string()
+        .trim()
+        .min(1)
+        .max(512)
+        .optional()
+        .describe("Path relative to knowledge-base/benchmarks/corpus. Defaults to corpus.yaml."),
+    },
+    outputSchema: corpusReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ manifest }) => {
+    try {
+      const manifestPath = await resolveCorpusManifest(manifest ?? "corpus.yaml");
+      const report = await evaluateCorpusBenchmark(manifestPath, PROJECT_ROOT);
+      return {
+        content: [{ type: "text" as const, text: formatCorpusReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[evaluate_corpus_benchmark] ${message}`);
       return {
         isError: true,
         content: [{ type: "text" as const, text: message }],

@@ -18,6 +18,7 @@ This project focuses on design engineering instead of style recommendation. It c
 - Product contracts with declarative task journeys and acceptance criteria.
 - Consolidated quality gates and multi-profile release decisions.
 - Executable AegisOPS and SceneStart benchmark contracts.
+- Versioned positive and negative corpus benchmarks with provenance, per-dimension scoring, recommendation MRR, and explicit abstention checks.
 - GitHub Actions verification with retained fixture evidence.
 
 Ranked BM25 knowledge retrieval and exact filename reads are available now. The versioned retrieval scope contains only explicitly approved distributable files and excludes local raw research and legacy archives.
@@ -93,6 +94,7 @@ The release archive is checked against an explicit distribution allowlist and in
 | Tool | Purpose |
 |---|---|
 | `search_design_knowledge` | Search approved knowledge with deterministic BM25 ranking, source paths, excerpts, confidence, and explicit no-match output. |
+| `evaluate_corpus_benchmark` | Score maintained positive and negative cases for retrieval, abstention, architecture, task completeness, and anti-slop behavior. |
 | `get_architecture_spec` | List or read approved architecture guidance. |
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
 | `get_design_intelligence` | List or read maintained brand, asset, icon, presentation, licensing, and visual-accessibility modules. |
@@ -147,6 +149,12 @@ Validate a design-intelligence deliverable:
 ```bash
 npm run validate-design -- \
   --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
+```
+
+Evaluate the maintained system corpus:
+
+```bash
+npm run evaluate-corpus
 ```
 
 Verify a running interface:
@@ -208,6 +216,7 @@ Third-party archives are comparative and historical references. They are not run
 | `src/contracts/` | Product-contract and journey validation. |
 | `src/heuristics/` | Structured heuristic-review evaluation. |
 | `src/design-intelligence/` | Design-deliverable schema, provenance, token, contrast, icon, and presentation validation. |
+| `src/corpus/` | Versioned corpus loading, deterministic case evaluation, scoring, and reporting. |
 | `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
 | `src/quality-gate/` | Consolidated profile quality gate. |
 | `src/aggregate/` | Multi-profile release aggregation. |
@@ -225,10 +234,10 @@ npm run typecheck
 npm test
 ```
 
-The active GitHub workflow also validates both benchmark contracts, starts the deterministic browser fixture, runs a complete quality gate, and uploads the resulting evidence directory. See [`ci/README.md`](ci/README.md) before adapting the multi-profile workflow to a product repository.
+The active GitHub workflow also validates both benchmark contracts, evaluates the maintained corpus, starts the deterministic browser fixture, runs a complete quality gate, and uploads the resulting evidence directory. See [`ci/README.md`](ci/README.md) before adapting the multi-profile workflow to a product repository.
 
 ## Project Status
 
-The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, scoped knowledge retrieval, installation packaging, and design intelligence expansion are complete. The next implementation target is corpus benchmarking.
+The current foundation, CI activation, AegisOPS workflow, AegisOPS remediation, SceneStart benchmark, scoped knowledge retrieval, installation packaging, design intelligence expansion, and corpus benchmarking are complete. The next implementation target is clean-room independence and supply resilience.
 
 See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria. Clean-room independence remains the final certification phase after retrieval, packaging, design-intelligence expansion, and corpus benchmarking.

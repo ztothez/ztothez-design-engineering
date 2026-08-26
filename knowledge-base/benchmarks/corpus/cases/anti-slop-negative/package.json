@@ -1,0 +1,9 @@
+{
+  "name": "anti-slop-negative",
+  "private": true,
+  "scripts": {
+    "build": "echo build",
+    "test": "echo test",
+    "typecheck": "echo typecheck"
+  }
+}

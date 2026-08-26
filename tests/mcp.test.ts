@@ -35,6 +35,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "get_usability_evaluation"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_heuristic_review"));
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
+    assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_design_intelligence"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_design_deliverable"));
 
@@ -70,6 +71,25 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(noKnowledgeMatch.isError, undefined);
     assert.equal(noMatchReport?.status, "no-match");
     assert.deepEqual(noMatchReport?.results, []);
+
+    const corpus = await client.callTool({
+      name: "evaluate_corpus_benchmark",
+      arguments: {},
+    });
+    const corpusReport = corpus.structuredContent as
+      | { passed?: unknown; overallScore?: unknown; caseResults?: unknown[]; dimensions?: unknown[] }
+      | undefined;
+    assert.equal(corpus.isError, undefined);
+    assert.equal(corpusReport?.passed, true);
+    assert.equal(corpusReport?.overallScore, 1);
+    assert.equal(corpusReport?.caseResults?.length, 13);
+    assert.equal(corpusReport?.dimensions?.length, 5);
+
+    const deniedCorpusTraversal = await client.callTool({
+      name: "evaluate_corpus_benchmark",
+      arguments: { manifest: "../aegisops/product-contract.yaml" },
+    });
+    assert.equal(deniedCorpusTraversal.isError, true);
 
     const designListing = await client.callTool({
       name: "get_design_intelligence",

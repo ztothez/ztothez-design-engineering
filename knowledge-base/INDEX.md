@@ -59,6 +59,15 @@ Product benchmarks supplement the root skill with domain semantics and executabl
 - SceneStart local-first demoscene learning studio: `benchmarks/scenestart/MANIFEST.md` and `benchmarks/scenestart/product-contract.yaml`.
 - SceneStart Studio, Workshop, Learn, and Release profiles: `benchmarks/scenestart/journeys.json`.
 - SceneStart evidence boundaries, rejection examples, and calibration: `benchmarks/scenestart/acceptance-criteria.md`, `benchmarks/scenestart/anti-patterns.md`, and `benchmarks/scenestart/CALIBRATION.md`.
+- System corpus manifest, portable schema, provenance, and controlled positive and negative cases: `benchmarks/corpus/corpus.yaml`, `benchmarks/corpus/corpus.schema.yaml`, `benchmarks/corpus/PROVENANCE.md`, and `benchmarks/corpus/cases/`.
+
+Use `evaluate_corpus_benchmark` after changing retrieval, auditing, product-contract validation, anti-slop rules, or approved knowledge. CLI fallback:
+
+```bash
+npm run evaluate-corpus
+```
+
+The corpus reports recommendation relevance, abstention accuracy, architecture integrity, task completeness, anti-slop rejection, and recommendation mean reciprocal rank. Every case declares provenance and expected behavior. A passing corpus covers only its maintained cases and must not be presented as universal design or usability proof.
 
 Use `validate_product_contract` when MCP is available. CLI fallback:
 

@@ -11,6 +11,7 @@ This roadmap tracks the work required to turn the skill, local knowledge base, M
 - AegisOPS provides the first executable product benchmark.
 - Approved design knowledge is available through deterministic, authority-aware BM25 retrieval with explicit abstention.
 - Independently authored design-intelligence modules and a versioned deliverable manifest provide executable checks for tokens, provenance, visual accessibility, icon semantics, and presentation structure.
+- A versioned positive and negative corpus measures retrieval relevance, abstention, architectural integrity, task completeness, and anti-slop rejection with attributable provenance and release thresholds.
 
 ## Roadmap Items
 
@@ -78,11 +79,11 @@ Evidence: `knowledge-base/design-intelligence/` contains an independently author
 
 ### 8. Corpus Benchmarking
 
-Status: **Partial**
+Status: **Done**
 
 Build positive and negative benchmark sets from user-owned projects and appropriately licensed sources. Measure recommendation relevance, abstention, architectural integrity, task completeness, and anti-slop rejection.
 
-Evidence: AegisOPS and SceneStart provide executable contracts, journeys, acceptance criteria, and anti-pattern documents, with contract regression tests and retained quality-gate evidence. Remaining: there is no formal positive/negative case corpus, relevance or abstention dataset, scoring model, or repeatable corpus-evaluation command.
+Evidence: `knowledge-base/benchmarks/corpus/` contains a versioned portable schema, executable manifest, provenance record, project-owned synthetic repositories, an incomplete task-contract fixture, and owner-authorized AegisOPS and SceneStart cases. The 13 maintained cases include 8 positive and 5 negative expectations across recommendation relevance, abstention, architectural integrity, task completeness, and anti-slop rejection. The corpus records four provenance sources, including user-owned product evidence and a W3C WCAG 2.2 reference under the W3C Document License 2015 without redistributing specification text. `src/corpus/` implements bounded loading, project-root containment, deterministic case evaluation, per-dimension scoring, mean reciprocal rank, provenance-preserving reports, and strict thresholds. `evaluate_corpus_benchmark` exposes structured MCP results with traversal protection, and `npm run evaluate-corpus` writes JSON and Markdown evidence when given `--output`. Calibration identified and corrected single-generic-term retrieval overmatching. The maintained corpus passes 13 of 13 cases at 100 percent across all five dimensions with recommendation MRR 0.75 against a 0.75 floor. All 34 regression tests, packed-install MCP smoke testing, and the package allowlist pass. The active GitHub workflow evaluates the corpus and is configured to retain its JSON and Markdown reports as a dedicated artifact.
 
 ### 9. Clean-Room Independence And Supply Resilience
 
@@ -124,7 +125,6 @@ SceneStart product remediation can proceed separately from skill development. Ae
 
 Implement the remaining skill work in this order:
 
-1. Item 8: Corpus Benchmarking.
-2. Item 9: Clean-Room Independence And Supply Resilience.
+1. Item 9: Clean-Room Independence And Supply Resilience.
 
 Item 9 is the final certification and hardening phase. Its independence rules still constrain all earlier implementation choices, but its completion checks, archive-removal tests, provenance audit, identity verification, and offline release bundle run only after Items 6 through 8 are complete.

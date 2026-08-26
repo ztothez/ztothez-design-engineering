@@ -78,6 +78,13 @@ test("retrieval returns explicit no-match results without archive fallback", asy
   const stopWordsOnly = searchKnowledge(index, { query: "the and of" });
   assert.equal(stopWordsOnly.status, "no-match");
   assert.deepEqual(stopWordsOnly.stats.searchableTerms, []);
+
+  const unrelated = searchKnowledge(index, {
+    query: "cryogenic turbine bearing alloy phase diagram zxqv",
+    categories: ["design-intelligence"],
+  });
+  assert.equal(unrelated.status, "no-match");
+  assert.deepEqual(unrelated.results, []);
 });
 
 test("retrieval evaluation cases preserve relevance and abstention", async () => {

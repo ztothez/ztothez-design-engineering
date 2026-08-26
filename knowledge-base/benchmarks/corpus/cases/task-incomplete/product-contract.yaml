@@ -1,0 +1,78 @@
+version: "1.0"
+id: incomplete-product
+name: Incomplete Product Fixture
+status: benchmark
+purpose: Verify that broken product-task references are rejected instead of accepted as complete.
+authority:
+  behavior: The synthetic source evidence defines this controlled fixture.
+  visual: Task and state integrity override decoration.
+  precedence:
+    - path: SOURCE-EVIDENCE.md
+      role: Synthetic fixture declaration
+      authority: primary
+actors:
+  - id: operator
+    name: Operator
+    goals: [Complete one bounded task]
+    responsibilities: [Review the resulting evidence]
+modes:
+  - id: primary
+    name: Primary
+    purpose: Complete the bounded task.
+    input: Valid local input.
+    outputs: [missing-output]
+stateMachines:
+  - id: task
+    initial: idle
+    states:
+      - id: idle
+        category: idle
+        userVisible: true
+        requirement: Input remains editable.
+      - id: complete
+        category: success
+        userVisible: true
+        requirement: Result evidence is visible.
+    transitions:
+      - from: idle
+        to: missing-state
+        trigger: Submit valid input
+outputs:
+  - id: result
+    name: Result
+    sourceOfTruth: Current validated task state.
+    requiredEvidence: [Structured result]
+metrics:
+  - id: completion
+    name: Completion
+    definition: Whether the current task reached its validated terminal state.
+    sourceOfTruth: Current state machine.
+    format: status
+    evidenceRequired: true
+constraints:
+  outOfScope: [Unrelated workflows]
+  prohibitedClaims: [Completion without current evidence]
+  mockData:
+    allowedEnvironments: [test]
+    mustBeLabeled: true
+    prohibitedInProduction: true
+    fallbackDisclosure: Test data must remain visibly labeled.
+acceptanceCriteria:
+  - id: complete-current-task
+    title: Complete current task
+    severity: blocker
+    requirement: The current task reaches a terminal state with evidence.
+    evidence: [contract, runtime]
+    appliesToModes: [missing-mode]
+verification:
+  journeyFile: journeys.json
+  viewports:
+    - name: desktop
+      width: 1280
+      height: 800
+  bindings:
+    - profile: primary-flow
+      journey: complete-task
+      actor: missing-actor
+      mode: primary
+      acceptanceCriteria: [missing-criterion]

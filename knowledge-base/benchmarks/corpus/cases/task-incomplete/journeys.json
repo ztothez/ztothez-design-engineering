@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "contract": "incomplete-product",
+  "profiles": [
+    {
+      "id": "primary-flow",
+      "name": "Primary flow",
+      "environment": ["Local fixture is available"],
+      "journeys": [
+        {
+          "id": "complete-task",
+          "name": "complete-task",
+          "steps": [
+            { "action": "expectVisible", "selector": "main" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+version: "1.0"
+id: ztothez-design-engineering-core-corpus
+description: Deterministic positive and negative cases for approved retrieval, architecture integrity, task completeness, and anti-slop enforcement.
+
+thresholds:
+  overallMinimumScore: 1
+  dimensions:
+    recommendation-relevance:
+      minimumScore: 1
+      minimumMeanReciprocalRank: 0.75
+    abstention:
+      minimumScore: 1
+    architectural-integrity:
+      minimumScore: 1
+    task-completeness:
+      minimumScore: 1
+    anti-slop-rejection:
+      minimumScore: 1
+
+sources:
+  - id: ztothez-corpus-fixtures
+    title: ZtotheZ independently authored corpus fixtures
+    origin: user-owned
+    owner: ZtotheZ
+    license: ISC
+    evidence: knowledge-base/benchmarks/corpus/PROVENANCE.md
+    redistribution: Synthetic cases are project-owned and distributable under the repository license.
+  - id: aegisops-product
+    title: AegisOPS product benchmark
+    origin: user-owned
+    owner: ZtotheZ
+    license: owner-authorized benchmark use
+    evidence: knowledge-base/benchmarks/aegisops/SOURCE-EVIDENCE.md
+    redistribution: The maintained contract and evidence summary are approved for this repository and package.
+  - id: scenestart-product
+    title: SceneStart product benchmark
+    origin: user-owned
+    owner: ZtotheZ
+    license: owner-authorized benchmark use
+    evidence: knowledge-base/benchmarks/scenestart/SOURCE-EVIDENCE.md
+    redistribution: The maintained contract and evidence summary are approved for this repository and package.
+  - id: w3c-wcag-22
+    title: Web Content Accessibility Guidelines 2.2
+    origin: licensed-standard
+    owner: World Wide Web Consortium
+    license: W3C Document License 2015
+    sourceUrl: https://www.w3.org/TR/WCAG22/
+    evidence: knowledge-base/benchmarks/corpus/PROVENANCE.md
+    redistribution: No specification text is redistributed; the case records an independently authored query and local expected path.
+
+cases:
+  - id: relevance-brand-contract
+    kind: retrieval
+    dimension: recommendation-relevance
+    polarity: positive
+    source: ztothez-corpus-fixtures
+    derivation: Original query based on the maintained brand-system deliverable contract.
+    query: brand mark clear space minimum size allowed backgrounds promise voice principles
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/brand-systems.md
+      maxRank: 2
+
+  - id: relevance-figma-production
+    kind: retrieval
+    dimension: recommendation-relevance
+    polarity: positive
+    source: ztothez-corpus-fixtures
+    derivation: Original query based on the maintained Figma production workflow.
+    query: Figma variable collections modes component properties interactive states documentation
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/figma-production.md
+      maxRank: 2
+
+  - id: relevance-generated-asset-provenance
+    kind: retrieval
+    dimension: recommendation-relevance
+    polarity: positive
+    source: ztothez-corpus-fixtures
+    derivation: Original query based on the maintained generated-asset provenance contract.
+    query: generated asset provider model prompt record human contributions reference rights provenance
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/asset-generation.md
+      maxRank: 2
+
+  - id: relevance-accessible-color
+    kind: retrieval
+    dimension: recommendation-relevance
+    polarity: positive
+    source: w3c-wcag-22
+    derivation: Independently authored conformance query derived from WCAG contrast and use-of-color concepts without copied normative text.
+    query: normal text contrast ratio non-color status cues semantic tokens
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/visual-accessibility.md
+      maxRank: 2
+
+  - id: abstain-unknown-proprietary-catalog
+    kind: retrieval
+    dimension: abstention
+    polarity: negative
+    source: ztothez-corpus-fixtures
+    derivation: Synthetic out-of-scope identifier that must not trigger archive fallback.
+    query: qzvorn proprietary nebula catalog 8841
+    categories: [design-intelligence]
+    expected:
+      status: no-match
+
+  - id: abstain-unrelated-domain
+    kind: retrieval
+    dimension: abstention
+    polarity: negative
+    source: ztothez-corpus-fixtures
+    derivation: Synthetic unrelated-domain query used to verify explicit abstention.
+    query: cryogenic turbine bearing alloy phase diagram zxqv
+    categories: [design-intelligence]
+    expected:
+      status: no-match
+
+  - id: architecture-clean-boundaries
+    kind: audit
+    dimension: architectural-integrity
+    polarity: positive
+    source: ztothez-corpus-fixtures
+    derivation: Small project-owned component with semantic tokens, accessible controls, and explicit repository scripts.
+    target: knowledge-base/benchmarks/corpus/cases/architecture-positive
+    expected:
+      verdict: accept
+      maximumFindings: 0
+      forbiddenRuleIds: [ZTDE-ARCH-001, ZTDE-ARCH-002, ZTDE-DESIGN-001]
+
+  - id: architecture-mixed-monolith
+    kind: audit
+    dimension: architectural-integrity
+    polarity: negative
+    source: ztothez-corpus-fixtures
+    derivation: Project-owned rejection fixture combining a large render surface, persistence and network orchestration, and repeated raw colors.
+    target: knowledge-base/benchmarks/corpus/cases/architecture-negative
+    policy:
+      componentLineWarning: 20
+      mixedResponsibilitiesMinLines: 20
+      rawColorWarningCount: 3
+    expected:
+      verdict: reject
+      requiredRuleIds: [ZTDE-ARCH-001, ZTDE-ARCH-002, ZTDE-DESIGN-001]
+      forbiddenRuleIds: [ZTDE-SLOP-001, ZTDE-SLOP-002]
+
+  - id: task-aegisops-complete
+    kind: contract
+    dimension: task-completeness
+    polarity: positive
+    source: aegisops-product
+    derivation: Maintained owner-authorized product contract and journeys.
+    contract: knowledge-base/benchmarks/aegisops/product-contract.yaml
+    expected:
+      verdict: accept
+      forbiddenIssueCodes: [CONTRACT-SCHEMA, CONTRACT-UNKNOWN-REFERENCE]
+
+  - id: task-scenestart-complete
+    kind: contract
+    dimension: task-completeness
+    polarity: positive
+    source: scenestart-product
+    derivation: Maintained owner-authorized product contract and journeys from a second operational domain.
+    contract: knowledge-base/benchmarks/scenestart/product-contract.yaml
+    expected:
+      verdict: accept
+      forbiddenIssueCodes: [CONTRACT-SCHEMA, CONTRACT-UNKNOWN-REFERENCE]
+
+  - id: task-broken-references
+    kind: contract
+    dimension: task-completeness
+    polarity: negative
+    source: ztothez-corpus-fixtures
+    derivation: Synthetic contract with valid structure but unknown outputs, states, modes, actors, and criteria.
+    contract: knowledge-base/benchmarks/corpus/cases/task-incomplete/product-contract.yaml
+    expected:
+      verdict: reject
+      requiredIssueCodes: [CONTRACT-UNKNOWN-REFERENCE]
+      forbiddenIssueCodes: [CONTRACT-PARSE]
+
+  - id: anti-slop-functional-surface
+    kind: audit
+    dimension: anti-slop-rejection
+    polarity: positive
+    source: ztothez-corpus-fixtures
+    derivation: Project-owned surface with derived metrics and functional controls.
+    target: knowledge-base/benchmarks/corpus/cases/anti-slop-positive
+    expected:
+      verdict: accept
+      maximumFindings: 0
+      forbiddenRuleIds: [ZTDE-SLOP-001, ZTDE-SLOP-002]
+
+  - id: anti-slop-mock-and-placeholder
+    kind: audit
+    dimension: anti-slop-rejection
+    polarity: negative
+    source: ztothez-corpus-fixtures
+    derivation: Project-owned rejection fixture containing a simulated production result and a nonfunctional navigation control.
+    target: knowledge-base/benchmarks/corpus/cases/anti-slop-negative
+    expected:
+      verdict: reject
+      requiredRuleIds: [ZTDE-SLOP-001, ZTDE-SLOP-002]

@@ -1,0 +1,9 @@
+{
+  "name": "architecture-positive",
+  "private": true,
+  "scripts": {
+    "build": "echo build",
+    "test": "echo test",
+    "typecheck": "echo typecheck"
+  }
+}

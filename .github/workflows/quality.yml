@@ -59,6 +59,9 @@ jobs:
           npm run validate-design -- \
             --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
 
+      - name: Evaluate maintained corpus
+        run: npm run evaluate-corpus -- --output .ztothez-design-corpus
+
       - name: Run regression suite
         run: npm test
 
@@ -106,6 +109,16 @@ jobs:
         with:
           name: ztothez-design-fixture-quality-gate
           path: .ztothez-design-quality-gate/ci-responsive-overview
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload corpus evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-corpus-benchmark
+          path: .ztothez-design-corpus
           if-no-files-found: error
           retention-days: 14
           include-hidden-files: true

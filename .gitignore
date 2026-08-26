@@ -17,6 +17,7 @@ coverage/
 # Runtime and quality-gate evidence
 .ztothez-design-runtime/
 .ztothez-design-quality-gate/
+.ztothez-design-corpus/
 .uix-runtime/
 .uix-quality-gate/
 playwright-report/
