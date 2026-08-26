@@ -64,6 +64,7 @@ jobs:
           path: .ztothez-design-quality-gate/${{ matrix.profile }}
           if-no-files-found: error
           retention-days: 14
+          include-hidden-files: true
 
       - name: Enforce profile result
         if: always()
@@ -105,3 +106,4 @@ jobs:
           path: .ztothez-design-quality-gate/release
           if-no-files-found: error
           retention-days: 30
+          include-hidden-files: true

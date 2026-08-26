@@ -47,6 +47,7 @@ const MODULE_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 type KnowledgeArea = {
   directory: string;
   label: string;
+  excludedDirectories?: readonly string[];
 };
 
 function findProjectRoot(startDirectory: string): string {
@@ -94,6 +95,7 @@ const knowledgeAreas = {
   usabilityEvaluation: {
     directory: join(KNOWLEDGE_BASE_ROOT, "usability-evaluation"),
     label: "usability evaluation",
+    excludedDirectories: ["sources"],
   },
 } satisfies Record<string, KnowledgeArea>;
 
@@ -117,9 +119,18 @@ function isPathContained(baseDirectory: string, candidatePath: string): boolean 
   );
 }
 
-async function listMarkdownFiles(
+function isExcludedKnowledgePath(
+  area: KnowledgeArea,
   baseDirectory: string,
-  currentDirectory = baseDirectory,
+  candidatePath: string,
+): boolean {
+  const firstSegment = relative(baseDirectory, candidatePath).split(sep)[0] ?? "";
+  return area.excludedDirectories?.includes(firstSegment) ?? false;
+}
+
+async function listMarkdownFiles(
+  area: KnowledgeArea,
+  currentDirectory = area.directory,
 ): Promise<string[]> {
   const entries = await readdir(currentDirectory, { withFileTypes: true });
   const files: string[] = [];
@@ -128,12 +139,14 @@ async function listMarkdownFiles(
     const entryPath = join(currentDirectory, entry.name);
 
     if (entry.isDirectory()) {
-      files.push(...(await listMarkdownFiles(baseDirectory, entryPath)));
+      const relativeDirectory = relative(area.directory, entryPath).split(sep);
+      if (area.excludedDirectories?.includes(relativeDirectory[0] ?? "")) continue;
+      files.push(...(await listMarkdownFiles(area, entryPath)));
       continue;
     }
 
     if (entry.isFile() && extname(entry.name).toLowerCase() === ".md") {
-      files.push(relative(baseDirectory, entryPath).split(sep).join("/"));
+      files.push(relative(area.directory, entryPath).split(sep).join("/"));
     }
   }
 
@@ -144,7 +157,7 @@ async function readKnowledgeArea(area: KnowledgeArea, requestedFile?: string): P
   const baseDirectory = await realpath(area.directory);
 
   if (requestedFile === undefined) {
-    const files = await listMarkdownFiles(baseDirectory);
+    const files = await listMarkdownFiles({ ...area, directory: baseDirectory });
     const listing = files.length > 0 ? files.map((file) => `- ${file}`).join("\n") : "- No Markdown files found.";
 
     return `Available files in ${area.label}:\n${listing}`;
@@ -162,6 +175,9 @@ async function readKnowledgeArea(area: KnowledgeArea, requestedFile?: string): P
   if (!isPathContained(baseDirectory, candidatePath)) {
     throw new Error("The requested file is outside the permitted knowledge area");
   }
+  if (isExcludedKnowledgePath(area, baseDirectory, candidatePath)) {
+    throw new Error("The requested file is excluded from the distributable knowledge area");
+  }
 
   let resolvedFile: string;
   try {
@@ -175,6 +191,9 @@ async function readKnowledgeArea(area: KnowledgeArea, requestedFile?: string): P
 
   if (!isPathContained(baseDirectory, resolvedFile)) {
     throw new Error("The requested file resolves outside the permitted knowledge area");
+  }
+  if (isExcludedKnowledgePath(area, baseDirectory, resolvedFile)) {
+    throw new Error("The requested file resolves inside an excluded knowledge area");
   }
 
   const fileStats = await stat(resolvedFile);

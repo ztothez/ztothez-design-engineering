@@ -72,6 +72,12 @@ test("MCP exposes the repository auditor with structured output", async () => {
     });
     assert.equal(deniedUsabilityTraversal.isError, true);
 
+    const deniedLocalSource = await client.callTool({
+      name: "get_usability_evaluation",
+      arguments: { file: "sources/Handout Usability testing.md" },
+    });
+    assert.equal(deniedLocalSource.isError, true);
+
     const heuristicReview = await client.callTool({
       name: "evaluate_heuristic_review",
       arguments: { reviewFile: "heuristic-review.yaml" },

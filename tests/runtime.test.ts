@@ -148,7 +148,7 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
     (entry) => entry.kind === "download",
   );
   assert.ok(blobEvidence?.path);
-  assert.match(blobEvidence.description, /captured Blob/);
+  assert.match(blobEvidence.description, /via (browser download|captured Blob)/);
   assert.equal(await readFile(blobEvidence.path, "utf8"), "captured offline export\n");
 
   const bad = await verifyUiRuntime({

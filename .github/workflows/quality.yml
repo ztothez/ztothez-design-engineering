@@ -97,3 +97,4 @@ jobs:
           path: .ztothez-design-quality-gate/ci-responsive-overview
           if-no-files-found: error
           retention-days: 14
+          include-hidden-files: true

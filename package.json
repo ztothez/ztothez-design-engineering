@@ -15,7 +15,7 @@
     "quality-gate": "npm run build --silent && node dist/cli/quality-gate.js",
     "review-heuristics": "npm run build --silent && node dist/cli/review-heuristics.js",
     "start": "node dist/cli/index.js",
-    "test": "npm run build && tsc -p tsconfig.test.json && node --test dist-test/tests/*.test.js",
+    "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=1 dist-test/tests/*.test.js",
     "typecheck": "tsc --noEmit",
     "validate-contract": "npm run build --silent && node dist/cli/validate-contract.js",
     "verify-ui": "npm run build --silent && node dist/cli/verify-ui.js"
