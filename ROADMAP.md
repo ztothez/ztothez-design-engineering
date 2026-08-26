@@ -7,7 +7,7 @@ This roadmap tracks the work required to turn the skill, local knowledge base, M
 - Usability guidance is available through MCP.
 - Heuristic reviews use a versioned schema with evidence provenance.
 - Browser verification covers responsive integrity, accessibility, focus, contrast, target sizing, text resizing, reflow, and reduced motion.
-- The workspace contains a deterministic GitHub Actions quality workflow, but it has not been activated in a published repository.
+- The published repository runs a deterministic GitHub Actions quality workflow and retains fixture-gate evidence.
 - AegisOPS provides the first executable product benchmark.
 
 ## Roadmap Items
@@ -20,11 +20,11 @@ Status definitions:
 
 ### 1. Publish And Activate CI
 
-Status: **Partial**
+Status: **Done**
 
 Initialize and publish the repository, run `.github/workflows/quality.yml` on GitHub, and retain the first complete passing evidence artifact.
 
-Evidence: `.github/workflows/quality.yml` implements build, typecheck, contract validation, tests, a deterministic fixture gate, and artifact upload. Remaining: this workspace is not a Git repository, so there is no remote, GitHub Actions run, or retained GitHub artifact proving activation.
+Evidence: the repository is published at `https://github.com/ztothez/ztothez-design-engineering` with `main` tracking `origin/main`. GitHub Actions run `32947084426` passed build, typecheck, both benchmark-contract validations, all 21 regression tests, the deterministic fixture quality gate, and artifact upload. The retained `ztothez-design-fixture-quality-gate` artifact was created on 2026-08-26 with 14-day retention.
 
 ### 2. AegisOPS Product Workflow
 
@@ -122,11 +122,10 @@ SceneStart product remediation can proceed separately from skill development. Ae
 
 Implement the remaining skill work in this order:
 
-1. Finish Item 1: Publish And Activate CI.
-2. Item 5: Scoped Knowledge Retrieval.
-3. Item 6: Installation And Packaging.
-4. Item 7: Design Intelligence Expansion.
-5. Item 8: Corpus Benchmarking.
-6. Item 9: Clean-Room Independence And Supply Resilience.
+1. Item 5: Scoped Knowledge Retrieval.
+2. Item 6: Installation And Packaging.
+3. Item 7: Design Intelligence Expansion.
+4. Item 8: Corpus Benchmarking.
+5. Item 9: Clean-Room Independence And Supply Resilience.
 
 Item 9 is the final certification and hardening phase. Its independence rules still constrain all earlier implementation choices, but its completion checks, archive-removal tests, provenance audit, identity verification, and offline release bundle run only after Items 5 through 8 are complete.
