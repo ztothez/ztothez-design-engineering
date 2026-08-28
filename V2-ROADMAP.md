@@ -152,7 +152,7 @@ Completion criteria:
 
 ### 4. Visual Polish System
 
-Status: **Done for engineering release; formal independent comparative validation not claimed**
+Status: **Done; external anonymous human visual comparison completed**
 
 Implemented evidence: `knowledge-base/design-intelligence/visual-polish.md` defines the independently owned visual-polish workflow and evidence boundary. The design-deliverable contract now supports version `2.1` and the `interface-system` scope while retaining versions `1.0` and `2.0` compatibility. The portable schema, runtime schema, maintained template, CLI, MCP report, and package smoke path cover visual direction, eight typography roles, four responsive grids, spacing rhythm, stable dimensions, surface, border, elevation and emphasis hierarchy, adaptive density, decision-first priority roles, per-mode text and focus contrast coverage, nine interaction states, semantic motion durations, reduced-motion equivalents, chart contracts, rendered captures, and attributable human review.
 
@@ -161,11 +161,12 @@ Implemented evidence: `knowledge-base/design-intelligence/visual-polish.md` defi
 Evidence boundary: the maintained template passes structural validation but reports
 `visualPolish.releaseReady: false` because it is a reusable declaration template rather than a
 completed product release record. Azure V2 has verified rendered evidence, one attributed disclosed
-maintainer review, eight complete anonymous short-form responses, and one partial response. This is
-sufficient for the scoped engineering release and preserves external qualitative dissent, but it is
-not a controlled independent comparison or representative-user study. Those stronger claims remain
-out of scope unless separately attributable, structured evidence is collected. Agents must not
-generate or upgrade that evidence.
+maintainer review, and an external anonymous human visual comparison using the same five candidates,
+captures, four questions, and response format. Eight reviewers supplied complete answers and one
+supplied partial feedback. This evidence validates perceived readability, information findability,
+visual preference with rationale, and observable viewport-specific problems. It does not claim
+interactive task completion, representative-user coverage, or statistical significance. Agents
+must not generate, relabel, or upgrade the retained human evidence.
 
 Create `knowledge-base/design-intelligence/visual-polish.md` and extend the design deliverable contract with visual direction, density, composition, chart, and rendered-evidence declarations.
 

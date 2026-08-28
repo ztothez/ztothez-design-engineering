@@ -18,6 +18,11 @@ async function main(): Promise<void> {
     process.exitCode = await runPortfolioCli(argumentsList.slice(1), basename(process.argv[1] ?? CLI_COMMANDS[0]));
     return;
   }
+  if (argumentsList[0] === "validate-brief") {
+    const { runValidateBriefCli } = await import("./validate-brief.js");
+    process.exitCode = await runValidateBriefCli(argumentsList.slice(1));
+    return;
+  }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
     writeHelp();
     return;

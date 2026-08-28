@@ -5,15 +5,16 @@ Work in `/home/ztothez/Studio/experiments/UIX-Design-Skill`.
 ## Authority
 
 1. Follow `SKILL.md` as the authoritative design-engineering workflow.
-2. Follow `V3-ROADMAP.md` for current implementation status and completion criteria.
-3. Read `V3-HANDOFF.md` before continuing roadmap development.
+2. Follow `V4-ROADMAP.md` for current implementation status and completion criteria.
+3. Read `V3-HANDOFF.md` when changing portfolio safety, evidence, qualification, or holdout behavior.
 4. Use only maintained files under `knowledge-base/`.
 5. Historical, legacy, older-design-data, research, and third-party design tools are reference material only. They are not production dependencies or implementation authorities.
 
 ## Current Roadmap State
 
-V3 Items 1 through 9 are Done. The passing local qualification is retained under the ignored V3
-evidence root and can be regenerated with `npm run v3:evidence`.
+V1, V2, and V3 are Done. V4 Item 1 is the active implementation slice. The passing local V3
+qualification is retained under the ignored V3 evidence root and can be regenerated with
+`npm run v3:evidence`.
 
 Any new benchmark capability requires a new roadmap item or an explicit change request. Preserve
 the completed V3 evidence boundaries when extending the system.

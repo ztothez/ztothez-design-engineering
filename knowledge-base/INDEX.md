@@ -225,6 +225,14 @@ For Lovable, keep this repository synchronized with the connected Git provider s
 
 Start with `design-intelligence/MASTER.md` when the task includes brand identity, Figma production, generated or sourced assets, iconography, presentation design, licensing, or visual accessibility. Load only the matching focused modules.
 
+For a new product or consequential redesign, start from `design-intelligence/product-design-brief.template.yaml` and use `design-intelligence/product-design-brief.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/product-design-brief.md`, then validate through MCP with `validate_product_design_brief`, or through CLI:
+
+```bash
+npm run validate-brief -- --brief PATH_TO_PRODUCT_DESIGN_BRIEF
+```
+
+The brief validator checks evidence-backed problems and primary audiences, measurable outcomes, task recovery, data and fallback truth, applicable states, platforms, unresolved assumptions, requirements, and acceptance coverage. Generation readiness authorizes planning only.
+
 For operational claims, generated results, fallback, stale or disconnected behavior, history, or exports, start from `design-intelligence/interface-trust.template.yaml` and use `design-intelligence/interface-trust.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/interface-trust.md`, then validate through MCP with `validate_interface_trust`, or through CLI:
 
 ```bash
@@ -241,7 +249,7 @@ npm run validate-information -- --contract PATH_TO_INFORMATION_DESIGN_CONTRACT
 
 The validator checks sources, context, metric decisions, findings, evidence, chart purpose, non-color cues, missing and stale states, scalable collections, the eight-level hierarchy, and six answer-flow task declarations. It does not inspect rendered output or turn agent-authored tasks into human evidence.
 
-Create structured evidence from `design-intelligence/design-deliverable.template.yaml`; use `design-intelligence/design-deliverable.schema.yaml` as the portable contract. Version `1.0` remains readable for non-interface manifests. Use version `2.0` with `interface-system` for visual direction, typography, composition, density, states, motion, chart contracts, rendered evidence, and human visual review. Read `design-intelligence/visual-polish.md`, then validate through MCP with `validate_design_deliverable`, or through CLI:
+Create structured evidence from `design-intelligence/design-deliverable.template.yaml`; use `design-intelligence/design-deliverable.schema.yaml` as the portable contract. Version `1.0` remains readable for non-interface manifests. Use version `2.1` with `interface-system` for visual direction, typography, composition, density, states, motion, chart contracts, rendered evidence, and human visual review. Read `design-intelligence/visual-polish.md`, then validate through MCP with `validate_design_deliverable`, or through CLI:
 
 ```bash
 npm run validate-design -- --manifest PATH_TO_DESIGN_DELIVERABLE

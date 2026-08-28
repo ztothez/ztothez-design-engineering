@@ -1,0 +1,279 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://ztothez.github.io/schemas/product-design-brief.schema.yaml
+title: ZtotheZ Product Design Brief
+type: object
+additionalProperties: false
+required: [version, id, product, status, preparedAt, preparedBy, evidenceSources, problem, scope, audiences, outcomes, dataSources, tasks, states, platforms, constraints, requirements, assumptions, acceptanceCriteria, downstreamContracts]
+properties:
+  version: { const: "1.0" }
+  id: { $ref: "#/$defs/id" }
+  product: { $ref: "#/$defs/text" }
+  status: { enum: [draft, validated] }
+  preparedAt: { type: string, format: date-time }
+  preparedBy:
+    type: object
+    additionalProperties: false
+    required: [type, name]
+    properties:
+      type: { enum: [agent, human, mixed] }
+      name: { $ref: "#/$defs/text" }
+  evidenceSources:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/evidenceSource" }
+  problem:
+    type: object
+    additionalProperties: false
+    required: [statement, currentOutcome, desiredOutcome, evidenceRefs]
+    properties:
+      statement: { $ref: "#/$defs/longText" }
+      currentOutcome: { $ref: "#/$defs/longText" }
+      desiredOutcome: { $ref: "#/$defs/longText" }
+      evidenceRefs: { $ref: "#/$defs/nonEmptyRefs" }
+  scope:
+    type: object
+    additionalProperties: false
+    required: [included, excluded]
+    properties:
+      included: { $ref: "#/$defs/nonEmptyTextList" }
+      excluded: { $ref: "#/$defs/nonEmptyTextList" }
+  audiences:
+    type: array
+    minItems: 1
+    maxItems: 100
+    items: { $ref: "#/$defs/audience" }
+  outcomes:
+    type: array
+    minItems: 1
+    maxItems: 200
+    items: { $ref: "#/$defs/outcome" }
+  dataSources:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/dataSource" }
+  tasks:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/task" }
+  states:
+    type: array
+    minItems: 1
+    maxItems: 20
+    items: { $ref: "#/$defs/state" }
+  platforms:
+    type: array
+    minItems: 1
+    maxItems: 20
+    items: { $ref: "#/$defs/platform" }
+  constraints: { $ref: "#/$defs/textList" }
+  requirements:
+    type: array
+    minItems: 1
+    maxItems: 1000
+    items: { $ref: "#/$defs/requirement" }
+  assumptions:
+    type: array
+    maxItems: 500
+    items: { $ref: "#/$defs/assumption" }
+  acceptanceCriteria:
+    type: array
+    minItems: 1
+    maxItems: 2000
+    items: { $ref: "#/$defs/acceptanceCriterion" }
+  downstreamContracts:
+    type: array
+    minItems: 4
+    maxItems: 4
+    items: { $ref: "#/$defs/downstreamContract" }
+$defs:
+  id: { type: string, pattern: "^[a-z0-9][a-z0-9-]{0,63}$" }
+  text: { type: string, minLength: 1, maxLength: 512 }
+  longText: { type: string, minLength: 1, maxLength: 1024 }
+  refs:
+    type: array
+    maxItems: 100
+    items: { $ref: "#/$defs/id" }
+  nonEmptyRefs:
+    type: array
+    minItems: 1
+    maxItems: 100
+    items: { $ref: "#/$defs/id" }
+  textList:
+    type: array
+    maxItems: 100
+    items: { $ref: "#/$defs/longText" }
+  nonEmptyTextList:
+    type: array
+    minItems: 1
+    maxItems: 100
+    items: { $ref: "#/$defs/longText" }
+  evidenceSource:
+    type: object
+    additionalProperties: false
+    required: [id, kind, description, owner]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      kind: { enum: [user-provided, stakeholder, user-research, product-analytics, support-record, existing-product, technical-source, public-standard, agent-assumption] }
+      description: { $ref: "#/$defs/longText" }
+      location: { $ref: "#/$defs/longText" }
+      owner: { $ref: "#/$defs/text" }
+  audience:
+    type: object
+    additionalProperties: false
+    required: [id, role, priority, goals, contexts, constraints, accessibilityNeeds, expertise, evidenceRefs]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      role: { $ref: "#/$defs/text" }
+      priority: { enum: [primary, secondary, affected] }
+      goals: { $ref: "#/$defs/textList" }
+      contexts: { $ref: "#/$defs/textList" }
+      constraints: { $ref: "#/$defs/textList" }
+      accessibilityNeeds: { $ref: "#/$defs/textList" }
+      expertise: { enum: [novice, intermediate, expert, mixed, unknown] }
+      evidenceRefs: { $ref: "#/$defs/nonEmptyRefs" }
+  outcome:
+    type: object
+    additionalProperties: false
+    required: [id, kind, statement, measure, evidenceRefs]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      kind: { enum: [user, business, operational, risk-reduction] }
+      statement: { $ref: "#/$defs/longText" }
+      measure:
+        type: object
+        additionalProperties: false
+        required: [signal, baseline, target]
+        properties:
+          signal: { $ref: "#/$defs/longText" }
+          target: { $ref: "#/$defs/longText" }
+          baseline:
+            oneOf:
+              - type: object
+                additionalProperties: false
+                required: [status, value]
+                properties:
+                  status: { const: known }
+                  value: { $ref: "#/$defs/text" }
+              - type: object
+                additionalProperties: false
+                required: [status, reason]
+                properties:
+                  status: { enum: [unknown, not-applicable] }
+                  reason: { $ref: "#/$defs/longText" }
+      evidenceRefs: { $ref: "#/$defs/nonEmptyRefs" }
+  dataSource:
+    type: object
+    additionalProperties: false
+    required: [id, name, mode, latency, classification, sourceEvidenceRef, freshness, limitations, fallback]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      name: { $ref: "#/$defs/text" }
+      mode: { enum: [live, demo, hybrid, imported, cached, user-input, local-static] }
+      latency: { enum: [immediate, async, streaming, unknown] }
+      classification: { enum: [public, internal, confidential, restricted] }
+      sourceEvidenceRef: { $ref: "#/$defs/id" }
+      freshness: { $ref: "#/$defs/longText" }
+      limitations: { $ref: "#/$defs/textList" }
+      fallback:
+        type: object
+        additionalProperties: false
+        required: [kind, disclosure, preservesOrigin]
+        properties:
+          kind: { enum: [none, demo, cache, import, manual] }
+          disclosure: { $ref: "#/$defs/longText" }
+          preservesOrigin: { type: boolean }
+  task:
+    type: object
+    additionalProperties: false
+    required: [id, title, audienceRefs, outcomeRefs, dataRefs, trigger, goal, frequency, criticality, consequential, inputs, successSignal, failureImpact, recovery, evidenceRefs]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      title: { $ref: "#/$defs/text" }
+      audienceRefs: { $ref: "#/$defs/nonEmptyRefs" }
+      outcomeRefs: { $ref: "#/$defs/nonEmptyRefs" }
+      dataRefs: { $ref: "#/$defs/refs" }
+      trigger: { $ref: "#/$defs/longText" }
+      goal: { $ref: "#/$defs/longText" }
+      frequency: { enum: [continuous, daily, weekly, monthly, occasional, one-time] }
+      criticality: { enum: [critical, high, medium, low] }
+      consequential: { type: boolean }
+      inputs: { $ref: "#/$defs/textList" }
+      successSignal: { $ref: "#/$defs/longText" }
+      failureImpact: { $ref: "#/$defs/longText" }
+      recovery: { $ref: "#/$defs/longText" }
+      evidenceRefs: { $ref: "#/$defs/nonEmptyRefs" }
+  state:
+    type: object
+    additionalProperties: false
+    required: [state, taskRefs, behavior, recovery, disclosure]
+    properties:
+      state: { enum: [loading, empty, success, error, partial, stale, disconnected, unauthorized, blocked, offline] }
+      taskRefs: { $ref: "#/$defs/nonEmptyRefs" }
+      behavior: { $ref: "#/$defs/longText" }
+      recovery: { $ref: "#/$defs/longText" }
+      disclosure: { $ref: "#/$defs/longText" }
+  platform:
+    type: object
+    additionalProperties: false
+    required: [id, kind, priority, viewports, inputModes, constraints]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      kind: { enum: [responsive-web, desktop-web, mobile-web, native-mobile, desktop-app] }
+      priority: { enum: [primary, secondary] }
+      viewports: { type: array, items: { type: integer, minimum: 240, maximum: 10000 } }
+      inputModes: { type: array, minItems: 1, items: { enum: [keyboard, pointer, touch, assistive-technology] } }
+      constraints: { $ref: "#/$defs/textList" }
+  requirement:
+    type: object
+    additionalProperties: false
+    required: [id, category, priority, statement, rationale, taskRefs, evidenceRefs]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      category: { enum: [functional, usability, accessibility, security, privacy, performance, reliability, maintainability, content, brand] }
+      priority: { enum: [must, should, could, wont] }
+      statement: { $ref: "#/$defs/longText" }
+      rationale: { $ref: "#/$defs/longText" }
+      taskRefs: { $ref: "#/$defs/refs" }
+      evidenceRefs: { $ref: "#/$defs/nonEmptyRefs" }
+  assumption:
+    type: object
+    additionalProperties: false
+    required: [id, statement, risk, status, evidenceRefs, validationMethod]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      statement: { $ref: "#/$defs/longText" }
+      risk: { enum: [high, medium, low] }
+      status: { enum: [unresolved, validated, rejected] }
+      evidenceRefs: { $ref: "#/$defs/refs" }
+      validationMethod: { $ref: "#/$defs/longText" }
+  acceptanceCriterion:
+    type: object
+    additionalProperties: false
+    required: [id, statement, requirementRefs, taskRefs, method, expectedEvidence, blocking]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      statement: { $ref: "#/$defs/longText" }
+      requirementRefs: { $ref: "#/$defs/nonEmptyRefs" }
+      taskRefs: { $ref: "#/$defs/nonEmptyRefs" }
+      method: { enum: [static-analysis, unit-test, integration-test, browser-test, manual-human, human-expert, representative-user] }
+      expectedEvidence: { $ref: "#/$defs/longText" }
+      blocking: { type: boolean }
+  downstreamContract:
+    type: object
+    additionalProperties: false
+    required: [kind, status]
+    properties:
+      kind: { enum: [product-task, interface-trust, information-design, design-deliverable] }
+      status: { enum: [planned, exists, not-applicable] }
+      path: { $ref: "#/$defs/longText" }
+      reason: { $ref: "#/$defs/longText" }
+    allOf:
+      - if:
+          properties: { status: { const: exists } }
+        then: { required: [path] }
+      - if:
+          properties: { status: { const: not-applicable } }
+        then: { required: [reason] }

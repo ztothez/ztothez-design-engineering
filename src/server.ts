@@ -41,6 +41,10 @@ import { formatQualityGateReport } from "./quality-gate/report.js";
 import { runQualityGate } from "./quality-gate/runner.js";
 import { qualityGateReportSchema } from "./quality-gate/schema.js";
 import { PRODUCT_ID, VERSION } from "./product.js";
+import { loadProductDesignBrief } from "./product-brief/loader.js";
+import { formatProductBriefReport } from "./product-brief/report.js";
+import { productBriefReportSchema } from "./product-brief/schema.js";
+import { validateProductDesignBrief } from "./product-brief/validator.js";
 import { listPortfolioProjectsForMcp, readPortfolioReportForMcp } from "./portfolio/mcp.js";
 import { formatKnowledgeSearchReport } from "./retrieval/report.js";
 import {
@@ -503,6 +507,57 @@ async function configuredInformationDesignRoots(): Promise<string[]> {
   return resolvedRoots;
 }
 
+async function configuredProductBriefRoots(): Promise<string[]> {
+  const configuredRoots = process.env.ZTOTHEZ_DESIGN_BRIEF_ROOTS?.split(delimiter)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0);
+  const roots = configuredRoots?.length ? configuredRoots : [PROJECT_ROOT];
+  const resolvedRoots: string[] = [];
+  for (const root of roots) {
+    const resolvedRoot = await realpath(resolve(root));
+    if (!(await stat(resolvedRoot)).isDirectory()) {
+      throw new Error(`Configured product design brief root is not a directory: ${root}`);
+    }
+    resolvedRoots.push(resolvedRoot);
+  }
+  return resolvedRoots;
+}
+
+async function resolveAllowedProductDesignBrief(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0")) {
+    throw new Error("The product design brief path contains an invalid null byte");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Product design briefs must end in .json, .yaml, or .yml");
+  }
+
+  const roots = await configuredProductBriefRoots();
+  const candidates = isAbsolute(requestedFile)
+    ? [requestedFile]
+    : roots.map((root) => resolve(root, requestedFile));
+
+  for (const candidate of candidates) {
+    let resolvedCandidate: string;
+    try {
+      resolvedCandidate = await realpath(candidate);
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!roots.some((root) => isPathContained(root, resolvedCandidate))) continue;
+    const fileStats = await stat(resolvedCandidate);
+    if (!fileStats.isFile()) throw new Error("Product design brief path must be a regular file");
+    if (fileStats.size > MAX_FILE_BYTES) {
+      throw new Error(`Product design brief exceeds the ${MAX_FILE_BYTES}-byte read limit`);
+    }
+    return resolvedCandidate;
+  }
+
+  throw new Error(
+    "Product design brief is unavailable or outside ZTOTHEZ_DESIGN_BRIEF_ROOTS. Configure explicit allowed roots before reading external briefs.",
+  );
+}
+
 async function resolveAllowedInformationDesignContract(requestedFile: string): Promise<string> {
   if (requestedFile.includes("\0")) {
     throw new Error("The information-design path contains an invalid null byte");
@@ -920,6 +975,51 @@ server.registerTool(
     } catch (error) {
       const message = errorMessage(error);
       console.error(`[validate_design_deliverable] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "validate_product_design_brief",
+  {
+    title: "Validate product design brief",
+    description:
+      "Validates a versioned product design brief for evidence-backed problems, primary audiences, measurable outcomes, critical tasks, truthful data and fallback behavior, applicable interface states, responsive platforms, unresolved assumptions, requirements, and acceptance coverage. A generation-ready result authorizes design planning only.",
+    inputSchema: {
+      briefFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative brief. External roots must be listed in ZTOTHEZ_DESIGN_BRIEF_ROOTS.",
+        ),
+    },
+    outputSchema: productBriefReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ briefFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedProductDesignBrief(briefFile);
+      const brief = await loadProductDesignBrief(resolvedFile);
+      const report = validateProductDesignBrief(brief, resolvedFile);
+      return {
+        content: [{ type: "text" as const, text: formatProductBriefReport(report) }],
+        structuredContent: report,
+        ...(report.generationReady ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[validate_product_design_brief] ${message}`);
       return {
         isError: true,
         content: [{ type: "text" as const, text: message }],

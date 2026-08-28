@@ -47,6 +47,7 @@ artifactSets:
       - SKILL.md
       - V2-ROADMAP.md
       - V3-ROADMAP.md
+      - V4-ROADMAP.md
       - docs/installation.md
       - knowledge-base/INDEX.md
       - knowledge-base/dependencies.yaml
@@ -67,6 +68,9 @@ artifactSets:
       - knowledge-base/design-intelligence/interface-trust.template.yaml
       - knowledge-base/design-intelligence/licensing-and-provenance.md
       - knowledge-base/design-intelligence/presentation-design.md
+      - knowledge-base/design-intelligence/product-design-brief.md
+      - knowledge-base/design-intelligence/product-design-brief.schema.yaml
+      - knowledge-base/design-intelligence/product-design-brief.template.yaml
       - knowledge-base/design-intelligence/visual-accessibility.md
       - knowledge-base/design-intelligence/visual-polish.md
       - knowledge-base/maintained/architecture/MASTER.md

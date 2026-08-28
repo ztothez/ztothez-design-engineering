@@ -37,6 +37,7 @@ test("CLI help identifies the product, server, and both commands", () => {
   assert.match(help, new RegExp(`${CLI_COMMANDS[0]} and ${CLI_COMMANDS[1]}`));
   assert.match(help, new RegExp(PRODUCT_ID));
   assert.match(help, new RegExp(`Usage: ${CLI_COMMANDS[0]}`));
+  assert.match(help, /validate-brief --brief PATH/);
   assert.match(help, /portfolio validate-registry\|inventory\|capabilities\|run-stage\|snapshot\|baseline\|benchmark\|verify-unchanged\|report/);
   assert.match(portfolioUsage(CLI_COMMANDS[1]), /portfolio snapshot --project ID/);
   assert.match(portfolioUsage(CLI_COMMANDS[1]), /portfolio capabilities --project ID/);

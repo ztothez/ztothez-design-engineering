@@ -1,0 +1,225 @@
+version: "1.0"
+id: example-operations-brief
+product: Example Operations Workspace
+status: validated
+preparedAt: 2026-08-28T20:00:00+03:00
+preparedBy:
+  type: mixed
+  name: ZtotheZ and design agent
+evidenceSources:
+  - id: operator-request
+    kind: user-provided
+    description: Operators need to identify the highest-impact issue and start a bounded remediation without losing scope context.
+    owner: Product owner
+  - id: service-contract
+    kind: technical-source
+    description: The service contract exposes scoped findings and can fall back to disclosed demonstration data when disconnected.
+    location: docs/service-contract.yaml
+    owner: Engineering
+problem:
+  statement: Operators cannot reliably distinguish the highest-impact issue from supporting telemetry before taking action.
+  currentOutcome: Reviewers scan several disconnected panels and may act without confirming scope or result origin.
+  desiredOutcome: An operator identifies scope, priority, evidence, and the next safe action from one coherent task path.
+  evidenceRefs: [operator-request, service-contract]
+scope:
+  included:
+    - Scoped findings overview
+    - Finding evidence drill-down
+    - Bounded remediation start and recovery
+  excluded:
+    - Automatic remediation without confirmation
+    - Production credential management
+audiences:
+  - id: operations-engineer
+    role: Operations engineer
+    priority: primary
+    goals:
+      - Identify the most consequential finding.
+      - Verify evidence before starting remediation.
+    contexts:
+      - Desktop operations review during normal and degraded service states.
+      - Narrow viewport incident triage away from the primary workstation.
+    constraints:
+      - Must preserve environment and scope during failures.
+      - Must not confuse demonstration results with live results.
+    accessibilityNeeds:
+      - Keyboard-complete operation and visible focus.
+      - High-contrast text and non-color severity cues.
+    expertise: mixed
+    evidenceRefs: [operator-request]
+outcomes:
+  - id: identify-next-action
+    kind: user
+    statement: The operator can identify the highest-impact finding and its next action without inspecting unrelated telemetry.
+    measure:
+      signal: Primary journey reaches the evidence-backed action from the overview.
+      baseline:
+        status: unknown
+        reason: No retained interaction baseline exists for the example product.
+      target: Browser journey exposes scope, priority, evidence, and action at every maintained viewport.
+    evidenceRefs: [operator-request]
+  - id: preserve-result-trust
+    kind: risk-reduction
+    statement: The interface preserves live or demonstration origin throughout findings and actions.
+    measure:
+      signal: Result-origin assertions remain visible before action and in resulting records.
+      baseline:
+        status: not-applicable
+        reason: This is a new example workflow.
+      target: All live, fallback, stale, and disconnected fixtures pass the trust contract.
+    evidenceRefs: [service-contract]
+dataSources:
+  - id: findings-service
+    name: Findings service
+    mode: hybrid
+    latency: async
+    classification: internal
+    sourceEvidenceRef: service-contract
+    freshness: Runtime response timestamp with timezone; unknown until a response arrives.
+    limitations:
+      - Demonstration fallback cannot establish production service availability.
+    fallback:
+      kind: demo
+      disclosure: Show Demonstration data next to scope, findings, actions, history, and exports.
+      preservesOrigin: true
+tasks:
+  - id: review-and-start-remediation
+    title: Review the highest-impact finding and start remediation
+    audienceRefs: [operations-engineer]
+    outcomeRefs: [identify-next-action, preserve-result-trust]
+    dataRefs: [findings-service]
+    trigger: A scheduled or manual analysis has findings available for the selected environment.
+    goal: Confirm scope and evidence, then start the bounded remediation for the highest-impact finding.
+    frequency: daily
+    criticality: high
+    consequential: true
+    inputs:
+      - Selected environment
+      - Finding identifier
+    successSignal: The selected finding enters a started state with scope, origin, evidence, and verification instructions preserved.
+    failureImpact: The operator may act on the wrong environment or mistake demonstration evidence for live service output.
+    recovery: Preserve the selected scope and finding, explain the failure, and offer a bounded retry or return to review.
+    evidenceRefs: [operator-request, service-contract]
+states:
+  - state: loading
+    taskRefs: [review-and-start-remediation]
+    behavior: Preserve layout and selected scope while announcing bounded progress.
+    recovery: Allow cancellation and retain the current finding selection.
+    disclosure: Connection and result origin remain checking until runtime evidence resolves them.
+  - state: empty
+    taskRefs: [review-and-start-remediation]
+    behavior: State that no findings exist for the selected scope and period.
+    recovery: Let the operator change scope or rerun analysis.
+    disclosure: Preserve data mode, scope, freshness, and limitations.
+  - state: success
+    taskRefs: [review-and-start-remediation]
+    behavior: Show the started remediation, affected scope, evidence, and verification step.
+    recovery: Provide a return path to the finding and history.
+    disclosure: Preserve result origin and service state in the resulting record.
+  - state: error
+    taskRefs: [review-and-start-remediation]
+    behavior: Explain the failed operation without discarding the selected finding.
+    recovery: Offer a bounded retry and a safe return to review.
+    disclosure: Distinguish interface availability from service failure.
+  - state: partial
+    taskRefs: [review-and-start-remediation]
+    behavior: Label unavailable evidence and prevent unsupported certainty.
+    recovery: Allow review of available evidence or retry missing portions.
+    disclosure: State which findings or evidence are incomplete.
+  - state: stale
+    taskRefs: [review-and-start-remediation]
+    behavior: Keep stale findings visible with timestamp and block unsafe assumptions of currency.
+    recovery: Refresh while preserving scope and selection.
+    disclosure: Show stale status, observed time, timezone, and source.
+  - state: disconnected
+    taskRefs: [review-and-start-remediation]
+    behavior: Keep the interface usable and disable actions that require a verified connection.
+    recovery: Retry connection or enter explicitly disclosed demonstration mode.
+    disclosure: Show disconnected state separately from demonstration result origin.
+platforms:
+  - id: responsive-browser
+    kind: responsive-web
+    priority: primary
+    viewports: [375, 768, 1024, 1440]
+    inputModes: [keyboard, pointer, touch, assistive-technology]
+    constraints:
+      - Avoid competing scroll regions on narrow viewports.
+      - Keep the next action visible before telemetry detail.
+constraints:
+  - TypeScript and semantic token architecture.
+  - Local fixture states must not contact production services.
+  - Evidence output must not contain credentials or absolute private paths.
+requirements:
+  - id: requirement-decision-path
+    category: functional
+    priority: must
+    statement: The overview exposes scope, highest-impact finding, evidence, and the bounded next action in decision order.
+    rationale: The primary task depends on identifying and verifying the right action.
+    taskRefs: [review-and-start-remediation]
+    evidenceRefs: [operator-request]
+  - id: requirement-truth
+    category: reliability
+    priority: must
+    statement: Live, demonstration, stale, partial, and disconnected results remain visibly distinguishable before action and in resulting records.
+    rationale: Unsupported operational certainty can cause incorrect remediation.
+    taskRefs: [review-and-start-remediation]
+    evidenceRefs: [service-contract]
+  - id: requirement-accessibility
+    category: accessibility
+    priority: must
+    statement: The primary task supports keyboard, visible focus, non-color status cues, text resize, reflow, and maintained contrast.
+    rationale: The task must remain operable across declared access needs and viewports.
+    taskRefs: [review-and-start-remediation]
+    evidenceRefs: [operator-request]
+  - id: requirement-boundaries
+    category: maintainability
+    priority: should
+    statement: Domain state, service access, and rendering remain independently testable.
+    rationale: Trust and recovery behavior must not depend on one monolithic component.
+    taskRefs: [review-and-start-remediation]
+    evidenceRefs: [service-contract]
+assumptions:
+  - id: assumption-service-shape
+    statement: The declared service contract represents the initial fixture response shape.
+    risk: low
+    status: validated
+    evidenceRefs: [service-contract]
+    validationMethod: Validate fixtures against the service contract before browser verification.
+acceptanceCriteria:
+  - id: acceptance-decision-path
+    statement: At 375, 768, 1024, and 1440 CSS pixels, the operator can inspect scope, priority, evidence, and next action without telemetry preceding the action.
+    requirementRefs: [requirement-decision-path]
+    taskRefs: [review-and-start-remediation]
+    method: browser-test
+    expectedEvidence: Checksummed captures and journey assertions for all four viewports.
+    blocking: true
+  - id: acceptance-trust-states
+    statement: Live, demonstration fallback, partial, stale, and disconnected fixtures preserve origin and limitations before and after the action.
+    requirementRefs: [requirement-truth]
+    taskRefs: [review-and-start-remediation]
+    method: integration-test
+    expectedEvidence: State-specific contract and runtime assertions with no unsupported live claim.
+    blocking: true
+  - id: acceptance-accessibility
+    statement: The primary journey passes keyboard, focus, contrast, target, text-resize, reflow, and reduced-motion checks.
+    requirementRefs: [requirement-accessibility]
+    taskRefs: [review-and-start-remediation]
+    method: browser-test
+    expectedEvidence: Browser report with applicable accessibility checks passing.
+    blocking: true
+  - id: acceptance-boundaries
+    statement: Static audit reports no domain-state ownership leak or shared component threshold violation in the primary task path.
+    requirementRefs: [requirement-boundaries]
+    taskRefs: [review-and-start-remediation]
+    method: static-analysis
+    expectedEvidence: Architecture audit report bound to the source revision.
+    blocking: false
+downstreamContracts:
+  - kind: product-task
+    status: planned
+  - kind: interface-trust
+    status: planned
+  - kind: information-design
+    status: planned
+  - kind: design-deliverable
+    status: planned

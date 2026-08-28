@@ -1,20 +1,21 @@
 # Design Intelligence Router
 
-Use this maintained module set when a request needs interface trust, operational information design, visual polish, brand identity, Figma libraries, generated or sourced assets, icon systems, presentations, licensing records, or visual-accessibility review. Keep the root `SKILL.md` authoritative and load only the modules required by the deliverables.
+Use this maintained module set when a request needs product intake, interface trust, operational information design, visual polish, brand identity, Figma libraries, generated or sourced assets, icon systems, presentations, licensing records, or visual-accessibility review. Keep the root `SKILL.md` authoritative and load only the modules required by the deliverables.
 
 ## Required Workflow
 
 For an interface system, use this order and record every stage in `design-deliverable.yaml`:
 
-1. Validate the product task and product contract.
-2. Create and validate the truth and data-source contract from `interface-trust.template.yaml`.
-3. Create and validate the information architecture from `information-design.template.yaml`.
-4. Declare the interaction and state model.
-5. Declare the visual direction using `visual-polish.md`.
-6. Build primitive, semantic, and component token layers.
-7. Implement the smallest coherent task path.
-8. Attach deterministic automated verification evidence.
-9. Request attributable human visual review of rendered output.
+1. Validate the product evidence and generation boundary from `product-design-brief.template.yaml`.
+2. Validate the product task and product contract.
+3. Create and validate the truth and data-source contract from `interface-trust.template.yaml`.
+4. Create and validate the information architecture from `information-design.template.yaml`.
+5. Declare the interaction and state model.
+6. Declare the visual direction using `visual-polish.md`.
+7. Build primitive, semantic, and component token layers.
+8. Implement the smallest coherent task path.
+9. Attach deterministic automated verification evidence.
+10. Request attributable human visual review of rendered output.
 
 Before this sequence, inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested. During it, route to the smallest relevant modules, record rights evidence for every distributable asset, and keep unresolved assets out of production output. A declaration validator cannot prove pixels, runtime behavior, legal clearance, usability, or human validation.
 
@@ -22,6 +23,7 @@ Before this sequence, inspect the existing brand, tokens, components, assets, ri
 
 | Deliverable | Read |
 |---|---|
+| New product, consequential redesign, audience, task, data, assumptions, or generation readiness | `product-design-brief.md` |
 | Operational state, external data, generated results, fallback, history, or export provenance | `interface-trust.md` |
 | Operational metrics, findings, charts, hierarchy, long labels, or large collections | `information-design.md` |
 | Visual direction, typography, composition, density, states, motion, charts, or rendered visual review | `visual-polish.md` |
@@ -44,6 +46,10 @@ The design-deliverable manifest is a structured claim with evidence references. 
 - Rendered contrast, reading order, alternative text, or interaction behavior passes review.
 
 Use source inspection, Figma inspection, export inspection, browser verification, and qualified human review to close those evidence gaps.
+
+The product design brief proves that generation inputs are internally consistent, source-traceable,
+and acceptance-covered. It does not prove product desirability, implementation correctness, or
+release readiness.
 
 The interface-trust contract has the same boundary. Passing validation proves internal source and disclosure consistency, not that the rendered interface displays the declarations or that an external service is available.
 

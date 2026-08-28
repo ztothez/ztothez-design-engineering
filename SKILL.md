@@ -52,7 +52,7 @@ Use `zz-design portfolio validate-registry`, `zz-design portfolio inventory`, an
 
 ## V2 Interface Generation Workflow
 
-Use this bounded workflow for a new interface or consequential redesign. Load `interface-trust.md`, `information-design.md`, and `visual-polish.md` only when their routing conditions apply, and record the nine stages in a version `2.1` design-deliverable manifest.
+Use this bounded workflow for a new interface or consequential redesign. First validate a version 1.0 product design brief. Then load `interface-trust.md`, `information-design.md`, and `visual-polish.md` only when their routing conditions apply, and record the nine downstream stages in a version `2.1` design-deliverable manifest.
 
 1. **Product task:** validate the version 1.1 product contract, archetype, activated quality dimensions, primary user, observable start and success states, recovery path, and consequential actions. For browser products, bind the task to an existing journey, route, and viewport no wider than 768 CSS pixels. Keep missing evidence `unverified`, executed failure `failed`, and unsupported capability a `limitation`.
 2. **Truth and data-source contract:** declare demo, live, fallback, stale, and disconnected behavior. Run the trust validator before implementation.
@@ -65,6 +65,30 @@ Use this bounded workflow for a new interface or consequential redesign. Load `i
 9. **Human visual review:** request attributable review of rendered hierarchy, balance, scanability, density, and domain fit.
 
 Do not advance a stage from `declared`, `required`, or `review-required` without the evidence that stage specifies. A passing declaration is not rendered proof. Automated or AI-assisted evidence can never complete the human-review stage or establish representative-user validation.
+
+## Product Design Brief Workflow
+
+Use this workflow before generating a new product, dashboard, workspace, consequential redesign, or
+primary task path. Read `knowledge-base/design-intelligence/product-design-brief.md` and start from
+`product-design-brief.template.yaml`.
+
+1. Record user-provided, stakeholder, research, analytics, existing-product, technical, standards,
+   and agent-assumption evidence as distinct source classes.
+2. Ground the product problem and every primary audience in evidence other than an agent assumption.
+   Do not invent personas, market demand, expertise, accessibility needs, or operating context.
+3. Define included and excluded scope, measurable outcomes, primary tasks, success signals, failure
+   impact, and recovery. Resolve contradictory scope before planning.
+4. Classify data as live, demo, hybrid, imported, cached, user input, or local static. Declare
+   latency, sensitivity, freshness, fallback, limitations, and origin-preserving disclosure.
+5. Derive applicable loading, empty, success, error, partial, stale, disconnected, unauthorized,
+   blocked, or offline states from the actual task and data model.
+6. Declare platforms, maintained viewports, input modes, constraints, and prioritized requirements.
+   Keep unresolved high-risk assumptions blocking and medium-risk assumptions visible.
+7. Bind every must-have requirement and every task to an observable acceptance criterion. A human
+   verification method is a requirement for future evidence, not an attestation.
+8. Run `validate_product_design_brief` or `npm run validate-brief -- --brief PATH`. Proceed to design
+   planning only when `generationReady` is true. Continue to require downstream architecture,
+   trust, information, design, implementation, browser, and release evidence.
 
 ## Interface Trust Workflow
 
@@ -328,7 +352,7 @@ Use this workflow when the user asks whether one implementation improves truthfu
 7. Run `compile-comparison` to hash completed source sessions and produce the combined review, then run `validate-comparison`. Read `passed`, `humanReview.requirementsMet`, `benchmarkDecision.passed`, and `releaseReady` as separate decisions.
 8. Preserve missing behavior, failed tasks, dissenting ratings, and target regressions. Do not remove an inconvenient session or average evidence levels together to obtain a preferred winner.
 
-For the Azure V2 benchmark, use `knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml` and the generated packet under `evidence/interface-quality/azure-v2-review/`. Item 8 remains incomplete until real reviewer-supplied sessions satisfy the configured thresholds.
+For the Azure V2 benchmark, use `knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml` and the retained packet under `evidence/interface-quality/azure-v2-review/`. The external anonymous human visual comparison is complete for readability, information findability, visual preference, and observable screenshot problems. It does not claim interactive representative-user task validation.
 
 ## Enterprise Readiness
 

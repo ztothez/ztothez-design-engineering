@@ -27,6 +27,10 @@ test("MCP exposes the repository auditor with structured output", async () => {
     resolve(process.cwd(), "tests", "fixtures"),
     resolve(process.cwd(), "knowledge-base", "design-intelligence"),
   ].join(delimiter);
+  process.env.ZTOTHEZ_DESIGN_BRIEF_ROOTS = [
+    resolve(process.cwd(), "tests", "fixtures"),
+    resolve(process.cwd(), "knowledge-base", "design-intelligence"),
+  ].join(delimiter);
   const { server } = await import("../src/server.js");
   const client = new Client({ name: "ztothez-design-audit-test", version: "1.0.0" });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
@@ -53,6 +57,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "validate_design_deliverable"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_product_design_brief"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
     assert.ok(tools.tools.some((tool) => tool.name === "list_portfolio_projects"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_portfolio_benchmark_report"));
@@ -128,10 +133,12 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.match(designListingText?.text ?? "", /interface-trust[.]md/);
     assert.match(designListingText?.text ?? "", /information-design[.]md/);
     assert.match(designListingText?.text ?? "", /visual-polish[.]md/);
+    assert.match(designListingText?.text ?? "", /product-design-brief[.]md/);
 
     for (const [file, heading] of [
       ["interface-trust.md", /Interface Trust And Data Provenance/],
       ["information-design.md", /Operational Information Design/],
+      ["product-design-brief.md", /Product Design Brief Contract/],
       ["visual-polish.md", /Visual Polish System/],
     ] as const) {
       const exactRead = await client.callTool({
@@ -235,6 +242,26 @@ test("MCP exposes the repository auditor with structured output", async () => {
       arguments: { contractFile: resolve(process.cwd(), "package.json") },
     });
     assert.equal(deniedInformationContract.isError, true);
+
+    const productBrief = await client.callTool({
+      name: "validate_product_design_brief",
+      arguments: { briefFile: "product-design-brief.template.yaml" },
+    });
+    const productBriefReport = productBrief.structuredContent as
+      | { passed?: unknown; generationReady?: unknown; sourcePath?: unknown; coverage?: { tasks?: unknown; states?: unknown } }
+      | undefined;
+    assert.equal(productBrief.isError, undefined);
+    assert.equal(productBriefReport?.passed, true);
+    assert.equal(productBriefReport?.generationReady, true);
+    assert.equal(productBriefReport?.sourcePath, "product-design-brief.template.yaml");
+    assert.equal(productBriefReport?.coverage?.tasks, 1);
+    assert.equal(productBriefReport?.coverage?.states, 7);
+
+    const deniedProductBrief = await client.callTool({
+      name: "validate_product_design_brief",
+      arguments: { briefFile: resolve(process.cwd(), "package.json") },
+    });
+    assert.equal(deniedProductBrief.isError, true);
 
     const comparison = await client.callTool({
       name: "evaluate_interface_comparison",
@@ -397,5 +424,8 @@ test("MCP exposes the repository auditor with structured output", async () => {
     delete process.env.ZTOTHEZ_DESIGN_HEURISTIC_REVIEW_ROOTS;
     delete process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS;
     delete process.env.ZTOTHEZ_DESIGN_COMPARISON_ROOTS;
+    delete process.env.ZTOTHEZ_DESIGN_TRUST_ROOTS;
+    delete process.env.ZTOTHEZ_DESIGN_INFORMATION_ROOTS;
+    delete process.env.ZTOTHEZ_DESIGN_BRIEF_ROOTS;
   }
 });

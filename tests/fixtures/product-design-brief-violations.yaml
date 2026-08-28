@@ -1,0 +1,40 @@
+version: "1.0"
+base: knowledge-base/design-intelligence/product-design-brief.template.yaml
+cases:
+  - id: agent-invented-primary-audience
+    target: { collection: evidenceSources, id: operator-request }
+    changes: { kind: agent-assumption }
+    expectedRules: [ZTDE-BRIEF-201]
+  - id: consequential-task-without-data
+    target: { collection: tasks, id: review-and-start-remediation }
+    changes: { dataRefs: [] }
+    expectedRules: [ZTDE-BRIEF-303]
+  - id: fallback-loses-origin
+    target: { collection: dataSources, id: findings-service }
+    changes:
+      fallback: { kind: demo, disclosure: Use simulated demonstration data., preservesOrigin: false }
+    expectedRules: [ZTDE-BRIEF-402]
+  - id: missing-disconnected-state
+    target: { collection: states, id: disconnected }
+    remove: true
+    expectedRules: [ZTDE-BRIEF-501]
+  - id: unresolved-high-risk-assumption
+    target: { collection: assumptions, id: assumption-service-shape }
+    changes: { risk: high, status: unresolved }
+    expectedRules: [ZTDE-BRIEF-601]
+  - id: must-requirement-without-acceptance
+    target: { collection: acceptanceCriteria, id: acceptance-trust-states }
+    remove: true
+    expectedRules: [ZTDE-BRIEF-701]
+  - id: placeholder-acceptance
+    target: { collection: acceptanceCriteria, id: acceptance-decision-path }
+    changes: { statement: TODO placeholder acceptance criterion }
+    expectedRules: [ZTDE-BRIEF-901]
+  - id: incomplete-responsive-platform
+    target: { collection: platforms, id: responsive-browser }
+    changes: { viewports: [375, 768], inputModes: [pointer, touch] }
+    expectedRules: [ZTDE-BRIEF-502]
+  - id: sensitive-data-without-policy
+    target: { collection: dataSources, id: findings-service }
+    changes: { classification: restricted }
+    expectedRules: [ZTDE-BRIEF-501, ZTDE-BRIEF-704]

@@ -66,6 +66,16 @@ try {
   assert.equal(runNode([cliPath, "--version"]).trim(), installedPackage.version);
   assert.match(runNode([cliPath, "--help"]), /ztothez-design-engineering/);
   assert.match(runNode([cliPath, "portfolio", "--help"]), /portfolio snapshot --project ID/);
+  const briefCli = JSON.parse(
+    runNode([
+      cliPath,
+      "validate-brief",
+      "--brief",
+      join(installedRoot, "knowledge-base", "design-intelligence", "product-design-brief.template.yaml"),
+      "--json",
+    ]),
+  );
+  assert.equal(briefCli.generationReady, true);
 
   const client = new Client({ name: "packed-install-smoke", version: "1.0.0" });
   const transport = new StdioClientTransport({
@@ -91,6 +101,7 @@ try {
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_product_design_brief"));
 
     const architecture = await client.callTool({
       name: "get_architecture_spec",
@@ -111,6 +122,7 @@ try {
     for (const [file, heading] of [
       ["interface-trust.md", /Interface Trust And Data Provenance/],
       ["information-design.md", /Operational Information Design/],
+      ["product-design-brief.md", /Product Design Brief Contract/],
       ["visual-polish.md", /Visual Polish System/],
     ]) {
       const exactRead = await client.callTool({
@@ -194,6 +206,17 @@ try {
     assert.equal(information.isError, undefined);
     assert.equal(information.structuredContent?.passed, true);
     assert.equal(information.structuredContent?.coverage?.hierarchyLevels, 8);
+
+    const brief = await client.callTool({
+      name: "validate_product_design_brief",
+      arguments: {
+        briefFile: "knowledge-base/design-intelligence/product-design-brief.template.yaml",
+      },
+    });
+    assert.equal(brief.isError, undefined);
+    assert.equal(brief.structuredContent?.passed, true);
+    assert.equal(brief.structuredContent?.generationReady, true);
+    assert.equal(brief.structuredContent?.coverage?.tasks, 1);
   } catch (error) {
     const detail = serverDiagnostics.trim();
     throw new Error(

@@ -78,6 +78,11 @@ jobs:
             --contract knowledge-base/benchmarks/azure-optimizer/product-contract.yaml \
             --project-root .
 
+      - name: Validate product design brief
+        run: |
+          npm run validate-brief -- \
+            --brief knowledge-base/design-intelligence/product-design-brief.template.yaml
+
       - name: Validate design intelligence template
         run: |
           npm run validate-design -- \

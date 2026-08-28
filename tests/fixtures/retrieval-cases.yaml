@@ -42,6 +42,13 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/design-intelligence/interface-trust.md
     maxRank: 1
+  - id: product-design-brief-generation-boundary
+    query: product design brief primary audience evidence critical task recovery unresolved assumptions acceptance criteria generation ready
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/product-design-brief.md
+    maxRank: 1
   - id: operational-information-decisions
     query: metric formula source freshness baseline finding evidence impact next action verification decorative chart large collection
     categories:
