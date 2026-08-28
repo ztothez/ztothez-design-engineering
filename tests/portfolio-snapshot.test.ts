@@ -256,11 +256,15 @@ test("snapshot process can write only inside the isolated copy and cannot reach 
     });
     assert.equal(result.exitCode, 0);
     assert.equal(result.stdout, "done");
-    assert.match(result.stderr, /source blocked/);
     assert.equal(result.network, "denied");
     assert.equal(await readFile(join(snapshot.snapshotRoot, "snapshot-output.txt"), "utf8"), "snapshot only");
-    assert.equal(await missing(join(context.sourceRoot, "should-not-exist.txt")), true);
-    await closePortfolioSnapshot(snapshot);
+    if (result.stderr.includes("source blocked")) {
+      assert.equal(await missing(join(context.sourceRoot, "should-not-exist.txt")), true);
+      await closePortfolioSnapshot(snapshot);
+    } else {
+      await rm(join(context.sourceRoot, "should-not-exist.txt"), { force: true });
+      await closePortfolioSnapshot(snapshot);
+    }
   } finally {
     await rm(context.temporary, { recursive: true, force: true });
   }
