@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-DESIGN-001",
+  "expected": "detected",
+  "applicable": true,
+  "fileName": "panel.css",
+  "prefix": [".panel {", "  color: #121212;", "  padding: 24px;", "  border-radius: 8px;"],
+  "repeat": { "line": "", "count": 0 },
+  "suffix": ["}"]
+}

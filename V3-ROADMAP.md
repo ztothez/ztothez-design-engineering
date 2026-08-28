@@ -472,11 +472,28 @@ Status: **Done**
 
 Implemented evidence:
 
-- `src/portfolio/promotion-schema.ts` defines schemas for rule candidates (`ruleCandidateSchema`), 7 promotion criteria evaluations (`promotionCriteriaEvaluationSchema`), holdout impact breakdown (`holdoutImpactSchema`), and promotion reports (`promotionReportSchema`).
-- `src/portfolio/promotion.ts` implements `evaluateRuleCandidate` evaluating all 7 promotion criteria (independent authoring, 3+ project recurrence across 2+ domains or safety standard, positive/negative fixtures, false-positive analysis & abstention path, test regression checks, holdout validation with zero regressions, and original source immutability). Preserves rejected candidate rules and rejection rationale.
-- `cli/portfolio.ts` provides `zz-design portfolio evaluate-rule --candidate PATH [--dev-run ID] [--holdout-run ID]`.
-- `src/portfolio/mcp.ts` exposes `evaluateRulePromotionForMcp` for opt-in read-only MCP access.
-- `tests/portfolio-promotion.test.ts` proves cohort locking enforcement, 4 candidate rules evaluated through full promotion or rejection paths (including recurrence-backed promotion, safety-backed promotion, recurrence rejection, and holdout regression rejection), holdout impact categorization, and promoted rule artifact generation (documentation, test references, report codes, migration guidance).
+- `src/portfolio/promotion-schema.ts` now requires checksummed positive, negative, abstention,
+  existing-gate, promoted-artifact, and project-specific holdout evidence.
+- `src/portfolio/promotion.ts` fails closed when cohort reports, source digests, fixture evidence,
+  required gates, or exact holdout coverage are missing. All-holdout abstention cannot establish
+  benefit or non-regression, and reports state whether evaluation completed.
+- `cli/portfolio.ts` requires `--evidence`; MCP reads candidates and evidence only from its
+  configured private evidence root and verifies every referenced checksum.
+- Focused tests cover promotion, rejection, missing evidence, incomplete recurrence, failed gates,
+  holdout regression, all-holdout abstention, traversal, checksum failure, and symlink escape.
+- Local development run `v3-development-20260828-r6` and holdout run
+  `v3-holdout-20260828-r4` use the same locked registry digest, cover all 12 projects, retain zero
+  unsafe configurations and zero source mutations, and pass post-run source verification.
+- Three independently authored recurrence candidates completed the full path and were promoted:
+  semantic token boundaries (`ZTDE-DESIGN-001`), interactive control integrity
+  (`ZTDE-SLOP-003`), and the component review threshold (`ZTDE-ARCH-001`).
+- Nine maintained fixture specifications execute against the production audit engine. Their
+  positive, negative, and abstention outcomes pass deterministic regression coverage.
+- Each candidate has checksummed candidate-specific reports for all three locked holdouts. The
+  retained results distinguish detected rule benefit from unaffected products; regression and
+  abstention paths remain covered by the fail-closed promotion regression suite.
+- Documentation, report codes, tests, and migration guidance are retained in
+  `knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md` and the maintained fixture set.
 
 Use the development cohort to discover candidate improvements, then test them against projects that
 were not used to author the rule.
@@ -509,11 +526,28 @@ Status: **Done**
 
 Implemented evidence:
 
-- `src/portfolio/qualification-schema.ts` defines schemas for V3 qualification targets (`v3QualificationTargetSchema`), synthetic CI fixture categories (`ciFixtureCategorySchema`), and qualification reports (`v3QualificationReportSchema`).
-- `src/portfolio/qualification.ts` implements `evaluateV3Qualification` verifying qualification targets ($\ge 12$ projects, $\ge 5$ domains, $\ge 3$ frontend stacks, $\ge 4$ archetypes, $\ge 3$ locked holdout projects, source-only / browser-only / full-stack paths, zero source root mutations, zero private path/secret leakage), 6 synthetic CI fixture categories, and strict disallowed claim boundaries (detecting and rejecting unverified claims of independent human validation, representative user validation, universal quality, or external tool superiority).
-- `cli/portfolio.ts` provides `zz-design portfolio qualify-v3 [--dev-run ID] [--holdout-run ID]`.
-- `src/portfolio/mcp.ts` exposes `evaluateV3QualificationForMcp` for opt-in read-only MCP access.
-- `tests/portfolio-qualification.test.ts` proves V3 qualification targets evaluation, synthetic CI fixture category verification, zero mutation & zero private leakage enforcement, disallowed claim detection, and supported claims verification.
+- Qualification evidence is versioned, portable, checksummed, traversal-protected, and required by
+  both CLI and read-only MCP evaluation. Missing evidence and missing reports cannot default to pass.
+- The evaluator enforces every numeric threshold, exact cohort coverage, source digests, zero source
+  mutation, explicit release gates, six CI fixture categories, three complete rule evaluations,
+  private-distribution evidence, benchmark execution paths, and prohibited claim boundaries.
+- The finalized local registry validates with 12 eligible projects, 12 domains, 8 declared frontend
+  stacks, 5 archetypes, and 3 locked holdouts. Both retained cohort reports have complete project
+  coverage and pass post-run source verification.
+- Local qualification against development run `v3-development-20260828-r6` and holdout run
+  `v3-holdout-20260828-r4` passes all criteria with 12 eligible projects, 12 domains, 8 stacks,
+  5 archetypes, 3 locked holdouts, 0 source mutations, and 0 private-distribution violations.
+- Source-only evidence comes from the authorized local corpus. Browser-only and Node plus Python
+  full-stack execution are exercised through public synthetic products inside the same disposable
+  snapshot, process isolation, and source-mutation boundaries used by the portfolio runner. They
+  validate execution infrastructure without claiming a private product passed those stages.
+- Checksummed command reports bind exact CI, release, benchmark-path, package, offline-release,
+  archive-removal, and privacy checks to retained stdout and stderr logs.
+- `npm run v3:evidence` reproduces the private local evidence and final redacted report. The ignored
+  evidence root contains 3 complete promotion reports and a V3 qualification report with all 14
+  criteria passing and no prohibited claims.
+- GitHub Actions executes `npm run v3:evidence -- --ci-only` and retains the eight-category public
+  synthetic evidence artifact. No local registry, portfolio source, or private report enters CI.
 
 Qualify the benchmark system without placing private local projects on GitHub Actions. CI uses only
 synthetic fixtures and explicitly approved public benchmark artifacts. Real portfolio runs remain
@@ -562,6 +596,10 @@ any new rule. Complete Item 9 only after local qualification and public syntheti
 
 ## Current Status
 
-Items 1 through 9 are **Done**. V3 Roadmap implementation and qualification are complete.
-All 9 items have been implemented with deterministic tests, schema validations, disposable snapshot guards, secret/path redaction, cross-product taxonomy, holdout rule promotion, and release privacy enforcement.
-The benchmark runner operates non-destructively on authorized project roots without modifying original sources, exposing private evidence, or making unverified claims.
+Items 1 through 9 are **Done**.
+
+The portfolio runner produced complete development and locked-holdout reports for all 12 authorized
+projects with unchanged original sources. Three independently authored rules completed executable
+fixture and candidate-specific holdout evaluation. The final local report passes every V3
+qualification criterion, while public CI exercises only synthetic fixtures and approved maintained
+artifacts.

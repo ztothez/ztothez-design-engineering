@@ -90,11 +90,25 @@ artifactSets:
       - knowledge-base/benchmarks/interface-quality/review.template.yaml
       - knowledge-base/benchmarks/portfolio-corpus/ADAPTERS.md
       - knowledge-base/benchmarks/portfolio-corpus/PORTFOLIO-RUNNER.md
+      - knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md
       - knowledge-base/benchmarks/portfolio-corpus/PRODUCT-TASK-CONTRACTS.md
       - knowledge-base/benchmarks/portfolio-corpus/archetype-profiles.yaml
       - knowledge-base/benchmarks/portfolio-corpus/product-task-profile.schema.yaml
       - knowledge-base/benchmarks/portfolio-corpus/registry.schema.yaml
       - knowledge-base/benchmarks/portfolio-corpus/registry.template.yaml
+      - knowledge-base/benchmarks/portfolio-corpus/rule-holdout-evaluation.template.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-promotion-evidence.template.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-abstention.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-negative.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-positive.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-abstention.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-negative.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-positive.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-abstention.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-negative.json
+      - knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-positive.json
+      - knowledge-base/benchmarks/portfolio-corpus/v3-qualification-evidence.template.json
+      - knowledge-base/benchmarks/portfolio-corpus/v3-command-evidence.template.json
   - id: aegisops-benchmark
     source: aegisops-owner-evidence
     status: approved

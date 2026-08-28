@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-SLOP-003",
+  "expected": "abstained",
+  "applicable": false,
+  "fileName": "Action.test.tsx",
+  "prefix": ["export function TestFixture() {", "  return <button type=\"button\">Test-only control</button>;"],
+  "repeat": { "line": "", "count": 0 },
+  "suffix": ["}"]
+}

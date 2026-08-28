@@ -146,6 +146,25 @@ test("snapshot rejects symbolic links that escape the project", async () => {
   }
 });
 
+test("snapshot guards but does not resolve an excluded escaping symbolic link", async () => {
+  const context = await fixture();
+  try {
+    const outside = join(context.temporary, "outside.txt");
+    await writeFile(outside, "outside\n");
+    await symlink(outside, join(context.sourceRoot, "excluded-link.txt"));
+    context.project.declaration.paths.exclude.push("excluded-link.txt");
+
+    const snapshot = await createPortfolioSnapshot(context.project, context.workspace);
+    const entry = snapshot.sourceState.entries.find((candidate) => candidate.path === "excluded-link.txt");
+    assert.equal(entry?.scope, "guard");
+    assert.equal(entry?.resolvedLinkPath, undefined);
+    assert.equal(await missing(join(snapshot.snapshotRoot, "excluded-link.txt")), true);
+    await closePortfolioSnapshot(snapshot);
+  } finally {
+    await rm(context.temporary, { recursive: true, force: true });
+  }
+});
+
 test("snapshot close detects original source mutation and removes the disposable copy", async () => {
   const context = await fixture();
   try {

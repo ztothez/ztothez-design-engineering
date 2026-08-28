@@ -2,245 +2,242 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import type { PortfolioRegistryInspection, ResolvedPortfolioProject } from "../src/portfolio/registry.js";
-import type { PortfolioBenchmarkReport } from "../src/portfolio/runner.js";
+import type { PortfolioBenchmarkReport, PortfolioProjectRun } from "../src/portfolio/runner.js";
 import { evaluateRuleCandidate } from "../src/portfolio/promotion.js";
-import type { RuleCandidate } from "../src/portfolio/promotion-schema.js";
+import type { RuleCandidate, RulePromotionEvidence } from "../src/portfolio/promotion-schema.js";
 
-const mockInspection: PortfolioRegistryInspection = {
+const digest = "a".repeat(64);
+const checksum = "b".repeat(64);
+
+function project(
+  id: string,
+  domain: string,
+  cohort: "development" | "holdout",
+): ResolvedPortfolioProject {
+  return {
+    canonicalPath: `/home/user/${id}`,
+    root: {
+      declaration: { id: "root1", class: "studio-portfolio", path: "/home/user", discoveryDepth: 4, excludes: [] },
+      canonicalPath: "/home/user",
+    },
+    declaration: {
+      id,
+      root: "root1",
+      path: id,
+      enabled: true,
+      ownership: "first-party",
+      confidentiality: "private-local",
+      cohort,
+      publication: { sourceExcerpts: false, screenshots: false, machineReports: false, aggregateMetrics: true },
+      product: { domain, archetype: "operational-dashboard", intendedUsers: ["analyst"], primaryTasks: ["task"] },
+      technology: { framework: "react", packageManager: "npm", entrypoint: "src/index.ts", adapter: "react-vite" },
+      capabilities: [{ stage: "source-audit", status: "supported", reason: "Audit" }],
+      execution: { fixtureMode: "disconnected", networkPolicy: "denied", lifecycleScripts: false, allowedEnvironmentVariables: [], localPorts: [], commands: [] },
+      paths: { include: ["**"], exclude: [] },
+      source: { revisionPolicy: "capture-current", canonicalizationKey: id },
+    },
+  };
+}
+
+const projects = [
+  project("dev-p1", "finance", "development"),
+  project("dev-p2", "healthcare", "development"),
+  project("dev-p3", "logistics", "development"),
+  project("holdout-p1", "retail", "holdout"),
+];
+
+const inspection: PortfolioRegistryInspection = {
   report: {
     version: "1.0.0",
     generatedAt: new Date().toISOString(),
-    counts: { roots: 1, projects: 4, enabled: 4, development: 2, holdout: 2, excluded: 0 },
+    registryId: "root1",
+    counts: { roots: 1, projects: 4, enabled: 4, development: 3, holdout: 1, excluded: 0 },
     projects: [],
     issues: [],
     passed: true,
   },
   roots: [],
-  projects: [
-    {
-      canonicalPath: "/home/user/dev-p1",
-      root: { declaration: { id: "root1", class: "studio-portfolio", path: "/home/user", discoveryDepth: 4, excludes: [] }, canonicalPath: "/home/user" },
-      declaration: {
-        id: "dev-p1", root: "root1", path: "dev-p1", enabled: true, ownership: "first-party",
-        confidentiality: "private-local", cohort: "development", publication: { sourceExcerpts: false, screenshots: false, machineReports: false, aggregateMetrics: true },
-        product: { domain: "finance", archetype: "operational-dashboard", intendedUsers: ["analyst"], primaryTasks: ["task 1"] },
-        technology: { framework: "react", packageManager: "npm", entrypoint: "src/index.ts" },
-        capabilities: [{ stage: "source-audit", status: "supported", reason: "Audit" }],
-        execution: { fixtureMode: "disconnected", networkPolicy: "denied", lifecycleScripts: false, allowedEnvironmentVariables: [], localPorts: [], commands: [] },
-        paths: { include: ["**"], exclude: [] }, source: { revisionPolicy: "capture-current", canonicalizationKey: "dev-p1" },
-      },
-    },
-    {
-      canonicalPath: "/home/user/dev-p2",
-      root: { declaration: { id: "root1", class: "studio-portfolio", path: "/home/user", discoveryDepth: 4, excludes: [] }, canonicalPath: "/home/user" },
-      declaration: {
-        id: "dev-p2", root: "root1", path: "dev-p2", enabled: true, ownership: "first-party",
-        confidentiality: "private-local", cohort: "development", publication: { sourceExcerpts: false, screenshots: false, machineReports: false, aggregateMetrics: true },
-        product: { domain: "healthcare", archetype: "utility", intendedUsers: ["doctor"], primaryTasks: ["task 2"] },
-        technology: { framework: "nextjs", packageManager: "npm", entrypoint: "src/index.ts" },
-        capabilities: [{ stage: "source-audit", status: "supported", reason: "Audit" }],
-        execution: { fixtureMode: "disconnected", networkPolicy: "denied", lifecycleScripts: false, allowedEnvironmentVariables: [], localPorts: [], commands: [] },
-        paths: { include: ["**"], exclude: [] }, source: { revisionPolicy: "capture-current", canonicalizationKey: "dev-p2" },
-      },
-    },
-    {
-      canonicalPath: "/home/user/dev-p3",
-      root: { declaration: { id: "root1", class: "studio-portfolio", path: "/home/user", discoveryDepth: 4, excludes: [] }, canonicalPath: "/home/user" },
-      declaration: {
-        id: "dev-p3", root: "root1", path: "dev-p3", enabled: true, ownership: "first-party",
-        confidentiality: "private-local", cohort: "development", publication: { sourceExcerpts: false, screenshots: false, machineReports: false, aggregateMetrics: true },
-        product: { domain: "logistics", archetype: "content-site", intendedUsers: ["driver"], primaryTasks: ["task 3"] },
-        technology: { framework: "static-web", packageManager: "none", entrypoint: "index.html" },
-        capabilities: [{ stage: "source-audit", status: "supported", reason: "Audit" }],
-        execution: { fixtureMode: "disconnected", networkPolicy: "denied", lifecycleScripts: false, allowedEnvironmentVariables: [], localPorts: [], commands: [] },
-        paths: { include: ["**"], exclude: [] }, source: { revisionPolicy: "capture-current", canonicalizationKey: "dev-p3" },
-      },
-    },
-    {
-      canonicalPath: "/home/user/holdout-p1",
-      root: { declaration: { id: "root1", class: "studio-portfolio", path: "/home/user", discoveryDepth: 4, excludes: [] }, canonicalPath: "/home/user" },
-      declaration: {
-        id: "holdout-p1", root: "root1", path: "holdout-p1", enabled: true, ownership: "first-party",
-        confidentiality: "private-local", cohort: "holdout", publication: { sourceExcerpts: false, screenshots: false, machineReports: false, aggregateMetrics: true },
-        product: { domain: "retail", archetype: "utility", intendedUsers: ["shopper"], primaryTasks: ["task 4"] },
-        technology: { framework: "angular", packageManager: "npm", entrypoint: "src/index.ts" },
-        capabilities: [{ stage: "source-audit", status: "supported", reason: "Audit" }],
-        execution: { fixtureMode: "disconnected", networkPolicy: "denied", lifecycleScripts: false, allowedEnvironmentVariables: [], localPorts: [], commands: [] },
-        paths: { include: ["**"], exclude: [] }, source: { revisionPolicy: "capture-current", canonicalizationKey: "holdout-p1" },
-      },
-    },
-  ],
+  projects,
 };
 
-const devReport: PortfolioBenchmarkReport = {
-  version: "1.2.0",
-  toolVersion: "2.0.0",
-  runId: "dev-run-1",
-  mode: "cohort",
-  registryId: "root1",
-  registryDigest: "a".repeat(64),
-  projectIds: ["dev-p1", "dev-p2", "dev-p3"],
-  startedAt: new Date().toISOString(),
-  completedAt: new Date().toISOString(),
-  projects: [],
-  summary: { passed: 3, findings: 0, limitations: 0, unsafeConfiguration: 0, sourceMutation: 0 },
-  resultFingerprint: "b".repeat(64),
-  passed: true,
-};
+function projectRun(
+  projectId: string,
+  cohort: "development" | "holdout",
+  reportCode?: string,
+): PortfolioProjectRun {
+  return {
+    projectId,
+    cohort,
+    adapter: "react-vite",
+    sourceDigest: digest,
+    sourceRevision: "fixture",
+    environmentPolicy: { network: "denied", lifecycleScripts: false, environmentVariables: [] },
+    commands: [],
+    startedAt: "2026-01-01T00:00:00.000Z",
+    completedAt: "2026-01-01T00:00:01.000Z",
+    stages: [{
+      stage: "source-audit",
+      status: reportCode ? "failed" : "passed",
+      reason: reportCode ? "Candidate finding observed." : "Audit passed.",
+      ...(reportCode ? { findingDetails: [{ source: "audit", id: reportCode, severity: "warning", message: "Observed." }] } : {}),
+    }],
+    artifacts: [],
+    status: reportCode ? "findings" : "passed",
+  };
+}
 
-const holdoutReport: PortfolioBenchmarkReport = {
-  version: "1.2.0",
-  toolVersion: "2.0.0",
-  runId: "holdout-run-1",
-  mode: "cohort",
-  registryId: "root1",
-  registryDigest: "a".repeat(64),
-  projectIds: ["holdout-p1"],
-  startedAt: new Date().toISOString(),
-  completedAt: new Date().toISOString(),
-  projects: [],
-  summary: { passed: 1, findings: 0, limitations: 0, unsafeConfiguration: 0, sourceMutation: 0 },
-  resultFingerprint: "c".repeat(64),
-  passed: true,
-};
+function cohortReport(
+  cohort: "development" | "holdout",
+  runs: PortfolioProjectRun[],
+): PortfolioBenchmarkReport {
+  const findings = runs.filter((run) => run.status === "findings").length;
+  return {
+    version: "1.2.0",
+    toolVersion: "2.0.0",
+    runId: `${cohort}-run`,
+    mode: "cohort",
+    registryId: "root1",
+    registryDigest: digest,
+    cohort,
+    projectIds: runs.map((run) => run.projectId),
+    startedAt: "2026-01-01T00:00:00.000Z",
+    completedAt: "2026-01-01T00:00:02.000Z",
+    projects: runs,
+    summary: { passed: runs.length - findings, findings, limitations: 0, unsafeConfiguration: 0, sourceMutation: 0 },
+    resultFingerprint: checksum,
+    passed: findings === 0,
+  };
+}
 
-test("candidate rule meeting all 7 criteria promotes successfully with migration guidance", () => {
-  const candidate: RuleCandidate = {
+function candidate(reportCode = "A11Y-LIVE-REGION"): RuleCandidate {
+  return {
     id: "rule-cand-001",
-    title: "Enforce ARIA Live Regions on Dynamic Notifications",
+    title: "Enforce live regions on dynamic notifications",
     category: "accessibility",
     dimension: "accessibility",
-    reportCode: "A11Y-LIVE-REGION",
-    justification: {
-      type: "cohort-recurrence",
-      rationale: "Discovered across finance, healthcare, and logistics dev projects.",
-    },
+    reportCode,
+    justification: { type: "cohort-recurrence", rationale: "Observed in three projects across three domains." },
     authoredIndependently: true,
-    positiveFixturePath: "fixtures/a11y-live-region/pass.html",
-    negativeFixturePath: "fixtures/a11y-live-region/fail.html",
-    abstentionPath: "fixtures/a11y-live-region/abstain.md",
+    positiveFixturePath: "fixtures/live-region/pass.html",
+    negativeFixturePath: "fixtures/live-region/fail.html",
+    abstentionPath: "fixtures/live-region/abstain.md",
     authoringProjects: ["dev-p1", "dev-p2", "dev-p3"],
   };
+}
 
-  const report = evaluateRuleCandidate(candidate, mockInspection, devReport, holdoutReport);
-
-  assert.equal(report.version, "1.0.0");
-  assert.equal(report.candidateId, "rule-cand-001");
-  assert.equal(report.decision, "promoted");
-  assert.equal(report.passed, true);
-  assert.equal(report.criteria.c1_independentAuthoring, true);
-  assert.equal(report.criteria.c2_recurrenceOrSafety, true);
-  assert.equal(report.criteria.c3_positiveNegativeFixtures, true);
-  assert.equal(report.criteria.c4_falsePositiveAnalysis, true);
-  assert.equal(report.criteria.c5_existingTestsPass, true);
-  assert.equal(report.criteria.c6_holdoutValidationPass, true);
-  assert.equal(report.criteria.c7_sourceUnchanged, true);
-
-  assert.ok(report.promotedArtifacts);
-  assert.equal(report.promotedArtifacts?.reportCode, "A11Y-LIVE-REGION");
-  assert.ok(report.promotedArtifacts?.migrationGuidance);
-});
-
-test("candidate rule justified by standards-backed safety promotes successfully", () => {
-  const candidate: RuleCandidate = {
-    id: "rule-cand-002",
-    title: "Prohibit Plaintext Secret Logging",
-    category: "security",
-    dimension: "interface-trust",
-    reportCode: "TRUST-SECRET-LOG",
-    justification: {
-      type: "standards-backed-safety",
-      rationale: "Mandated by NIST SP 800-53 security requirements.",
-      safetyStandard: "NIST SP 800-53 IA-2",
+function evidence(): RulePromotionEvidence {
+  const reference = (path: string) => ({ path, sha256: checksum });
+  return {
+    version: "1.0.0",
+    fixtures: {
+      positive: { ...reference("fixtures/live-region/pass.html"), outcome: "accepted" },
+      negative: { ...reference("fixtures/live-region/fail.html"), outcome: "detected" },
+      abstention: { ...reference("fixtures/live-region/abstain.md"), outcome: "abstained" },
     },
-    authoredIndependently: true,
-    positiveFixturePath: "fixtures/secret-log/pass.ts",
-    negativeFixturePath: "fixtures/secret-log/fail.ts",
-    abstentionPath: "fixtures/secret-log/abstain.md",
-    authoringProjects: ["dev-p1"],
-  };
-
-  const report = evaluateRuleCandidate(candidate, mockInspection, devReport, holdoutReport);
-
-  assert.equal(report.decision, "promoted");
-  assert.equal(report.passed, true);
-  assert.equal(report.criteria.c2_recurrenceOrSafety, true);
-});
-
-test("candidate rule lacking recurrence and safety standard is rejected with preserved reason", () => {
-  const candidate: RuleCandidate = {
-    id: "rule-cand-003",
-    title: "Custom Unsubstantiated Layout Rule",
-    category: "visual-polish",
-    dimension: "visual-polish",
-    reportCode: "VISUAL-CUSTOM-MARGIN",
-    justification: {
-      type: "cohort-recurrence",
-      rationale: "Only found in one single project.",
-    },
-    authoredIndependently: true,
-    positiveFixturePath: "fixtures/visual/pass.css",
-    negativeFixturePath: "fixtures/visual/fail.css",
-    abstentionPath: "fixtures/visual/abstain.md",
-    authoringProjects: ["dev-p1"],
-  };
-
-  const report = evaluateRuleCandidate(candidate, mockInspection, devReport, holdoutReport);
-
-  assert.equal(report.decision, "rejected");
-  assert.equal(report.passed, false);
-  assert.equal(report.criteria.c2_recurrenceOrSafety, false);
-  assert.ok(report.rejectionReason?.includes("lacks 3+ project recurrence"));
-  assert.equal(report.promotedArtifacts, undefined);
-});
-
-test("candidate rule causing regression on holdout project is rejected", () => {
-  const candidate: RuleCandidate = {
-    id: "rule-cand-004",
-    title: "Overly Strict Font Family Enforcement",
-    category: "visual-polish",
-    dimension: "visual-polish",
-    reportCode: "VISUAL-FONT-STRICT",
-    justification: {
-      type: "cohort-recurrence",
-      rationale: "Tested in dev cohort.",
-    },
-    authoredIndependently: true,
-    positiveFixturePath: "fixtures/font/pass.css",
-    negativeFixturePath: "fixtures/font/fail.css",
-    abstentionPath: "fixtures/font/abstain.md",
-    authoringProjects: ["dev-p1", "dev-p2", "dev-p3"],
-  };
-
-  const regressedHoldoutReport: PortfolioBenchmarkReport = {
-    ...holdoutReport,
-    projects: [
-      {
-        projectId: "holdout-p1",
-        cohort: "holdout",
-        environmentPolicy: { network: "denied", lifecycleScripts: false, environmentVariables: [] },
-        commands: [],
-        startedAt: new Date().toISOString(),
-        completedAt: new Date().toISOString(),
-        stages: [
-          {
-            stage: "browser-journeys",
-            status: "failed",
-            reason: "Font check failed.",
-            findingDetails: [
-              { source: "visual", id: "VISUAL-FONT-STRICT", severity: "error", message: "Font family mismatch." },
-            ],
-          },
-        ],
-        artifacts: [],
-        status: "findings",
-      },
+    existingGates: (["v1-v2", "retrieval", "corpus", "mcp", "package", "independence"] as const)
+      .map((id) => ({ id, passed: true, evidence: reference(`reports/${id}.json`) })),
+    holdoutEvaluations: [
+      { projectId: "holdout-p1", status: "unaffected", evidence: reference("reports/holdout-p1.json") },
     ],
+    promotedArtifacts: {
+      documentation: reference("docs/rules/A11Y-LIVE-REGION.md"),
+      test: reference("tests/rules/rule-cand-001.test.ts"),
+      migrationGuidance: "Enable A11Y-LIVE-REGION and review existing notification surfaces.",
+    },
   };
+}
 
-  const report = evaluateRuleCandidate(candidate, mockInspection, devReport, regressedHoldoutReport);
+function validReports(reportCode = "A11Y-LIVE-REGION") {
+  return {
+    development: cohortReport("development", [
+      projectRun("dev-p1", "development", reportCode),
+      projectRun("dev-p2", "development", reportCode),
+      projectRun("dev-p3", "development", reportCode),
+    ]),
+    holdout: cohortReport("holdout", [projectRun("holdout-p1", "holdout")]),
+  };
+}
 
-  assert.equal(report.decision, "rejected");
+test("complete recurrence, fixture, gate, holdout, and source evidence promotes a rule", () => {
+  const reports = validReports();
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout, evidence(), true);
+
+  assert.equal(report.version, "1.1.0");
+  assert.equal(report.decision, "promoted");
+  assert.equal(report.passed, true);
+  assert.equal(report.evaluationComplete, true);
+  assert.deepEqual(report.failureReasons, []);
+  assert.equal(Object.values(report.criteria).every(Boolean), true);
+  assert.equal(report.promotedArtifacts?.documentationPath, "docs/rules/A11Y-LIVE-REGION.md");
+});
+
+test("missing structured evidence rejects instead of inferring fixture and gate passes", () => {
+  const reports = validReports();
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout);
+
+  assert.equal(report.passed, false);
+  assert.equal(report.criteria.c3_positiveNegativeFixtures, false);
+  assert.equal(report.criteria.c4_falsePositiveAnalysis, false);
+  assert.equal(report.criteria.c5_existingTestsPass, false);
+});
+
+test("missing holdout report remains unverified and blocks promotion", () => {
+  const reports = validReports();
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, undefined, evidence(), true);
+
   assert.equal(report.criteria.c6_holdoutValidationPass, false);
-  assert.equal(report.holdoutImpact.find((h) => h.projectId === "holdout-p1")?.status, "regressed");
+  assert.equal(report.criteria.c7_sourceUnchanged, false);
+  assert.equal(report.holdoutImpact[0]?.status, "unverified");
+});
+
+test("recurrence requires retained findings for every declared authoring project", () => {
+  const reports = validReports();
+  reports.development.projects[2] = projectRun("dev-p3", "development");
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout, evidence(), true);
+
+  assert.equal(report.criteria.c2_recurrenceOrSafety, false);
+  assert.equal(report.passed, false);
+});
+
+test("a failing required gate blocks promotion", () => {
+  const reports = validReports();
+  const gateEvidence = evidence();
+  gateEvidence.existingGates[2]!.passed = false;
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout, gateEvidence, true);
+
+  assert.equal(report.criteria.c5_existingTestsPass, false);
+  assert.equal(report.passed, false);
+});
+
+test("a candidate finding in the holdout cohort is retained as a regression", () => {
+  const reports = validReports();
+  reports.holdout = cohortReport("holdout", [projectRun("holdout-p1", "holdout", "A11Y-LIVE-REGION")]);
+  const holdoutEvidence = evidence();
+  holdoutEvidence.holdoutEvaluations[0]!.status = "regressed";
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout, holdoutEvidence, true);
+
+  assert.equal(report.criteria.c6_holdoutValidationPass, false);
+  assert.equal(report.holdoutImpact[0]?.status, "regressed");
+  assert.equal(report.passed, false);
+});
+
+test("all holdouts abstaining cannot establish candidate benefit or non-regression", () => {
+  const reports = validReports();
+  const holdoutEvidence = evidence();
+  holdoutEvidence.holdoutEvaluations[0]!.status = "abstained";
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout, holdoutEvidence, true);
+
+  assert.equal(report.evaluationComplete, true);
+  assert.equal(report.criteria.c6_holdoutValidationPass, false);
+  assert.equal(report.passed, false);
+});
+
+test("development and holdout reports from different registry revisions cannot be combined", () => {
+  const reports = validReports();
+  reports.holdout.registryDigest = "c".repeat(64);
+  const report = evaluateRuleCandidate(candidate(), inspection, reports.development, reports.holdout, evidence(), true);
+
+  assert.equal(report.evaluationComplete, false);
+  assert.equal(report.criteria.c6_holdoutValidationPass, false);
+  assert.equal(report.criteria.c7_sourceUnchanged, false);
 });

@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "fixtures": {
+    "positive": { "path": "replace/positive-fixture", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "outcome": "accepted" },
+    "negative": { "path": "replace/negative-fixture", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "outcome": "detected" },
+    "abstention": { "path": "replace/abstention-fixture", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "outcome": "abstained" }
+  },
+  "existingGates": [
+    { "id": "v1-v2", "passed": false, "evidence": { "path": "replace/v1-v2-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    { "id": "retrieval", "passed": false, "evidence": { "path": "replace/retrieval-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    { "id": "corpus", "passed": false, "evidence": { "path": "replace/corpus-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    { "id": "mcp", "passed": false, "evidence": { "path": "replace/mcp-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    { "id": "package", "passed": false, "evidence": { "path": "replace/package-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    { "id": "independence", "passed": false, "evidence": { "path": "replace/independence-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } }
+  ],
+  "holdoutEvaluations": [
+    { "projectId": "replace-holdout-project", "status": "abstained", "evidence": { "path": "replace/holdout-evaluation-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } }
+  ],
+  "promotedArtifacts": {
+    "documentation": { "path": "replace/rule-documentation", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" },
+    "test": { "path": "replace/rule-test", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" },
+    "migrationGuidance": "Replace with independently authored migration guidance."
+  }
+}

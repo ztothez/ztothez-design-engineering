@@ -12,9 +12,11 @@ Work in `/home/ztothez/Studio/experiments/UIX-Design-Skill`.
 
 ## Current Roadmap State
 
-V3 Items 1 through 5 are Done.
+V3 Items 1 through 9 are Done. The passing local qualification is retained under the ignored V3
+evidence root and can be regenerated with `npm run v3:evidence`.
 
-The next target is V3 Item 6: Private Evidence Vault and Publication Controls.
+Any new benchmark capability requires a new roadmap item or an explicit change request. Preserve
+the completed V3 evidence boundaries when extending the system.
 
 Do not change a roadmap status based on assumption. Mark an item Done only when its completion criteria are implemented and supported by tests or retained evidence.
 

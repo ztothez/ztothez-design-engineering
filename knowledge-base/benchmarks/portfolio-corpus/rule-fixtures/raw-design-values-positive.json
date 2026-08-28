@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-DESIGN-001",
+  "expected": "accepted",
+  "applicable": true,
+  "fileName": "tokens.css",
+  "prefix": [":root {", "  --surface: #ffffff;", "  --space-panel: 24px;", "  --radius-panel: 8px;"],
+  "repeat": { "line": "", "count": 0 },
+  "suffix": ["}"]
+}

@@ -267,6 +267,15 @@ async function runProject(
             stage,
             status: audit.passed ? "passed" : "failed",
             reason: audit.passed ? "Static source audit passed." : "Static source audit reported error findings.",
+            findings: audit.findings.length,
+            findingDetails: audit.findings.map((finding) => ({
+              source: "source-audit",
+              id: finding.ruleId,
+              severity: finding.severity,
+              message: finding.message,
+            })),
+            limitations: audit.evidenceBoundary.verifierLimitations.length,
+            limitationDetails: audit.evidenceBoundary.verifierLimitations,
             audit: {
               filesScanned: audit.filesScanned,
               errors: audit.summary.errors,

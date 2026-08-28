@@ -1,5 +1,5 @@
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { readFile, realpath } from "node:fs/promises";
+import { relative, resolve, sep } from "node:path";
 
 import { resolvePortfolioAdapter } from "./adapters.js";
 import { inspectPortfolioRegistry } from "./registry.js";
@@ -8,6 +8,11 @@ import { readPortfolioBenchmarkReport } from "./runner.js";
 import { evaluateCrossProductTaxonomy } from "./taxonomy.js";
 import { evaluateRuleCandidate } from "./promotion.js";
 import { evaluateV3Qualification } from "./qualification.js";
+import {
+  verifyEvidenceReferences,
+  verifyQualificationEvidenceSemantics,
+  verifyRulePromotionEvidenceSemantics,
+} from "./evidence.js";
 
 function requireEnabled(): void {
   if (process.env.ZTOTHEZ_DESIGN_PORTFOLIO_MCP !== "enabled") {
@@ -19,6 +24,16 @@ function configuredPath(variable: string): string {
   const value = process.env[variable]?.trim();
   if (!value) throw new Error(`${variable} must be configured for local portfolio MCP access.`);
   return resolve(value);
+}
+
+async function readConfiguredEvidenceFile(path: string): Promise<unknown> {
+  const root = await realpath(configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_EVIDENCE_ROOT"));
+  const candidate = await realpath(resolve(root, path));
+  const relation = relative(root, candidate);
+  if (relation === ".." || relation.startsWith(`..${sep}`)) {
+    throw new Error("The requested portfolio evidence file is outside the configured evidence root.");
+  }
+  return JSON.parse(await readFile(candidate, "utf8"));
 }
 
 export async function listPortfolioProjectsForMcp() {
@@ -94,25 +109,67 @@ export async function getCrossProductEvaluationForMcp(runId: string) {
   return evaluateCrossProductTaxonomy(report, inspection.projects);
 }
 
-export async function evaluateRulePromotionForMcp(candidatePath: string, devRunId?: string, holdoutRunId?: string) {
+export async function evaluateRulePromotionForMcp(
+  candidatePath: string,
+  evidencePath: string,
+  devRunId?: string,
+  holdoutRunId?: string,
+) {
   requireEnabled();
-  const candidateInput = JSON.parse(await readFile(resolve(candidatePath), "utf8"));
+  const candidateInput = await readConfiguredEvidenceFile(candidatePath);
+  const evidenceInput = await readConfiguredEvidenceFile(evidencePath);
+  const evidenceIntegrity = await verifyEvidenceReferences(
+    configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_EVIDENCE_ROOT"),
+    evidenceInput,
+  );
   const inspection = await inspectPortfolioRegistry(
     configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_REGISTRY"),
   );
   const reportRoot = configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_REPORT_ROOT");
   const devReport = devRunId ? await readPortfolioBenchmarkReport(reportRoot, devRunId) : undefined;
   const holdoutReport = holdoutRunId ? await readPortfolioBenchmarkReport(reportRoot, holdoutRunId) : undefined;
-  return evaluateRuleCandidate(candidateInput, inspection, devReport, holdoutReport);
+  const evidenceSemantics = await verifyRulePromotionEvidenceSemantics(
+    configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_EVIDENCE_ROOT"),
+    candidateInput,
+    evidenceInput,
+    holdoutReport,
+  );
+  return evaluateRuleCandidate(
+    candidateInput,
+    inspection,
+    devReport,
+    holdoutReport,
+    evidenceInput,
+    evidenceIntegrity.passed && evidenceSemantics.passed,
+  );
 }
 
-export async function evaluateV3QualificationForMcp(devRunId?: string, holdoutRunId?: string) {
+export async function evaluateV3QualificationForMcp(
+  evidencePath: string,
+  devRunId?: string,
+  holdoutRunId?: string,
+) {
   requireEnabled();
+  const evidenceInput = await readConfiguredEvidenceFile(evidencePath);
+  const evidenceIntegrity = await verifyEvidenceReferences(
+    configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_EVIDENCE_ROOT"),
+    evidenceInput,
+  );
   const inspection = await inspectPortfolioRegistry(
     configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_REGISTRY"),
   );
   const reportRoot = configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_REPORT_ROOT");
   const devReport = devRunId ? await readPortfolioBenchmarkReport(reportRoot, devRunId) : undefined;
   const holdoutReport = holdoutRunId ? await readPortfolioBenchmarkReport(reportRoot, holdoutRunId) : undefined;
-  return evaluateV3Qualification(inspection, devReport, holdoutReport);
+  const evidenceSemantics = await verifyQualificationEvidenceSemantics(
+    configuredPath("ZTOTHEZ_DESIGN_PORTFOLIO_EVIDENCE_ROOT"),
+    evidenceInput,
+  );
+  return evaluateV3Qualification(
+    inspection,
+    devReport,
+    holdoutReport,
+    evidenceInput,
+    evidenceIntegrity.passed && evidenceSemantics.passed,
+  );
 }

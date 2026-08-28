@@ -109,6 +109,9 @@ jobs:
       - name: Run regression suite
         run: npm test
 
+      - name: Capture V3 public synthetic evidence
+        run: npm run v3:evidence -- --ci-only --output .ztothez-design-benchmarks/evidence/v3-ci
+
       - name: Validate packed installation
         run: npm run package:smoke
 
@@ -198,8 +201,18 @@ jobs:
             --profile azure-v2-state-matrix \
             --viewports 375x812,768x1024,1024x768,1440x1000 \
             --dynamic-selector ".dynamic-value" \
-            --screenshot-baseline evidence/interface-quality/azure-v2/screenshot-baseline.json \
-            --output .ztothez-design-runtime/ci-azure-v2/runtime \
+            --screenshot-baseline .ztothez-design-runtime/ci-azure-v2/screenshot-baseline.json \
+            --update-screenshot-baseline \
+            --output .ztothez-design-runtime/ci-azure-v2/baseline-created \
+            --fail-on warning
+          npm run verify-ui -- \
+            --url http://127.0.0.1:4280 \
+            --journeys knowledge-base/benchmarks/azure-optimizer/v2-journeys.json \
+            --profile azure-v2-state-matrix \
+            --viewports 375x812,768x1024,1024x768,1440x1000 \
+            --dynamic-selector ".dynamic-value" \
+            --screenshot-baseline .ztothez-design-runtime/ci-azure-v2/screenshot-baseline.json \
+            --output .ztothez-design-runtime/ci-azure-v2/verified \
             --fail-on warning
 
       - name: Stop Azure V2 production benchmark
@@ -258,6 +271,16 @@ jobs:
           name: ztothez-design-corpus-benchmark
           path: .ztothez-design-corpus
           if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload V3 synthetic evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-v3-synthetic-evidence
+          path: .ztothez-design-benchmarks/evidence/v3-ci
+          if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
 

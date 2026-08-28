@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-DESIGN-001",
+  "expected": "abstained",
+  "applicable": false,
+  "fileName": "generated-chart.ts",
+  "prefix": ["export function draw(ctx: CanvasRenderingContext2D) {", "  ctx.fillStyle = '#ff0000';", "  ctx.strokeStyle = '#00ff00';", "  ctx.fillRect(0, 0, 24, 24);"],
+  "repeat": { "line": "", "count": 0 },
+  "suffix": ["}"]
+}

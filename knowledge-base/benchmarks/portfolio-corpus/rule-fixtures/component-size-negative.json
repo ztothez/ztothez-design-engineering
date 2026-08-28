@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-ARCH-001",
+  "expected": "detected",
+  "applicable": true,
+  "fileName": "LargePanel.tsx",
+  "prefix": ["export function LargePanel() {", "  return (", "    <section>"],
+  "repeat": { "line": "      <span>Repeated responsibility</span>", "count": 401 },
+  "suffix": ["    </section>", "  );", "}"]
+}

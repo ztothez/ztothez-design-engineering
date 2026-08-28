@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-ARCH-001",
+  "expected": "accepted",
+  "applicable": true,
+  "fileName": "Panel.tsx",
+  "prefix": ["export function Panel() {", "  return <section>Focused panel</section>;"],
+  "repeat": { "line": "", "count": 0 },
+  "suffix": ["}"]
+}

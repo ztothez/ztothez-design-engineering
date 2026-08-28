@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-SLOP-003",
+  "expected": "detected",
+  "applicable": true,
+  "fileName": "Action.tsx",
+  "prefix": ["export function Action() {", "  return <button type=\"button\">Run</button>;"],
+  "repeat": { "line": "", "count": 0 },
+  "suffix": ["}"]
+}

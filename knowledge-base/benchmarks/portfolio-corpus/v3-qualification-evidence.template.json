@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "ciFixtures": {
+    "registryViolations": { "passed": false, "evidence": { "path": "replace/registry-fixture-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "snapshotViolations": { "passed": false, "evidence": { "path": "replace/snapshot-fixture-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "adapterCases": { "passed": false, "evidence": { "path": "replace/adapter-fixture-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "comparisonSafety": { "passed": false, "evidence": { "path": "replace/comparison-fixture-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "privacyBoundaries": { "passed": false, "evidence": { "path": "replace/privacy-fixture-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "rulePromotionPaths": { "passed": false, "evidence": { "path": "replace/promotion-fixture-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } }
+  },
+  "releaseGates": {
+    "build": { "passed": false, "evidence": { "path": "replace/build-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "typecheck": { "passed": false, "evidence": { "path": "replace/typecheck-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "tests": { "passed": false, "evidence": { "path": "replace/tests-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "packageCheck": { "passed": false, "evidence": { "path": "replace/package-check-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "packageSmoke": { "passed": false, "evidence": { "path": "replace/package-smoke-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "independence": { "passed": false, "evidence": { "path": "replace/independence-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "corpus": { "passed": false, "evidence": { "path": "replace/corpus-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "offlineRelease": { "passed": false, "evidence": { "path": "replace/offline-release-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "archiveRemoval": { "passed": false, "evidence": { "path": "replace/archive-removal-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } }
+  },
+  "benchmarkPaths": {
+    "browserOnly": { "passed": false, "evidence": { "path": "replace/browser-only-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+    "fullStack": { "passed": false, "evidence": { "path": "replace/full-stack-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } }
+  },
+  "promotionReports": [],
+  "privateLeakageScan": { "passed": false, "evidence": { "path": "replace/private-leakage-report", "sha256": "0000000000000000000000000000000000000000000000000000000000000000" } },
+  "claims": []
+}

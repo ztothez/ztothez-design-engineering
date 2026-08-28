@@ -216,16 +216,26 @@ export async function captureSourceState(
 
       if (stats.isSymbolicLink()) {
         const linkTarget = await readlink(absolutePath);
-        const resolvedTarget = await realpath(absolutePath).catch(() => undefined);
-        if (!resolvedTarget || !isContained(project.canonicalPath, resolvedTarget)) {
-          throw new Error(`Symbolic link escapes the project root: ${relativePath}`);
-        }
-        const resolvedLinkPath = portablePath(relative(project.canonicalPath, resolvedTarget));
         const copy =
           !excluded &&
           !containsPrunedDirectory(relativePath) &&
           !isProhibitedFile(relativePath) &&
           isIncluded(relativePath, project.declaration.paths.include);
+        if (!copy) {
+          entries.push({
+            ...base,
+            type: "symlink",
+            scope: "guard",
+            sha256: sha256(linkTarget),
+            linkTarget,
+          });
+          continue;
+        }
+        const resolvedTarget = await realpath(absolutePath).catch(() => undefined);
+        if (!resolvedTarget || !isContained(project.canonicalPath, resolvedTarget)) {
+          throw new Error(`Symbolic link escapes the project root: ${relativePath}`);
+        }
+        const resolvedLinkPath = portablePath(relative(project.canonicalPath, resolvedTarget));
         entries.push({
           ...base,
           type: "symlink",

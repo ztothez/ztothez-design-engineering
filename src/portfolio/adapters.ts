@@ -154,6 +154,20 @@ function isSafeRelativeScript(value: string, extension: RegExp): boolean {
   );
 }
 
+function isSafePytestCommand(command: AdapterCommand): boolean {
+  if (command.stage !== "unit-test") return false;
+  const [moduleFlag, moduleName, ...argumentsList] = command.arguments;
+  if (moduleFlag !== "-m" || moduleName !== "pytest") return false;
+  return argumentsList.some((argument) => argument !== "-q") && argumentsList.every((argument) =>
+    argument === "-q" ||
+    (Boolean(argument) &&
+      !argument.startsWith("-") &&
+      !isAbsolute(argument) &&
+      !argument.includes("\0") &&
+      !argument.split(/[\\/]/).includes("..")),
+  );
+}
+
 function packageScript(command: AdapterCommand): string | undefined {
   const [first, second] = command.arguments;
   if (command.command === "npm" || command.command === "pnpm") {
@@ -214,12 +228,15 @@ function validateCommand(
       );
     }
   } else if (command.command === "python" || command.command === "python3") {
-    if (!isSafeRelativeScript(command.arguments[0] ?? "", /\.py$/i)) {
+    if (
+      !isSafeRelativeScript(command.arguments[0] ?? "", /\.py$/i) &&
+      !isSafePytestCommand(command)
+    ) {
       issues.push(
         adapterIssue(
           "PORTFOLIO-ADAPTER-SCRIPT",
           `${path}.arguments.0`,
-          "Python commands must name a contained relative .py script and cannot use command-string flags.",
+          "Python commands must name a contained relative .py script or use the bounded unit-test form '-m pytest [-q] RELATIVE_PATH'.",
         ),
       );
     }

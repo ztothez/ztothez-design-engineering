@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "candidateId": "replace-candidate",
+  "projectId": "replace-holdout-project",
+  "reportCode": "REPLACE_REPORT_CODE",
+  "holdoutRunId": "replace-holdout-run",
+  "sourceDigest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "ruleExecuted": false,
+  "applicable": false,
+  "status": "abstained",
+  "findingIds": [],
+  "regressionGatesPassed": false,
+  "reason": "Replace with the candidate-specific holdout result and retained evidence boundary."
+}

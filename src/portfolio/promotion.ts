@@ -1,119 +1,173 @@
-import type { PortfolioBenchmarkReport } from "./runner.js";
+import type { PortfolioBenchmarkReport, PortfolioProjectRun } from "./runner.js";
 import type { PortfolioRegistryInspection, ResolvedPortfolioProject } from "./registry.js";
 import {
   promotionReportSchema,
   ruleCandidateSchema,
+  rulePromotionEvidenceSchema,
   type HoldoutImpact,
   type PromotionCriteriaEvaluation,
   type PromotionReport,
-  type RuleCandidate,
+  type RulePromotionEvidence,
 } from "./promotion-schema.js";
+
+const REQUIRED_GATE_IDS: ReadonlySet<string> = new Set([
+  "v1-v2",
+  "retrieval",
+  "corpus",
+  "mcp",
+  "package",
+  "independence",
+]);
+
+function exactProjectCoverage(
+  report: PortfolioBenchmarkReport | undefined,
+  cohort: "development" | "holdout",
+  expectedIds: string[],
+): boolean {
+  if (!report || report.mode !== "cohort" || report.cohort !== cohort) return false;
+  const expected = [...expectedIds].sort();
+  const declared = [...report.projectIds].sort();
+  const retained = report.projects.map((project) => project.projectId).sort();
+  return expected.length === declared.length &&
+    expected.every((id, index) => id === declared[index]) &&
+    expected.every((id, index) => id === retained[index]);
+}
+
+function hasRuleFinding(project: PortfolioProjectRun | undefined, reportCode: string): boolean {
+  return project?.stages.some((stage) =>
+    stage.findingDetails?.some((finding) => finding.id === reportCode),
+  ) ?? false;
+}
+
+function reportsPreserveSources(...reports: Array<PortfolioBenchmarkReport | undefined>): boolean {
+  if (reports.some((report) => !report)) return false;
+  return reports.every((report) =>
+    report!.summary.sourceMutation === 0 &&
+    report!.projects.every((project) => Boolean(project.sourceDigest) && project.status !== "source-mutation"),
+  );
+}
+
+function fixturesMatch(
+  candidate: ReturnType<typeof ruleCandidateSchema.parse>,
+  evidence?: RulePromotionEvidence,
+): boolean {
+  return Boolean(
+    evidence &&
+    evidence.fixtures.positive.path === candidate.positiveFixturePath &&
+    evidence.fixtures.negative.path === candidate.negativeFixturePath &&
+    evidence.fixtures.abstention.path === candidate.abstentionPath,
+  );
+}
 
 export function evaluateRuleCandidate(
   candidateInput: unknown,
   inspection: PortfolioRegistryInspection,
   devReport?: PortfolioBenchmarkReport,
   holdoutReport?: PortfolioBenchmarkReport,
+  evidenceInput?: unknown,
+  evidenceIntegrityPassed = false,
 ): PromotionReport {
   const candidate = ruleCandidateSchema.parse(candidateInput);
+  const evidenceResult = rulePromotionEvidenceSchema.safeParse(evidenceInput);
+  const evidence = evidenceResult.success ? evidenceResult.data : undefined;
 
+  const enabledProjects = inspection.projects.filter((project) => project.declaration.enabled);
   const projectsMap = new Map<string, ResolvedPortfolioProject>(
-    inspection.projects.map((p) => [p.declaration.id, p]),
+    enabledProjects.map((project) => [project.declaration.id, project]),
+  );
+  const developmentIds = enabledProjects
+    .filter((project) => project.declaration.cohort === "development")
+    .map((project) => project.declaration.id);
+  const holdoutProjects = enabledProjects.filter((project) => project.declaration.cohort === "holdout");
+  const holdoutIds = holdoutProjects.map((project) => project.declaration.id);
+
+  const developmentCoverage = exactProjectCoverage(devReport, "development", developmentIds);
+  const holdoutCoverage = exactProjectCoverage(holdoutReport, "holdout", holdoutIds);
+  const reportsShareRegistry = Boolean(
+    devReport && holdoutReport &&
+    devReport.registryId === holdoutReport.registryId &&
+    devReport.registryDigest === holdoutReport.registryDigest &&
+    (!inspection.report.registryId || devReport.registryId === inspection.report.registryId),
   );
 
-  // Criteria 1: Independent authoring
   const c1_independentAuthoring = candidate.authoredIndependently === true;
 
-  // Criteria 2: Failure in at least 3 eligible projects across at least 2 domains, or safety standard
-  let c2_recurrenceOrSafety = false;
-  if (candidate.justification.type === "standards-backed-safety") {
-    c2_recurrenceOrSafety = Boolean(candidate.justification.safetyStandard);
-  } else {
-    const authoringDomains = new Set<string>();
-    for (const projId of candidate.authoringProjects) {
-      const proj = projectsMap.get(projId);
-      if (proj) {
-        authoringDomains.add(proj.declaration.product.domain);
-      }
-    }
-    c2_recurrenceOrSafety =
-      candidate.authoringProjects.length >= 3 && authoringDomains.size >= 2;
-  }
+  const eligibleAuthoringProjects = candidate.authoringProjects
+    .map((projectId) => projectsMap.get(projectId))
+    .filter((project): project is ResolvedPortfolioProject =>
+      Boolean(project && project.declaration.cohort === "development"),
+    );
+  const authoringDomains = new Set(
+    eligibleAuthoringProjects.map((project) => project.declaration.product.domain),
+  );
+  const recurrenceFindingsPresent = candidate.authoringProjects.every((projectId) =>
+    hasRuleFinding(devReport?.projects.find((project) => project.projectId === projectId), candidate.reportCode),
+  );
+  const c2_recurrenceOrSafety = candidate.justification.type === "standards-backed-safety"
+    ? Boolean(candidate.justification.safetyStandard)
+    : candidate.authoringProjects.length >= 3 &&
+      eligibleAuthoringProjects.length === candidate.authoringProjects.length &&
+      authoringDomains.size >= 2 &&
+      developmentCoverage &&
+      recurrenceFindingsPresent;
 
-  // Criteria 3: Focused positive and negative fixtures
-  const c3_positiveNegativeFixtures = Boolean(
-    candidate.positiveFixturePath && candidate.negativeFixturePath,
+  const c3_positiveNegativeFixtures = evidenceIntegrityPassed && fixturesMatch(candidate, evidence);
+  const c4_falsePositiveAnalysis = Boolean(
+    evidenceIntegrityPassed && evidence && evidence.fixtures.abstention.path === candidate.abstentionPath,
   );
 
-  // Criteria 4: False positive analysis & abstention path
-  const c4_falsePositiveAnalysis = Boolean(candidate.abstentionPath);
-
-  // Criteria 5: Existing tests pass (no unsafe config or source mutation in runs)
-  const c5_existingTestsPass =
-    (!devReport || (devReport.summary.unsafeConfiguration === 0 && devReport.summary.sourceMutation === 0)) &&
-    (!holdoutReport || (holdoutReport.summary.unsafeConfiguration === 0 && holdoutReport.summary.sourceMutation === 0));
-
-  // Criteria 6 & 7: Holdout validation and source immutability
-  const holdoutImpact: HoldoutImpact[] = [];
-  let regressedCount = 0;
-  let benefitedOrUnaffectedCount = 0;
-
-  const holdoutProjects = inspection.projects.filter(
-    (p) =>
-      p.declaration.cohort === "holdout" ||
-      !candidate.authoringProjects.includes(p.declaration.id),
+  const suppliedGateIds: ReadonlySet<string> = new Set(
+    evidence?.existingGates.map((gate) => gate.id) ?? [],
+  );
+  const c5_existingTestsPass = Boolean(
+    evidenceIntegrityPassed && evidence &&
+    REQUIRED_GATE_IDS.size === suppliedGateIds.size &&
+    [...REQUIRED_GATE_IDS].every((id) => suppliedGateIds.has(id)) &&
+    evidence.existingGates.every((gate) => gate.passed),
   );
 
-  for (const project of holdoutProjects) {
-    const projId = project.declaration.id;
-    const holdoutRunProj = holdoutReport?.projects.find((pr) => pr.projectId === projId);
-
-    if (!holdoutRunProj) {
-      holdoutImpact.push({
-        projectId: projId,
-        status: "unaffected",
-        details: "Project remained unaffected in holdout evaluation.",
-      });
-      benefitedOrUnaffectedCount += 1;
-      continue;
+  const suppliedHoldoutIds = new Set(evidence?.holdoutEvaluations.map((evaluation) => evaluation.projectId) ?? []);
+  const exactHoldoutEvidence = Boolean(
+    evidenceIntegrityPassed && evidence &&
+    suppliedHoldoutIds.size === holdoutIds.length &&
+    holdoutIds.every((id) => suppliedHoldoutIds.has(id)),
+  );
+  const holdoutImpact: HoldoutImpact[] = holdoutProjects.map((project) => {
+    const retained = holdoutReport?.projects.find(
+      (projectRun) => projectRun.projectId === project.declaration.id,
+    );
+    const evaluation = evidence?.holdoutEvaluations.find(
+      (candidateEvaluation) => candidateEvaluation.projectId === project.declaration.id,
+    );
+    if (!holdoutCoverage || !retained || !exactHoldoutEvidence || !evaluation) {
+      return {
+        projectId: project.declaration.id,
+        status: "unverified",
+        details: "No complete holdout-run evidence was retained for this project.",
+      };
     }
-
-    if (holdoutRunProj.status === "findings" || holdoutRunProj.status === "unsafe-configuration") {
-      // Check if this project regressed due to candidate rule
-      const hasFinding = holdoutRunProj.stages.some((s) =>
-        s.findingDetails?.some((f) => f.id === candidate.reportCode),
-      );
-      if (hasFinding) {
-        holdoutImpact.push({
-          projectId: projId,
-          status: "regressed",
-          details: `Holdout project reported new finding under rule ${candidate.reportCode}.`,
-        });
-        regressedCount += 1;
-      } else {
-        holdoutImpact.push({
-          projectId: projId,
-          status: "unaffected",
-          details: "Holdout project was unaffected by candidate rule.",
-        });
-        benefitedOrUnaffectedCount += 1;
-      }
-    } else {
-      holdoutImpact.push({
-        projectId: projId,
-        status: "unaffected",
-        details: "Holdout project remained passing and unaffected.",
-      });
-      benefitedOrUnaffectedCount += 1;
+    if (["unsafe-configuration", "source-mutation"].includes(retained.status)) {
+      return {
+        projectId: project.declaration.id,
+        status: "unverified",
+        details: "Unsafe configuration or source mutation invalidated the holdout result.",
+      };
     }
-  }
+    return {
+      projectId: project.declaration.id,
+      status: evaluation.status,
+      details: `Checksummed candidate-specific holdout evidence records ${evaluation.status}.`,
+    };
+  });
 
-  const c6_holdoutValidationPass = regressedCount === 0 && benefitedOrUnaffectedCount > 0;
-
-  // Criteria 7: Source unchanged (verified by digest in runs)
-  const c7_sourceUnchanged =
-    (!devReport || devReport.summary.sourceMutation === 0) &&
-    (!holdoutReport || holdoutReport.summary.sourceMutation === 0);
+  const c6_holdoutValidationPass = holdoutProjects.length > 0 &&
+    holdoutCoverage && reportsShareRegistry &&
+    exactHoldoutEvidence &&
+    holdoutImpact.some((impact) => ["benefited", "unaffected"].includes(impact.status)) &&
+    holdoutImpact.every((impact) => !["regressed", "unverified"].includes(impact.status));
+  const c7_sourceUnchanged = developmentCoverage &&
+    holdoutCoverage && reportsShareRegistry &&
+    reportsPreserveSources(devReport, holdoutReport);
 
   const criteria: PromotionCriteriaEvaluation = {
     c1_independentAuthoring,
@@ -125,38 +179,42 @@ export function evaluateRuleCandidate(
     c7_sourceUnchanged,
   };
 
-  const allPassed = Object.values(criteria).every(Boolean);
+  const failureReasons: string[] = [];
+  if (!c1_independentAuthoring) failureReasons.push("Candidate rule is not marked as independently authored.");
+  if (!c2_recurrenceOrSafety) failureReasons.push("Recurrence or standards-backed safety evidence is incomplete.");
+  if (!c3_positiveNegativeFixtures) failureReasons.push("Verified positive and negative fixture evidence is missing or mismatched.");
+  if (!c4_falsePositiveAnalysis) failureReasons.push("Verified abstention evidence is missing or mismatched.");
+  if (!c5_existingTestsPass) failureReasons.push("Required V1, V2, retrieval, corpus, MCP, package, and independence gate evidence is incomplete or failing.");
+  if (!c6_holdoutValidationPass) failureReasons.push("Holdout coverage is incomplete, unverified, or regressed.");
+  if (!c7_sourceUnchanged) failureReasons.push("Complete development and holdout source-immutability evidence is missing or failing.");
 
-  const rejectionReasons: string[] = [];
-  if (!c1_independentAuthoring) rejectionReasons.push("Candidate rule is not marked as independently authored.");
-  if (!c2_recurrenceOrSafety) rejectionReasons.push("Candidate rule lacks 3+ project recurrence across 2+ domains or safety standard justification.");
-  if (!c3_positiveNegativeFixtures) rejectionReasons.push("Candidate rule lacks positive and negative fixture paths.");
-  if (!c4_falsePositiveAnalysis) rejectionReasons.push("Candidate rule lacks an explicit abstention path.");
-  if (!c5_existingTestsPass) rejectionReasons.push("Existing tests reported unsafe configuration or source mutation.");
-  if (!c6_holdoutValidationPass) rejectionReasons.push("Holdout validation failed due to regressions or lack of affected projects.");
-  if (!c7_sourceUnchanged) rejectionReasons.push("Original project sources were mutated during run.");
-
-  const rejectionReason = rejectionReasons.length > 0 ? rejectionReasons.join("; ") : undefined;
-
+  const evaluationComplete = Boolean(
+    evidenceResult.success && evidenceIntegrityPassed && developmentCoverage && holdoutCoverage &&
+    reportsShareRegistry &&
+    exactHoldoutEvidence && c7_sourceUnchanged,
+  );
+  const allPassed = failureReasons.length === 0;
   const result: PromotionReport = {
-    version: "1.0.0",
+    version: "1.1.0",
     candidateId: candidate.id,
     title: candidate.title,
     evaluatedAt: new Date().toISOString(),
     decision: allPassed ? "promoted" : "rejected",
     criteria,
     holdoutImpact,
-    ...(rejectionReason ? { rejectionReason } : {}),
-    ...(allPassed
+    evaluationComplete,
+    ...(failureReasons.length > 0 ? { rejectionReason: failureReasons.join("; ") } : {}),
+    ...(allPassed && evidence
       ? {
           promotedArtifacts: {
-            documentationPath: `docs/rules/${candidate.reportCode}.md`,
-            testReference: `tests/rules/${candidate.id}.test.ts`,
+            documentationPath: evidence.promotedArtifacts.documentation.path,
+            testReference: evidence.promotedArtifacts.test.path,
             reportCode: candidate.reportCode,
-            migrationGuidance: `Enable rule ${candidate.reportCode} in quality-gate configuration. Inspect findings in report.json.`,
+            migrationGuidance: evidence.promotedArtifacts.migrationGuidance,
           },
         }
       : {}),
+    failureReasons,
     passed: allPassed,
   };
 

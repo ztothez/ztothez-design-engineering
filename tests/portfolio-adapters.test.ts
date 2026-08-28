@@ -231,6 +231,46 @@ test("missing and unsafe commands become limitations or policy failures instead 
   }
 });
 
+test("python module execution is limited to pytest with relative unit-test targets", async () => {
+  const safePytest: ProjectFixture = {
+    id: "safe-pytest",
+    adapter: "node-python-fullstack",
+    packageManager: "other",
+    stage: "unit-test",
+    command: { command: "python3", arguments: ["-m", "pytest", "-q", "tests"] },
+  };
+  const unsafeModule: ProjectFixture = {
+    id: "unsafe-python-module",
+    adapter: "node-python-fullstack",
+    packageManager: "other",
+    stage: "unit-test",
+    command: { command: "python3", arguments: ["-m", "http.server"] },
+  };
+  const traversalTarget: ProjectFixture = {
+    id: "pytest-traversal",
+    adapter: "node-python-fullstack",
+    packageManager: "other",
+    stage: "unit-test",
+    command: { command: "python3", arguments: ["-m", "pytest", "../tests"] },
+  };
+  const missingTarget: ProjectFixture = {
+    id: "pytest-missing-target",
+    adapter: "node-python-fullstack",
+    packageManager: "other",
+    stage: "unit-test",
+    command: { command: "python3", arguments: ["-m", "pytest", "-q"] },
+  };
+  const context = await adapterFixture([safePytest, unsafeModule, traversalTarget, missingTarget]);
+  try {
+    assert.equal(resolvePortfolioAdapter(projectById(context.inspection, safePytest.id)).passed, true);
+    assert.equal(resolvePortfolioAdapter(projectById(context.inspection, unsafeModule.id)).passed, false);
+    assert.equal(resolvePortfolioAdapter(projectById(context.inspection, traversalTarget.id)).passed, false);
+    assert.equal(resolvePortfolioAdapter(projectById(context.inspection, missingTarget.id)).passed, false);
+  } finally {
+    await rm(context.temporary, { recursive: true, force: true });
+  }
+});
+
 test("adapter timeout terminates the process and preserves diagnostic separation and source state", async () => {
   const timeoutProject: ProjectFixture = {
     id: "timeout-command",

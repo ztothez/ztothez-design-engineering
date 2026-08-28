@@ -34,6 +34,11 @@ import { deleteProjectEvidence } from "../src/portfolio/vault.js";
 import { evaluateCrossProductTaxonomy } from "../src/portfolio/taxonomy.js";
 import { evaluateRuleCandidate } from "../src/portfolio/promotion.js";
 import { evaluateV3Qualification } from "../src/portfolio/qualification.js";
+import {
+  verifyEvidenceReferences,
+  verifyQualificationEvidenceSemantics,
+  verifyRulePromotionEvidenceSemantics,
+} from "../src/portfolio/evidence.js";
 
 type PortfolioCommand = "baseline" | "benchmark" | "capabilities" | "cross-product" | "evaluate-rule" | "inventory" | "prune-evidence" | "qualify-v3" | "report" | "run-stage" | "snapshot" | "validate-registry" | "verify-unchanged";
 
@@ -45,6 +50,7 @@ type PortfolioCliOptions = {
   cohort?: "development" | "holdout";
   runId?: string;
   candidatePath?: string;
+  evidencePath?: string;
   devRunId?: string;
   holdoutRunId?: string;
   annotationsPath?: string;
@@ -67,8 +73,8 @@ export function portfolioUsage(command = "zz-design"): string {
     `  ${command} portfolio report --run ID [--json]`,
     `  ${command} portfolio prune-evidence --run ID [--project ID] [--json]`,
     `  ${command} portfolio cross-product --run ID [--annotations PATH] [--registry PATH] [--json]`,
-    `  ${command} portfolio evaluate-rule --candidate PATH [--dev-run ID] [--holdout-run ID] [--registry PATH] [--json]`,
-    `  ${command} portfolio qualify-v3 [--dev-run ID] [--holdout-run ID] [--registry PATH] [--json]`,
+    `  ${command} portfolio evaluate-rule --candidate PATH --evidence PATH [--dev-run ID] [--holdout-run ID] [--registry PATH] [--json]`,
+    `  ${command} portfolio qualify-v3 --evidence PATH [--dev-run ID] [--holdout-run ID] [--registry PATH] [--json]`,
     `  ${command} portfolio snapshot --project ID [--registry PATH] [--workspace PATH] [--keep] [--json]`,
     "",
     "The registry is local-only. Snapshot commands copy approved files into an isolated workspace",
@@ -90,6 +96,7 @@ function parseArguments(argumentsList: string[]): PortfolioCliOptions {
   let cohort: "development" | "holdout" | undefined;
   let runId: string | undefined;
   let candidatePath: string | undefined;
+  let evidencePath: string | undefined;
   let devRunId: string | undefined;
   let holdoutRunId: string | undefined;
   let annotationsPath: string | undefined;
@@ -110,6 +117,9 @@ function parseArguments(argumentsList: string[]): PortfolioCliOptions {
       index += 1;
     } else if (argument === "--candidate" && next) {
       candidatePath = resolve(next);
+      index += 1;
+    } else if (argument === "--evidence" && next) {
+      evidencePath = resolve(next);
       index += 1;
     } else if (argument === "--dev-run" && next) {
       devRunId = next;
@@ -147,6 +157,12 @@ function parseArguments(argumentsList: string[]): PortfolioCliOptions {
   if (parsedCommand === "evaluate-rule" && !candidatePath) {
     throw new Error("evaluate-rule requires --candidate PATH");
   }
+  if (["evaluate-rule", "qualify-v3"].includes(parsedCommand) && !evidencePath) {
+    throw new Error(`${parsedCommand} requires --evidence PATH`);
+  }
+  if (!["evaluate-rule", "qualify-v3"].includes(parsedCommand) && evidencePath) {
+    throw new Error("--evidence applies only to evaluate-rule and qualify-v3");
+  }
   if (parsedCommand === "run-stage" && !stage) throw new Error("run-stage requires --stage STAGE");
   if (parsedCommand !== "snapshot" && keep) throw new Error("--keep applies only to the snapshot command");
   if (parsedCommand !== "run-stage" && stage) throw new Error("--stage applies only to the run-stage command");
@@ -169,6 +185,7 @@ function parseArguments(argumentsList: string[]): PortfolioCliOptions {
     ...(cohort ? { cohort } : {}),
     ...(runId ? { runId } : {}),
     ...(candidatePath ? { candidatePath } : {}),
+    ...(evidencePath ? { evidencePath } : {}),
     ...(devRunId ? { devRunId } : {}),
     ...(holdoutRunId ? { holdoutRunId } : {}),
     ...(annotationsPath ? { annotationsPath } : {}),
@@ -206,6 +223,9 @@ export async function runPortfolioCli(argumentsList: string[], executable = "zz-
   }
   if (options.command === "qualify-v3") {
     const inspection = await inspectPortfolioRegistry(options.registry);
+    const evidenceInput = JSON.parse(await readFile(options.evidencePath!, "utf8"));
+    const evidenceIntegrity = await verifyEvidenceReferences(process.cwd(), evidenceInput);
+    for (const failure of evidenceIntegrity.failures) console.error(`[qualify-v3] ${failure}`);
     let devReport;
     let holdoutReport;
     if (options.devRunId) {
@@ -214,12 +234,23 @@ export async function runPortfolioCli(argumentsList: string[], executable = "zz-
     if (options.holdoutRunId) {
       holdoutReport = await readPortfolioBenchmarkReport(options.runRoot, options.holdoutRunId);
     }
-    const report = evaluateV3Qualification(inspection, devReport, holdoutReport);
+    const evidenceSemantics = await verifyQualificationEvidenceSemantics(process.cwd(), evidenceInput);
+    for (const failure of evidenceSemantics.failures) console.error(`[qualify-v3] ${failure}`);
+    const report = evaluateV3Qualification(
+      inspection,
+      devReport,
+      holdoutReport,
+      evidenceInput,
+      evidenceIntegrity.passed && evidenceSemantics.passed,
+    );
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
     return report.passed ? 0 : 1;
   }
   if (options.command === "evaluate-rule") {
     const candidateInput = JSON.parse(await readFile(options.candidatePath!, "utf8"));
+    const evidenceInput = JSON.parse(await readFile(options.evidencePath!, "utf8"));
+    const evidenceIntegrity = await verifyEvidenceReferences(process.cwd(), evidenceInput);
+    for (const failure of evidenceIntegrity.failures) console.error(`[evaluate-rule] ${failure}`);
     const inspection = await inspectPortfolioRegistry(options.registry);
     let devReport;
     let holdoutReport;
@@ -229,7 +260,21 @@ export async function runPortfolioCli(argumentsList: string[], executable = "zz-
     if (options.holdoutRunId) {
       holdoutReport = await readPortfolioBenchmarkReport(options.runRoot, options.holdoutRunId);
     }
-    const report = evaluateRuleCandidate(candidateInput, inspection, devReport, holdoutReport);
+    const evidenceSemantics = await verifyRulePromotionEvidenceSemantics(
+      process.cwd(),
+      candidateInput,
+      evidenceInput,
+      holdoutReport,
+    );
+    for (const failure of evidenceSemantics.failures) console.error(`[evaluate-rule] ${failure}`);
+    const report = evaluateRuleCandidate(
+      candidateInput,
+      inspection,
+      devReport,
+      holdoutReport,
+      evidenceInput,
+      evidenceIntegrity.passed && evidenceSemantics.passed,
+    );
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
     return report.passed ? 0 : 1;
   }

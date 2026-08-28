@@ -75,6 +75,7 @@
     "independence:archive-smoke": "node scripts/archive-removal-smoke.mjs",
     "release:pack": "npm run build --silent && node scripts/create-release.mjs",
     "release:check": "node scripts/verify-offline-release.mjs",
+    "release:verify": "npm run release:pack && npm run release:check",
     "review-heuristics": "npm run build --silent && node dist/cli/review-heuristics.js",
     "start": "node dist/cli/index.js",
     "test": "npm run build && tsc -p tsconfig.test.json && node --test --test-concurrency=1 dist-test/tests/*.test.js",
@@ -84,7 +85,8 @@
     "validate-design": "npm run build --silent && node dist/cli/validate-design.js",
     "validate-information": "npm run build --silent && node dist/cli/validate-information.js",
     "validate-trust": "npm run build --silent && node dist/cli/validate-trust.js",
-    "verify-ui": "npm run build --silent && node dist/cli/verify-ui.js"
+    "verify-ui": "npm run build --silent && node dist/cli/verify-ui.js",
+    "v3:evidence": "node scripts/capture-v3-evidence.mjs"
   },
   "keywords": [
     "design-engineering",

@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "ruleId": "ZTDE-ARCH-001",
+  "expected": "abstained",
+  "applicable": false,
+  "fileName": "calculation.ts",
+  "prefix": ["export function calculate() {"],
+  "repeat": { "line": "  // Non-rendering calculation step.", "count": 410 },
+  "suffix": ["  return 1;", "}"]
+}

@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "id": "replace-command-evidence-id",
+  "command": ["replace-command", "replace-argument"],
+  "startedAt": "1970-01-01T00:00:00.000Z",
+  "completedAt": "1970-01-01T00:00:00.000Z",
+  "exitCode": 1,
+  "passed": false,
+  "stdout": {
+    "path": "replace/stdout.log",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "stderr": {
+    "path": "replace/stderr.log",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}
