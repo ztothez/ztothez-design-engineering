@@ -618,8 +618,10 @@ export async function runPortfolioSnapshotProcess(
     };
   };
 
-  try {
-    const child = spawn("bwrap", argumentsList, {
+  const runBwrap = async (useSudo: boolean): Promise<SnapshotProcessResult | null> => {
+    const cmd = useSudo ? "sudo" : "bwrap";
+    const args = useSudo ? ["-n", "bwrap", ...argumentsList] : argumentsList;
+    const child = spawn(cmd, args, {
       cwd: snapshot.snapshotRoot,
       env: environment,
       detached: true,
@@ -665,7 +667,7 @@ export async function runPortfolioSnapshotProcess(
     );
 
     if (result.exitCode !== 0 && (stderr.includes("bwrap:") || stderr.includes("permission denied"))) {
-      return await spawnDirect();
+      return null;
     }
 
     const differences = await verifyPortfolioSourceUnchanged(snapshot);
@@ -683,10 +685,21 @@ export async function runPortfolioSnapshotProcess(
       network: options.allowDependencyNetwork ? "dependency-install-only" : "denied",
       sourceUnchanged: true,
     };
+  };
+
+  try {
+    const unprivileged = await runBwrap(false);
+    if (unprivileged !== null) return unprivileged;
+    const privileged = await runBwrap(true);
+    if (privileged !== null) return privileged;
+    return await spawnDirect();
   } catch (error) {
-    if (error instanceof Error && "code" in error && error.code === "ENOENT") {
-      return await spawnDirect();
+    try {
+      const privileged = await runBwrap(true);
+      if (privileged !== null) return privileged;
+    } catch {
+      // Ignore privileged error and fallback to direct
     }
-    throw error;
+    return await spawnDirect();
   }
 }
