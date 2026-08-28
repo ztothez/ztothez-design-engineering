@@ -437,17 +437,19 @@ export async function withPortfolioSnapshot<T>(
 }
 
 async function existingSystemMounts(): Promise<string[]> {
-  const candidates = ["/usr", "/bin", "/lib", "/lib64", "/etc"];
-  const mounts: string[] = [];
+  const candidates = ["/usr", "/bin", "/lib", "/lib64", "/etc", "/opt", dirname(process.execPath)];
+  const mounts = new Set<string>();
   for (const candidate of candidates) {
     try {
-      await lstat(candidate);
-      mounts.push(candidate);
+      const stats = await lstat(candidate);
+      if (stats.isDirectory() || stats.isSymbolicLink()) {
+        mounts.add(candidate);
+      }
     } catch {
       // Optional system path is unavailable on this host.
     }
   }
-  return mounts;
+  return Array.from(mounts);
 }
 
 function terminateProcessGroup(child: ReturnType<typeof spawn>, signal: NodeJS.Signals): void {
