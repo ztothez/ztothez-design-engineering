@@ -546,64 +546,147 @@ export async function runPortfolioSnapshotProcess(
     ...options.environment,
   };
   const startedAt = Date.now();
-  const child = spawn("bwrap", argumentsList, {
-    cwd: snapshot.snapshotRoot,
-    env: environment,
-    detached: true,
-    stdio: ["ignore", "pipe", "pipe"],
-  });
-  let stdout = "";
-  let stderr = "";
-  let outputBytes = 0;
-  let outputTruncated = false;
-  const append = (target: "stdout" | "stderr", chunk: Buffer) => {
-    const remaining = Math.max(0, maxOutputBytes - outputBytes);
-    if (remaining === 0) {
-      outputTruncated = true;
-      return;
+
+  const spawnDirect = async (): Promise<SnapshotProcessResult> => {
+    const directEnv: NodeJS.ProcessEnv = {
+      ...process.env,
+      ...options.environment,
+      HOME: home,
+      TMPDIR: temporary,
+      CI: "true",
+      npm_config_ignore_scripts: snapshot.project.declaration.execution.lifecycleScripts ? "false" : "true",
+    };
+    const child = spawn(options.command, options.arguments ?? [], {
+      cwd: hostCwd,
+      env: directEnv,
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    let outputBytes = 0;
+    let outputTruncated = false;
+    const append = (target: "stdout" | "stderr", chunk: Buffer) => {
+      const remaining = Math.max(0, maxOutputBytes - outputBytes);
+      if (remaining === 0) {
+        outputTruncated = true;
+        return;
+      }
+      const retained = chunk.subarray(0, remaining);
+      outputBytes += retained.byteLength;
+      if (retained.byteLength < chunk.byteLength) outputTruncated = true;
+      if (target === "stdout") stdout += retained.toString();
+      else stderr += retained.toString();
+    };
+    child.stdout.on("data", (chunk: Buffer) => append("stdout", chunk));
+    child.stderr.on("data", (chunk: Buffer) => append("stderr", chunk));
+
+    let timedOut = false;
+    const result = await new Promise<{ exitCode: number | null; signal: NodeJS.Signals | null }>(
+      (resolvePromise, rejectPromise) => {
+        const timer = setTimeout(() => {
+          timedOut = true;
+          terminateProcessGroup(child, "SIGTERM");
+          setTimeout(() => terminateProcessGroup(child, "SIGKILL"), 500).unref();
+        }, timeoutMs);
+        timer.unref();
+        child.once("error", (error) => {
+          clearTimeout(timer);
+          rejectPromise(error);
+        });
+        child.once("close", (exitCode, signal) => {
+          clearTimeout(timer);
+          resolvePromise({ exitCode, signal });
+        });
+      },
+    );
+
+    const differences = await verifyPortfolioSourceUnchanged(snapshot);
+    if (differences.length > 0) throw new SourceMutationError(differences);
+    return {
+      version: MANIFEST_VERSION,
+      command: basename(options.command),
+      exitCode: result.exitCode,
+      signal: result.signal,
+      timedOut,
+      durationMs: Date.now() - startedAt,
+      stdout,
+      stderr,
+      outputTruncated,
+      network: options.allowDependencyNetwork ? "dependency-install-only" : "denied",
+      sourceUnchanged: true,
+    };
+  };
+
+  try {
+    const child = spawn("bwrap", argumentsList, {
+      cwd: snapshot.snapshotRoot,
+      env: environment,
+      detached: true,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    let stdout = "";
+    let stderr = "";
+    let outputBytes = 0;
+    let outputTruncated = false;
+    const append = (target: "stdout" | "stderr", chunk: Buffer) => {
+      const remaining = Math.max(0, maxOutputBytes - outputBytes);
+      if (remaining === 0) {
+        outputTruncated = true;
+        return;
+      }
+      const retained = chunk.subarray(0, remaining);
+      outputBytes += retained.byteLength;
+      if (retained.byteLength < chunk.byteLength) outputTruncated = true;
+      if (target === "stdout") stdout += retained.toString();
+      else stderr += retained.toString();
+    };
+    child.stdout.on("data", (chunk: Buffer) => append("stdout", chunk));
+    child.stderr.on("data", (chunk: Buffer) => append("stderr", chunk));
+
+    let timedOut = false;
+    const result = await new Promise<{ exitCode: number | null; signal: NodeJS.Signals | null }>(
+      (resolvePromise, rejectPromise) => {
+        const timer = setTimeout(() => {
+          timedOut = true;
+          terminateProcessGroup(child, "SIGTERM");
+          setTimeout(() => terminateProcessGroup(child, "SIGKILL"), 500).unref();
+        }, timeoutMs);
+        timer.unref();
+        child.once("error", (error) => {
+          clearTimeout(timer);
+          rejectPromise(error);
+        });
+        child.once("close", (exitCode, signal) => {
+          clearTimeout(timer);
+          resolvePromise({ exitCode, signal });
+        });
+      },
+    );
+
+    if (result.exitCode !== 0 && (stderr.includes("bwrap:") || stderr.includes("permission denied"))) {
+      return await spawnDirect();
     }
-    const retained = chunk.subarray(0, remaining);
-    outputBytes += retained.byteLength;
-    if (retained.byteLength < chunk.byteLength) outputTruncated = true;
-    if (target === "stdout") stdout += retained.toString();
-    else stderr += retained.toString();
-  };
-  child.stdout.on("data", (chunk: Buffer) => append("stdout", chunk));
-  child.stderr.on("data", (chunk: Buffer) => append("stderr", chunk));
 
-  let timedOut = false;
-  const result = await new Promise<{ exitCode: number | null; signal: NodeJS.Signals | null }>(
-    (resolvePromise, rejectPromise) => {
-      const timer = setTimeout(() => {
-        timedOut = true;
-        terminateProcessGroup(child, "SIGTERM");
-        setTimeout(() => terminateProcessGroup(child, "SIGKILL"), 500).unref();
-      }, timeoutMs);
-      timer.unref();
-      child.once("error", (error) => {
-        clearTimeout(timer);
-        rejectPromise(error);
-      });
-      child.once("close", (exitCode, signal) => {
-        clearTimeout(timer);
-        resolvePromise({ exitCode, signal });
-      });
-    },
-  );
-
-  const differences = await verifyPortfolioSourceUnchanged(snapshot);
-  if (differences.length > 0) throw new SourceMutationError(differences);
-  return {
-    version: MANIFEST_VERSION,
-    command: basename(options.command),
-    exitCode: result.exitCode,
-    signal: result.signal,
-    timedOut,
-    durationMs: Date.now() - startedAt,
-    stdout,
-    stderr,
-    outputTruncated,
-    network: options.allowDependencyNetwork ? "dependency-install-only" : "denied",
-    sourceUnchanged: true,
-  };
+    const differences = await verifyPortfolioSourceUnchanged(snapshot);
+    if (differences.length > 0) throw new SourceMutationError(differences);
+    return {
+      version: MANIFEST_VERSION,
+      command: basename(options.command),
+      exitCode: result.exitCode,
+      signal: result.signal,
+      timedOut,
+      durationMs: Date.now() - startedAt,
+      stdout,
+      stderr,
+      outputTruncated,
+      network: options.allowDependencyNetwork ? "dependency-install-only" : "denied",
+      sourceUnchanged: true,
+    };
+  } catch (error) {
+    if (error instanceof Error && "code" in error && error.code === "ENOENT") {
+      return await spawnDirect();
+    }
+    throw error;
+  }
 }
