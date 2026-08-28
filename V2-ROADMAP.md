@@ -316,15 +316,19 @@ Additional informal feedback from two attributable human chat contributors is re
 readability advantage and the dark/light theme confound, but it is not a complete structured review
 session and does not satisfy the formal human-expert or representative-user thresholds.
 
-The first completed response to the simplified four-question visual form is retained verbatim in
-`evidence/interface-quality/azure-v2-review/qualitative/visual-review-01.md`, with a faithful English
-translation and explicit limitations. The anonymous reviewer selected Candidate A's overview for
-readability and Candidate B for information findability and overall preference because its
-information remained visible on one page. The same reviewer identified difficult light-gray text on
-a dark-gray background across every Candidate B view and recommended brighter text with a darker
-background. This is one external human qualitative response and meaningful dissenting evidence. It
-does not count as a formal human-expert or representative-user session because attribution, task
-metrics, counterbalancing, and complete criterion matrices were not supplied.
+Nine responses to the simplified four-question visual form are retained in
+`evidence/interface-quality/azure-v2-review/qualitative/visual-review-01.md` and
+`evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-09.md`, with a faithful
+English translation where needed and explicit limitations. Eight responses contain complete
+numbered answers and one contains a partial general preference. Candidate A has the strongest
+readability signal, Candidates A and D tie for information findability, and Candidate D has the
+strongest explicit use-preference signal among complete responses. Candidate B combines
+information-findability support with contrast criticism. Candidate E is polarized: one reviewer
+preferred its contrast and layout, while multiple reviewers criticized its density, bright theme,
+color scheme, layout, clutter, or visual monotony. These are external human qualitative responses
+and meaningful dissenting evidence. They do not count as formal human-expert or representative-user
+sessions because attribution, task metrics, counterbalancing, and complete criterion matrices were
+not supplied.
 
 The disclosed session in `coordinator/maintainer-sessions/expert-session-01.yaml` scores every expert criterion for all five candidates and is retained unchanged in `review.completed.yaml`. `assess-maintainer` independently confirms that all required Azure target stages pass and that the target meets the category floor and equals or exceeds the configured comparator: truthful disclosure 4.0 versus 3.0, information design 4.0 versus 3.0, and visual polish 3.5 versus 2.0. The resulting `maintainer-assessment.json` reports `engineeringReady: true`, `externalReleaseReady: false`, and claim scope `engineering-continuation-only`.
 
@@ -408,10 +412,10 @@ Completion criteria:
 ## Execution Order
 
 All V2 roadmap items are complete. Item 8 closes on attributable maintainer acceptance and the
-available community review evidence, including one complete short visual response and retained
-dissent. SceneStart proves cross-product generalization without copying Azure composition. The
-current release makes no controlled independent-validation or formal representative-user-study
-claim.
+available community review evidence, including eight complete short visual responses, one partial
+response, and retained dissent. SceneStart proves cross-product generalization without copying
+Azure composition. The current release makes no controlled independent-validation or formal
+representative-user-study claim.
 
 No required V2 engineering or review work remains. Additional responses can inform later
 iterations. Only complete schema-valid sessions can support a future controlled comparative-study
