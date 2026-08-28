@@ -307,7 +307,7 @@ jobs:
           include-hidden-files: true
 
       - name: Upload V3 synthetic evidence
-        if: always()
+        if: success()
         uses: actions/upload-artifact@v7
         with:
           name: ztothez-design-v3-synthetic-evidence

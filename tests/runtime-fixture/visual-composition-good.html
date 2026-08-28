@@ -14,7 +14,7 @@
       header, section, aside, figure { margin: 0 0 1rem; }
       .layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr); gap: 1rem; }
       [data-ztothez-design-region], figure { border: 1px solid var(--border); background: var(--surface); padding: 1rem; }
-      h1, h2, p { margin-top: 0; }
+      h1, h2, p { max-width: 100%; margin-top: 0; overflow-wrap: anywhere; }
       .outcome { border-left: 4px solid var(--action); padding-left: 1rem; }
       button { min-width: 7rem; min-height: 44px; border: 2px solid var(--action); border-radius: 4px; background: var(--action); color: var(--action-text); font: inherit; font-weight: 700; }
       button:focus { outline: 3px solid var(--focus); outline-offset: 3px; }
