@@ -622,7 +622,7 @@ export async function runPortfolioSnapshotProcess(
 
   const runBwrap = async (useSudo: boolean): Promise<SnapshotProcessResult | null> => {
     const cmd = useSudo ? "sudo" : "bwrap";
-    const args = useSudo ? ["-n", "bwrap", ...argumentsList] : argumentsList;
+    const args = useSudo ? ["-E", "-n", "bwrap", ...argumentsList] : argumentsList;
     const child = spawn(cmd, args, {
       cwd: snapshot.snapshotRoot,
       env: environment,
