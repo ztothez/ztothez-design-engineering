@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "candidate": "anonymous-e",
+  "recordedAt": "2026-08-26T18:31:59.811Z",
+  "sourceRevision": "worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3",
+  "stages": {
+    "build": {
+      "status": "pass",
+      "command": "npm run build",
+      "cwd": "/home/ztothez/Studio/experiments/UIX-Design-Skill/benchmarks/azure-optimizer-v2",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    "typecheck": {
+      "status": "pass",
+      "command": "/home/ztothez/Studio/experiments/UIX-Design-Skill/benchmarks/azure-optimizer-v2/node_modules/.bin/tsc --noEmit",
+      "cwd": "/home/ztothez/Studio/experiments/UIX-Design-Skill/benchmarks/azure-optimizer-v2",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    "architectureAudit": {
+      "status": "pass",
+      "command": "ZtotheZ Design Engineering auditRepository API",
+      "cwd": "/home/ztothez/Studio/experiments/UIX-Design-Skill",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "{\n  \"version\": \"1.0.0\",\n  \"target\": \"/home/ztothez/Studio/experiments/UIX-Design-Skill/benchmarks/azure-optimizer-v2\",\n  \"generatedAt\": \"2026-08-26T18:32:16.956Z\",\n  \"filesScanned\": 22,\n  \"bytesScanned\": 61618,\n  \"skippedFiles\": [],\n  \"findings\": [],\n  \"summary\": {\n    \"errors\": 0,\n    \"warnings\": 0,\n    \"info\": 0\n  },\n  \"passed\": true,\n  \"evidenceBoundary\": {\n    \"verifierLimitations\": [\n      \"Static source patterns cannot prove rendered placement, runtime state, backend availability, or whether an interaction succeeds.\",\n      \"Medium-confidence findings require repository-context review before remediation or suppression.\"\n    ],\n    \"humanReviewRequired\": [\n      \"A qualified reviewer must evaluate domain fit, architectural trade-offs, task coherence, and any accepted static-rule exception.\"\n    ]\n  }\n}\n",
+      "stderr": "",
+      "report": {
+        "version": "1.0.0",
+        "target": "/home/ztothez/Studio/experiments/UIX-Design-Skill/benchmarks/azure-optimizer-v2",
+        "generatedAt": "2026-08-26T18:32:16.956Z",
+        "filesScanned": 22,
+        "bytesScanned": 61618,
+        "skippedFiles": [],
+        "findings": [],
+        "summary": {
+          "errors": 0,
+          "warnings": 0,
+          "info": 0
+        },
+        "passed": true,
+        "evidenceBoundary": {
+          "verifierLimitations": [
+            "Static source patterns cannot prove rendered placement, runtime state, backend availability, or whether an interaction succeeds.",
+            "Medium-confidence findings require repository-context review before remediation or suppression."
+          ],
+          "humanReviewRequired": [
+            "A qualified reviewer must evaluate domain fit, architectural trade-offs, task coherence, and any accepted static-rule exception."
+          ]
+        }
+      }
+    }
+  }
+}

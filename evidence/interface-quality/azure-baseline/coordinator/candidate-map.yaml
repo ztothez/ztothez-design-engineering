@@ -1,0 +1,16 @@
+version: "1.0"
+scope: Coordinator-only identity map. Do not include this file in the reviewer packet.
+sourceRepository: ../redesign-azure
+candidates:
+  anonymous-a:
+    sourceDirectory: azure-optimizer-og
+    role: Immutable original implementation
+  anonymous-b:
+    sourceDirectory: lovable
+    role: Comparison implementation
+  anonymous-c:
+    sourceDirectory: ui-ux-max-pro
+    role: Comparison implementation
+  anonymous-d:
+    sourceDirectory: uix-design-skill
+    role: Current ZtotheZ implementation

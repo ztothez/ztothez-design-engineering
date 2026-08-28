@@ -1,0 +1,129 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-27T08:09:01.048Z",
+  "contractId": "scenestart",
+  "profile": "learning-persistence",
+  "criteria": [
+    {
+      "id": "learning-progress-persistence",
+      "title": "Learning progress is local, derived, and durable",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-and-resume-lesson"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-and-resume-lesson: 21/21 steps completed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honest-product-scope",
+      "title": "Product scope and non-certification are explicit",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-and-resume-lesson"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-and-resume-lesson: 21/21 steps completed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "responsive-integrity",
+      "title": "Creation and learning tasks reflow without loss",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-and-resume-lesson"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-and-resume-lesson: 21/21 steps completed"
+          ]
+        },
+        {
+          "type": "screenshot",
+          "status": "pass",
+          "message": "screenshot verification produced no blocker findings.",
+          "evidence": [
+            "mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/mobile-320.png",
+            "mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/mobile-390.png",
+            "tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/tablet-768.png",
+            "desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/desktop-1024.png",
+            "wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/wide-1440.png",
+            "journey-complete-and-resume-lesson-mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/journey-complete-and-resume-lesson-mobile-320.png",
+            "journey-complete-and-resume-lesson-mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/journey-complete-and-resume-lesson-mobile-390.png",
+            "journey-complete-and-resume-lesson-tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/journey-complete-and-resume-lesson-tablet-768.png",
+            "journey-complete-and-resume-lesson-desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/journey-complete-and-resume-lesson-desktop-1024.png",
+            "journey-complete-and-resume-lesson-wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/runtime/journey-complete-and-resume-lesson-wide-1440.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessible-operation",
+      "title": "Critical workflows are keyboard and assistive-technology operable",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-and-resume-lesson"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-and-resume-lesson: 21/21 steps completed"
+          ]
+        },
+        {
+          "type": "accessibility",
+          "status": "pass",
+          "message": "accessibility verification produced no blocker findings.",
+          "evidence": []
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "unverified": 0,
+    "blockerFailures": 0,
+    "blockerUnverified": 0,
+    "warningFailures": 0,
+    "warningUnverified": 0
+  },
+  "passed": true
+}

@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "contractPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/knowledge-base/benchmarks/scenestart/product-contract.yaml",
+  "journeyPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/knowledge-base/benchmarks/scenestart/journeys.json",
+  "generatedAt": "2026-08-27T08:09:13.397Z",
+  "contractId": "scenestart",
+  "counts": {
+    "actors": 3,
+    "modes": 4,
+    "acceptanceCriteria": 10,
+    "journeyProfiles": 4,
+    "journeys": 4
+  },
+  "issues": [],
+  "passed": true
+}

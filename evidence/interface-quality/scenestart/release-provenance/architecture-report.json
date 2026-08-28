@@ -1,0 +1,195 @@
+{
+  "version": "1.0.0",
+  "target": "/home/ztothez/Studio/portfolio/scenestart",
+  "generatedAt": "2026-08-27T08:09:13.981Z",
+  "filesScanned": 146,
+  "bytesScanned": 792903,
+  "skippedFiles": [],
+  "findings": [
+    {
+      "ruleId": "ZTDE-ARCH-002",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/demo/CreatorStudio.tsx",
+      "line": 47,
+      "column": 1,
+      "message": "CreatorStudio combines a large rendering surface with direct side-effect orchestration.",
+      "evidence": [
+        "Component span: 336 lines.",
+        "Detected: local storage."
+      ],
+      "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+    },
+    {
+      "ruleId": "ZTDE-ARCH-001",
+      "severity": "warning",
+      "confidence": "high",
+      "file": "src/components/demo/DemoStudio.tsx",
+      "line": 38,
+      "column": 1,
+      "message": "DemoStudio spans 419 lines, exceeding the 400-line review threshold.",
+      "evidence": [
+        "The measured function contains JSX.",
+        "Component span: 419 lines."
+      ],
+      "remediation": "Review responsibility boundaries and extract cohesive domain, orchestration, or presentation units. Do not split solely to satisfy the threshold."
+    },
+    {
+      "ruleId": "ZTDE-ARCH-002",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/demo/GuidedWorkshop.tsx",
+      "line": 65,
+      "column": 1,
+      "message": "GuidedWorkshop combines a large rendering surface with direct side-effect orchestration.",
+      "evidence": [
+        "Component span: 237 lines.",
+        "Detected: local storage."
+      ],
+      "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+    },
+    {
+      "ruleId": "ZTDE-SLOP-003",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/demo/GuidedWorkshop.tsx",
+      "line": 275,
+      "column": 21,
+      "message": "A non-control element has pointer behavior without detectable keyboard semantics.",
+      "evidence": [
+        "Link declares a pointer handler without a keyboard handler or button role."
+      ],
+      "remediation": "Use a native interactive element or add the complete keyboard and semantic contract."
+    },
+    {
+      "ruleId": "ZTDE-SLOP-003",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/foundation/ActivityRunner.tsx",
+      "line": 413,
+      "column": 17,
+      "message": "A non-control element has pointer behavior without detectable keyboard semantics.",
+      "evidence": [
+        "IconButton declares a pointer handler without a keyboard handler or button role."
+      ],
+      "remediation": "Use a native interactive element or add the complete keyboard and semantic contract."
+    },
+    {
+      "ruleId": "ZTDE-SLOP-003",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/foundation/ActivityRunner.tsx",
+      "line": 416,
+      "column": 17,
+      "message": "A non-control element has pointer behavior without detectable keyboard semantics.",
+      "evidence": [
+        "IconButton declares a pointer handler without a keyboard handler or button role."
+      ],
+      "remediation": "Use a native interactive element or add the complete keyboard and semantic contract."
+    },
+    {
+      "ruleId": "ZTDE-SLOP-003",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/foundation/ActivityRunner.tsx",
+      "line": 419,
+      "column": 17,
+      "message": "A non-control element has pointer behavior without detectable keyboard semantics.",
+      "evidence": [
+        "IconButton declares a pointer handler without a keyboard handler or button role."
+      ],
+      "remediation": "Use a native interactive element or add the complete keyboard and semantic contract."
+    },
+    {
+      "ruleId": "ZTDE-DESIGN-001",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/components/ui/chart.tsx",
+      "line": 51,
+      "message": "5 raw visual values appear outside an identifiable token definition file.",
+      "evidence": [
+        "Raw value: #ccc.",
+        "Raw value: #fff.",
+        "Raw value: #ccc.",
+        "Raw value: #ccc.",
+        "Raw value: #fff."
+      ],
+      "remediation": "Move recurring interface colors, dimensions, durations, shadows, and font declarations into semantic tokens. Keep genuinely data-driven canvas, chart, generated-media, and one-off intrinsic geometry values local and document those exceptions."
+    },
+    {
+      "ruleId": "ZTDE-DESIGN-001",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/lib/demo/foundation-paths.ts",
+      "line": 241,
+      "message": "13 raw visual values appear outside an identifiable token definition file.",
+      "evidence": [
+        "Raw value: #0b1020.",
+        "Raw value: #20406b.",
+        "Raw value: #5f9ea0.",
+        "Raw value: #f2d492.",
+        "Raw value: #180a10."
+      ],
+      "remediation": "Move recurring interface colors, dimensions, durations, shadows, and font declarations into semantic tokens. Keep genuinely data-driven canvas, chart, generated-media, and one-off intrinsic geometry values local and document those exceptions."
+    },
+    {
+      "ruleId": "ZTDE-DESIGN-001",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/lib/error-page.ts",
+      "line": 9,
+      "message": "16 raw visual values appear outside an identifiable token definition file.",
+      "evidence": [
+        "Raw value: #fafafa.",
+        "Raw value: #111.",
+        "Raw value: min-height: 100vh.",
+        "Raw value: padding: 1.5rem.",
+        "Raw value: max-width: 28rem."
+      ],
+      "remediation": "Move recurring interface colors, dimensions, durations, shadows, and font declarations into semantic tokens. Keep genuinely data-driven canvas, chart, generated-media, and one-off intrinsic geometry values local and document those exceptions."
+    },
+    {
+      "ruleId": "ZTDE-ARCH-002",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/routes/learn.$slug.tsx",
+      "line": 43,
+      "column": 1,
+      "message": "FoundationPathPage combines a large rendering surface with direct side-effect orchestration.",
+      "evidence": [
+        "Component span: 300 lines.",
+        "Detected: download orchestration."
+      ],
+      "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+    },
+    {
+      "ruleId": "ZTDE-DESIGN-001",
+      "severity": "warning",
+      "confidence": "medium",
+      "file": "src/styles.css",
+      "line": 148,
+      "message": "3 raw visual values appear outside an identifiable token definition file.",
+      "evidence": [
+        "Raw value: rgba(0, 0, 0, 0).",
+        "Raw value: rgba(0, 0, 0, 0.3).",
+        "Raw value: box-shadow:\n    0 18px 60px color-mix(in oklab, var(--color-brand-violet) 12%, transparent),."
+      ],
+      "remediation": "Move recurring interface colors, dimensions, durations, shadows, and font declarations into semantic tokens. Keep genuinely data-driven canvas, chart, generated-media, and one-off intrinsic geometry values local and document those exceptions."
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 12,
+    "info": 0
+  },
+  "passed": true,
+  "evidenceBoundary": {
+    "verifierLimitations": [
+      "Static source patterns cannot prove rendered placement, runtime state, backend availability, or whether an interaction succeeds.",
+      "Medium-confidence findings require repository-context review before remediation or suppression."
+    ],
+    "humanReviewRequired": [
+      "A qualified reviewer must evaluate domain fit, architectural trade-offs, task coherence, and any accepted static-rule exception."
+    ]
+  }
+}

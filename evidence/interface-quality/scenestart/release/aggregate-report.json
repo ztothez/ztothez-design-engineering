@@ -1,0 +1,260 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-27T08:09:50.482Z",
+  "contractId": "scenestart",
+  "contractPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/knowledge-base/benchmarks/scenestart/product-contract.yaml",
+  "outputDirectory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release",
+  "failOn": "error",
+  "requiredProfiles": [
+    "studio-export",
+    "guided-workshop",
+    "learning-persistence",
+    "release-provenance"
+  ],
+  "suppliedProfiles": [
+    "studio-export",
+    "guided-workshop",
+    "learning-persistence",
+    "release-provenance"
+  ],
+  "profiles": [
+    {
+      "profile": "studio-export",
+      "directory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export",
+      "qualityReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/quality-gate.json",
+      "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json",
+      "complete": true,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "profile": "guided-workshop",
+      "directory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop",
+      "qualityReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/quality-gate.json",
+      "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json",
+      "complete": true,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "profile": "learning-persistence",
+      "directory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence",
+      "qualityReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/quality-gate.json",
+      "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/acceptance-report.json",
+      "complete": true,
+      "passed": true,
+      "issues": []
+    },
+    {
+      "profile": "release-provenance",
+      "directory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance",
+      "qualityReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/quality-gate.json",
+      "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/acceptance-report.json",
+      "complete": true,
+      "passed": true,
+      "issues": []
+    }
+  ],
+  "criteria": [
+    {
+      "id": "project-state-integrity",
+      "title": "Project state remains coherent and recoverable",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "studio-export",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json"
+        },
+        {
+          "profile": "guided-workshop",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "offline-export-integrity",
+      "title": "Export matches the current production and runs offline",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "studio-export",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json"
+        },
+        {
+          "profile": "guided-workshop",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "editable-project-integrity",
+      "title": "Editable project download preserves current work",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "studio-export",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "guided-task-continuity",
+      "title": "Guided workshop produces a transferable project",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "guided-workshop",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "learning-progress-persistence",
+      "title": "Learning progress is local, derived, and durable",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "learning-persistence",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "provenance-workflow-integrity",
+      "title": "Release provenance remains explicit",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "release-provenance",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "honest-product-scope",
+      "title": "Product scope and non-certification are explicit",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "studio-export",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json"
+        },
+        {
+          "profile": "guided-workshop",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json"
+        },
+        {
+          "profile": "learning-persistence",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/acceptance-report.json"
+        },
+        {
+          "profile": "release-provenance",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "local-first-boundary",
+      "title": "Creative state remains local to the user",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "release-provenance",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "responsive-integrity",
+      "title": "Creation and learning tasks reflow without loss",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "studio-export",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json"
+        },
+        {
+          "profile": "guided-workshop",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json"
+        },
+        {
+          "profile": "learning-persistence",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/acceptance-report.json"
+        },
+        {
+          "profile": "release-provenance",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/acceptance-report.json"
+        }
+      ]
+    },
+    {
+      "id": "accessible-operation",
+      "title": "Critical workflows are keyboard and assistive-technology operable",
+      "severity": "blocker",
+      "status": "pass",
+      "profiles": [
+        {
+          "profile": "studio-export",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/studio-export/acceptance-report.json"
+        },
+        {
+          "profile": "guided-workshop",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json"
+        },
+        {
+          "profile": "learning-persistence",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/learning-persistence/acceptance-report.json"
+        },
+        {
+          "profile": "release-provenance",
+          "status": "pass",
+          "acceptanceReportPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/acceptance-report.json"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "summary": {
+    "profilesRequired": 4,
+    "profilesSupplied": 4,
+    "profilesPassed": 4,
+    "criteriaPassed": 10,
+    "criteriaFailed": 0,
+    "criteriaUnverified": 0,
+    "blockerFailures": 0,
+    "blockerUnverified": 0,
+    "warningFailures": 0,
+    "warningUnverified": 0
+  },
+  "complete": true,
+  "passed": true
+}

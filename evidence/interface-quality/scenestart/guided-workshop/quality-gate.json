@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-26T23:17:30.561Z",
+  "outputDirectory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop",
+  "contractPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/knowledge-base/benchmarks/scenestart/product-contract.yaml",
+  "repository": "/home/ztothez/Studio/portfolio/scenestart",
+  "url": "http://127.0.0.1:4173",
+  "profile": "guided-workshop",
+  "failOn": "error",
+  "stages": {
+    "contract": {
+      "status": "pass",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0,
+      "evidence": [
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/contract-report.json",
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/contract-report.md"
+      ]
+    },
+    "architecture": {
+      "status": "pass",
+      "errors": 0,
+      "warnings": 12,
+      "info": 0,
+      "evidence": [
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/architecture-report.json",
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/architecture-report.md"
+      ]
+    },
+    "runtime": {
+      "status": "pass",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0,
+      "evidence": [
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/runtime-report.json",
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/runtime-report.md"
+      ],
+      "message": "1/1 journeys passed; 10 screenshots captured."
+    },
+    "acceptance": {
+      "status": "pass",
+      "errors": 0,
+      "warnings": 0,
+      "info": 0,
+      "evidence": [
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.json",
+        "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/acceptance-report.md"
+      ],
+      "message": "6 passed, 0 failed, 0 unverified criteria in profile scope."
+    }
+  },
+  "summary": {
+    "errors": 0,
+    "warnings": 12,
+    "info": 0
+  },
+  "complete": true,
+  "passed": true,
+  "evidenceBoundary": {
+    "verifierLimitations": [
+      "Static source patterns cannot prove rendered placement, runtime state, backend availability, or whether an interaction succeeds.",
+      "Medium-confidence findings require repository-context review before remediation or suppression.",
+      "Solid-color contrast sampling cannot establish contrast over gradients, images, video, canvas, or transparency without separate evidence.",
+      "Static DOM and browser checks cannot establish metric correctness, backend availability beyond observed requests, legal clearance, or representative-user comprehension.",
+      "Screenshot hashes detect rendered change only; they do not prove visual quality or improvement."
+    ],
+    "humanReviewRequired": [
+      "A qualified reviewer must evaluate domain fit, architectural trade-offs, task coherence, and any accepted static-rule exception.",
+      "An attributable reviewer must assess hierarchy, balance, scanability, density, domain fit, and intentional baseline changes.",
+      "Representative-user evidence is required for claims about task comprehension, confidence, efficiency, or usability."
+    ]
+  }
+}

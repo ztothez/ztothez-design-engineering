@@ -1,0 +1,166 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-27T08:09:27.713Z",
+  "contractId": "scenestart",
+  "profile": "release-provenance",
+  "criteria": [
+    {
+      "id": "provenance-workflow-integrity",
+      "title": "Release provenance remains explicit",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "document-asset-and-readme"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "document-asset-and-readme: 12/12 steps completed"
+          ]
+        },
+        {
+          "type": "export",
+          "status": "pass",
+          "message": "A bound journey captured download evidence.",
+          "evidence": [
+            "Downloaded readme.txt via browser download"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honest-product-scope",
+      "title": "Product scope and non-certification are explicit",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "document-asset-and-readme"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "document-asset-and-readme: 12/12 steps completed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "local-first-boundary",
+      "title": "Creative state remains local to the user",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "document-asset-and-readme"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "manual-review",
+          "status": "pass",
+          "message": "ZtotheZ reviewed this criterion at 2026-08-27T11:05:01+03:00: The SceneStart product owner and maintainer completed the Workshop-to-Studio workflow, confirmed that handle and scene state remained intact, saved the editable project, exported the offline HTML, documented and confirmed one release asset, downloaded readme.txt, and reported that no creative-data upload was apparent and the exported HTML worked offline. This observed review is supported by the retained automated journey, network, and download evidence. A separate Core Demo Craft 6-of-9 usability defect remains open and does not alter this local-first decision.",
+          "evidence": [
+            "knowledge-base/benchmarks/scenestart/human-review.md",
+            "evidence/interface-quality/scenestart/guided-workshop/runtime/runtime-report.json",
+            "evidence/interface-quality/scenestart/studio-export/runtime/runtime-report.json",
+            "evidence/interface-quality/scenestart/release-provenance/runtime/runtime-report.json",
+            "evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-step-12-readme.txt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "responsive-integrity",
+      "title": "Creation and learning tasks reflow without loss",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "document-asset-and-readme"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "document-asset-and-readme: 12/12 steps completed"
+          ]
+        },
+        {
+          "type": "screenshot",
+          "status": "pass",
+          "message": "screenshot verification produced no blocker findings.",
+          "evidence": [
+            "mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/mobile-320.png",
+            "mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/mobile-390.png",
+            "tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/tablet-768.png",
+            "desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/desktop-1024.png",
+            "wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/wide-1440.png",
+            "journey-document-asset-and-readme-mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-mobile-320.png",
+            "journey-document-asset-and-readme-mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-mobile-390.png",
+            "journey-document-asset-and-readme-tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-tablet-768.png",
+            "journey-document-asset-and-readme-desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-desktop-1024.png",
+            "journey-document-asset-and-readme-wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-wide-1440.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessible-operation",
+      "title": "Critical workflows are keyboard and assistive-technology operable",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "document-asset-and-readme"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "document-asset-and-readme: 12/12 steps completed"
+          ]
+        },
+        {
+          "type": "accessibility",
+          "status": "pass",
+          "message": "accessibility verification produced no blocker findings.",
+          "evidence": []
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "failed": 0,
+    "unverified": 0,
+    "blockerFailures": 0,
+    "blockerUnverified": 0,
+    "warningFailures": 0,
+    "warningUnverified": 0
+  },
+  "passed": true
+}

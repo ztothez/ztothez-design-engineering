@@ -1,0 +1,198 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-26T23:17:30.560Z",
+  "contractId": "scenestart",
+  "profile": "guided-workshop",
+  "criteria": [
+    {
+      "id": "project-state-integrity",
+      "title": "Project state remains coherent and recoverable",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-guided-production"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-guided-production: 21/21 steps completed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "offline-export-integrity",
+      "title": "Export matches the current production and runs offline",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-guided-production"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-guided-production: 21/21 steps completed"
+          ]
+        },
+        {
+          "type": "export",
+          "status": "pass",
+          "message": "A bound journey captured download evidence.",
+          "evidence": [
+            "Downloaded my-production.html via browser download"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "guided-task-continuity",
+      "title": "Guided workshop produces a transferable project",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-guided-production"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-guided-production: 21/21 steps completed"
+          ]
+        },
+        {
+          "type": "screenshot",
+          "status": "pass",
+          "message": "screenshot verification produced no blocker findings.",
+          "evidence": [
+            "mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/mobile-320.png",
+            "mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/mobile-390.png",
+            "tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/tablet-768.png",
+            "desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/desktop-1024.png",
+            "wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/wide-1440.png",
+            "journey-complete-guided-production-mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-mobile-320.png",
+            "journey-complete-guided-production-mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-mobile-390.png",
+            "journey-complete-guided-production-tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-tablet-768.png",
+            "journey-complete-guided-production-desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-desktop-1024.png",
+            "journey-complete-guided-production-wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-wide-1440.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "honest-product-scope",
+      "title": "Product scope and non-certification are explicit",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-guided-production"
+      ],
+      "evidence": [
+        {
+          "type": "contract",
+          "status": "pass",
+          "message": "Product contract and cross-references are valid.",
+          "evidence": []
+        },
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-guided-production: 21/21 steps completed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "responsive-integrity",
+      "title": "Creation and learning tasks reflow without loss",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-guided-production"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-guided-production: 21/21 steps completed"
+          ]
+        },
+        {
+          "type": "screenshot",
+          "status": "pass",
+          "message": "screenshot verification produced no blocker findings.",
+          "evidence": [
+            "mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/mobile-320.png",
+            "mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/mobile-390.png",
+            "tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/tablet-768.png",
+            "desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/desktop-1024.png",
+            "wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/wide-1440.png",
+            "journey-complete-guided-production-mobile-320: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-mobile-320.png",
+            "journey-complete-guided-production-mobile-390: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-mobile-390.png",
+            "journey-complete-guided-production-tablet-768: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-tablet-768.png",
+            "journey-complete-guided-production-desktop-1024: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-desktop-1024.png",
+            "journey-complete-guided-production-wide-1440: /home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/scenestart/guided-workshop/runtime/journey-complete-guided-production-wide-1440.png"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessible-operation",
+      "title": "Critical workflows are keyboard and assistive-technology operable",
+      "severity": "blocker",
+      "status": "pass",
+      "journeys": [
+        "complete-guided-production"
+      ],
+      "evidence": [
+        {
+          "type": "runtime",
+          "status": "pass",
+          "message": "All bound product journeys passed.",
+          "evidence": [
+            "complete-guided-production: 21/21 steps completed"
+          ]
+        },
+        {
+          "type": "accessibility",
+          "status": "pass",
+          "message": "accessibility verification produced no blocker findings.",
+          "evidence": []
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": 6,
+    "failed": 0,
+    "unverified": 0,
+    "blockerFailures": 0,
+    "blockerUnverified": 0,
+    "warningFailures": 0,
+    "warningUnverified": 0
+  },
+  "passed": true
+}
