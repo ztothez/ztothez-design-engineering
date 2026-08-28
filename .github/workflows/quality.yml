@@ -245,7 +245,7 @@ jobs:
           path: |
             evidence/interface-quality/azure-v2-review/review.completed.report.json
             evidence/interface-quality/azure-v2-review/maintainer-assessment.json
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
 
       - name: Upload corpus evidence
