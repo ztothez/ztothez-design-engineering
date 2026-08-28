@@ -162,7 +162,7 @@ Evidence boundary: the maintained template passes structural validation but repo
 `visualPolish.releaseReady: false` because it is a reusable declaration template rather than a
 completed product release record. Azure V2 has verified rendered evidence, one attributed disclosed
 maintainer review, and an external anonymous human visual comparison using the same five candidates,
-captures, four questions, and response format. Eight reviewers supplied complete answers and one
+captures, four questions, and response format. Nine reviewers supplied complete answers and one
 supplied partial feedback. This evidence validates perceived readability, information findability,
 visual preference with rationale, and observable viewport-specific problems. It does not claim
 interactive task completion, representative-user coverage, or statistical significance. Agents
@@ -324,19 +324,20 @@ Additional informal feedback from two attributable human chat contributors is re
 readability advantage and the dark/light theme confound, but it is not a complete structured review
 session and does not satisfy the formal human-expert or representative-user thresholds.
 
-Nine responses to the simplified four-question visual form are retained in
+Ten responses to the simplified four-question visual form are retained in
 `evidence/interface-quality/azure-v2-review/qualitative/visual-review-01.md` and
-`evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-09.md`, with a faithful
-English translation where needed and explicit limitations. Eight responses contain complete
+`evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-10.md`, with a faithful
+English translation where needed and explicit limitations. Nine responses contain complete
 numbered answers and one contains a partial general preference. Candidate A has the strongest
-readability signal, Candidates A and D tie for information findability, and Candidate D has the
-strongest explicit use-preference signal among complete responses. Candidate B combines
+readability signal, while Candidate D has the strongest information-findability and explicit
+use-preference signals among complete responses. Candidate B combines
 information-findability support with contrast criticism. Candidate E is polarized: one reviewer
 preferred its contrast and layout, while multiple reviewers criticized its density, bright theme,
-color scheme, layout, clutter, or visual monotony. These are external human qualitative responses
-and meaningful dissenting evidence. They do not count as formal human-expert or representative-user
-sessions because attribution, task metrics, counterbalancing, and complete criterion matrices were
-not supplied.
+color scheme, layout, clutter, or visual monotony. Candidate D also has a concrete reported
+1024-pixel container-overflow defect. These are external human qualitative responses and meaningful
+dissenting evidence. They do not count as formal human-expert or representative-user sessions
+because attribution, task metrics, counterbalancing, and complete criterion matrices were not
+supplied.
 
 The disclosed session in `coordinator/maintainer-sessions/expert-session-01.yaml` scores every expert criterion for all five candidates and is retained unchanged in `review.completed.yaml`. `assess-maintainer` independently confirms that all required Azure target stages pass and that the target meets the category floor and equals or exceeds the configured comparator: truthful disclosure 4.0 versus 3.0, information design 4.0 versus 3.0, and visual polish 3.5 versus 2.0. The resulting `maintainer-assessment.json` reports `engineeringReady: true`, `externalReleaseReady: false`, and claim scope `engineering-continuation-only`.
 
@@ -420,7 +421,7 @@ Completion criteria:
 ## Execution Order
 
 All V2 roadmap items are complete. Item 8 closes on attributable maintainer acceptance and the
-available community review evidence, including eight complete short visual responses, one partial
+available community review evidence, including nine complete short visual responses, one partial
 response, and retained dissent. SceneStart proves cross-product generalization without copying
 Azure composition. The current release makes no controlled independent-validation or formal
 representative-user-study claim.

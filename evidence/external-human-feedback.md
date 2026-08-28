@@ -4,7 +4,7 @@
 
 - Sources: `chat_log_review.md` and
   `evidence/interface-quality/azure-v2-review/qualitative/visual-review-01.md` and
-  `evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-09.md`
+  `evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-10.md`
 - Evidence class: human qualitative feedback
 - Format: informal chat discussion of the anonymous Azure screenshots
 - Structured session status: not complete
@@ -46,18 +46,19 @@ counts.
 - Recommended brighter text and a darker background for Candidate B.
 - Supplied no reviewer identifier, task timing, candidate order, expertise claim, or user profile.
 
-### Anonymous Visual Reviewers 02-09
+### Anonymous Visual Reviewers 02-10
 
-- Eight additional responses were relayed by ZtotheZ.
-- Seven supplied complete numbered answers; one supplied only a general Candidate A preference.
-- Across the eight complete short-form responses including Reviewer 01, Candidate A led perceived
-  readability, Candidate D led explicit use preference, and Candidates A and D tied for
-  information findability.
+- Nine additional responses were relayed by ZtotheZ.
+- Eight supplied complete numbered answers; one supplied only a general Candidate A preference.
+- Across the nine complete short-form responses including Reviewer 01, Candidate A led perceived
+  readability, while Candidate D led information findability and explicit use preference.
 - Reviewers repeatedly valued restrained density, clear separation, and a balanced mix of text and
   visual data.
 - Candidate E received one positive contrast and layout preference but repeated criticism for text
   density, bright background discomfort, color scheme, layout, clutter, or visual monotony.
 - Candidate B retained support for visible information but received contrast and density criticism.
+- Candidate D received a concrete 1024-pixel desktop overflow finding for severity counts and the
+  potential-savings value, despite its strong overall preference signal.
 - Candidate theme is a material confound. Dark low-contrast text and bright white backgrounds both
   caused readability complaints.
 - No contributor identifiers, task timings, viewing conditions, or candidate orders were supplied.
@@ -66,13 +67,13 @@ counts.
 
 This is valid external human feedback and should influence packet design and visual iteration. It
 does not support a single universal winner. Candidate A has the strongest readability signal,
-Candidate D has the strongest explicit use-preference signal among complete responses, and
-Candidate B combines information-findability support with contrast criticism. Candidate E is
-polarized rather than uniformly better or worse. The findings are dissenting and must remain
-visible as such.
+Candidate D has the strongest information-findability and explicit use-preference signals among
+complete responses, and Candidate B combines information-findability support with contrast
+criticism. Candidate E is polarized rather than uniformly better or worse. The findings are
+dissenting and must remain visible as such.
 
 It does not provide a complete structured session for every candidate and criterion,
 representative-user task results, counterbalanced orders, timing, comprehension accuracy, or
-statistically meaningful preference data. Eight anonymous visual responses complete the
+statistically meaningful preference data. Nine anonymous visual responses complete the
 four-question short form and one is partial, but none is a complete V1.1 comparison session. None
 of this material may be upgraded into human-expert or representative-user evidence by an AI agent.

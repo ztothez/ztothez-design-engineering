@@ -1,9 +1,9 @@
-# External Visual Reviews 02-09
+# External Visual Reviews 02-10
 
 ## Provenance
 
-- Received in project conversation: `2026-08-28`
-- Contributors: Eight anonymous human reviewers, as reported by ZtotheZ
+- Received in project conversation: `2026-08-28` and `2026-08-29`
+- Contributors: Nine anonymous human reviewers, as reported by ZtotheZ
 - Submission: Reviewer responses relayed by ZtotheZ
 - Review surface: Four-question anonymous screenshot comparison
 - Evidence class: Human qualitative visual review
@@ -157,22 +157,76 @@ The final Finnish sentence means: "In my opinion, D was definitely the best."
 - Problem: Candidate E's white background caused visual discomfort, especially on a bright mobile
   screen.
 
+## Review 10
+
+### Original Relayed Response
+
+> Note: First of all. Fuck E-
+>
+> Note: Jos mä haluaisin töissä flashbangin naamaan menisin erikoisjoukkoihin.
+>
+> 1: 1.D whole thing, easy to read and simple layout helps to find information easy.
+>
+> 2: ^
+>
+> 3: ^
+>
+> 4: D desktop view 1024px issue severity breakdown numbers dont stay inside box. And potential
+> savings also out of box, other than that it's far more clearer than any other on every platform.
+>
+> Note: Näis muis toi mobiili kusee kyl iha huolella, ei varmaankaan oo käyttöystävällinen XD
+>
+> Note: B. Oli kans potentiaalinen mut siitä ei saa kokonaiskuvaa nopeesti vilkaisemalla.
+> Pitäis rullailla.
+>
+> Note: Ja tarkoitus jos mobiililla käyttää niiin napit/alueet joista painaa on varmaankin tuossa
+> D:ssä paljon paremmat koska käytetään kuitenkin nakkisormia. Kunhan napin delay on pikkasen alta
+> sek eikä sadasosia ni ei tuu missclickei XD
+>
+> Note: Mut en ny tie saitko tästä mitään irti 😄
+
+The mobile and Candidate B notes appeared twice in the relayed message. The repeated copy is not
+duplicated above.
+
+### Coordinator English Translation Of Finnish Notes
+
+If the reviewer wanted a flashbang to the face at work, they would join the special forces. The
+other candidates' mobile views fail badly and are probably not user-friendly. Candidate B was also
+a possible choice, but it does not provide a quick overall picture at a glance and would require
+scrolling. For mobile use, Candidate D probably has better buttons and pressable areas because
+people use "sausage fingers." The reviewer suggests a button delay slightly under one second
+instead of hundredths of a second to avoid misclicks. The reviewer finishes by asking whether the
+feedback was useful.
+
+### Supported Interpretation
+
+- Easiest to read, easiest to find information, and preferred for use: Candidate D.
+- Positive reasons: simple layout, fast overview comprehension, clearer presentation across the
+  supplied platforms, and apparently larger mobile interaction targets.
+- Candidate-specific problem: Candidate D at the 1024-pixel desktop viewport lets severity
+  breakdown numbers and the potential-savings value overflow their containers.
+- Comparative problems: Candidate B requires scrolling to understand the overall picture, the
+  other mobile layouts appeared substantially less usable, and Candidate E's bright theme caused
+  strong visual discomfort.
+- The suggested activation delay is retained as reviewer opinion. It is not treated as a validated
+  interaction rule without behavioral testing.
+
 ## Aggregate Signal
 
-Eight responses, including External Visual Review 01, supplied separate answers to Questions 1-3.
+Nine responses, including External Visual Review 01, supplied separate answers to Questions 1-3.
 Review 02 supplied only a general preference and is excluded from the numbered-question counts.
 
 | Question | A | B | C | D | E |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Easiest to read | 4 | 0 | 2 | 1 | 1 |
-| Main information easiest to find | 3 | 2 | 0 | 3 | 0 |
-| Preferred for use | 2 | 1 | 1 | 3 | 1 |
+| Easiest to read | 4 | 0 | 2 | 2 | 1 |
+| Main information easiest to find | 3 | 2 | 0 | 4 | 0 |
+| Preferred for use | 2 | 1 | 1 | 4 | 1 |
 
 The small, non-controlled sample supports iteration rather than a statistical winner:
 
 - Candidate A has the strongest readability signal and repeated support for restrained density.
-- Candidates A and D tie for information findability; Candidate D has the strongest explicit use
-  preference among complete responses.
+- Candidate D has the strongest information-findability and explicit use-preference signals among
+  complete responses.
 - Candidate B is supported for information visibility but criticized for contrast and density.
 - Candidate C is readable to some reviewers but is also criticized for weak information visibility
   and high density.
@@ -180,6 +234,8 @@ The small, non-controlled sample supports iteration rather than a statistical wi
   reviewers criticized its density, light theme, color scheme, layout, or lack of visual focus.
 - Candidate theme is a confound: both dark low-contrast text and bright white backgrounds caused
   accessibility complaints.
+- Candidate D's 1024-pixel container overflow is a concrete responsive defect despite its strong
+  overall preference signal. Preference does not cancel the reported defect.
 
 ## Limitations
 
