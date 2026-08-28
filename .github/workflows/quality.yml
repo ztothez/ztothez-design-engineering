@@ -176,10 +176,10 @@ jobs:
         env:
           PORT: 4280
         run: |
-          npm --prefix benchmarks/azure-optimizer-v2 start > /tmp/ztothez-design-azure-v2.log 2>&1 &
+          npm --prefix benchmarks/azure-optimizer-v2 start -- -p 4280 > /tmp/ztothez-design-azure-v2.log 2>&1 &
           echo "$!" > /tmp/ztothez-design-azure-v2.pid
           for attempt in $(seq 1 30); do
-            if curl --fail --silent "http://127.0.0.1:${PORT}/?state=demo" >/dev/null; then
+            if curl --fail --silent "http://127.0.0.1:4280/?state=demo" >/dev/null; then
               exit 0
             fi
             sleep 1
