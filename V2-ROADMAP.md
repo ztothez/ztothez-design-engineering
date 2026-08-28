@@ -335,7 +335,7 @@ The disclosed session in `coordinator/maintainer-sessions/expert-session-01.yaml
 The product owner distributed the review to a practical community pool that included nontechnical
 people, people opposed to AI-generated work, people beginning IT careers, and volunteers connected
 to a women-focused cybersecurity organization. The resulting maintainer evidence, attributable
-chat feedback, and completed short visual response are accepted as sufficient project-level human
+chat feedback, and completed short visual responses are accepted as sufficient project-level human
 review for this independently maintained release. The evidence preserves criticism and dissent,
 including a preference for Candidate B and its reported contrast weakness, instead of requiring a
 favorable result for the target candidate.
