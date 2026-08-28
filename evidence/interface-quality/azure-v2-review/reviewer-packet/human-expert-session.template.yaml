@@ -1,0 +1,101 @@
+version: "1.0"
+status: draft
+session:
+  id: replace-expert-session-id
+  level: human-expert
+  origin: reviewer-supplied
+  contributor: replace-with-reviewer-or-facilitator-name
+  recordedAt: replace-with-iso-8601-timestamp
+  blinding:
+    candidateIdentitiesWithheld: false
+    priorCandidateExposure: false
+    conflicts:
+      - Replace with disclosed conflicts, or remove this item when none exist.
+  candidateOrder:
+    - anonymous-a
+    - anonymous-b
+    - anonymous-c
+    - anonymous-d
+    - anonymous-e
+  taskResults: []
+  ratings:
+    - candidate: anonymous-a
+      criterion: disclosure-consistency
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-a
+      criterion: decision-density
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-a
+      criterion: visual-rhythm
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-a
+      criterion: responsive-composition
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-b
+      criterion: disclosure-consistency
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-b
+      criterion: decision-density
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-b
+      criterion: visual-rhythm
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-b
+      criterion: responsive-composition
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-c
+      criterion: disclosure-consistency
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-c
+      criterion: decision-density
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-c
+      criterion: visual-rhythm
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-c
+      criterion: responsive-composition
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-d
+      criterion: disclosure-consistency
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-d
+      criterion: decision-density
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-d
+      criterion: visual-rhythm
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-d
+      criterion: responsive-composition
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-e
+      criterion: disclosure-consistency
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-e
+      criterion: decision-density
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-e
+      criterion: visual-rhythm
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-e
+      criterion: responsive-composition
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.

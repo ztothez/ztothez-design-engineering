@@ -1,0 +1,1354 @@
+version: "1.0"
+id: azure-v2-anonymous-review-compiled
+methodologyId: azure-v2-anonymous-human-review
+preparedAt: 2026-08-26T19:45:00.000Z
+preparedBy:
+  type: mixed
+  name: ZtotheZ Design Engineering and attributed reviewers
+candidates:
+  - anonymous-a
+  - anonymous-b
+  - anonymous-c
+  - anonymous-d
+  - anonymous-e
+artifacts:
+  - id: anonymous-a-build
+    candidate: anonymous-a
+    stage: build
+    kind: build-report
+    path: anonymous-a/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:55.491Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 207563dceb0025fde368abc60f7e15d24a7875a4156be1b9b0450a413f3471a8
+  - id: anonymous-a-typecheck
+    candidate: anonymous-a
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-a/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:55.491Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 207563dceb0025fde368abc60f7e15d24a7875a4156be1b9b0450a413f3471a8
+  - id: anonymous-a-architecture-audit
+    candidate: anonymous-a
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-a/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:55.491Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 207563dceb0025fde368abc60f7e15d24a7875a4156be1b9b0450a413f3471a8
+  - id: anonymous-a-browser-runtime
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-a/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 43e47216cb94c6213844c63dcf0ad3245bf4cabcbce85c665444cfada2fc9f20
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+  - id: anonymous-a-analysis-journey
+    candidate: anonymous-a
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-a/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:57:55.266Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 9921f1fc8b1cafa96894db61c75ca351e3684cac849af6edeaf02c580363443a
+  - id: anonymous-a-mobile-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 9dcf886df27ee84d961fe427169f146d00e5587171f099f8273969b6d3872c18
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+  - id: anonymous-a-tablet-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: fcafc8fab537f973cbf113e771119e253c9e43f519c911689205ab639741f6e8
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+  - id: anonymous-a-desktop-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 76e28e2b43c63d631c725421663f5510c8220fe6f145fce20e011d3cb7e6015a
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+  - id: anonymous-a-wide-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: c6e18dcaa3f5869a427840ed697dc68420f4910e02e5bb5a6cc6761a52c962bf
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+  - id: anonymous-a-wide-result
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:57:55.266Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: bcd8054c0d3f0590f9382fc5c72e9cf3743d81b0c621593becd9386a2b7f4118
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+  - id: anonymous-b-build
+    candidate: anonymous-b
+    stage: build
+    kind: build-report
+    path: anonymous-b/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:56.279Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 57a9b1b0c9dc37ed9696894c8ff0717d3f701441b71e8bf0e51cd4d911e3d667
+  - id: anonymous-b-typecheck
+    candidate: anonymous-b
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-b/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:56.279Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 57a9b1b0c9dc37ed9696894c8ff0717d3f701441b71e8bf0e51cd4d911e3d667
+  - id: anonymous-b-architecture-audit
+    candidate: anonymous-b
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-b/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:56.279Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 57a9b1b0c9dc37ed9696894c8ff0717d3f701441b71e8bf0e51cd4d911e3d667
+  - id: anonymous-b-browser-runtime
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-b/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 48828f67552076379a7f9283931668fa6c85d6b03e268181bffc00ec2d8346cc
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+  - id: anonymous-b-analysis-journey
+    candidate: anonymous-b
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-b/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:56:30.880Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 67a1db0b50343f76349201d2c9066f4a00a45c14ac529a311d861feb92024db2
+  - id: anonymous-b-mobile-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: beccb8a658758d138e7222c0f51acf78941910cfc79498d00282fa4b2da89acb
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+  - id: anonymous-b-tablet-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: b2ff3e22ce95874285da048e7d1e4ca703e434fd8a136f6a96117aaf9495dd29
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+  - id: anonymous-b-desktop-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 984f7b8e4b218921332a2f132286ca0cc95c8417de28aaf836f23319c7ccfb2f
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+  - id: anonymous-b-wide-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 4a656d2d607eceff94076a6f4284d0fca404cb2ac98f4db696f05447af17af7c
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+  - id: anonymous-b-wide-result
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:56:30.880Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: bf12c1beb08687bccbf7856b0d7fba9636cc485f871933f77057d9708e2f28d9
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+  - id: anonymous-c-build
+    candidate: anonymous-c
+    stage: build
+    kind: build-report
+    path: anonymous-c/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.823Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 9f40fed9595f88802223872fb2ca7395d44df04aca2a463f1920d4e2c073a602
+  - id: anonymous-c-typecheck
+    candidate: anonymous-c
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-c/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.823Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 9f40fed9595f88802223872fb2ca7395d44df04aca2a463f1920d4e2c073a602
+  - id: anonymous-c-architecture-audit
+    candidate: anonymous-c
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-c/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.823Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 9f40fed9595f88802223872fb2ca7395d44df04aca2a463f1920d4e2c073a602
+  - id: anonymous-c-browser-runtime
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-c/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 3b6780806d646ef6e1ec85dec765f9af4951ac39cedd0f22ae6a354da0c8f754
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+  - id: anonymous-c-analysis-journey
+    candidate: anonymous-c
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-c/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:58:18.494Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 7689ec9e494e8bebc2ad47e873ec1a1f1855d2becd49c803f7638b1a97222dff
+  - id: anonymous-c-mobile-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: db759da194cbc30503430af3aa148849b33dc9e27a7f6f0ecc2026b99d4f51cd
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+  - id: anonymous-c-tablet-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 81cc1907f93e8be39209aa505d8351edfc331c9ff6cf33c0096032d2553d97b7
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+  - id: anonymous-c-desktop-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 2b014e7367faf938935822b1a7fec0c75e2b563b9699f136c7d08a946b913f8e
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+  - id: anonymous-c-wide-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: d73473c27a17216a3eb07d7b1261aebfd79c8f7adc681212161354cc74175eda
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+  - id: anonymous-c-wide-result
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Wide viewport after Multi-Agent Audit was opened and the full AI audit completed.
+    recordedAt: 2026-08-27T00:00:00.000Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 0f77d26d391fd37b3028c8c55df46a7e2591b08298dc8e1e98c7f30d26d617b3
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+  - id: anonymous-d-build
+    candidate: anonymous-d
+    stage: build
+    kind: build-report
+    path: anonymous-d/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.595Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: e9d3bcfd0eac5b968ba735b81189080e60ee5feb181083e61d02d67ddb770bd0
+  - id: anonymous-d-typecheck
+    candidate: anonymous-d
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-d/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.595Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: e9d3bcfd0eac5b968ba735b81189080e60ee5feb181083e61d02d67ddb770bd0
+  - id: anonymous-d-architecture-audit
+    candidate: anonymous-d
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-d/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.595Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: e9d3bcfd0eac5b968ba735b81189080e60ee5feb181083e61d02d67ddb770bd0
+  - id: anonymous-d-browser-runtime
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-d/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: bf9e5bfe05604bb167f67ec686e58d671dd2d39995ed776eca442f5567a93856
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+  - id: anonymous-d-analysis-journey
+    candidate: anonymous-d
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-d/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:58:19.517Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: a2801c65560ffd4e58314eea5af6f8caa05e286ddf1681759507feb8650f1fe2
+  - id: anonymous-d-mobile-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: 74f4504b7e7ff74b4a2f2652f53ad6bc2d059851056673bd3ac505d303f6c22f
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+  - id: anonymous-d-tablet-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: 657795afb19ed41e5b58470ee245a795b3bf28abf8cfdb833a6f0ea44cf21517
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+  - id: anonymous-d-desktop-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: f5742f8938753b6fcfe053763f6302960b3c2baccee0ce87cd373dc419871010
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+  - id: anonymous-d-wide-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: 568655030cde12cc8e1d1b2cae7a9a8c34047824019bc6b82b27e69ae6a86135
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+  - id: anonymous-d-wide-result
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:19.517Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: d3370688dc1078ec4539e319cd62a3ece5493e9790c33d7af9dbfe23b5be2a1e
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+  - id: anonymous-e-build
+    candidate: anonymous-e
+    stage: build
+    kind: build-report
+    path: anonymous-e/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact Azure V2 build command output and status at the recorded source revision
+    recordedAt: 2026-08-26T18:31:59.811Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 6385c9c26f4eca11d4e0e45938904b12b61dde511af98a83423c8fb015e43d36
+  - id: anonymous-e-typecheck
+    candidate: anonymous-e
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-e/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact Azure V2 typecheck command output and status at the recorded source revision
+    recordedAt: 2026-08-26T18:31:59.811Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 6385c9c26f4eca11d4e0e45938904b12b61dde511af98a83423c8fb015e43d36
+  - id: anonymous-e-architecture-audit
+    candidate: anonymous-e
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-e/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact Azure V2 architecture-audit command output and status at the recorded source revision
+    recordedAt: 2026-08-26T18:31:59.811Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 6385c9c26f4eca11d4e0e45938904b12b61dde511af98a83423c8fb015e43d36
+  - id: anonymous-e-browser-runtime
+    candidate: anonymous-e
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-e/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Azure V2 browser, responsive, accessibility, state, and screenshot-regression report
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 1762c0bfd90f2bbaf2399b19055004a22c65c8841ab1013c895ebcf37c6c8e9c
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+  - id: anonymous-e-product-journeys
+    candidate: anonymous-e
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-e/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Nine Azure V2 product journeys across four declared viewports
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 1762c0bfd90f2bbaf2399b19055004a22c65c8841ab1013c895ebcf37c6c8e9c
+  - id: anonymous-e-export
+    candidate: anonymous-e
+    stage: product-journeys
+    kind: export
+    path: anonymous-e/export-provenance.json
+    producer: automation
+    retained: true
+    scope: Captured Azure V2 provenance export
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 10d3a4b6f44b44cb6c63568398c3acfb55b491172ee8c26927ebdd1a8fca427c
+  - id: anonymous-e-mobile-initial
+    candidate: anonymous-e
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-e-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 387ff47e6d5aa30b454c125b068d54a908d7a4df05e582f494999d7db5fe8bc1
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+  - id: anonymous-e-tablet-initial
+    candidate: anonymous-e
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-e-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 415b3db5bcae0d39a5c677c91712ce4d901c8d6b9b25f019e8e5b179c41e0c0b
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+  - id: anonymous-e-desktop-initial
+    candidate: anonymous-e
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-e-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 8f6e1f42a84673efca00c677886249f2fff3c803cc688c9411cb70accceadd72
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+  - id: anonymous-e-wide-initial
+    candidate: anonymous-e
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-e-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: c8559bebc6699a98bccbb67e282988e57ec5113da27d8102c3dbed4dca4726cc
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+  - id: anonymous-e-wide-result
+    candidate: anonymous-e
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-e-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T18:02:10.985Z
+    sourceRevision: worktree-at-290e0f5aa882906ad1ca5b0986962d2a0b1203b3
+    sha256: 64275e778abaf55e1bcfc18c9327a1e910fe0ea63d27a58c55e711711772ac44
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+  - id: ztothez-self-review-01-evidence
+    candidate: comparison
+    stage: human-review
+    kind: human-review
+    path: coordinator/maintainer-sessions/expert-session-01.yaml
+    producer: human
+    retained: true
+    scope: human-expert session supplied by the attributed contributor
+    recordedAt: 2026-08-26T19:45:00Z
+    sourceRevision: reviewer-supplied
+    sha256: aa89b4e75d4a99733ddbd5229f703372b836e294381de185cf39084c98720b28
+stages:
+  - id: build
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs:
+      - anonymous-a-build
+  - id: typecheck
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs:
+      - anonymous-a-typecheck
+  - id: architecture-audit
+    candidate: anonymous-a
+    status: fail
+    evidenceRefs:
+      - anonymous-a-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-a
+    status: fail
+    evidenceRefs:
+      - anonymous-a-browser-runtime
+      - anonymous-a-mobile-initial
+      - anonymous-a-tablet-initial
+      - anonymous-a-desktop-initial
+      - anonymous-a-wide-initial
+      - anonymous-a-wide-result
+  - id: product-journeys
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs:
+      - anonymous-a-analysis-journey
+  - id: build
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-build
+  - id: typecheck
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-typecheck
+  - id: architecture-audit
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-b
+    status: fail
+    evidenceRefs:
+      - anonymous-b-browser-runtime
+      - anonymous-b-mobile-initial
+      - anonymous-b-tablet-initial
+      - anonymous-b-desktop-initial
+      - anonymous-b-wide-initial
+      - anonymous-b-wide-result
+  - id: product-journeys
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-analysis-journey
+  - id: build
+    candidate: anonymous-c
+    status: pass
+    evidenceRefs:
+      - anonymous-c-build
+  - id: typecheck
+    candidate: anonymous-c
+    status: pass
+    evidenceRefs:
+      - anonymous-c-typecheck
+  - id: architecture-audit
+    candidate: anonymous-c
+    status: fail
+    evidenceRefs:
+      - anonymous-c-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-c
+    status: fail
+    evidenceRefs:
+      - anonymous-c-browser-runtime
+      - anonymous-c-mobile-initial
+      - anonymous-c-tablet-initial
+      - anonymous-c-desktop-initial
+      - anonymous-c-wide-initial
+      - anonymous-c-wide-result
+  - id: product-journeys
+    candidate: anonymous-c
+    status: fail
+    evidenceRefs:
+      - anonymous-c-analysis-journey
+  - id: build
+    candidate: anonymous-d
+    status: pass
+    evidenceRefs:
+      - anonymous-d-build
+  - id: typecheck
+    candidate: anonymous-d
+    status: pass
+    evidenceRefs:
+      - anonymous-d-typecheck
+  - id: architecture-audit
+    candidate: anonymous-d
+    status: pass
+    evidenceRefs:
+      - anonymous-d-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-d
+    status: fail
+    evidenceRefs:
+      - anonymous-d-browser-runtime
+      - anonymous-d-mobile-initial
+      - anonymous-d-tablet-initial
+      - anonymous-d-desktop-initial
+      - anonymous-d-wide-initial
+      - anonymous-d-wide-result
+  - id: product-journeys
+    candidate: anonymous-d
+    status: fail
+    evidenceRefs:
+      - anonymous-d-analysis-journey
+  - id: build
+    candidate: anonymous-e
+    status: pass
+    evidenceRefs:
+      - anonymous-e-build
+  - id: typecheck
+    candidate: anonymous-e
+    status: pass
+    evidenceRefs:
+      - anonymous-e-typecheck
+  - id: architecture-audit
+    candidate: anonymous-e
+    status: pass
+    evidenceRefs:
+      - anonymous-e-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-e
+    status: pass
+    evidenceRefs:
+      - anonymous-e-browser-runtime
+      - anonymous-e-mobile-initial
+      - anonymous-e-tablet-initial
+      - anonymous-e-desktop-initial
+      - anonymous-e-wide-initial
+      - anonymous-e-wide-result
+  - id: product-journeys
+    candidate: anonymous-e
+    status: pass
+    evidenceRefs:
+      - anonymous-e-product-journeys
+      - anonymous-e-export
+  - id: human-review
+    candidate: comparison
+    status: not-run
+    evidenceRefs: []
+sessions:
+  - id: item8-agent-artifact-inspection
+    level: ai-assisted-expert
+    origin: agent-generated
+    contributor: ZtotheZ Design Engineering
+    recordedAt: 2026-08-26T18:49:00.128Z
+    candidateOrder:
+      - anonymous-a
+      - anonymous-b
+      - anonymous-c
+      - anonymous-d
+      - anonymous-e
+    taskResults: []
+    ratings: []
+  - id: ztothez-self-review-01
+    level: human-expert
+    origin: reviewer-supplied
+    contributor: ZtotheZ
+    recordedAt: 2026-08-26T19:45:00Z
+    blinding:
+      candidateIdentitiesWithheld: false
+      priorCandidateExposure: true
+      conflicts:
+        - Creator and maintainer of the ZtotheZ Design Engineering candidate.
+        - Prior exposure to the candidate identities and comparison implementations.
+    candidateOrder:
+      - anonymous-a
+      - anonymous-b
+      - anonymous-c
+      - anonymous-d
+      - anonymous-e
+    taskResults: []
+    ratings:
+      - candidate: anonymous-a
+        criterion: disclosure-consistency
+        score: 1
+        rationale: |-
+          Candidate-a-analysis-wide.png shows the supervisor agent pipeline diagram and agent console logs, but 
+          does not explicitly surface data origin, connection type, or freshness metadata. The overview-wide.png 
+          displays key metrics (Total Resources: 142, Potential Savings €3,240, Issues Found: 28) and timestamps 
+          on recent analyses (May 10, 2024, May 9, 2024), but these dates are not labeled as "current" or 
+          "snapshot-taken-at." The analysis result page shows execution logs with timestamps but lacks explicit 
+          disclosure of whether results are live or simulated, and fallback behavior is not visible.
+      - candidate: anonymous-a
+        criterion: decision-density
+        score: 2
+        rationale: |-
+          Overview-wide.png provides actionable recommendations (Right-size VM instances €1,420/mo, Remove 
+          unused resources €820/mo) with savings amounts, supporting decision-making. However, the same four 
+          recommendations repeat across both overview and analysis pages, creating decorative redundancy. The 
+          analysis-wide.png adds formatted findings (Critical: Memory Exhaustion, High: Missing Alerting) with 
+          impact and action context, but this detail duplication dilutes novelty. Evidence and findings are 
+          connected, but the density is reduced by repetition.
+      - candidate: anonymous-a
+        criterion: visual-rhythm
+        score: 2
+        rationale: |-
+          Mobile view shows a single-column card stack with consistent 16px gutters and uniform card heights, 
+          establishing rhythm. Typography hierarchy uses white headings for section titles and smaller gray text 
+          for metadata. Tablet and desktop maintain the same structure and spacing. However, the analysis-wide.png 
+          shifts to a two-column layout (logs left, findings right) with tighter spacing and a different 
+          typographic scale (monospaced console font vs. sans-serif body text), breaking visual continuity. The 
+          analysis page feels like a distinct view rather than a progression within the system.
+      - candidate: anonymous-a
+        criterion: responsive-composition
+        score: 2
+        rationale: |-
+          Mobile view preserves all key content (metrics, chart, recommendations, recent analysis) in a vertical 
+          stack; text is readable and taps are appropriately sized. Tablet and desktop add a two-column layout, 
+          stacking metrics above larger charts. Wide view introduces a six-metric top row without wrapping issues. 
+          However, mobile truncates the Infrastructure Health chart axis labels (dates compressed), and the "View 
+          all" link in recommendations is clipped at small widths. No severe clipping occurs, but label density 
+          increases at mobile, reducing clarity.
+      - candidate: anonymous-b
+        criterion: disclosure-consistency
+        score: 3
+        rationale: |-
+          Candidate-b-overview-wide.png explicitly displays "PRODUCTION ENVIRONMENT · DEMO DATASET" as a 
+          breadcrumb and "LAST SCAN COMPLETE May 10, 2024 10:20 AM" in the top-right, immediately clarifying 
+          context and freshness. Candidate-b-analysis-wide.png preserves the same breadcrumb and timestamp, 
+          maintaining consistency. The "Agent pipeline" section discloses the Terraform configuration pass and 
+          operational telemetry synthesis workflow. The Operational Telemetry row explicitly shows CPU (12.5%), 
+          Memory (100%), Disk (10%), and Bandwidth (10%), with context for each metric. Fallback is disclosed 
+          as "Not used." Connection type and processing origin are visible throughout both views.
+      - candidate: anonymous-b
+        criterion: decision-density
+        score: 3
+        rationale: |-
+          Overview-wide.png packs four findings (Missing backup policy, Memory utilization at 100%, Low CPU 
+          utilization, Tag governance incomplete) with actionable detail. Each finding cites a specific metric 
+          label (AZ-CONFIG-001, AZ-METRIC-002) and recommends a concrete remediation. The recommendations list 
+          (Right-size VM instances €1,420, Remove unused resources €820) provides savings impact. Analysis-wide.png 
+          adds "Agent pipeline" workflow visualization and a detailed "Synthesized report" section with 
+          observation-impact-recommendation structure. Evidence and metrics support each finding without 
+          decorative repetition. The "EXPORT BUNDLE" section acknowledges three output formats, adding decision 
+          context.
+      - candidate: anonymous-b
+        criterion: visual-rhythm
+        score: 3
+        rationale: |-
+          Overview-wide.png establishes a consistent typographic hierarchy: all-caps section headers (TOTAL 
+          RESOURCES, INFRASTRUCTURE HEALTH), sans-serif body text, green/orange/red semantic color coding, and 
+          16px gutters between cards. Spacing is uniform: metrics align on a 4-column grid, charts respect 
+          consistent height ratios, and the "Agent pipeline" section uses monospaced labels (STAGE 1, STAGE 2, 
+          STAGE 3) with a left-to-right flow. Analysis-wide.png preserves the same header treatment, metric 
+          styling, and color scheme. The console log (monospaced) and structured findings (sans-serif) coexist 
+          without jarring transitions. Typography, color, and spacing remain coherent across both pages.
+      - candidate: anonymous-b
+        criterion: responsive-composition
+        score: 1
+        rationale: |-
+          Candidate-b-overview-mobile.png is severely compromised: the content is unreadable due to extreme 
+          compression. The four top metrics, the Infrastructure Health chart, Severity Mix pie chart, 
+          Operational Telemetry gauges, Findings section, Agent pipeline, and footer all compress into a 
+          narrow column with minimal padding, text overlaps, and labels become illegible. Charts (pie, line, 
+          gauges) shrink to thumbnail size, and the "Agent pipeline" workflow becomes uninterpretable. Tablet 
+          and desktop versions appear readable, but the mobile experience is unusable—taps cannot be reliably 
+          targeted, and the visual hierarchy collapses entirely.
+      - candidate: anonymous-c
+        criterion: disclosure-consistency
+        score: 3
+        rationale: |-
+          Candidate-c-overview-wide.png displays "ztothez-prod" as an active environment selector (dropdown) 
+          in the left sidebar, with a "LATEST: 86/100" indicator in the "Infrastructure Health Score Trend" 
+          card. Timestamps on environment scan logs (May 10, 2024 10:30 AM, May 10, 2024 09:15 AM, May 9, 2024 
+          04:45 PM) surface freshness explicitly. The "Autonomous Agent Orchestration Pipeline" section 
+          describes the workflow: multi-agent topology analyzing Terraform infrastructure and operational 
+          metrics. No distinct analysis-result state was captured: the analysis journey failed and produced 
+          the same pixels as the overview. Analysis-specific behavior is therefore unverified. The sidebar 
+          shows "Agent Engine: Online" status, disclosing liveness. All required disclosure (environment, 
+          freshness, agent status, pipeline logic) is visible and consistent.
+      - candidate: anonymous-c
+        criterion: decision-density
+        score: 3
+        rationale: |-
+          Overview-wide.png highlights "Key Optimization Opportunities" with numbered, ranked items (1. 
+          Right-size VM instances €1,420, 2. Remove unattached Managed Disks €820, 3. Optimize Storage 
+          Accounts €540, 4. Review NAT Gateway & VNet bandwidth costs €460). Each is tagged with its category 
+          (Compute, Storage, Network). The "Severity Distribution" pie chart shows issue counts by priority 
+          level. The "Recent Environment Scan Logs" table displays environment names, last-scanned dates, 
+          pipeline status (Completed), and health scores with supporting evidence (Production 82/100, Staging 
+          74/100, Dev 69/100). Information density is high: every visual element (card, metric, tag, status) 
+          connects to a specific decision. The agent pipeline diagram adds architectural context without 
+          clutter.
+      - candidate: anonymous-c
+        criterion: visual-rhythm
+        score: 3
+        rationale: |-
+          Overview-wide.png uses a consistent design system: all-caps category tags (COMPUTE OPTIMIZATION, 
+          STORAGE OPTIMIZATION), teal accent colors for interactive elements and section headers, sans-serif 
+          typography, and a 8px-based spacing grid. Cards have 16px padding, gutters are 12px, and metrics 
+          align on a 2-column grid. The agent pipeline diagram uses a left-to-right flow with matching icon 
+          styles (code bracket, gear, shield) and monospaced labels (CONFIG AGENT, METRIC AGENT, SUPERVISOR). 
+          Typography hierarchy is clear: heading size 18–24px, body 14px, metadata 12px. Color semantics are 
+          consistent (green for completion, teal for emphasis, orange/red for warnings). The analysis page 
+          is visually identical to the overview, preserving rhythm seamlessly.
+      - candidate: anonymous-c
+        criterion: responsive-composition
+        score: 2
+        rationale: |-
+          Candidate-c-overview-mobile.png shows clipping issues: the sidebar navigation collapses to icons 
+          only, the four top metric cards stack into a narrow column, and the "Active Environment" dropdown 
+          truncates text. The "Autonomous Agent Orchestration Pipeline" diagram shrinks below readable size—
+          the three agent boxes (CONFIG, METRIC, SUPERVISOR) compress into a thin ribbon, and connecting arrows 
+          become ambiguous. The "Key Optimization Opportunities" list items lose alignment, and savings amounts 
+          (€1,420, €820) push to a new line. The chart axis labels in "Infrastructure Health Score Trend" are 
+          compressed (May 4, May 5... become May4 May5 etc. without spacing). Tablet view improves, but mobile 
+          degrades the hierarchy and readability of critical components.
+      - candidate: anonymous-d
+        criterion: disclosure-consistency
+        score: 4
+        rationale: |-
+          Candidate-d-overview-wide.png displays "Tenant: prod-eu-west-1" in the top-right corner, 
+          explicitly naming the deployment context. The four top metric cards include inline context: 
+          "Potential Monthly Savings: €3,240 Active" (status badge), "Open Issues: 28" (no status), and 
+          "Health Score: 78/100" with a "7 Day Scope" indicator. Each recent audit lists its completion 
+          status (Completed, Completed, Completed) and a date-time stamp (May 19, 2024 19:30 AM, May 19, 
+          2024 09:15 AM, May 9, 2024 04:45 PM). Analysis-wide.png adds "Infrastructure Multi-Agent Audit" 
+          title and explicitly states the workflow: Configuration and Metric agents correlate Terraform 
+          policies with live operational telemetry. The "Synthesized Agent Findings" section includes observation, 
+          impact, and recommendation fields for each finding. Status is "LIVE" on the agent_execution.log. 
+          All required metadata (tenant, scope, freshness, processing mode) is visible, explicit, and consistent.
+      - candidate: anonymous-d
+        criterion: decision-density
+        score: 4
+        rationale: |-
+          Overview-wide.png provides four high-impact recommendations with priority badges and immediate 
+          savings: "Right-size VM instances High €1,420/mo", "Remove unused resources High €820/mo", 
+          "Optimize storage accounts Medium €540/mo", "Review networking costs Low €460/mo". The "Issue 
+          Severity Breakdown" pie chart (Critical 0, High 2, Medium 1, Low 1) summarizes the risk landscape. 
+          Analysis-wide.png breaks down three numbered findings with observation-impact-recommendation 
+          structure: (1) Critical Risk: Memory Exhaustion—observation, impact, and actionable scaling 
+          recommendation; (2) High Priority: Missing Alerting & Cost Guardrails—observation and specific 
+          alert deployment action; (3) High Priority: Production Backup Coverage Gap—specific vault attachment 
+          step. Each finding cites the underlying Terraform resource (e.g., "azurerm_backup_policy_vm") or 
+          operational metric (CPU 12.5%, Memory 100%, Storage 10%). Evidence and decisions are tightly 
+          integrated with no redundant elements.
+      - candidate: anonymous-d
+        criterion: visual-rhythm
+        score: 4
+        rationale: |-
+          Overview-wide.png establishes clear typographic hierarchy: all-caps section titles (ISSUE SEVERITY 
+          BREAKDOWN, TOP COST & EFFICIENCY RECOMMENDATIONS, INFRASTRUCTURE HEALTH TREND, RECENT AGENT AUDITS), 
+          sans-serif body text (14px, light gray #B0BEC5), and consistent semantic color coding (green for 
+          health/completion, orange for warning, red for critical, teal for interactive accents). Priority 
+          badges (High, Medium, Low) use matching colors and sizing. Cards have 16px padding, 8px radius, 
+          and 12px gutters. Metrics align on a 4-column grid at wide viewport, with clean baseline alignment. 
+          The pie chart and line graph respect consistent sizing and spacing. Analysis-wide.png maintains the 
+          same header treatment, card styling, and color palette while introducing a two-column layout (logs 
+          left, findings right) that preserves visual weight and alignment. Typography, spacing, and color 
+          remain coherent throughout.
+      - candidate: anonymous-d
+        criterion: responsive-composition
+        score: 4
+        rationale: |-
+          Candidate-d-overview-mobile.png adapts elegantly: the four top metrics stack into a single column 
+          with full-width cards (100% - 24px padding), labels remain readable, and metric values maintain 
+          font weight and size. The pie chart and Infrastructure Health chart stack vertically without 
+          clipping, axis labels remain legible (May 4, May 5, ..., May 10 on x-axis; 0, 25, 50, 75, 100 on 
+          y-axis). The recommendations list preserves priority badges and savings amounts with right-aligned 
+          pricing. Tablet view introduces a 2-column layout for cards, maintaining readability. Desktop and 
+          wide views expand to multi-column grids without awkward empty space or wrapping issues. All interactive 
+          elements (buttons, links) maintain 44px+ tap targets. No significant loss of information or priority 
+          hierarchy across all viewport sizes.
+      - candidate: anonymous-e
+        criterion: disclosure-consistency
+        score: 4
+        rationale: |-
+          Candidate-e-overview-wide.png displays "PRODUCTION-SHAPED BENCHMARK ESTATE" as a context label, 
+          immediately clarifying this is a benchmark comparison, not a live deployment. The top row shows 
+          four explicit metadata fields: "Data mode: demo", "Connection: local fixture only", "Processing 
+          origin: imported", and "Snapshot: May 10, 2024 10:30 EEST". These four fields directly address 
+          data origin, connection type, processing mode, and freshness. The "Decision Boundary" section at 
+          the right explicitly states Environment (Production-shaped benchmark estate), Source (imported 
+          fixed comparison fixture), Score (142 resources across compute, storage, network), and Limitation 
+          (No Azure tenant is connected). Analysis-wide.png preserves all four metadata fields and adds a 
+          "CONTROLLED BENCHMARK WORKFLOW" section that explains: "The API evaluates the fixed imported 
+          fixture. It does not connect to or modify an Azure tenant." Processing origin is stated as 
+          "Declared benchmark simulation" with consequence "Read-only report generation" and fallback "Not 
+          used". All required disclosures are present, explicit, and visually prominent.
+      - candidate: anonymous-e
+        criterion: decision-density
+        score: 4
+        rationale: |-
+          Overview-wide.png highlights a "Highest-Priority Decision" (Memory capacity has no measured headroom) 
+          with a call-to-action card (Review evidence) and supporting current evidence (16 of 16 GB allocated). 
+          The "Findings" section lists four prioritized items: (1) Memory capacity is fully allocated, (2) 
+          Production resources have no declared backup policy, (3) Provisioned CPU exceeds observed demand, (4) 
+          Ownership tags are incomplete. Each finding includes its resource reference (AZ-METRIC-002, 
+          AZ-CONFIG-001, AZ-METRIC-003, AZ-004) and a browse-to-details arrow. A side panel for the 
+          highest-priority finding shows observation (memory utilization 100%), evidence (memory.used_gb=16, 
+          memory.total_gb=16), recommended action (Profile peak memory, resize instance or set scaling policy), 
+          and validation (repeat peak-load test). The "Infrastructure health trend" bar chart shows 7-day 
+          scores (92, 74, 79, 58, 64, 72, 86), offering temporal context. Analysis-wide.png reinforces decision 
+          density by dedicating a controlled workflow panel and detailed evidence panel to support findings. No 
+          redundant information competes with actionable guidance.
+      - candidate: anonymous-e
+        criterion: visual-rhythm
+        score: 4
+        rationale: |-
+          Overview-wide.png uses a light neutral background (#FFFFFF or near-white) with a consistent design 
+          system: sans-serif typography (headings 18–20px, body 14px, metadata 12px), teal accent color for 
+          interactive elements (Review evidence button, links), semantic color badges (High, Medium, Low in 
+          red/orange/yellow), and a 12px-based spacing grid. Section headers are styled with a left teal 
+          border (4px solid) for visual emphasis. Cards have 16px padding, 8px radius, and 12px gutters. The 
+          "Tracked resources", "Potential monthly savings", "Open findings", and "Infrastructure health" 
+          metric cards align on a 4-column grid with visual weight parity. The findings list preserves vertical 
+          rhythm with 8px spacing between rows. Analysis-wide.png maintains the same typography hierarchy, 
+          accent color, and card styling. The two-column layout (workflow left, evidence right) preserves 
+          baseline alignment and visual balance. The color palette (teal, neutral grays, semantic reds) remains 
+          coherent throughout.
+      - candidate: anonymous-e
+        criterion: responsive-composition
+        score: 3
+        rationale: |-
+          Candidate-e-overview-mobile.png adapts well for smaller screens: the top metadata row ("Data mode: 
+          demo", "Connection: local fixture only", "Processing origin: imported", "Snapshot: May 10, 2024...") 
+          wraps into a vertical stack without loss of legibility. The "Highest-Priority Decision" card remains 
+          full-width with readable text. The four metric cards (Tracked resources, Potential monthly savings, 
+          Open findings, Infrastructure health) stack vertically with appropriate padding. The "Findings" list 
+          and side detail panel for the priority finding adapt to single-column layout, preserving the 
+          observation-evidence-recommendation-validation hierarchy. The bar chart ("Infrastructure health 
+          trend") maintains readability. However, the "Decision Boundary" section (Environment, Source, Score, 
+          Limitation) at the right side of the wide view is not visible in the mobile screenshot—it may be 
+          moved below or hidden, making it unclear whether all disclosure metadata is preserved on mobile. 
+          Tablet view should confirm, but this potential loss of context prevents a perfect score.
+claims:
+  - id: anonymous-a-automated-evidence
+    candidate: anonymous-a
+    kind: implementation-fact
+    statement: Automated build, type, architecture, browser, and product-journey evidence is retained at its recorded scope.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-a-build
+      - anonymous-a-typecheck
+      - anonymous-a-architecture-audit
+      - anonymous-a-browser-runtime
+      - anonymous-a-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison artifact; individual stages retain their own pass or fail status.
+    status: verified
+    outcome: partial
+    limitations:
+      - Execution evidence does not establish human preference, comprehension, or design quality.
+  - id: anonymous-a-review-ready
+    candidate: anonymous-a
+    kind: design-quality
+    statement: The anonymous common-state captures are present for attributable review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-a-mobile-initial
+      - anonymous-a-tablet-initial
+      - anonymous-a-desktop-initial
+      - anonymous-a-wide-initial
+      - anonymous-a-wide-result
+    sessionRefs:
+      - item8-agent-artifact-inspection
+    scope: Artifact readiness only; the distinct analysis-result capture is now available, but no score, winner, or human conclusion is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Only reviewer-supplied sessions can satisfy the human and representative-user decision rules.
+  - id: anonymous-b-automated-evidence
+    candidate: anonymous-b
+    kind: implementation-fact
+    statement: Automated build, type, architecture, browser, and product-journey evidence is retained at its recorded scope.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-b-build
+      - anonymous-b-typecheck
+      - anonymous-b-architecture-audit
+      - anonymous-b-browser-runtime
+      - anonymous-b-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison artifact; individual stages retain their own pass or fail status.
+    status: verified
+    outcome: partial
+    limitations:
+      - Execution evidence does not establish human preference, comprehension, or design quality.
+  - id: anonymous-b-review-ready
+    candidate: anonymous-b
+    kind: design-quality
+    statement: The anonymous common-state captures are present for attributable review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-b-mobile-initial
+      - anonymous-b-tablet-initial
+      - anonymous-b-desktop-initial
+      - anonymous-b-wide-initial
+      - anonymous-b-wide-result
+    sessionRefs:
+      - item8-agent-artifact-inspection
+    scope: Artifact readiness only; no score, winner, or human conclusion is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Only reviewer-supplied sessions can satisfy the human and representative-user decision rules.
+  - id: anonymous-c-automated-evidence
+    candidate: anonymous-c
+    kind: implementation-fact
+    statement: Automated build, type, architecture, browser, and product-journey evidence is retained at its recorded scope.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-c-build
+      - anonymous-c-typecheck
+      - anonymous-c-architecture-audit
+      - anonymous-c-browser-runtime
+      - anonymous-c-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison artifact; individual stages retain their own pass or fail status.
+    status: verified
+    outcome: partial
+    limitations:
+      - Execution evidence does not establish human preference, comprehension, or design quality.
+  - id: anonymous-c-review-ready
+    candidate: anonymous-c
+    kind: design-quality
+    statement: The anonymous common-state captures are present for attributable review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-c-mobile-initial
+      - anonymous-c-tablet-initial
+      - anonymous-c-desktop-initial
+      - anonymous-c-wide-initial
+      - anonymous-c-wide-result
+    sessionRefs:
+      - item8-agent-artifact-inspection
+    scope: Artifact readiness only; no score, winner, or human conclusion is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Only reviewer-supplied sessions can satisfy the human and representative-user decision rules.
+  - id: anonymous-d-automated-evidence
+    candidate: anonymous-d
+    kind: implementation-fact
+    statement: Automated build, type, architecture, browser, and product-journey evidence is retained at its recorded scope.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-d-build
+      - anonymous-d-typecheck
+      - anonymous-d-architecture-audit
+      - anonymous-d-browser-runtime
+      - anonymous-d-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison artifact; individual stages retain their own pass or fail status.
+    status: verified
+    outcome: partial
+    limitations:
+      - Execution evidence does not establish human preference, comprehension, or design quality.
+  - id: anonymous-d-review-ready
+    candidate: anonymous-d
+    kind: design-quality
+    statement: The anonymous common-state captures are present for attributable review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-d-mobile-initial
+      - anonymous-d-tablet-initial
+      - anonymous-d-desktop-initial
+      - anonymous-d-wide-initial
+      - anonymous-d-wide-result
+    sessionRefs:
+      - item8-agent-artifact-inspection
+    scope: Artifact readiness only; no score, winner, or human conclusion is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Only reviewer-supplied sessions can satisfy the human and representative-user decision rules.
+  - id: anonymous-e-automated-evidence
+    candidate: anonymous-e
+    kind: implementation-fact
+    statement: Automated build, type, architecture, browser, and product-journey evidence is retained at its recorded scope.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-e-build
+      - anonymous-e-typecheck
+      - anonymous-e-architecture-audit
+      - anonymous-e-browser-runtime
+      - anonymous-e-product-journeys
+    sessionRefs: []
+    scope: Fixed local Azure comparison artifact; individual stages retain their own pass or fail status.
+    status: verified
+    outcome: partial
+    limitations:
+      - Execution evidence does not establish human preference, comprehension, or design quality.
+  - id: anonymous-e-review-ready
+    candidate: anonymous-e
+    kind: design-quality
+    statement: The anonymous common-state captures are present for attributable review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-e-mobile-initial
+      - anonymous-e-tablet-initial
+      - anonymous-e-desktop-initial
+      - anonymous-e-wide-initial
+      - anonymous-e-wide-result
+    sessionRefs:
+      - item8-agent-artifact-inspection
+    scope: Artifact readiness only; no score, winner, or human conclusion is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Only reviewer-supplied sessions can satisfy the human and representative-user decision rules.

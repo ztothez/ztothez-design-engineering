@@ -1,0 +1,116 @@
+{
+  "version": "1.0.0",
+  "url": "http://localhost:3104/",
+  "generatedAt": "2026-08-26T14:58:29.722Z",
+  "browser": "Chromium 151.0.7922.108",
+  "outputDirectory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview",
+  "viewports": [
+    {
+      "name": "custom-375x812",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "name": "custom-768x1024",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "custom-1024x768",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "custom-1440x1000",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "custom-375x812",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/custom-375x812.png",
+      "width": 375,
+      "height": 812,
+      "fullPage": true
+    },
+    {
+      "name": "custom-768x1024",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/custom-768x1024.png",
+      "width": 768,
+      "height": 1024,
+      "fullPage": true
+    },
+    {
+      "name": "custom-1024x768",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/custom-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "fullPage": true
+    },
+    {
+      "name": "custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-375x812",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/journey-overview-integrity-custom-375x812.png",
+      "width": 375,
+      "height": 812,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-768x1024",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/journey-overview-integrity-custom-768x1024.png",
+      "width": 768,
+      "height": 1024,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-1024x768",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/journey-overview-integrity-custom-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/journey-overview-integrity-custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    }
+  ],
+  "journeys": [
+    {
+      "name": "overview-integrity",
+      "passed": false,
+      "stepsCompleted": 1,
+      "totalSteps": 3,
+      "evidence": [],
+      "screenshot": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/overview/journey-overview-integrity-custom-375x812.png"
+    }
+  ],
+  "expectedNetwork": [],
+  "findings": [
+    {
+      "checkId": "ZTDE-RUNTIME-008",
+      "severity": "error",
+      "message": "Journey failed at step 2 (expectText).",
+      "evidence": [
+        "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('body').filter({ hasText: 'Potential Savings' }) to be visible\u001b[22m\n"
+      ],
+      "journey": "overview-integrity",
+      "selector": "body"
+    }
+  ],
+  "summary": {
+    "errors": 1,
+    "warnings": 0,
+    "info": 0
+  },
+  "passed": false
+}

@@ -1,0 +1,287 @@
+version: "1.0"
+status: draft
+session:
+  id: replace-user-session-id
+  level: representative-user
+  origin: reviewer-supplied
+  contributor: replace-with-reviewer-or-facilitator-name
+  participantId: participant-replace
+  recordedAt: replace-with-iso-8601-timestamp
+  blinding:
+    candidateIdentitiesWithheld: false
+    priorCandidateExposure: false
+    conflicts:
+      - Replace with disclosed conflicts, or remove this item when none exist.
+  candidateOrder:
+    - anonymous-a
+    - anonymous-b
+    - anonymous-c
+    - anonymous-d
+    - anonymous-e
+  taskResults:
+    - task: identify-data-origin
+      candidate: anonymous-a
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-priority
+      candidate: anonymous-a
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-next-action
+      candidate: anonymous-a
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: recognize-fallback
+      candidate: anonymous-a
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: verify-export-provenance
+      candidate: anonymous-a
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-data-origin
+      candidate: anonymous-b
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-priority
+      candidate: anonymous-b
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-next-action
+      candidate: anonymous-b
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: recognize-fallback
+      candidate: anonymous-b
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: verify-export-provenance
+      candidate: anonymous-b
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-data-origin
+      candidate: anonymous-c
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-priority
+      candidate: anonymous-c
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-next-action
+      candidate: anonymous-c
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: recognize-fallback
+      candidate: anonymous-c
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: verify-export-provenance
+      candidate: anonymous-c
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-data-origin
+      candidate: anonymous-d
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-priority
+      candidate: anonymous-d
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-next-action
+      candidate: anonymous-d
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: recognize-fallback
+      candidate: anonymous-d
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: verify-export-provenance
+      candidate: anonymous-d
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-data-origin
+      candidate: anonymous-e
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-priority
+      candidate: anonymous-e
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: identify-next-action
+      candidate: anonymous-e
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: recognize-fallback
+      candidate: anonymous-e
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+    - task: verify-export-provenance
+      candidate: anonymous-e
+      outcome: not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Replace with the observed result and exact evidence location.
+  ratings:
+    - candidate: anonymous-a
+      criterion: disclosure-speed
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-a
+      criterion: priority-comprehension
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-b
+      criterion: disclosure-speed
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-b
+      criterion: priority-comprehension
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-c
+      criterion: disclosure-speed
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-c
+      criterion: priority-comprehension
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-d
+      criterion: disclosure-speed
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-d
+      criterion: priority-comprehension
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-e
+      criterion: disclosure-speed
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.
+    - candidate: anonymous-e
+      criterion: priority-comprehension
+      score: 0
+      rationale: Replace with concrete reviewer-supplied evidence.

@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "candidate": "anonymous-b",
+  "recordedAt": "2026-08-26T15:00:56.279Z",
+  "sourceRevision": "fc805608f040e78de31fd5bb0b0d4d94e00590fe",
+  "stages": {
+    "build": {
+      "status": "pass",
+      "command": "npm run build",
+      "cwd": "/home/ztothez/Studio/experiments/redesign-azure/lovable",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> build\n> vite build\n\nvite v8.1.5 building client environment for production...\n\u001b[2K\rtransforming...✓ 1887 modules transformed.\nrendering chunks...\ncomputing gzip size...\n.output/public/assets/styles-C7CcXsYn.css   76.26 kB │ gzip:  12.99 kB\n.output/public/assets/routes-jqRr6ZvR.js    23.83 kB │ gzip:   6.97 kB\n.output/public/assets/index-ClR7YXmN.js    347.14 kB │ gzip: 108.68 kB\n\n✓ built in 2.08s\nvite v8.1.5 building ssr environment for production...\n\u001b[2K\rtransforming...✓ 61 modules transformed.\nrendering chunks...\ncomputing gzip size...\nnode_modules/.nitro/vite/services/ssr/assets/styles-C7CcXsYn.css                     76.26 kB │ gzip: 12.99 kB\nnode_modules/.nitro/vite/services/ssr/assets/empty-plugin-adapters-D9UWiqvJ.js        0.22 kB │ gzip:  0.16 kB\nnode_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BprYD7Bb.js   0.56 kB │ gzip:  0.31 kB\nnode_modules/.nitro/vite/services/ssr/assets/start-RKGGYzjZ.js                        1.57 kB │ gzip:  0.71 kB\nnode_modules/.nitro/vite/services/ssr/assets/createCsrfMiddleware-B2To0gPJ.js         3.19 kB │ gzip:  1.01 kB\nnode_modules/.nitro/vite/services/ssr/index.js                                        4.61 kB │ gzip:  1.92 kB\nnode_modules/.nitro/vite/services/ssr/assets/router-XZxexad1.js                       6.74 kB │ gzip:  2.21 kB\nnode_modules/.nitro/vite/services/ssr/assets/routes-Bw7vfW5o.js                      29.74 kB │ gzip:  6.87 kB\nnode_modules/.nitro/vite/services/ssr/assets/server-DxgM3Ohe.js                      56.40 kB │ gzip: 14.53 kB\n\n✓ built in 387ms\n[start] [nitro] Building [Nitro] (preset: `cloudflare-module`, compatibility: `2026-08-26`)\n[success] [nitro] Generated public .output/public\nvite v8.1.5 building nitro environment for production...\n\u001b[2K\rtransforming...✓ 1939 modules transformed.\nrendering chunks...\ncomputing gzip size...\n.output/server/_ssr/empty-plugin-adapters-D9UWiqvJ.mjs    0.23 kB │ gzip:   0.16 kB\n.output/server/_chunks/ssr-renderer.mjs                   0.60 kB │ gzip:   0.36 kB\n.output/server/_tanstack-start-manifest_v-BprYD7Bb.mjs    0.62 kB │ gzip:   0.35 kB\n.output/server/_libs/hookable.mjs                         1.16 kB │ gzip:   0.51 kB\n.output/server/_runtime.mjs                               1.18 kB │ gzip:   0.57 kB\n.output/server/_ssr/start-RKGGYzjZ.mjs                    1.53 kB │ gzip:   0.70 kB\n.output/server/_ssr/createCsrfMiddleware-B2To0gPJ.mjs     3.11 kB │ gzip:   1.01 kB\n.output/server/_ssr/ssr.mjs                               4.55 kB │ gzip:   1.92 kB\n.output/server/_ssr/router-XZxexad1.mjs                   7.35 kB │ gzip:   2.31 kB\n.output/server/_libs/lucide-react.mjs                     9.07 kB │ gzip:   2.27 kB\n.output/server/index.mjs                                  9.69 kB │ gzip:   3.14 kB\n.output/server/_libs/h3-v2+rou3+srvx.mjs                  9.87 kB │ gzip:   3.06 kB\n.output/server/_libs/tanstack__history.mjs               12.09 kB │ gzip:   3.48 kB\n.output/server/_libs/h3+rou3+srvx.mjs                    17.46 kB │ gzip:   5.02 kB\n.output/server/_libs/react+tanstack__react-query.mjs     17.65 kB │ gzip:   4.65 kB\n.output/server/_ssr/routes-Bw7vfW5o.mjs                  33.78 kB │ gzip:   7.02 kB\n.output/server/_libs/tanstack__query-core.mjs            49.84 kB │ gzip:  11.12 kB\n.output/server/_ssr/server-DxgM3Ohe.mjs                  54.77 kB │ gzip:  14.39 kB\n.output/server/_libs/@tanstack/router-core+[...].mjs    121.91 kB │ gzip:  25.59 kB\n.output/server/_libs/@tanstack/react-router+[...].mjs   648.99 kB │ gzip: 136.89 kB\n\n✓ built in 576ms\n[info] [nitro] Using auto generated worker name: `ztothez-comparison-lovable`\n[info] Generated .output/server/wrangler.json\n[info] Generated .wrangler/deploy/config.json\n[info] Generated .output/public/_headers\n[info] Generated .output/nitro.json\n[success] [nitro] You can preview this build using `npx vite preview`\n[success] [nitro] You can deploy this build using `npx nitro deploy --prebuilt`\n",
+      "stderr": "The plugin \"vite-tsconfig-paths\" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.\n[warn] `inlineDynamicImports` option is ignored because the `codeSplitting` option is specified.\n"
+    },
+    "typecheck": {
+      "status": "pass",
+      "command": "/home/ztothez/Studio/experiments/redesign-azure/lovable/node_modules/.bin/tsc --noEmit",
+      "cwd": "/home/ztothez/Studio/experiments/redesign-azure/lovable",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    "architectureAudit": {
+      "status": "pass",
+      "command": "/usr/bin/node /home/ztothez/Studio/experiments/UIX-Design-Skill/dist/cli/audit.js --repo /home/ztothez/Studio/experiments/redesign-azure/lovable --json --fail-on none",
+      "cwd": "/home/ztothez/Studio/experiments/UIX-Design-Skill",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "{\n  \"version\": \"1.0.0\",\n  \"target\": \"/home/ztothez/Studio/experiments/redesign-azure/lovable\",\n  \"generatedAt\": \"2026-08-26T15:01:06.389Z\",\n  \"filesScanned\": 63,\n  \"bytesScanned\": 201135,\n  \"skippedFiles\": [],\n  \"findings\": [\n    {\n      \"ruleId\": \"ZTDE-REPO-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"high\",\n      \"file\": \"package.json\",\n      \"message\": \"Repository is missing required verification scripts: test.\",\n      \"evidence\": [\n        \"Missing npm script: test.\"\n      ],\n      \"remediation\": \"Add commands that exercise the repository's actual build, static checks, and automated tests, or configure the audit policy for a non-JavaScript project.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/ui/chart.tsx\",\n      \"line\": 51,\n      \"message\": \"5 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #ccc.\",\n        \"Raw value: #fff.\",\n        \"Raw value: #ccc.\",\n        \"Raw value: #ccc.\",\n        \"Raw value: #fff.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/lib/error-page.ts\",\n      \"line\": 9,\n      \"message\": \"8 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #fafafa.\",\n        \"Raw value: #111.\",\n        \"Raw value: #4b5563.\",\n        \"Raw value: #111.\",\n        \"Raw value: #fff.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    }\n  ],\n  \"summary\": {\n    \"errors\": 0,\n    \"warnings\": 3,\n    \"info\": 0\n  },\n  \"passed\": true\n}\n",
+      "stderr": "",
+      "report": {
+        "version": "1.0.0",
+        "target": "/home/ztothez/Studio/experiments/redesign-azure/lovable",
+        "generatedAt": "2026-08-26T15:01:06.389Z",
+        "filesScanned": 63,
+        "bytesScanned": 201135,
+        "skippedFiles": [],
+        "findings": [
+          {
+            "ruleId": "ZTDE-REPO-001",
+            "severity": "warning",
+            "confidence": "high",
+            "file": "package.json",
+            "message": "Repository is missing required verification scripts: test.",
+            "evidence": [
+              "Missing npm script: test."
+            ],
+            "remediation": "Add commands that exercise the repository's actual build, static checks, and automated tests, or configure the audit policy for a non-JavaScript project."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/ui/chart.tsx",
+            "line": 51,
+            "message": "5 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #ccc.",
+              "Raw value: #fff.",
+              "Raw value: #ccc.",
+              "Raw value: #ccc.",
+              "Raw value: #fff."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/lib/error-page.ts",
+            "line": 9,
+            "message": "8 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #fafafa.",
+              "Raw value: #111.",
+              "Raw value: #4b5563.",
+              "Raw value: #111.",
+              "Raw value: #fff."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          }
+        ],
+        "summary": {
+          "errors": 0,
+          "warnings": 3,
+          "info": 0
+        },
+        "passed": true
+      }
+    }
+  }
+}

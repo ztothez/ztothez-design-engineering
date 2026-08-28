@@ -1,0 +1,399 @@
+{
+  "version": "1.1.0",
+  "generatedAt": "2026-08-26T19:49:01.827Z",
+  "methodologyPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml",
+  "reviewPath": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-v2-review/review.completed.yaml",
+  "methodologyId": "azure-v2-anonymous-human-review",
+  "reviewId": "azure-v2-anonymous-review-compiled",
+  "passed": true,
+  "releaseReady": false,
+  "findings": [
+    {
+      "ruleId": "ZTDE-CMP-102",
+      "severity": "warning",
+      "path": "stages.comparison.human-review",
+      "message": "Required stage human-review for comparison is not-run.",
+      "remediation": "Complete and evidence the required stage before a release decision."
+    },
+    {
+      "ruleId": "ZTDE-CMP-407",
+      "severity": "warning",
+      "path": "sessions[1].blinding",
+      "message": "Session ztothez-self-review-01 does not establish withheld candidate identities without prior candidate exposure.",
+      "remediation": "Use a genuinely blinded reviewer or retain the session as disclosed non-blind evidence outside the required anonymous count."
+    },
+    {
+      "ruleId": "ZTDE-CMP-404",
+      "severity": "warning",
+      "path": "sessions",
+      "message": "Complete human-expert sessions 0/3.",
+      "remediation": "Collect the configured number of complete, attributable human-expert sessions."
+    },
+    {
+      "ruleId": "ZTDE-CMP-404",
+      "severity": "warning",
+      "path": "sessions",
+      "message": "Complete representative-user sessions 0/5.",
+      "remediation": "Collect the configured number of complete, attributable representative-user sessions."
+    },
+    {
+      "ruleId": "ZTDE-CMP-406",
+      "severity": "warning",
+      "path": "sessions.candidateOrder",
+      "message": "Distinct candidate orders 1/5.",
+      "remediation": "Assign enough counterbalanced orders to reduce first-position and sequence bias."
+    },
+    {
+      "ruleId": "ZTDE-CMP-405",
+      "severity": "warning",
+      "path": "decision.benchmark",
+      "message": "Benchmark decision is incomplete or failing: completion rate lacks representative-user evidence for anonymous-e or anonymous-b. comprehension accuracy lacks representative-user evidence for anonymous-e or anonymous-b. mean confidence lacks representative-user evidence for anonymous-e or anonymous-b. mean duration lacks representative-user evidence for anonymous-e or anonymous-b.",
+      "remediation": "Collect complete attributable evidence and resolve every target-versus-comparator regression."
+    },
+    {
+      "ruleId": "ZTDE-CMP-401",
+      "severity": "warning",
+      "path": "evidenceLevels",
+      "message": "Required evidence level representative-user is absent.",
+      "remediation": "Collect and retain the required evidence without substituting another evidence class."
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 7,
+    "info": 0,
+    "requiredStages": 6,
+    "passedRequiredStages": 5,
+    "claims": 10,
+    "verifiedClaims": 5,
+    "sessions": 2
+  },
+  "stageResults": [
+    {
+      "id": "build",
+      "candidate": "anonymous-a",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "build",
+      "candidate": "anonymous-b",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "build",
+      "candidate": "anonymous-c",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "build",
+      "candidate": "anonymous-d",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "build",
+      "candidate": "anonymous-e",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "typecheck",
+      "candidate": "anonymous-a",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "typecheck",
+      "candidate": "anonymous-b",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "typecheck",
+      "candidate": "anonymous-c",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "typecheck",
+      "candidate": "anonymous-d",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "typecheck",
+      "candidate": "anonymous-e",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "architecture-audit",
+      "candidate": "anonymous-a",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "architecture-audit",
+      "candidate": "anonymous-b",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "architecture-audit",
+      "candidate": "anonymous-c",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "architecture-audit",
+      "candidate": "anonymous-d",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "architecture-audit",
+      "candidate": "anonymous-e",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "browser-verification",
+      "candidate": "anonymous-a",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "browser-verification",
+      "candidate": "anonymous-b",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "browser-verification",
+      "candidate": "anonymous-c",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "browser-verification",
+      "candidate": "anonymous-d",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "browser-verification",
+      "candidate": "anonymous-e",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "product-journeys",
+      "candidate": "anonymous-a",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "product-journeys",
+      "candidate": "anonymous-b",
+      "required": false,
+      "status": "pass"
+    },
+    {
+      "id": "product-journeys",
+      "candidate": "anonymous-c",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "product-journeys",
+      "candidate": "anonymous-d",
+      "required": false,
+      "status": "fail"
+    },
+    {
+      "id": "product-journeys",
+      "candidate": "anonymous-e",
+      "required": true,
+      "status": "pass"
+    },
+    {
+      "id": "human-review",
+      "candidate": "comparison",
+      "required": true,
+      "status": "not-run"
+    }
+  ],
+  "evidenceLevels": {
+    "automated": 5,
+    "aiAssistedExpert": 6,
+    "humanExpert": 1,
+    "representativeUser": 0
+  },
+  "humanReview": {
+    "requirementsConfigured": true,
+    "humanExpertSessions": 1,
+    "representativeUserSessions": 0,
+    "completeHumanExpertSessions": 0,
+    "completeRepresentativeUserSessions": 0,
+    "distinctCandidateOrders": 1,
+    "blindedReviewerSessions": 0,
+    "minimumHumanExpertSessions": 3,
+    "minimumRepresentativeUserSessions": 5,
+    "minimumCounterbalancedOrders": 5,
+    "requirementsMet": false
+  },
+  "candidateResults": [
+    {
+      "candidate": "anonymous-a",
+      "categories": [
+        {
+          "category": "truthful-disclosure",
+          "score": 1,
+          "samples": 1
+        },
+        {
+          "category": "information-design",
+          "score": 2,
+          "samples": 1
+        },
+        {
+          "category": "visual-polish",
+          "score": 2,
+          "samples": 2
+        }
+      ],
+      "tasks": {
+        "samples": 0,
+        "completionRate": null,
+        "comprehensionAccuracy": null,
+        "meanDurationSeconds": null,
+        "meanConfidence": null
+      }
+    },
+    {
+      "candidate": "anonymous-b",
+      "categories": [
+        {
+          "category": "truthful-disclosure",
+          "score": 3,
+          "samples": 1
+        },
+        {
+          "category": "information-design",
+          "score": 3,
+          "samples": 1
+        },
+        {
+          "category": "visual-polish",
+          "score": 2,
+          "samples": 2
+        }
+      ],
+      "tasks": {
+        "samples": 0,
+        "completionRate": null,
+        "comprehensionAccuracy": null,
+        "meanDurationSeconds": null,
+        "meanConfidence": null
+      }
+    },
+    {
+      "candidate": "anonymous-c",
+      "categories": [
+        {
+          "category": "truthful-disclosure",
+          "score": 3,
+          "samples": 1
+        },
+        {
+          "category": "information-design",
+          "score": 3,
+          "samples": 1
+        },
+        {
+          "category": "visual-polish",
+          "score": 2.5,
+          "samples": 2
+        }
+      ],
+      "tasks": {
+        "samples": 0,
+        "completionRate": null,
+        "comprehensionAccuracy": null,
+        "meanDurationSeconds": null,
+        "meanConfidence": null
+      }
+    },
+    {
+      "candidate": "anonymous-d",
+      "categories": [
+        {
+          "category": "truthful-disclosure",
+          "score": 4,
+          "samples": 1
+        },
+        {
+          "category": "information-design",
+          "score": 4,
+          "samples": 1
+        },
+        {
+          "category": "visual-polish",
+          "score": 4,
+          "samples": 2
+        }
+      ],
+      "tasks": {
+        "samples": 0,
+        "completionRate": null,
+        "comprehensionAccuracy": null,
+        "meanDurationSeconds": null,
+        "meanConfidence": null
+      }
+    },
+    {
+      "candidate": "anonymous-e",
+      "categories": [
+        {
+          "category": "truthful-disclosure",
+          "score": 4,
+          "samples": 1
+        },
+        {
+          "category": "information-design",
+          "score": 4,
+          "samples": 1
+        },
+        {
+          "category": "visual-polish",
+          "score": 3.5,
+          "samples": 2
+        }
+      ],
+      "tasks": {
+        "samples": 0,
+        "completionRate": null,
+        "comprehensionAccuracy": null,
+        "meanDurationSeconds": null,
+        "meanConfidence": null
+      }
+    }
+  ],
+  "benchmarkDecision": {
+    "configured": true,
+    "targetCandidate": "anonymous-e",
+    "comparatorCandidates": [
+      "anonymous-b"
+    ],
+    "passed": false,
+    "issues": [
+      "completion rate lacks representative-user evidence for anonymous-e or anonymous-b.",
+      "comprehension accuracy lacks representative-user evidence for anonymous-e or anonymous-b.",
+      "mean confidence lacks representative-user evidence for anonymous-e or anonymous-b.",
+      "mean duration lacks representative-user evidence for anonymous-e or anonymous-b."
+    ]
+  }
+}

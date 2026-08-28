@@ -1,0 +1,26 @@
+version: "1.0"
+scope: Coordinator only. Never provide this file or its directory to a reviewer.
+sourceRoots:
+  comparison: ../redesign-azure
+  target: .
+candidates:
+  anonymous-a:
+    sourceRoot: comparison
+    sourceDirectory: azure-optimizer-og
+    role: Original implementation
+  anonymous-b:
+    sourceRoot: comparison
+    sourceDirectory: lovable
+    role: Primary comparison implementation
+  anonymous-c:
+    sourceRoot: comparison
+    sourceDirectory: ui-ux-max-pro
+    role: Secondary comparison implementation
+  anonymous-d:
+    sourceRoot: comparison
+    sourceDirectory: uix-design-skill
+    role: Earlier project implementation
+  anonymous-e:
+    sourceRoot: target
+    sourceDirectory: benchmarks/azure-optimizer-v2
+    role: V2 target implementation

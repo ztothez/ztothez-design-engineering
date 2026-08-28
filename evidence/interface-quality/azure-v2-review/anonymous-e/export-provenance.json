@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.0",
+  "product": "Azure Optimizer V2 benchmark",
+  "exportedAt": "2026-08-26T17:45:28.386Z",
+  "environment": "Production-shaped benchmark estate",
+  "scenario": "demo",
+  "dataOrigin": "Imported fixed comparison fixture",
+  "processingOrigin": "imported",
+  "sourceCapturedAt": "2024-05-10T10:30:00+03:00",
+  "timezone": "Europe/Helsinki",
+  "scope": "142 resources across compute, storage, network, and governance",
+  "findings": [
+    {
+      "id": "AZ-METRIC-002",
+      "rank": 1,
+      "severity": "high",
+      "confidence": "high",
+      "source": "Imported telemetry fixture",
+      "title": "Memory capacity is fully allocated",
+      "affectedScope": "vm-prod-api-01, production compute pool",
+      "observation": "16 of 16 GB is allocated in the snapshot, leaving no measured headroom.",
+      "impact": "Workload bursts can trigger paging, latency, or process termination.",
+      "evidence": [
+        "memory.used_gb = 16",
+        "memory.total_gb = 16",
+        "utilization = 100%"
+      ],
+      "action": "Profile peak memory, then resize the instance or set a tested scaling policy.",
+      "owner": "Platform operations",
+      "validation": "Repeat the peak-load test and verify at least 20% memory headroom.",
+      "estimatedMonthlySavings": 0
+    },
+    {
+      "id": "AZ-CONFIG-001",
+      "rank": 2,
+      "severity": "high",
+      "confidence": "high",
+      "source": "Imported Terraform fixture",
+      "title": "Production resources have no declared backup policy",
+      "affectedScope": "12 production resources in infrastructure.tf",
+      "observation": "The inspected fixture contains no backup policy or retention declaration.",
+      "impact": "Recovery point and retention expectations cannot be verified before an incident.",
+      "evidence": [
+        "backup_policy blocks = 0",
+        "production resources inspected = 12"
+      ],
+      "action": "Declare backup coverage, retention, and restore-test ownership.",
+      "owner": "Cloud governance",
+      "validation": "Run a restore test and retain the successful recovery record.",
+      "estimatedMonthlySavings": 0
+    },
+    {
+      "id": "AZ-METRIC-003",
+      "rank": 3,
+      "severity": "medium",
+      "confidence": "medium",
+      "source": "Imported telemetry fixture",
+      "title": "Provisioned CPU exceeds observed demand",
+      "affectedScope": "vm-prod-api-01",
+      "observation": "One of eight cores is used in the point-in-time benchmark snapshot.",
+      "impact": "The current profile may carry avoidable compute cost.",
+      "evidence": [
+        "used cores = 1",
+        "available cores = 8",
+        "utilization = 12.5%"
+      ],
+      "action": "Compare a 30-day percentile profile before selecting a smaller SKU.",
+      "owner": "FinOps and platform operations",
+      "validation": "Load-test the proposed SKU and confirm latency and saturation SLOs.",
+      "estimatedMonthlySavings": 1420
+    },
+    {
+      "id": "AZ-GOV-004",
+      "rank": 4,
+      "severity": "low",
+      "confidence": "medium",
+      "source": "Imported governance fixture",
+      "title": "Ownership tags are incomplete",
+      "affectedScope": "37 of 142 resources",
+      "observation": "Required owner, environment, cost_center, or lifecycle tags are absent.",
+      "impact": "Cost attribution and operational ownership require manual reconciliation.",
+      "evidence": [
+        "resources missing one or more required tags = 37"
+      ],
+      "action": "Apply the required tag policy and assign an exception owner.",
+      "owner": "Cloud governance",
+      "validation": "Re-run policy evaluation and verify zero unowned exceptions.",
+      "estimatedMonthlySavings": 820
+    }
+  ],
+  "limitations": [
+    "No Azure tenant is connected.",
+    "Savings are benchmark estimates and are not billing commitments.",
+    "Operator approval is required before remediation."
+  ]
+}

@@ -1,0 +1,330 @@
+version: "1.0"
+status: complete
+session:
+  id: ztothez-self-review-01
+  level: human-expert
+  origin: reviewer-supplied
+  contributor: ZtotheZ
+  recordedAt: "2026-08-26T19:45:00Z"
+  blinding:
+    candidateIdentitiesWithheld: false
+    priorCandidateExposure: true
+    conflicts:
+      - Creator and maintainer of the ZtotheZ Design Engineering candidate.
+      - Prior exposure to the candidate identities and comparison implementations.
+  # Screenshot filename mapping for this disclosed self-review:
+  # anonymous-a = screenshots/candidate-a-*.png
+  # anonymous-b = screenshots/candidate-b-*.png
+  # anonymous-c = screenshots/candidate-c-*.png
+  # anonymous-d = screenshots/candidate-d-*.png
+  # anonymous-e = screenshots/candidate-e-*.png
+  candidateOrder:
+    - anonymous-a
+    - anonymous-b
+    - anonymous-c
+    - anonymous-d
+    - anonymous-e
+  taskResults: []
+  ratings:
+    # Candidate A: inspect screenshots/candidate-a-*.png
+    # disclosure-consistency: candidate-a-overview-wide.png and candidate-a-analysis-wide.png
+    # decision-density: candidate-a-overview-wide.png and candidate-a-analysis-wide.png
+    # visual-rhythm: all candidate-a overview images plus candidate-a-analysis-wide.png
+    # responsive-composition: candidate-a-overview-mobile.png, candidate-a-overview-tablet.png,
+    # candidate-a-overview-desktop.png, and candidate-a-overview-wide.png
+    - candidate: anonymous-a
+      criterion: disclosure-consistency
+      score: 1
+      rationale: |
+        Candidate-a-analysis-wide.png shows the supervisor agent pipeline diagram and agent console logs, but 
+        does not explicitly surface data origin, connection type, or freshness metadata. The overview-wide.png 
+        displays key metrics (Total Resources: 142, Potential Savings €3,240, Issues Found: 28) and timestamps 
+        on recent analyses (May 10, 2024, May 9, 2024), but these dates are not labeled as "current" or 
+        "snapshot-taken-at." The analysis result page shows execution logs with timestamps but lacks explicit 
+        disclosure of whether results are live or simulated, and fallback behavior is not visible.
+    
+    - candidate: anonymous-a
+      criterion: decision-density
+      score: 2
+      rationale: |
+        Overview-wide.png provides actionable recommendations (Right-size VM instances €1,420/mo, Remove 
+        unused resources €820/mo) with savings amounts, supporting decision-making. However, the same four 
+        recommendations repeat across both overview and analysis pages, creating decorative redundancy. The 
+        analysis-wide.png adds formatted findings (Critical: Memory Exhaustion, High: Missing Alerting) with 
+        impact and action context, but this detail duplication dilutes novelty. Evidence and findings are 
+        connected, but the density is reduced by repetition.
+    
+    - candidate: anonymous-a
+      criterion: visual-rhythm
+      score: 2
+      rationale: |
+        Mobile view shows a single-column card stack with consistent 16px gutters and uniform card heights, 
+        establishing rhythm. Typography hierarchy uses white headings for section titles and smaller gray text 
+        for metadata. Tablet and desktop maintain the same structure and spacing. However, the analysis-wide.png 
+        shifts to a two-column layout (logs left, findings right) with tighter spacing and a different 
+        typographic scale (monospaced console font vs. sans-serif body text), breaking visual continuity. The 
+        analysis page feels like a distinct view rather than a progression within the system.
+    
+    - candidate: anonymous-a
+      criterion: responsive-composition
+      score: 2
+      rationale: |
+        Mobile view preserves all key content (metrics, chart, recommendations, recent analysis) in a vertical 
+        stack; text is readable and taps are appropriately sized. Tablet and desktop add a two-column layout, 
+        stacking metrics above larger charts. Wide view introduces a six-metric top row without wrapping issues. 
+        However, mobile truncates the Infrastructure Health chart axis labels (dates compressed), and the "View 
+        all" link in recommendations is clipped at small widths. No severe clipping occurs, but label density 
+        increases at mobile, reducing clarity.
+    
+    # Candidate B: inspect screenshots/candidate-b-*.png
+    # disclosure-consistency: candidate-b-overview-wide.png and candidate-b-analysis-wide.png
+    # decision-density: candidate-b-overview-wide.png and candidate-b-analysis-wide.png
+    # visual-rhythm: all candidate-b overview images plus candidate-b-analysis-wide.png
+    # responsive-composition: candidate-b-overview-mobile.png, candidate-b-overview-tablet.png,
+    # candidate-b-overview-desktop.png, and candidate-b-overview-wide.png
+    - candidate: anonymous-b
+      criterion: disclosure-consistency
+      score: 3
+      rationale: |
+        Candidate-b-overview-wide.png explicitly displays "PRODUCTION ENVIRONMENT · DEMO DATASET" as a 
+        breadcrumb and "LAST SCAN COMPLETE May 10, 2024 10:20 AM" in the top-right, immediately clarifying 
+        context and freshness. Candidate-b-analysis-wide.png preserves the same breadcrumb and timestamp, 
+        maintaining consistency. The "Agent pipeline" section discloses the Terraform configuration pass and 
+        operational telemetry synthesis workflow. The Operational Telemetry row explicitly shows CPU (12.5%), 
+        Memory (100%), Disk (10%), and Bandwidth (10%), with context for each metric. Fallback is disclosed 
+        as "Not used." Connection type and processing origin are visible throughout both views.
+    
+    - candidate: anonymous-b
+      criterion: decision-density
+      score: 3
+      rationale: |
+        Overview-wide.png packs four findings (Missing backup policy, Memory utilization at 100%, Low CPU 
+        utilization, Tag governance incomplete) with actionable detail. Each finding cites a specific metric 
+        label (AZ-CONFIG-001, AZ-METRIC-002) and recommends a concrete remediation. The recommendations list 
+        (Right-size VM instances €1,420, Remove unused resources €820) provides savings impact. Analysis-wide.png 
+        adds "Agent pipeline" workflow visualization and a detailed "Synthesized report" section with 
+        observation-impact-recommendation structure. Evidence and metrics support each finding without 
+        decorative repetition. The "EXPORT BUNDLE" section acknowledges three output formats, adding decision 
+        context.
+    
+    - candidate: anonymous-b
+      criterion: visual-rhythm
+      score: 3
+      rationale: |
+        Overview-wide.png establishes a consistent typographic hierarchy: all-caps section headers (TOTAL 
+        RESOURCES, INFRASTRUCTURE HEALTH), sans-serif body text, green/orange/red semantic color coding, and 
+        16px gutters between cards. Spacing is uniform: metrics align on a 4-column grid, charts respect 
+        consistent height ratios, and the "Agent pipeline" section uses monospaced labels (STAGE 1, STAGE 2, 
+        STAGE 3) with a left-to-right flow. Analysis-wide.png preserves the same header treatment, metric 
+        styling, and color scheme. The console log (monospaced) and structured findings (sans-serif) coexist 
+        without jarring transitions. Typography, color, and spacing remain coherent across both pages.
+    
+    - candidate: anonymous-b
+      criterion: responsive-composition
+      score: 1
+      rationale: |
+        Candidate-b-overview-mobile.png is severely compromised: the content is unreadable due to extreme 
+        compression. The four top metrics, the Infrastructure Health chart, Severity Mix pie chart, 
+        Operational Telemetry gauges, Findings section, Agent pipeline, and footer all compress into a 
+        narrow column with minimal padding, text overlaps, and labels become illegible. Charts (pie, line, 
+        gauges) shrink to thumbnail size, and the "Agent pipeline" workflow becomes uninterpretable. Tablet 
+        and desktop versions appear readable, but the mobile experience is unusable—taps cannot be reliably 
+        targeted, and the visual hierarchy collapses entirely.
+    
+    # Candidate C: inspect screenshots/candidate-c-*.png
+    # disclosure-consistency: candidate-c-overview-wide.png; analysis result unavailable
+    # decision-density: candidate-c-overview-wide.png; analysis result unavailable
+    # visual-rhythm: all candidate-c overview images; analysis result unavailable
+    # responsive-composition: candidate-c-overview-mobile.png, candidate-c-overview-tablet.png,
+    # candidate-c-overview-desktop.png, and candidate-c-overview-wide.png
+    - candidate: anonymous-c
+      criterion: disclosure-consistency
+      score: 3
+      rationale: |
+        Candidate-c-overview-wide.png displays "ztothez-prod" as an active environment selector (dropdown) 
+        in the left sidebar, with a "LATEST: 86/100" indicator in the "Infrastructure Health Score Trend" 
+        card. Timestamps on environment scan logs (May 10, 2024 10:30 AM, May 10, 2024 09:15 AM, May 9, 2024 
+        04:45 PM) surface freshness explicitly. The "Autonomous Agent Orchestration Pipeline" section 
+        describes the workflow: multi-agent topology analyzing Terraform infrastructure and operational 
+        metrics. No distinct analysis-result state was captured: the failed analysis journey produced the 
+        same pixels as the overview. Analysis-specific behavior is therefore unverified. The sidebar 
+        shows "Agent Engine: Online" status, disclosing liveness. All required disclosure (environment, 
+        freshness, agent status, pipeline logic) is visible and consistent.
+    
+    - candidate: anonymous-c
+      criterion: decision-density
+      score: 3
+      rationale: |
+        Overview-wide.png highlights "Key Optimization Opportunities" with numbered, ranked items (1. 
+        Right-size VM instances €1,420, 2. Remove unattached Managed Disks €820, 3. Optimize Storage 
+        Accounts €540, 4. Review NAT Gateway & VNet bandwidth costs €460). Each is tagged with its category 
+        (Compute, Storage, Network). The "Severity Distribution" pie chart shows issue counts by priority 
+        level. The "Recent Environment Scan Logs" table displays environment names, last-scanned dates, 
+        pipeline status (Completed), and health scores with supporting evidence (Production 82/100, Staging 
+        74/100, Dev 69/100). Information density is high: every visual element (card, metric, tag, status) 
+        connects to a specific decision. The agent pipeline diagram adds architectural context without 
+        clutter.
+    
+    - candidate: anonymous-c
+      criterion: visual-rhythm
+      score: 3
+      rationale: |
+        Overview-wide.png uses a consistent design system: all-caps category tags (COMPUTE OPTIMIZATION, 
+        STORAGE OPTIMIZATION), teal accent colors for interactive elements and section headers, sans-serif 
+        typography, and a 8px-based spacing grid. Cards have 16px padding, gutters are 12px, and metrics 
+        align on a 2-column grid. The agent pipeline diagram uses a left-to-right flow with matching icon 
+        styles (code bracket, gear, shield) and monospaced labels (CONFIG AGENT, METRIC AGENT, SUPERVISOR). 
+        Typography hierarchy is clear: heading size 18–24px, body 14px, metadata 12px. Color semantics are 
+        consistent (green for completion, teal for emphasis, orange/red for warnings). The analysis page 
+        is visually identical to the overview, preserving rhythm seamlessly.
+    
+    - candidate: anonymous-c
+      criterion: responsive-composition
+      score: 2
+      rationale: |
+        Candidate-c-overview-mobile.png shows clipping issues: the sidebar navigation collapses to icons 
+        only, the four top metric cards stack into a narrow column, and the "Active Environment" dropdown 
+        truncates text. The "Autonomous Agent Orchestration Pipeline" diagram shrinks below readable size—
+        the three agent boxes (CONFIG, METRIC, SUPERVISOR) compress into a thin ribbon, and connecting arrows 
+        become ambiguous. The "Key Optimization Opportunities" list items lose alignment, and savings amounts 
+        (€1,420, €820) push to a new line. The chart axis labels in "Infrastructure Health Score Trend" are 
+        compressed (May 4, May 5... become May4 May5 etc. without spacing). Tablet view improves, but mobile 
+        degrades the hierarchy and readability of critical components.
+    
+    # Candidate D: inspect screenshots/candidate-d-*.png
+    # disclosure-consistency: candidate-d-overview-wide.png and candidate-d-analysis-wide.png
+    # decision-density: candidate-d-overview-wide.png and candidate-d-analysis-wide.png
+    # visual-rhythm: all candidate-d overview images plus candidate-d-analysis-wide.png
+    # responsive-composition: candidate-d-overview-mobile.png, candidate-d-overview-tablet.png,
+    # candidate-d-overview-desktop.png, and candidate-d-overview-wide.png
+    - candidate: anonymous-d
+      criterion: disclosure-consistency
+      score: 4
+      rationale: |
+        Candidate-d-overview-wide.png displays "Tenant: prod-eu-west-1" in the top-right corner, 
+        explicitly naming the deployment context. The four top metric cards include inline context: 
+        "Potential Monthly Savings: €3,240 Active" (status badge), "Open Issues: 28" (no status), and 
+        "Health Score: 78/100" with a "7 Day Scope" indicator. Each recent audit lists its completion 
+        status (Completed, Completed, Completed) and a date-time stamp (May 19, 2024 19:30 AM, May 19, 
+        2024 09:15 AM, May 9, 2024 04:45 PM). Analysis-wide.png adds "Infrastructure Multi-Agent Audit" 
+        title and explicitly states the workflow: Configuration and Metric agents correlate Terraform 
+        policies with live operational telemetry. The "Synthesized Agent Findings" section includes observation, 
+        impact, and recommendation fields for each finding. Status is "LIVE" on the agent_execution.log. 
+        All required metadata (tenant, scope, freshness, processing mode) is visible, explicit, and consistent.
+    
+    - candidate: anonymous-d
+      criterion: decision-density
+      score: 4
+      rationale: |
+        Overview-wide.png provides four high-impact recommendations with priority badges and immediate 
+        savings: "Right-size VM instances High €1,420/mo", "Remove unused resources High €820/mo", 
+        "Optimize storage accounts Medium €540/mo", "Review networking costs Low €460/mo". The "Issue 
+        Severity Breakdown" pie chart (Critical 0, High 2, Medium 1, Low 1) summarizes the risk landscape. 
+        Analysis-wide.png breaks down three numbered findings with observation-impact-recommendation 
+        structure: (1) Critical Risk: Memory Exhaustion—observation, impact, and actionable scaling 
+        recommendation; (2) High Priority: Missing Alerting & Cost Guardrails—observation and specific 
+        alert deployment action; (3) High Priority: Production Backup Coverage Gap—specific vault attachment 
+        step. Each finding cites the underlying Terraform resource (e.g., "azurerm_backup_policy_vm") or 
+        operational metric (CPU 12.5%, Memory 100%, Storage 10%). Evidence and decisions are tightly 
+        integrated with no redundant elements.
+    
+    - candidate: anonymous-d
+      criterion: visual-rhythm
+      score: 4
+      rationale: |
+        Overview-wide.png establishes clear typographic hierarchy: all-caps section titles (ISSUE SEVERITY 
+        BREAKDOWN, TOP COST & EFFICIENCY RECOMMENDATIONS, INFRASTRUCTURE HEALTH TREND, RECENT AGENT AUDITS), 
+        sans-serif body text (14px, light gray #B0BEC5), and consistent semantic color coding (green for 
+        health/completion, orange for warning, red for critical, teal for interactive accents). Priority 
+        badges (High, Medium, Low) use matching colors and sizing. Cards have 16px padding, 8px radius, 
+        and 12px gutters. Metrics align on a 4-column grid at wide viewport, with clean baseline alignment. 
+        The pie chart and line graph respect consistent sizing and spacing. Analysis-wide.png maintains the 
+        same header treatment, card styling, and color palette while introducing a two-column layout (logs 
+        left, findings right) that preserves visual weight and alignment. Typography, spacing, and color 
+        remain coherent throughout.
+    
+    - candidate: anonymous-d
+      criterion: responsive-composition
+      score: 4
+      rationale: |
+        Candidate-d-overview-mobile.png adapts elegantly: the four top metrics stack into a single column 
+        with full-width cards (100% - 24px padding), labels remain readable, and metric values maintain 
+        font weight and size. The pie chart and Infrastructure Health chart stack vertically without 
+        clipping, axis labels remain legible (May 4, May 5, ..., May 10 on x-axis; 0, 25, 50, 75, 100 on 
+        y-axis). The recommendations list preserves priority badges and savings amounts with right-aligned 
+        pricing. Tablet view introduces a 2-column layout for cards, maintaining readability. Desktop and 
+        wide views expand to multi-column grids without awkward empty space or wrapping issues. All interactive 
+        elements (buttons, links) maintain 44px+ tap targets. No significant loss of information or priority 
+        hierarchy across all viewport sizes.
+    
+    # Candidate E: inspect screenshots/candidate-e-*.png
+    # disclosure-consistency: candidate-e-overview-wide.png and candidate-e-analysis-wide.png
+    # decision-density: candidate-e-overview-wide.png and candidate-e-analysis-wide.png
+    # visual-rhythm: all candidate-e overview images plus candidate-e-analysis-wide.png
+    # responsive-composition: candidate-e-overview-mobile.png, candidate-e-overview-tablet.png,
+    # candidate-e-overview-desktop.png, and candidate-e-overview-wide.png
+    - candidate: anonymous-e
+      criterion: disclosure-consistency
+      score: 4
+      rationale: |
+        Candidate-e-overview-wide.png displays "PRODUCTION-SHAPED BENCHMARK ESTATE" as a context label, 
+        immediately clarifying this is a benchmark comparison, not a live deployment. The top row shows 
+        four explicit metadata fields: "Data mode: demo", "Connection: local fixture only", "Processing 
+        origin: imported", and "Snapshot: May 10, 2024 10:30 EEST". These four fields directly address 
+        data origin, connection type, processing mode, and freshness. The "Decision Boundary" section at 
+        the right explicitly states Environment (Production-shaped benchmark estate), Source (imported 
+        fixed comparison fixture), Score (142 resources across compute, storage, network), and Limitation 
+        (No Azure tenant is connected). Analysis-wide.png preserves all four metadata fields and adds a 
+        "CONTROLLED BENCHMARK WORKFLOW" section that explains: "The API evaluates the fixed imported 
+        fixture. It does not connect to or modify an Azure tenant." Processing origin is stated as 
+        "Declared benchmark simulation" with consequence "Read-only report generation" and fallback "Not 
+        used". All required disclosures are present, explicit, and visually prominent.
+    
+    - candidate: anonymous-e
+      criterion: decision-density
+      score: 4
+      rationale: |
+        Overview-wide.png highlights a "Highest-Priority Decision" (Memory capacity has no measured headroom) 
+        with a call-to-action card (Review evidence) and supporting current evidence (16 of 16 GB allocated). 
+        The "Findings" section lists four prioritized items: (1) Memory capacity is fully allocated, (2) 
+        Production resources have no declared backup policy, (3) Provisioned CPU exceeds observed demand, (4) 
+        Ownership tags are incomplete. Each finding includes its resource reference (AZ-METRIC-002, 
+        AZ-CONFIG-001, AZ-METRIC-003, AZ-004) and a browse-to-details arrow. A side panel for the 
+        highest-priority finding shows observation (memory utilization 100%), evidence (memory.used_gb=16, 
+        memory.total_gb=16), recommended action (Profile peak memory, resize instance or set scaling policy), 
+        and validation (repeat peak-load test). The "Infrastructure health trend" bar chart shows 7-day 
+        scores (92, 74, 79, 58, 64, 72, 86), offering temporal context. Analysis-wide.png reinforces decision 
+        density by dedicating a controlled workflow panel and detailed evidence panel to support findings. No 
+        redundant information competes with actionable guidance.
+    
+    - candidate: anonymous-e
+      criterion: visual-rhythm
+      score: 4
+      rationale: |
+        Overview-wide.png uses a light neutral background (#FFFFFF or near-white) with a consistent design 
+        system: sans-serif typography (headings 18–20px, body 14px, metadata 12px), teal accent color for 
+        interactive elements (Review evidence button, links), semantic color badges (High, Medium, Low in 
+        red/orange/yellow), and a 12px-based spacing grid. Section headers are styled with a left teal 
+        border (4px solid) for visual emphasis. Cards have 16px padding, 8px radius, and 12px gutters. The 
+        "Tracked resources", "Potential monthly savings", "Open findings", and "Infrastructure health" 
+        metric cards align on a 4-column grid with visual weight parity. The findings list preserves vertical 
+        rhythm with 8px spacing between rows. Analysis-wide.png maintains the same typography hierarchy, 
+        accent color, and card styling. The two-column layout (workflow left, evidence right) preserves 
+        baseline alignment and visual balance. The color palette (teal, neutral grays, semantic reds) remains 
+        coherent throughout.
+    
+    - candidate: anonymous-e
+      criterion: responsive-composition
+      score: 3
+      rationale: |
+        Candidate-e-overview-mobile.png adapts well for smaller screens: the top metadata row ("Data mode: 
+        demo", "Connection: local fixture only", "Processing origin: imported", "Snapshot: May 10, 2024...") 
+        wraps into a vertical stack without loss of legibility. The "Highest-Priority Decision" card remains 
+        full-width with readable text. The four metric cards (Tracked resources, Potential monthly savings, 
+        Open findings, Infrastructure health) stack vertically with appropriate padding. The "Findings" list 
+        and side detail panel for the priority finding adapt to single-column layout, preserving the 
+        observation-evidence-recommendation-validation hierarchy. The bar chart ("Infrastructure health 
+        trend") maintains readability. However, the "Decision Boundary" section (Environment, Source, Score, 
+        Limitation) at the right side of the wide view is not visible in the mobile screenshot—it may be 
+        moved below or hidden, making it unclear whether all disclosure metadata is preserved on mobile. 
+        Tablet view should confirm, but this potential loss of context prevents a perfect score.

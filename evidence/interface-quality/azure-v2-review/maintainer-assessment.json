@@ -1,0 +1,101 @@
+{
+  "version": "1.0.0",
+  "track": "solo-maintainer",
+  "generatedAt": "2026-08-26T19:49:11.559Z",
+  "methodologyId": "azure-v2-anonymous-human-review",
+  "reviewId": "azure-v2-anonymous-review-compiled",
+  "targetCandidate": "anonymous-e",
+  "engineeringReady": true,
+  "externalReleaseReady": false,
+  "externalValidationPending": true,
+  "claimScope": "engineering-continuation-only",
+  "maintainerSessions": {
+    "supplied": 1,
+    "eligible": 1,
+    "sessionIds": [
+      "ztothez-self-review-01"
+    ]
+  },
+  "targetStages": [
+    {
+      "id": "build",
+      "status": "pass",
+      "passed": true
+    },
+    {
+      "id": "typecheck",
+      "status": "pass",
+      "passed": true
+    },
+    {
+      "id": "architecture-audit",
+      "status": "pass",
+      "passed": true
+    },
+    {
+      "id": "browser-verification",
+      "status": "pass",
+      "passed": true
+    },
+    {
+      "id": "product-journeys",
+      "status": "pass",
+      "passed": true
+    }
+  ],
+  "categories": [
+    {
+      "category": "truthful-disclosure",
+      "targetScore": 4,
+      "minimumScore": 3,
+      "comparatorScores": [
+        {
+          "candidate": "anonymous-b",
+          "score": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "category": "information-design",
+      "targetScore": 4,
+      "minimumScore": 3,
+      "comparatorScores": [
+        {
+          "candidate": "anonymous-b",
+          "score": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "category": "visual-polish",
+      "targetScore": 3.5,
+      "minimumScore": 3,
+      "comparatorScores": [
+        {
+          "candidate": "anonymous-b",
+          "score": 2
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "findings": [
+    {
+      "ruleId": "ZTDE-MNT-101",
+      "severity": "warning",
+      "message": "Independent human-expert and representative-user validation remains incomplete."
+    },
+    {
+      "ruleId": "ZTDE-MNT-102",
+      "severity": "info",
+      "message": "Maintainer evidence may authorize continued engineering but cannot establish independent preference, representative-user comprehension, or external release approval."
+    }
+  ],
+  "limitations": [
+    "The maintainer knows candidate identities and has prior exposure to the target implementation.",
+    "This track contains no representative-user task evidence.",
+    "Engineering readiness is not external release readiness and must not be described as independent validation."
+  ]
+}
