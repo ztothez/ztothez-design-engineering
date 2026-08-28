@@ -18,6 +18,9 @@ type CliOptions = {
   viewports?: RuntimeViewport[];
   settleMs?: number;
   chromiumPath?: string;
+  dynamicSelectors: string[];
+  screenshotBaselinePath?: string;
+  updateScreenshotBaseline: boolean;
   json: boolean;
   failOn: RuntimeSeverity | "none";
 };
@@ -33,6 +36,9 @@ function usage(): string {
     "  --viewports 375x812,768x1024  Override default viewport matrix",
     "  --settle-ms NUMBER             Wait after navigation before inspection",
     "  --chromium PATH                Chromium executable",
+    "  --dynamic-selector SELECTOR    Mask one dynamic region; repeat as needed",
+    "  --screenshot-baseline PATH     Compare screenshots with a versioned JSON baseline",
+    "  --update-screenshot-baseline   Write the baseline instead of comparing",
     "  --json                         Print JSON instead of Markdown",
     "  --fail-on error|warning|none   Exit policy, default error",
   ].join("\n");
@@ -59,6 +65,9 @@ function parseArguments(argumentsList: string[]): CliOptions {
   let viewports: RuntimeViewport[] | undefined;
   let settleMs: number | undefined;
   let chromiumPath: string | undefined;
+  const dynamicSelectors: string[] = [];
+  let screenshotBaselinePath: string | undefined;
+  let updateScreenshotBaseline = false;
   let json = false;
   let failOn: CliOptions["failOn"] = "error";
 
@@ -89,6 +98,14 @@ function parseArguments(argumentsList: string[]): CliOptions {
     } else if (argument === "--chromium" && next) {
       chromiumPath = resolve(next);
       index += 1;
+    } else if (argument === "--dynamic-selector" && next) {
+      dynamicSelectors.push(next);
+      index += 1;
+    } else if (argument === "--screenshot-baseline" && next) {
+      screenshotBaselinePath = resolve(next);
+      index += 1;
+    } else if (argument === "--update-screenshot-baseline") {
+      updateScreenshotBaseline = true;
     } else if (argument === "--json") {
       json = true;
     } else if (argument === "--fail-on" && next) {
@@ -108,6 +125,9 @@ function parseArguments(argumentsList: string[]): CliOptions {
   if (journeyProfile && !journeysFile) {
     throw new Error("--profile requires --journeys");
   }
+  if (updateScreenshotBaseline && !screenshotBaselinePath) {
+    throw new Error("--update-screenshot-baseline requires --screenshot-baseline");
+  }
   return {
     url,
     outputDirectory,
@@ -116,6 +136,9 @@ function parseArguments(argumentsList: string[]): CliOptions {
     ...(viewports ? { viewports } : {}),
     ...(settleMs === undefined ? {} : { settleMs }),
     ...(chromiumPath ? { chromiumPath } : {}),
+    dynamicSelectors,
+    ...(screenshotBaselinePath ? { screenshotBaselinePath } : {}),
+    updateScreenshotBaseline,
     json,
     failOn,
   };
@@ -140,6 +163,11 @@ async function main(): Promise<void> {
     ...(options.viewports ? { viewports: options.viewports } : {}),
     ...(options.settleMs === undefined ? {} : { settleMs: options.settleMs }),
     ...(options.chromiumPath ? { chromiumPath: options.chromiumPath } : {}),
+    dynamicSelectors: options.dynamicSelectors,
+    ...(options.screenshotBaselinePath
+      ? { screenshotBaselinePath: options.screenshotBaselinePath }
+      : {}),
+    updateScreenshotBaseline: options.updateScreenshotBaseline,
   });
   process.stdout.write(
     `${options.json ? JSON.stringify(report, null, 2) : formatRuntimeReport(report)}\n`,

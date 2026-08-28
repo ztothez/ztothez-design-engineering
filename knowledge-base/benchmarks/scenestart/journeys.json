@@ -86,11 +86,24 @@
             { "action": "navigate", "value": "/learn/core-demo-craft" },
             { "action": "expectText", "selector": "[role=\"status\"]", "value": "0/9 LESSONS COMPLETE" },
             { "action": "click", "selector": "button:has-text(\"I understand what a demo is\")" },
-            { "action": "expectText", "selector": "[role=\"status\"]", "value": "1/9 LESSONS COMPLETE" },
+            { "action": "click", "selector": "button:has-text(\"I understand scene time\")" },
+            { "action": "press", "selector": "#remix-plasma-waveScale", "value": "Home" },
+            { "action": "press", "selector": "#remix-plasma-colorSpeed", "value": "Home" },
+            { "action": "click", "selector": "section:has(#lesson-waves) button:has-text(\"CHECK GOAL AND COMPLETE\")" },
+            { "action": "press", "selector": "#remix-starfield-fieldOfView", "value": "End" },
+            { "action": "click", "selector": "section:has(#lesson-one-effect) button:has-text(\"CHECK GOAL AND COMPLETE\")" },
+            { "action": "click", "selector": "button:has-text(\"I know how to save a variation\")" },
+            { "action": "press", "selector": "#remix-tunnel-ringSpacing", "value": "End" },
+            { "action": "press", "selector": "#remix-tunnel-travelSpeed", "value": "Home" },
+            { "action": "click", "selector": "section:has(#lesson-combining-effects) button:has-text(\"CHECK GOAL AND COMPLETE\")" },
+            { "action": "click", "selector": "button:has-text(\"I understand sync in principle\")" },
+            { "action": "click", "selector": "button:has-text(\"I understand pacing and flow\")" },
+            { "action": "click", "selector": "button:has-text(\"I understand what a release needs\")" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "9/9 LESSONS COMPLETE · PATH COMPLETE" },
             { "action": "navigate", "value": "/learn" },
-            { "action": "expectText", "selector": "body", "value": "1/9 DONE" },
+            { "action": "expectText", "selector": "body", "value": "9/9 DONE" },
             { "action": "navigate", "value": "/learn/core-demo-craft" },
-            { "action": "expectText", "selector": "[role=\"status\"]", "value": "1/9 LESSONS COMPLETE" }
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "9/9 LESSONS COMPLETE · PATH COMPLETE" }
           ]
         }
       ]

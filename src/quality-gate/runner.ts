@@ -182,6 +182,20 @@ export async function runQualityGate(options: QualityGateOptions): Promise<Quali
     summary,
     complete,
     passed,
+    evidenceBoundary: {
+      verifierLimitations: [
+        ...architectureReport.evidenceBoundary.verifierLimitations,
+        ...(runtimeReport?.evidenceBoundary.verifierLimitations ?? [
+          "Runtime verification was not completed, so rendered behavior and browser evidence remain unverified.",
+        ]),
+      ],
+      humanReviewRequired: [
+        ...architectureReport.evidenceBoundary.humanReviewRequired,
+        ...(runtimeReport?.evidenceBoundary.humanReviewRequired ?? [
+          "Human visual and representative-user review remain outside this incomplete gate.",
+        ]),
+      ],
+    },
   };
   await writeEvidence(join(outputDirectory, "quality-gate.json"), report);
   await writeEvidence(join(outputDirectory, "quality-gate.md"), formatQualityGateReport(report));

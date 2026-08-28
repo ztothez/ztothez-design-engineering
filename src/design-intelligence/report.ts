@@ -8,10 +8,36 @@ export function formatDesignDeliverableReport(report: DesignDeliverableReport): 
     `- Product: ${report.product}`,
     `- Source: \`${report.sourcePath}\``,
     `- Deliverables: ${report.deliverables.join(", ")}`,
-    `- Coverage: ${report.coverage.tokens} tokens, ${report.coverage.assets} assets, ${report.coverage.icons} icons, ${report.coverage.presentations} presentations, ${report.coverage.slides} slides, ${report.coverage.contrastPairs} contrast pairs`,
+    `- Coverage: ${report.coverage.tokens} tokens, ${report.coverage.assets} assets, ${report.coverage.icons} icons, ${report.coverage.presentations} presentations, ${report.coverage.slides} slides, ${report.coverage.contrastPairs} contrast pairs, ${report.coverage.typographyRoles} type roles, ${report.coverage.interactionStates} interface states, ${report.coverage.chartContracts} chart contracts`,
     `- Findings: ${report.summary.errors} errors, ${report.summary.warnings} warnings, ${report.summary.info} info`,
     `- Result: ${report.passed ? "PASS" : "FAIL"}`,
+    `- Visual release readiness: ${report.visualPolish.releaseReady ? "READY" : "NOT READY"}`,
+    `- Integrated release readiness: ${report.integration.releaseReady ? "READY" : "NOT READY"}`,
   ];
+
+  if (report.integration.generationReady) {
+    lines.push(
+      "",
+      "## V2 Integration",
+      "",
+      `- Generation workflow: ready`,
+      `- Interface trust: ${report.integration.trustStatus}`,
+      `- Information design: ${report.integration.informationStatus}`,
+      `- Automated verification: ${report.integration.automatedVerificationReady ? "ready" : "incomplete"}`,
+      `- Human review: ${report.integration.humanReviewReady ? "ready" : "incomplete"}`,
+    );
+  }
+
+  if (report.visualPolish.declared) {
+    lines.push(
+      "",
+      "## Visual Polish Evidence",
+      "",
+      ...Object.entries(report.visualPolish.requiredViewports).map(([viewport, status]) => `- ${viewport}px: ${status}`),
+      `- Rendered evidence: ${report.visualPolish.renderedEvidenceReady ? "ready" : "incomplete"}`,
+      `- Human visual review: ${report.visualPolish.humanReviewReady ? "ready" : "incomplete"}`,
+    );
+  }
 
   if (report.contrastResults.length > 0) {
     lines.push("", "## Contrast Results", "");

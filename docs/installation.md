@@ -7,6 +7,7 @@ This guide installs ZtotheZ Design Engineering as a local stdio MCP server. The 
 - Node.js 22 or newer
 - npm 10 or newer
 - Chromium only when using browser verification tools
+- Bubblewrap on Linux only when running executable portfolio stages inside isolated snapshots
 
 Confirm the runtime:
 
@@ -55,6 +56,10 @@ node .ztothez-design-release/offline-runtime/dist/cli/index.js
 
 Keep `offline-runtime/` intact because its local production dependencies and knowledge files are part of the verified bundle. Chromium is still an optional host prerequisite for rendered browser checks.
 
+Portfolio inventory and snapshot creation work without Bubblewrap. An executable stage fails closed
+unless the host provides the supported isolation boundary; it never falls back to running inside an
+original project directory.
+
 The npm registry command below becomes available only after version `2.0.0` is published. Do not use it as the current local installation path:
 
 ```bash
@@ -101,6 +106,38 @@ On CI or Linux hosts that need system libraries, add `--with-deps` to the applic
 ```bash
 npx --no-install playwright-core install --with-deps chromium
 ```
+
+If a managed environment permits Chromium but blocks Playwright from launching it directly, start
+Chromium separately with a loopback DevTools endpoint:
+
+```bash
+chromium --headless --no-sandbox --remote-debugging-address=127.0.0.1 \
+  --remote-debugging-port=9222 --user-data-dir=/tmp/ztothez-design-cdp about:blank
+```
+
+Then set the endpoint for `verify-ui`, `quality-gate`, or MCP runtime verification:
+
+```bash
+export ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL=http://127.0.0.1:9222
+```
+
+The server accepts only an `http` or `https` loopback origin with no credentials, path, query, or
+fragment. This option does not permit connection to a remote browser.
+
+## Optional Local Portfolio MCP
+
+Portfolio MCP tools are disabled by default because project IDs and benchmark summaries may be
+private. Enable read-only access only in a trusted local MCP process:
+
+```bash
+export ZTOTHEZ_DESIGN_PORTFOLIO_MCP=enabled
+export ZTOTHEZ_DESIGN_PORTFOLIO_REGISTRY=/absolute/path/to/.ztothez-design-local/portfolio-registry.yaml
+export ZTOTHEZ_DESIGN_PORTFOLIO_REPORT_ROOT=/absolute/path/to/.ztothez-design-benchmarks/runs
+```
+
+This enables `list_portfolio_projects` and `get_portfolio_benchmark_report`. Neither tool exposes
+source roots or starts benchmark execution. Leave these variables unset in shared or remote MCP
+installations.
 
 ## Shared Stdio Configuration
 

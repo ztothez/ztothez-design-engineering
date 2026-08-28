@@ -1,22 +1,30 @@
 # Design Intelligence Router
 
-Use this maintained module set when a request extends beyond product UI into brand identity, Figma libraries, generated or sourced assets, icon systems, presentations, licensing records, or visual-accessibility review. Keep the root `SKILL.md` authoritative and load only the modules required by the deliverables.
+Use this maintained module set when a request needs interface trust, operational information design, visual polish, brand identity, Figma libraries, generated or sourced assets, icon systems, presentations, licensing records, or visual-accessibility review. Keep the root `SKILL.md` authoritative and load only the modules required by the deliverables.
 
 ## Required Workflow
 
-1. Define the product task, audience, channels, constraints, and required deliverables before selecting a visual direction.
-2. Inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested.
-3. Create a `design-deliverable.yaml` from `design-deliverable.template.yaml` and declare only deliverables in scope.
-4. Build primitive, semantic, and component token layers before applying visual values to components or assets.
-5. Route to the smallest relevant modules below.
-6. Record source and rights evidence for every distributable asset. Keep unresolved assets out of production output.
-7. Run `validate_design_deliverable` or `npm run validate-design -- --manifest PATH`.
-8. Inspect actual exports and rendered implementation. The manifest validator cannot prove pixel output, Figma structure, legal clearance, or usability.
+For an interface system, use this order and record every stage in `design-deliverable.yaml`:
+
+1. Validate the product task and product contract.
+2. Create and validate the truth and data-source contract from `interface-trust.template.yaml`.
+3. Create and validate the information architecture from `information-design.template.yaml`.
+4. Declare the interaction and state model.
+5. Declare the visual direction using `visual-polish.md`.
+6. Build primitive, semantic, and component token layers.
+7. Implement the smallest coherent task path.
+8. Attach deterministic automated verification evidence.
+9. Request attributable human visual review of rendered output.
+
+Before this sequence, inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested. During it, route to the smallest relevant modules, record rights evidence for every distributable asset, and keep unresolved assets out of production output. A declaration validator cannot prove pixels, runtime behavior, legal clearance, usability, or human validation.
 
 ## Module Routing
 
 | Deliverable | Read |
 |---|---|
+| Operational state, external data, generated results, fallback, history, or export provenance | `interface-trust.md` |
+| Operational metrics, findings, charts, hierarchy, long labels, or large collections | `information-design.md` |
+| Visual direction, typography, composition, density, states, motion, charts, or rendered visual review | `visual-polish.md` |
 | Brand identity, logo family, voice, or visual direction | `brand-systems.md` |
 | Figma variables, modes, components, libraries, or handoff | `figma-production.md` |
 | Generated images, illustrations, photos, textures, charts, audio, or video | `asset-generation.md` |
@@ -37,6 +45,14 @@ The design-deliverable manifest is a structured claim with evidence references. 
 
 Use source inspection, Figma inspection, export inspection, browser verification, and qualified human review to close those evidence gaps.
 
+The interface-trust contract has the same boundary. Passing validation proves internal source and disclosure consistency, not that the rendered interface displays the declarations or that an external service is available.
+
+The information-design contract proves declaration structure and decision traceability only. It does not prove correct calculations, rendered hierarchy, responsive behavior, or representative-user comprehension.
+
+The visual-polish report separates structural pass, verified rendered evidence, attributable human review, and release readiness. Planned screenshots and agent-authored critique never satisfy the latter two gates.
+
+The integrated design report also separates generation readiness, contract validation, automated verification, and human review. `passed` means the manifest is internally consistent; only `integration.releaseReady` means every declared V2 gate is complete.
+
 ## Completion Gate
 
 A design-intelligence deliverable is ready for handoff only when:
@@ -47,4 +63,5 @@ A design-intelligence deliverable is ready for handoff only when:
 - Semantic icons have accessible names or equivalent visible text.
 - Presentation slides use declared masters and have explicit reading order.
 - Final artifacts have been inspected at their actual size and channel.
+- Interface systems have verified captures at 375, 768, 1024, and 1440 CSS pixels and attributable human review before visual release.
 - Remaining warnings and limitations are reported rather than hidden.

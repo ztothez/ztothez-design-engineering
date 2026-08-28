@@ -32,6 +32,10 @@ export type QualityGateReport = {
   };
   complete: boolean;
   passed: boolean;
+  evidenceBoundary: {
+    verifierLimitations: string[];
+    humanReviewRequired: string[];
+  };
 };
 
 export type QualityGateOptions = {

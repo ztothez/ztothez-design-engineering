@@ -1,0 +1,63 @@
+version: "1.0"
+id: local-product-portfolio
+description: Local-only project registry for non-destructive design-engineering benchmarks.
+
+roots:
+  - id: studio-portfolio
+    class: studio-portfolio
+    path: /absolute/path/to/Studio/portfolio
+    discoveryDepth: 4
+    excludes: [captures, captures/**, backups, backups/**]
+
+projects:
+  - id: example-product
+    root: studio-portfolio
+    path: example-product
+    enabled: false
+    ownership: first-party
+    confidentiality: private-local
+    cohort: excluded
+    publication:
+      sourceExcerpts: false
+      screenshots: false
+      machineReports: false
+      aggregateMetrics: true
+    product:
+      domain: Example product domain
+      archetype: operational-dashboard
+      intendedUsers: [Primary operator]
+      primaryTasks: [Complete the primary product workflow]
+    technology:
+      framework: React
+      packageManager: npm
+      entrypoint: package.json
+      adapter: react-vite
+    capabilities:
+      - stage: source-audit
+        status: supported
+        reason: Source files are available for read-only inspection.
+      - stage: browser-journeys
+        status: unsupported
+        reason: No local fixture route has been declared yet.
+    execution:
+      fixtureMode: disconnected
+      networkPolicy: denied
+      lifecycleScripts: false
+      allowedEnvironmentVariables: []
+      localPorts: []
+      commands: []
+    # Enable only when the snapshot contains a safe static fixture and product contract.
+    # verification:
+    #   serveDirectory: dist
+    #   port: 4173
+    #   route: /
+    #   readinessPath: /
+    #   contractPath: benchmark/product-contract.yaml
+    #   profile: responsive-overview
+    #   settleMs: 500
+    paths:
+      include: ["**"]
+      exclude: []
+    source:
+      revisionPolicy: capture-current
+      canonicalizationKey: example-product

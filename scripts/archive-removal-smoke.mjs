@@ -68,7 +68,7 @@ let fixture;
 try {
   await mkdir(isolatedRoot, { recursive: true });
 
-  for (const directory of [".github", "ci", "cli", "docs", "scripts", "src", "tests"]) {
+  for (const directory of [".github", "ci", "cli", "docs", "evidence", "scripts", "src", "tests"]) {
     await cp(join(PROJECT_ROOT, directory), join(isolatedRoot, directory), { recursive: true });
   }
   for (const path of [

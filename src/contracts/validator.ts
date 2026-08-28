@@ -11,6 +11,7 @@ import {
   type JourneySuite,
   type ProductContract,
 } from "./schema.js";
+import { validateArchetypeActivation } from "./archetypes.js";
 
 const REPORT_VERSION = "1.0.0";
 const MAX_CONTRACT_BYTES = 1024 * 1024;
@@ -169,6 +170,92 @@ function validateContractReferences(contract: ProductContract, suite: JourneySui
     }
   }
 
+  if (contract.version === "1.1") {
+    const benchmark = contract.benchmark;
+    issues.push(...validateArchetypeActivation(benchmark));
+
+    issues.push(...duplicateIssues("benchmark.tasks", benchmark.tasks.map((task) => task.id)));
+    const machines = new Map(contract.stateMachines.map((machine) => [machine.id, machine]));
+    const viewportByName = new Map(contract.verification.viewports.map((viewport) => [viewport.name, viewport]));
+    const validateState = (
+      stateRef: { stateMachine: string; state: string },
+      path: string,
+      allowedCategories?: Set<string>,
+    ) => {
+      const machine = machines.get(stateRef.stateMachine);
+      if (!machine) {
+        issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.stateMachine`, `Unknown state machine: ${stateRef.stateMachine}`));
+        return;
+      }
+      const state = machine.states.find((entry) => entry.id === stateRef.state);
+      if (!state) {
+        issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.state`, `Unknown state: ${stateRef.state}`));
+      } else if (allowedCategories && !allowedCategories.has(state.category)) {
+        issues.push(
+          issue(
+            "CONTRACT-TASK-STATE",
+            `${path}.state`,
+            `State ${state.id} has category ${state.category}; expected ${[...allowedCategories].join(" or ")}.`,
+          ),
+        );
+      }
+    };
+
+    for (const [taskIndex, task] of benchmark.tasks.entries()) {
+      const path = `benchmark.tasks.${taskIndex}`;
+      if (!actorIds.has(task.actor)) {
+        issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.actor`, `Unknown actor: ${task.actor}`));
+      }
+      if (!modeIds.has(task.mode)) {
+        issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.mode`, `Unknown mode: ${task.mode}`));
+      }
+      validateState(task.start, `${path}.start`);
+      validateState(task.success, `${path}.success`, new Set(["success", "terminal"]));
+      validateState(task.recovery.failure, `${path}.recovery.failure`, new Set(["error", "fallback", "terminal"]));
+
+      if (task.journey) {
+        const journeyProfile = profiles.get(task.journey.profile);
+        const journey = journeyProfile?.journeys.find((entry) => entry.id === task.journey!.journey);
+        if (!journeyProfile) {
+          issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.journey.profile`, `Unknown journey profile: ${task.journey.profile}`));
+        } else if (!journey) {
+          issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.journey.journey`, `Unknown journey: ${task.journey.journey}`));
+        }
+        const binding = contract.verification.bindings.find(
+          (entry) =>
+            entry.profile === task.journey!.profile &&
+            entry.journey === task.journey!.journey &&
+            entry.actor === task.actor &&
+            entry.mode === task.mode,
+        );
+        if (!binding) {
+          issues.push(
+            issue(
+              "CONTRACT-TASK-BINDING",
+              `${path}.journey`,
+              "Task journey must have a verification binding with the same actor and mode.",
+            ),
+          );
+        }
+      }
+
+      if (task.browser) {
+        const viewport = viewportByName.get(task.browser.narrowViewport);
+        if (!viewport) {
+          issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.browser.narrowViewport`, `Unknown viewport: ${task.browser.narrowViewport}`));
+        } else if (viewport.width > 768) {
+          issues.push(
+            issue(
+              "CONTRACT-NARROW-VIEWPORT",
+              `${path}.browser.narrowViewport`,
+              `Viewport ${viewport.name} is ${viewport.width}px wide; task paths require 768px or narrower.`,
+            ),
+          );
+        }
+      }
+    }
+  }
+
   return issues;
 }
 
@@ -221,6 +308,29 @@ export async function inspectProductContract(
     journeyProfiles: suite?.profiles.length ?? 0,
     journeys: suite?.profiles.reduce((sum, profile) => sum + profile.journeys.length, 0) ?? 0,
   };
+  const taskModel = contract?.version === "1.1"
+    ? {
+        status: issues.some((entry) => entry.path.startsWith("benchmark.")) ? "invalid" as const : "ready" as const,
+        archetype: contract.benchmark.archetype,
+        primaryTasks: contract.benchmark.tasks.filter((task) => task.primary).length,
+        recoveryTasks: contract.benchmark.tasks.filter((task) => task.recovery.required).length,
+        narrowViewportTasks: contract.benchmark.tasks.filter((task) => Boolean(task.browser)).length,
+        evidencePolicy: contract.benchmark.evidencePolicy,
+      }
+    : {
+        status: contract ? "legacy" as const : "invalid" as const,
+        primaryTasks: 0,
+        recoveryTasks: 0,
+        narrowViewportTasks: 0,
+        evidencePolicy: {
+          missingEvidence: "unverified" as const,
+          failedBehavior: "failed" as const,
+          unsupportedCapability: "limitation" as const,
+        },
+      };
+  const limitations = contract?.version === "1.0"
+    ? ["Legacy version 1.0 contract has no archetype-aware product task model."]
+    : [];
 
   const report: ContractValidationReport = {
     version: REPORT_VERSION,
@@ -229,6 +339,8 @@ export async function inspectProductContract(
     generatedAt: new Date().toISOString(),
     ...(contract ? { contractId: contract.id } : {}),
     counts,
+    taskModel,
+    limitations,
     issues,
     passed: issues.length === 0,
   };

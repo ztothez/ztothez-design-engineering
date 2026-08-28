@@ -23,6 +23,13 @@ import { aggregateReportSchema } from "./aggregate/schema.js";
 import { formatContractValidationReport } from "./contracts/report.js";
 import { contractValidationReportSchema } from "./contracts/schema.js";
 import { validateProductContract } from "./contracts/validator.js";
+import { evaluateInterfaceComparison } from "./comparison/evaluator.js";
+import {
+  loadComparisonMethodology,
+  loadComparisonReview,
+} from "./comparison/loader.js";
+import { formatComparisonReport } from "./comparison/report.js";
+import { comparisonReportSchema } from "./comparison/schema.js";
 import { evaluateCorpusBenchmark } from "./corpus/evaluator.js";
 import { formatCorpusReport } from "./corpus/report.js";
 import { corpusReportSchema } from "./corpus/schema.js";
@@ -34,6 +41,7 @@ import { formatQualityGateReport } from "./quality-gate/report.js";
 import { runQualityGate } from "./quality-gate/runner.js";
 import { qualityGateReportSchema } from "./quality-gate/schema.js";
 import { PRODUCT_ID, VERSION } from "./product.js";
+import { listPortfolioProjectsForMcp, readPortfolioReportForMcp } from "./portfolio/mcp.js";
 import { formatKnowledgeSearchReport } from "./retrieval/report.js";
 import {
   knowledgeSearchInputSchema,
@@ -48,6 +56,14 @@ import { evaluateHeuristicReview } from "./heuristics/evaluator.js";
 import { loadHeuristicReview } from "./heuristics/loader.js";
 import { formatHeuristicReviewReport } from "./heuristics/report.js";
 import { heuristicReviewReportSchema } from "./heuristics/schema.js";
+import { loadInformationDesignContract } from "./information-design/loader.js";
+import { formatInformationDesignReport } from "./information-design/report.js";
+import { informationDesignReportSchema } from "./information-design/schema.js";
+import { validateInformationDesignContract } from "./information-design/validator.js";
+import { loadInterfaceTrustContract } from "./interface-trust/loader.js";
+import { formatInterfaceTrustReport } from "./interface-trust/report.js";
+import { interfaceTrustReportSchema } from "./interface-trust/schema.js";
+import { validateInterfaceTrustContract } from "./interface-trust/validator.js";
 import {
   runtimeJourneySchema,
   runtimeExpectedNetworkSchema,
@@ -388,6 +404,57 @@ async function configuredHeuristicReviewRoots(): Promise<string[]> {
   return resolvedRoots;
 }
 
+async function configuredComparisonRoots(): Promise<string[]> {
+  const configuredRoots = process.env.ZTOTHEZ_DESIGN_COMPARISON_ROOTS?.split(delimiter)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0);
+  const roots = configuredRoots?.length ? configuredRoots : [PROJECT_ROOT];
+  const resolvedRoots: string[] = [];
+  for (const root of roots) {
+    const resolvedRoot = await realpath(resolve(root));
+    if (!(await stat(resolvedRoot)).isDirectory()) {
+      throw new Error(`Configured comparison root is not a directory: ${root}`);
+    }
+    resolvedRoots.push(resolvedRoot);
+  }
+  return resolvedRoots;
+}
+
+async function resolveAllowedComparisonFile(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0")) {
+    throw new Error("The comparison path contains an invalid null byte");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Comparison files must end in .json, .yaml, or .yml");
+  }
+
+  const roots = await configuredComparisonRoots();
+  const candidates = isAbsolute(requestedFile)
+    ? [requestedFile]
+    : roots.map((root) => resolve(root, requestedFile));
+
+  for (const candidate of candidates) {
+    let resolvedCandidate: string;
+    try {
+      resolvedCandidate = await realpath(candidate);
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!roots.some((root) => isPathContained(root, resolvedCandidate))) continue;
+    const fileStats = await stat(resolvedCandidate);
+    if (!fileStats.isFile()) throw new Error("Comparison path must be a regular file");
+    if (fileStats.size > MAX_FILE_BYTES) {
+      throw new Error(`Comparison file exceeds the ${MAX_FILE_BYTES}-byte read limit`);
+    }
+    return resolvedCandidate;
+  }
+
+  throw new Error(
+    "Comparison file is unavailable or outside ZTOTHEZ_DESIGN_COMPARISON_ROOTS. Configure explicit allowed roots before reading external comparison artifacts.",
+  );
+}
+
 async function configuredDesignDeliverableRoots(): Promise<string[]> {
   const configuredRoots = process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS?.split(delimiter)
     .map((entry) => entry.trim())
@@ -402,6 +469,108 @@ async function configuredDesignDeliverableRoots(): Promise<string[]> {
     resolvedRoots.push(resolvedRoot);
   }
   return resolvedRoots;
+}
+
+async function configuredInterfaceTrustRoots(): Promise<string[]> {
+  const configuredRoots = process.env.ZTOTHEZ_DESIGN_TRUST_ROOTS?.split(delimiter)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0);
+  const roots = configuredRoots?.length ? configuredRoots : [PROJECT_ROOT];
+  const resolvedRoots: string[] = [];
+  for (const root of roots) {
+    const resolvedRoot = await realpath(resolve(root));
+    if (!(await stat(resolvedRoot)).isDirectory()) {
+      throw new Error(`Configured interface trust root is not a directory: ${root}`);
+    }
+    resolvedRoots.push(resolvedRoot);
+  }
+  return resolvedRoots;
+}
+
+async function configuredInformationDesignRoots(): Promise<string[]> {
+  const configuredRoots = process.env.ZTOTHEZ_DESIGN_INFORMATION_ROOTS?.split(delimiter)
+    .map((entry) => entry.trim())
+    .filter((entry) => entry.length > 0);
+  const roots = configuredRoots?.length ? configuredRoots : [PROJECT_ROOT];
+  const resolvedRoots: string[] = [];
+  for (const root of roots) {
+    const resolvedRoot = await realpath(resolve(root));
+    if (!(await stat(resolvedRoot)).isDirectory()) {
+      throw new Error(`Configured information-design root is not a directory: ${root}`);
+    }
+    resolvedRoots.push(resolvedRoot);
+  }
+  return resolvedRoots;
+}
+
+async function resolveAllowedInformationDesignContract(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0")) {
+    throw new Error("The information-design path contains an invalid null byte");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Information-design contracts must end in .json, .yaml, or .yml");
+  }
+
+  const roots = await configuredInformationDesignRoots();
+  const candidates = isAbsolute(requestedFile)
+    ? [requestedFile]
+    : roots.map((root) => resolve(root, requestedFile));
+
+  for (const candidate of candidates) {
+    let resolvedCandidate: string;
+    try {
+      resolvedCandidate = await realpath(candidate);
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!roots.some((root) => isPathContained(root, resolvedCandidate))) continue;
+    const fileStats = await stat(resolvedCandidate);
+    if (!fileStats.isFile()) throw new Error("Information-design path must be a regular file");
+    if (fileStats.size > MAX_FILE_BYTES) {
+      throw new Error(`Information-design contract exceeds the ${MAX_FILE_BYTES}-byte read limit`);
+    }
+    return resolvedCandidate;
+  }
+
+  throw new Error(
+    "Information-design contract is unavailable or outside ZTOTHEZ_DESIGN_INFORMATION_ROOTS. Configure explicit allowed roots before reading external contracts.",
+  );
+}
+
+async function resolveAllowedInterfaceTrustContract(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0")) {
+    throw new Error("The interface trust path contains an invalid null byte");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Interface trust contracts must end in .json, .yaml, or .yml");
+  }
+
+  const roots = await configuredInterfaceTrustRoots();
+  const candidates = isAbsolute(requestedFile)
+    ? [requestedFile]
+    : roots.map((root) => resolve(root, requestedFile));
+
+  for (const candidate of candidates) {
+    let resolvedCandidate: string;
+    try {
+      resolvedCandidate = await realpath(candidate);
+    } catch (error) {
+      if (error instanceof Error && "code" in error && error.code === "ENOENT") continue;
+      throw error;
+    }
+    if (!roots.some((root) => isPathContained(root, resolvedCandidate))) continue;
+    const fileStats = await stat(resolvedCandidate);
+    if (!fileStats.isFile()) throw new Error("Interface trust path must be a regular file");
+    if (fileStats.size > MAX_FILE_BYTES) {
+      throw new Error(`Interface trust contract exceeds the ${MAX_FILE_BYTES}-byte read limit`);
+    }
+    return resolvedCandidate;
+  }
+
+  throw new Error(
+    "Interface trust contract is unavailable or outside ZTOTHEZ_DESIGN_TRUST_ROOTS. Configure explicit allowed roots before reading external contracts.",
+  );
 }
 
 async function resolveAllowedDesignDeliverable(requestedFile: string): Promise<string> {
@@ -710,7 +879,7 @@ registerKnowledgeTool(
 
 registerKnowledgeTool(
   "get_design_intelligence",
-  "List or read maintained brand, Figma production, asset generation, iconography, presentation, licensing, and visual-accessibility modules.",
+  "List or read maintained visual polish, brand, Figma production, asset generation, iconography, presentation, licensing, and visual-accessibility modules.",
   knowledgeAreas.designIntelligence,
 );
 
@@ -719,7 +888,7 @@ server.registerTool(
   {
     title: "Validate design deliverable",
     description:
-      "Validates a versioned design-deliverable YAML or JSON manifest for three-level tokens, Figma library structure, brand marks, asset and generated-media provenance, icon semantics, presentation masters, declared contrast pairs, and non-color cues. This is a deterministic declaration check, not legal advice or rendered accessibility proof.",
+      "Validates a versioned design-deliverable YAML or JSON manifest for semantic visual bindings, typography, composition, density, states, motion, charts, rendered-evidence and human-review declarations, three-level tokens, Figma structure, brand marks, asset provenance, icon semantics, presentation masters, contrast, and non-color cues. Structural pass and visual release readiness remain separate.",
     inputSchema: {
       manifestFile: z
         .string()
@@ -751,6 +920,160 @@ server.registerTool(
     } catch (error) {
       const message = errorMessage(error);
       console.error(`[validate_design_deliverable] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "validate_interface_trust",
+  {
+    title: "Validate interface trust contract",
+    description:
+      "Validates a versioned interface-trust YAML or JSON contract for data mode, connection, result origin, freshness, state-source traceability, pre-action disclosure, fallback and stale behavior, disconnected recovery, history and export provenance, and credential-like values. This checks declarations and cannot prove rendered or backend behavior.",
+    inputSchema: {
+      contractFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative contract. External roots must be listed in ZTOTHEZ_DESIGN_TRUST_ROOTS.",
+        ),
+    },
+    outputSchema: interfaceTrustReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ contractFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedInterfaceTrustContract(contractFile);
+      const contract = await loadInterfaceTrustContract(resolvedFile);
+      const report = validateInterfaceTrustContract(contract, resolvedFile);
+      return {
+        content: [{ type: "text" as const, text: formatInterfaceTrustReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[validate_interface_trust] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "validate_information_design",
+  {
+    title: "Validate operational information design",
+    description:
+      "Validates a versioned operational information-design YAML or JSON contract for source and context traceability, metric decisions, findings, chart purpose, exceptional value states, long labels, large collections, the eight-level hierarchy, non-color cues, and six answer-flow task declarations. This checks declarations and cannot prove rendered behavior or representative-user comprehension.",
+    inputSchema: {
+      contractFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative contract. External roots must be listed in ZTOTHEZ_DESIGN_INFORMATION_ROOTS.",
+        ),
+    },
+    outputSchema: informationDesignReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ contractFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedInformationDesignContract(contractFile);
+      const contract = await loadInformationDesignContract(resolvedFile);
+      const report = validateInformationDesignContract(contract, resolvedFile);
+      return {
+        content: [{ type: "text" as const, text: formatInformationDesignReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[validate_information_design] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "evaluate_interface_comparison",
+  {
+    title: "Evaluate interface comparison",
+    description:
+      "Validates a versioned anonymous interface-comparison methodology and review. It checks required stages, retained artifacts, claim scope, evidence-level separation, complete human matrices, counterbalancing, category scores, task metrics, and target-versus-comparator decisions. A valid review remains not release-ready until every configured human and benchmark threshold passes.",
+    inputSchema: {
+      methodologyFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative comparison methodology. External roots must be listed in ZTOTHEZ_DESIGN_COMPARISON_ROOTS.",
+        ),
+      reviewFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative comparison review. External roots must be listed in ZTOTHEZ_DESIGN_COMPARISON_ROOTS.",
+        ),
+    },
+    outputSchema: comparisonReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ methodologyFile, reviewFile }) => {
+    try {
+      const [resolvedMethodology, resolvedReview] = await Promise.all([
+        resolveAllowedComparisonFile(methodologyFile),
+        resolveAllowedComparisonFile(reviewFile),
+      ]);
+      const [methodology, review] = await Promise.all([
+        loadComparisonMethodology(resolvedMethodology),
+        loadComparisonReview(resolvedReview),
+      ]);
+      const report = await evaluateInterfaceComparison(
+        methodology,
+        review,
+        resolvedMethodology,
+        resolvedReview,
+      );
+      return {
+        content: [{ type: "text" as const, text: formatComparisonReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[evaluate_interface_comparison] ${message}`);
       return {
         isError: true,
         content: [{ type: "text" as const, text: message }],
@@ -841,14 +1164,63 @@ const auditReportSchema = {
     info: z.number().int().nonnegative(),
   }),
   passed: z.boolean(),
+  evidenceBoundary: z.object({
+    verifierLimitations: z.array(z.string()),
+    humanReviewRequired: z.array(z.string()),
+  }),
 };
+
+server.registerTool(
+  "list_portfolio_projects",
+  {
+    title: "List locally enabled portfolio projects",
+    description:
+      "Lists project IDs, cohorts, archetypes, adapters, and declared benchmark capabilities from an explicitly enabled local registry. It never exposes source roots or executes project commands.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  async () => {
+    try {
+      const report = await listPortfolioProjectsForMcp();
+      return { content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }], structuredContent: report };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[list_portfolio_projects] ${message}`);
+      return { isError: true, content: [{ type: "text" as const, text: message }] };
+    }
+  },
+);
+
+server.registerTool(
+  "get_portfolio_benchmark_report",
+  {
+    title: "Read a completed local portfolio benchmark",
+    description:
+      "Reads a completed structured benchmark summary from an explicitly enabled private report root. It returns no absolute source paths, cannot start benchmarks, and optionally scopes the result to one project ID.",
+    inputSchema: {
+      runId: z.string().regex(/^[a-z0-9][a-z0-9._-]{0,127}$/i),
+      projectId: z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/).optional(),
+    },
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ runId, projectId }) => {
+    try {
+      const report = await readPortfolioReportForMcp(runId, projectId);
+      return { content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }], structuredContent: report };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[get_portfolio_benchmark_report] ${message}`);
+      return { isError: true, content: [{ type: "text" as const, text: message }] };
+    }
+  },
+);
 
 server.registerTool(
   "audit_repository_architecture",
   {
     title: "Audit repository architecture",
     description:
-      "Read-only static audit for UI source architecture, mock production paths, placeholder interactions, raw design values, network state handling, accessibility names, and repository verification scripts. This does not prove runtime or visual correctness.",
+      "Read-only static audit for UI source architecture, hard-coded credential literals, undisclosed mock paths, inert or incomplete interactions, unbound operational claims, raw design values, network state handling, accessibility names, and repository verification scripts. This does not prove runtime or visual correctness.",
     inputSchema: {
       targetDirectory: z
         .string()
@@ -898,7 +1270,7 @@ server.registerTool(
   {
     title: "Verify UI runtime",
     description:
-      "Launches headless Chromium against an already-running UI, captures base and post-journey responsive screenshots, and checks overflow, clipping, collisions, contrast, touch targets, focus visibility and occlusion, keyboard traps and ordering, 200% reflow and text resizing, reduced motion, media, console and network failures, plus optional declarative product journeys. Completed journey state is rechecked at every configured viewport. It does not start applications or execute repository commands.",
+      "Launches headless Chromium against an already-running UI, captures checksummed base and post-journey responsive screenshots, and checks overflow, clipping, collisions, contrast, touch targets, focus visibility and occlusion, keyboard traps and ordering, 200% reflow and text resizing, reduced motion, media, console and network failures, opt-in interface trust, chart alternatives, plus optional declarative product journeys. Completed journey state is rechecked at every configured viewport. It does not start applications or execute repository commands.",
     inputSchema: {
       url: z.string().trim().min(1).max(4_096),
       reportName: z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/i).optional(),
@@ -906,6 +1278,7 @@ server.registerTool(
       journeys: z.array(runtimeJourneySchema).max(10).optional(),
       expectedNetwork: z.array(runtimeExpectedNetworkSchema).max(20).optional(),
       settleMs: z.number().int().min(0).max(30_000).optional(),
+      dynamicSelectors: z.array(z.string().min(1).max(1_024)).max(20).optional(),
     },
     outputSchema: runtimeReportSchema,
     annotations: {
@@ -915,7 +1288,7 @@ server.registerTool(
       openWorldHint: true,
     },
   },
-  async ({ url, reportName, viewports, journeys, expectedNetwork, settleMs }) => {
+  async ({ url, reportName, viewports, journeys, expectedNetwork, settleMs, dynamicSelectors }) => {
     try {
       if (!isAllowedRuntimeUrl(url)) {
         throw new Error(
@@ -930,6 +1303,7 @@ server.registerTool(
         ...(journeys ? { journeys } : {}),
         ...(expectedNetwork ? { expectedNetwork } : {}),
         ...(settleMs === undefined ? {} : { settleMs }),
+        ...(dynamicSelectors ? { dynamicSelectors } : {}),
       });
       return {
         content: [{ type: "text" as const, text: formatRuntimeReport(report) }],

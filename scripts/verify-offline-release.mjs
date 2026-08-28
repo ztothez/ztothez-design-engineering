@@ -35,6 +35,24 @@ assert.deepEqual(
   Object.values(scope.categories).flatMap((category) => category.files).sort(),
 );
 
+const requiredV2Modules = [
+  "knowledge-base/design-intelligence/interface-trust.md",
+  "knowledge-base/design-intelligence/information-design.md",
+  "knowledge-base/design-intelligence/visual-polish.md",
+];
+for (const path of requiredV2Modules) {
+  assert.ok(index.documents.some((document) => document.path === path), `V2 document missing from offline index: ${path}`);
+  assert.ok(index.chunks.some((chunk) => chunk.path === path), `V2 document has no offline retrieval chunks: ${path}`);
+}
+
+for (const path of [
+  "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
+  "knowledge-base/design-intelligence/interface-trust.schema.yaml",
+  "knowledge-base/design-intelligence/information-design.schema.yaml",
+]) {
+  assert.ok(manifest.schemas.includes(path), `V2 schema missing from offline manifest: ${path}`);
+}
+
 const forbiddenFragments = [
   ["legacy", "sources"].join("-"),
   ["external", "reference"].join("-"),

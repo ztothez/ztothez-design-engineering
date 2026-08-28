@@ -1,8 +1,16 @@
 # ZtotheZ Design Engineering CI Integration
 
-The active `.github/workflows/quality.yml` workflow validates this skill repository on pushes, pull requests, and manual dispatches. It installs the lockfile dependencies and Chromium, then runs the build, typecheck, benchmark contract validation, full regression suite, and a CLI quality gate against `ci/fixtures/responsive-overview.html`. The complete fixture evidence directory is retained as a workflow artifact even when a gate fails.
+The active `.github/workflows/quality.yml` workflow validates this skill repository on pushes, pull requests, and manual dispatches. It installs the root and Azure V2 benchmark lockfile dependencies plus Chromium, then runs both builds and typechecks, benchmark contract validation, the full regression suite, a CLI quality gate against `ci/fixtures/responsive-overview.html`, the reusable V2 state matrix in `ci/fixtures/v2-quality-states.html`, and the Azure V2 product journey matrix. Complete machine-readable reports and viewport captures are retained as workflow artifacts even when a gate fails.
 
-The deterministic fixture proves that the quality-gate engine and responsive browser checks can produce a complete passing report. It is not evidence that AegisOPS or another product passes its own journeys.
+The V2 fixture covers normal, long-content, empty, partial, slow, fallback, stale, and disconnected states across initial, loading, result, error, history, and export stages. It opts into interface-trust and chart checks, masks only the declared dynamic clock, writes a screenshot baseline, and immediately verifies a second run against it at 375, 768, 1024, and 1440 CSS pixels. A matching screenshot hash detects change only. It is not visual-quality approval.
+
+These deterministic fixtures prove that the quality-gate engine and responsive browser checks can produce complete passing reports. They are not evidence that AegisOPS or another product passes its own journeys.
+
+The Azure V2 product lane runs ESLint, TypeScript, the Next production build, a zero-warning static audit, and `knowledge-base/benchmarks/azure-optimizer/v2-journeys.json` against the versioned 40-capture baseline. It covers demo, live local-API, slow, fallback, disconnected, partial, stale, finding-history, and provenance-export behavior. Its artifact remains automated evidence and does not satisfy the Item 8 human-review gate.
+
+The solo-maintainer lane recompiles the attributed coordinator-only review and runs `assess-maintainer`. It must report `engineeringReady: true` while preserving `externalReleaseReady: false` until the anonymous expert and representative-user thresholds are met. This lane permits Item 9 engineering; it cannot certify independent human validation.
+
+Diagnostic uploads use `if-no-files-found: warn` because an upstream build or gate can fail before creating its output directory. The originating step remains the authoritative failure; artifact collection must not hide it behind a secondary upload error. The release archive upload remains strict because it runs only after a successful release build.
 
 ## Product Integration
 

@@ -1,0 +1,88 @@
+{
+  "version": "1.0",
+  "contract": "azure-optimizer",
+  "profiles": [
+    {
+      "id": "overview-baseline",
+      "name": "Shared Azure overview comprehension surface",
+      "environment": [
+        "Candidate frontend is running with the fixed comparison dataset",
+        "No successful analysis run is required"
+      ],
+      "journeys": [
+        {
+          "id": "overview-integrity",
+          "name": "overview-integrity",
+          "steps": [
+            { "action": "expectText", "selector": "body", "value": "Azure Optimizer" },
+            { "action": "expectText", "selector": "body", "value": "Potential Savings" },
+            { "action": "expectText", "selector": "body", "value": "Top Recommendations" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "original-analysis",
+      "name": "Original candidate analysis task",
+      "environment": ["Original candidate is running with its bundled comparison data"],
+      "journeys": [
+        {
+          "id": "run-original-analysis",
+          "name": "run-original-analysis",
+          "steps": [
+            { "action": "click", "selector": "button:has-text(\"Analysis\")" },
+            { "action": "click", "selector": "button:has-text(\"Run AI Audit\")" },
+            { "action": "expectText", "selector": "body", "value": "Analysis complete" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lovable-analysis",
+      "name": "Lovable candidate analysis task",
+      "environment": ["Lovable candidate is running with its bundled demo dataset"],
+      "journeys": [
+        {
+          "id": "run-lovable-analysis",
+          "name": "run-lovable-analysis",
+          "steps": [
+            { "action": "click", "selector": "button:has-text(\"Run analysis\")" },
+            { "action": "expectText", "selector": "body", "value": "Analysis complete" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uiux-analysis",
+      "name": "UIUX candidate analysis task",
+      "environment": ["UIUX candidate is running with its bundled comparison data"],
+      "journeys": [
+        {
+          "id": "run-uiux-analysis",
+          "name": "run-uiux-analysis",
+          "steps": [
+            { "action": "click", "selector": "button:has-text(\"Analysis\")" },
+            { "action": "click", "selector": "button:has-text(\"Start Full AI Audit\")" },
+            { "action": "expectText", "selector": "body", "value": "Report ready" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ztothez-analysis",
+      "name": "ZtotheZ candidate analysis task",
+      "environment": ["ZtotheZ candidate is running with its bundled comparison data"],
+      "journeys": [
+        {
+          "id": "run-ztothez-analysis",
+          "name": "run-ztothez-analysis",
+          "steps": [
+            { "action": "click", "selector": "button:has-text(\"Analysis\")" },
+            { "action": "click", "selector": "button:has-text(\"Run AI Audit\")" },
+            { "action": "expectText", "selector": "body", "value": "Operating in verified local demonstration mode" }
+          ]
+        }
+      ]
+    }
+  ]
+}

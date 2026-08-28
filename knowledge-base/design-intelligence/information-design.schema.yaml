@@ -1,0 +1,390 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://local.ztothez-design-engineering/schemas/information-design-1.0.schema.json
+title: ZtotheZ Operational Information Design Contract
+description: Version 1.0 contract for decision metrics, findings, charts, hierarchy, exceptional states, and review-task declarations.
+type: object
+additionalProperties: false
+required: [version, id, product, preparedAt, preparedBy, sources, freshness, baselines, destinations, contexts, labelPolicies, valuePolicies, evidence, metrics, findings, charts, collections, hierarchy, tasks]
+properties:
+  version: { const: "1.0" }
+  id: { $ref: "#/$defs/id" }
+  product: { $ref: "#/$defs/shortText" }
+  preparedAt: { type: string, format: date-time }
+  preparedBy:
+    type: object
+    additionalProperties: false
+    required: [type, name]
+    properties:
+      type: { enum: [agent, human, mixed] }
+      name: { $ref: "#/$defs/shortText" }
+  sources:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/source" }
+  freshness:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/freshness" }
+  baselines:
+    type: array
+    maxItems: 500
+    items: { $ref: "#/$defs/baseline" }
+  destinations:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/destination" }
+  contexts:
+    type: array
+    minItems: 1
+    maxItems: 500
+    items: { $ref: "#/$defs/context" }
+  labelPolicies:
+    type: array
+    minItems: 1
+    maxItems: 100
+    items: { $ref: "#/$defs/labelPolicy" }
+  valuePolicies:
+    type: array
+    minItems: 1
+    maxItems: 100
+    items: { $ref: "#/$defs/valuePolicy" }
+  evidence:
+    type: array
+    minItems: 1
+    maxItems: 5000
+    items: { $ref: "#/$defs/evidence" }
+  metrics:
+    type: array
+    minItems: 1
+    maxItems: 5000
+    items: { $ref: "#/$defs/metric" }
+  findings:
+    type: array
+    minItems: 1
+    maxItems: 5000
+    items: { $ref: "#/$defs/finding" }
+  charts:
+    type: array
+    maxItems: 1000
+    items: { $ref: "#/$defs/chart" }
+  collections:
+    type: array
+    maxItems: 1000
+    items: { $ref: "#/$defs/collection" }
+  hierarchy:
+    type: array
+    minItems: 8
+    maxItems: 8
+    items: { $ref: "#/$defs/hierarchy" }
+  tasks:
+    type: array
+    minItems: 6
+    maxItems: 500
+    items: { $ref: "#/$defs/task" }
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  shortText:
+    type: string
+    minLength: 1
+    maxLength: 256
+  text:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  idList:
+    type: array
+    maxItems: 500
+    items: { $ref: "#/$defs/id" }
+  source:
+    type: object
+    additionalProperties: false
+    required: [id, kind, description]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      kind: { enum: [runtime, calculation, user-input, configuration, import, cache, fixture] }
+      description: { type: string, minLength: 1, maxLength: 512 }
+      evidence: { type: string, minLength: 1, maxLength: 1024 }
+  freshness:
+    type: object
+    additionalProperties: false
+    required: [id, status, sourceRef]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      status: { enum: [current, stale, unknown, not-applicable] }
+      observedAt: { type: string, format: date-time }
+      timezone: { type: string, minLength: 1, maxLength: 128 }
+      sourceRef: { $ref: "#/$defs/id" }
+    allOf:
+      - if:
+          properties:
+            status: { enum: [current, stale] }
+        then:
+          required: [observedAt, timezone]
+  baseline:
+    type: object
+    additionalProperties: false
+    required: [id, kind, label, sourceRefs]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      kind: { enum: [previous-period, target, benchmark, control] }
+      label: { $ref: "#/$defs/shortText" }
+      sourceRefs:
+        allOf: [{ $ref: "#/$defs/idList" }]
+        minItems: 1
+  destination:
+    type: object
+    additionalProperties: false
+    required: [id, label, kind, target]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      label: { $ref: "#/$defs/shortText" }
+      kind: { enum: [drill-down, action, owner, history, export, external] }
+      target: { $ref: "#/$defs/text" }
+  context:
+    type: object
+    additionalProperties: false
+    required: [id, environment, scope, dataDescription, sourceRefs, freshnessRef, limitations]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      environment: { $ref: "#/$defs/shortText" }
+      scope: { type: string, minLength: 1, maxLength: 512 }
+      dataDescription: { $ref: "#/$defs/text" }
+      sourceRefs:
+        allOf: [{ $ref: "#/$defs/idList" }]
+        minItems: 1
+      freshnessRef: { $ref: "#/$defs/id" }
+      limitations:
+        type: array
+        maxItems: 30
+        items: { type: string, minLength: 1, maxLength: 512 }
+  labelPolicy:
+    type: object
+    additionalProperties: false
+    required: [id, maxVisibleCharacters, overflow, accessibleReveal]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      maxVisibleCharacters: { type: integer, minimum: 20, maximum: 500 }
+      overflow: { enum: [wrap, truncate-with-reveal] }
+      accessibleReveal: { type: boolean }
+  valueState:
+    type: object
+    additionalProperties: false
+    required: [label, behavior]
+    properties:
+      label: { type: string, minLength: 1, maxLength: 160 }
+      behavior: { type: string, minLength: 1, maxLength: 512 }
+  valuePolicy:
+    type: object
+    additionalProperties: false
+    required: [id, states]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      states:
+        type: object
+        additionalProperties: false
+        required: [loading, available, missing, partial, stale, error]
+        properties:
+          loading: { $ref: "#/$defs/valueState" }
+          available: { $ref: "#/$defs/valueState" }
+          missing: { $ref: "#/$defs/valueState" }
+          partial: { $ref: "#/$defs/valueState" }
+          stale: { $ref: "#/$defs/valueState" }
+          error: { $ref: "#/$defs/valueState" }
+  evidence:
+    type: object
+    additionalProperties: false
+    required: [id, sourceRef, kind, description, location]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      sourceRef: { $ref: "#/$defs/id" }
+      kind: { enum: [observation, log, configuration, calculation, user-report, document] }
+      description: { $ref: "#/$defs/text" }
+      location: { $ref: "#/$defs/text" }
+  metricBaseline:
+    oneOf:
+      - type: object
+        additionalProperties: false
+        required: [status, reference]
+        properties:
+          status: { const: available }
+          reference: { $ref: "#/$defs/id" }
+      - type: object
+        additionalProperties: false
+        required: [status, reason]
+        properties:
+          status: { enum: [not-applicable, unknown] }
+          reason: { type: string, minLength: 1, maxLength: 512 }
+  metric:
+    type: object
+    additionalProperties: false
+    required: [id, label, definition, formula, sourceRefs, contextRef, scope, period, freshnessRef, baseline, drilldownRef, limitations, supportedDecision, labelPolicyRef, valuePolicyRef, decorative]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      label: { $ref: "#/$defs/shortText" }
+      definition: { $ref: "#/$defs/text" }
+      formula: { $ref: "#/$defs/text" }
+      sourceRefs:
+        allOf: [{ $ref: "#/$defs/idList" }]
+        minItems: 1
+      contextRef: { $ref: "#/$defs/id" }
+      scope: { type: string, minLength: 1, maxLength: 512 }
+      period:
+        type: object
+        additionalProperties: false
+        required: [kind, label]
+        properties:
+          kind: { enum: [point-in-time, rolling, fixed, lifetime, not-applicable] }
+          label: { $ref: "#/$defs/shortText" }
+      freshnessRef: { $ref: "#/$defs/id" }
+      baseline: { $ref: "#/$defs/metricBaseline" }
+      drilldownRef: { $ref: "#/$defs/id" }
+      limitations:
+        type: array
+        maxItems: 30
+        items: { type: string, minLength: 1, maxLength: 512 }
+      supportedDecision:
+        type: object
+        additionalProperties: false
+        required: [question, action]
+        properties:
+          question: { type: string, minLength: 1, maxLength: 512 }
+          action: { type: string, minLength: 1, maxLength: 512 }
+      labelPolicyRef: { $ref: "#/$defs/id" }
+      valuePolicyRef: { $ref: "#/$defs/id" }
+      decorative: { type: boolean }
+  finding:
+    type: object
+    additionalProperties: false
+    required: [id, title, severity, affectedEntities, observation, evidenceRefs, impact, confidence, remediation, destinationRef, validation, nonColorCues]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      title: { $ref: "#/$defs/shortText" }
+      severity: { enum: [critical, high, medium, low, info] }
+      affectedEntities:
+        type: array
+        minItems: 1
+        maxItems: 500
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, type, label]
+          properties:
+            id: { $ref: "#/$defs/shortText" }
+            type: { type: string, minLength: 1, maxLength: 128 }
+            label: { $ref: "#/$defs/shortText" }
+      observation: { $ref: "#/$defs/text" }
+      evidenceRefs:
+        allOf: [{ $ref: "#/$defs/idList" }]
+        minItems: 1
+      impact:
+        type: object
+        additionalProperties: false
+        required: [category, statement]
+        properties:
+          category: { enum: [operational, financial, security, user, compliance, reliability] }
+          statement: { $ref: "#/$defs/text" }
+      confidence:
+        type: object
+        additionalProperties: false
+        required: [level, basis]
+        properties:
+          level: { enum: [high, medium, low] }
+          basis: { $ref: "#/$defs/text" }
+      remediation: { $ref: "#/$defs/text" }
+      destinationRef: { $ref: "#/$defs/id" }
+      validation:
+        type: object
+        additionalProperties: false
+        required: [method, expectedSignal, evidenceRefs]
+        properties:
+          method: { $ref: "#/$defs/text" }
+          expectedSignal: { $ref: "#/$defs/text" }
+          evidenceRefs:
+            allOf: [{ $ref: "#/$defs/idList" }]
+            minItems: 1
+      nonColorCues:
+        type: array
+        minItems: 2
+        maxItems: 7
+        uniqueItems: true
+        contains: { enum: [text, icon, value, shape, pattern, position] }
+        items: { enum: [color, text, icon, value, shape, pattern, position] }
+  chart:
+    type: object
+    additionalProperties: false
+    required: [id, title, purpose, metricRefs, supportedDecision, destinationRef, decorative, labeling, alternative, valuePolicyRef]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      title: { $ref: "#/$defs/shortText" }
+      purpose: { $ref: "#/$defs/text" }
+      metricRefs:
+        allOf: [{ $ref: "#/$defs/idList" }]
+        minItems: 1
+      supportedDecision: { $ref: "#/$defs/text" }
+      destinationRef: { $ref: "#/$defs/id" }
+      decorative: { type: boolean }
+      labeling:
+        type: object
+        additionalProperties: false
+        required: [titleVisible, valuesVisible, legendVisible]
+        properties:
+          titleVisible: { type: boolean }
+          valuesVisible: { type: boolean }
+          legendVisible: { type: boolean }
+          legendReason: { type: string, minLength: 1, maxLength: 512 }
+      alternative:
+        type: object
+        additionalProperties: false
+        required: [kind, destinationRef]
+        properties:
+          kind: { enum: [table, text] }
+          destinationRef: { $ref: "#/$defs/id" }
+      valuePolicyRef: { $ref: "#/$defs/id" }
+  collection:
+    type: object
+    additionalProperties: false
+    required: [id, label, entity, estimatedMaximumItems, strategy, search, filter, sort, emptyState, partialState, staleState, labelPolicyRef]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      label: { $ref: "#/$defs/shortText" }
+      entity: { $ref: "#/$defs/shortText" }
+      estimatedMaximumItems: { type: integer, minimum: 0, maximum: 10000000 }
+      strategy: { enum: [pagination, virtualization, grouping, bounded] }
+      search: { type: boolean }
+      filter: { type: boolean }
+      sort: { type: boolean }
+      emptyState: { type: string, minLength: 1, maxLength: 512 }
+      partialState: { type: string, minLength: 1, maxLength: 512 }
+      staleState: { type: string, minLength: 1, maxLength: 512 }
+      labelPolicyRef: { $ref: "#/$defs/id" }
+  hierarchy:
+    type: object
+    additionalProperties: false
+    required: [level, order, contextRefs, metricRefs, findingRefs, chartRefs, destinationRefs]
+    properties:
+      level: { enum: [context-provenance, primary-outcome-action, critical-exceptions, health-impact-metrics, prioritized-findings, operational-telemetry, evidence-audit-trail, history-exports] }
+      order: { type: integer, minimum: 1, maximum: 8 }
+      contextRefs: { $ref: "#/$defs/idList" }
+      metricRefs: { $ref: "#/$defs/idList" }
+      findingRefs: { $ref: "#/$defs/idList" }
+      chartRefs: { $ref: "#/$defs/idList" }
+      destinationRefs: { $ref: "#/$defs/idList" }
+  task:
+    type: object
+    additionalProperties: false
+    required: [id, question, prompt, contextRefs, metricRefs, findingRefs, destinationRefs, expectedAnswer, nonColorRequired]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      question: { enum: [identify-context, identify-priority, explain-impact, inspect-evidence, identify-next-action, verify-success] }
+      prompt: { $ref: "#/$defs/text" }
+      contextRefs: { $ref: "#/$defs/idList" }
+      metricRefs: { $ref: "#/$defs/idList" }
+      findingRefs: { $ref: "#/$defs/idList" }
+      destinationRefs: { $ref: "#/$defs/idList" }
+      expectedAnswer: { $ref: "#/$defs/text" }
+      nonColorRequired: { const: true }

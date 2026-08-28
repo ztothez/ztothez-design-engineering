@@ -1,0 +1,21 @@
+version: "1.0"
+contract: scenestart
+attestations:
+  - criterion: local-first-boundary
+    status: pass
+    reviewer: ZtotheZ
+    reviewedAt: 2026-08-27T11:05:01+03:00
+    notes: >-
+      The SceneStart product owner and maintainer completed the Workshop-to-Studio workflow,
+      confirmed that handle and scene state remained intact, saved the editable project, exported
+      the offline HTML, documented and confirmed one release asset, downloaded readme.txt, and
+      reported that no creative-data upload was apparent and the exported HTML worked offline.
+      This observed review is supported by the retained automated journey, network, and download
+      evidence. A separate Core Demo Craft 6-of-9 usability defect was recorded and remediated
+      without altering this local-first decision.
+    evidence:
+      - knowledge-base/benchmarks/scenestart/human-review.md
+      - evidence/interface-quality/scenestart/guided-workshop/runtime/runtime-report.json
+      - evidence/interface-quality/scenestart/studio-export/runtime/runtime-report.json
+      - evidence/interface-quality/scenestart/release-provenance/runtime/runtime-report.json
+      - evidence/interface-quality/scenestart/release-provenance/runtime/journey-document-asset-and-readme-step-12-readme.txt

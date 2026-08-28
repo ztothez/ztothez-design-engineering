@@ -18,10 +18,16 @@ coverage/
 .ztothez-design-runtime/
 .ztothez-design-quality-gate/
 .ztothez-design-corpus/
+.ztothez-design-local/
+.ztothez-design-benchmarks/
 .uix-runtime/
 .uix-quality-gate/
 playwright-report/
 test-results/
+
+# Reproducible raw comparison captures; reviewer-facing copies are retained.
+/evidence/interface-quality/azure-baseline/anonymous-*/overview/*.png
+/evidence/interface-quality/azure-baseline/anonymous-*/analysis/*.png
 
 # Logs and temporary files
 *.log

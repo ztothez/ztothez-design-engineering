@@ -1,0 +1,181 @@
+version: "1.0"
+id: operational-interface-comparison-v1
+title: Anonymous operational interface quality comparison
+preparedAt: 2026-08-26T15:00:00+03:00
+preparedBy:
+  type: agent
+  name: ZtotheZ Design Engineering
+candidates:
+  - id: anonymous-a
+    label: Candidate A
+  - id: anonymous-b
+    label: Candidate B
+  - id: anonymous-c
+    label: Candidate C
+  - id: anonymous-d
+    label: Candidate D
+viewports:
+  - id: mobile
+    width: 375
+    height: 812
+  - id: tablet
+    width: 768
+    height: 1024
+  - id: desktop
+    width: 1024
+    height: 768
+  - id: wide
+    width: 1440
+    height: 1000
+states:
+  - id: initial
+    label: Initial product state
+    required: true
+  - id: loading
+    label: Analysis in progress
+    required: true
+  - id: result
+    label: Completed result
+    required: true
+  - id: fallback
+    label: Backend failure with disclosed fallback
+    required: true
+  - id: disconnected
+    label: Disconnected state
+    required: true
+  - id: export
+    label: Exported result with provenance
+    required: true
+stages:
+  - id: build
+    label: Production build
+    required: true
+    scope: candidate
+    evidenceKinds: [build-report]
+  - id: typecheck
+    label: Static type verification
+    required: true
+    scope: candidate
+    evidenceKinds: [typecheck-report]
+  - id: architecture-audit
+    label: Architecture and anti-slop audit
+    required: true
+    scope: candidate
+    evidenceKinds: [static-audit]
+  - id: browser-verification
+    label: Browser and responsive verification
+    required: true
+    scope: candidate
+    evidenceKinds: [runtime-report, screenshot]
+  - id: product-journeys
+    label: Product-specific journey verification
+    required: true
+    scope: candidate
+    evidenceKinds: [journey-report]
+  - id: human-review
+    label: Attributable human and representative-user review
+    required: true
+    scope: comparison
+    evidenceKinds: [human-review, user-session]
+tasks:
+  - id: identify-data-origin
+    prompt: Identify whether the displayed data is live, simulated, cached, imported, or unavailable.
+    successCriteria:
+      - Correctly identifies data origin and connection state.
+      - Locates freshness and environment information without documentation.
+    measurements: [task-completion, time-on-task, navigation-errors, comprehension-accuracy, confidence]
+  - id: identify-priority
+    prompt: Find the highest-priority problem and explain why it should be addressed first.
+    successCriteria:
+      - Selects the intended highest-priority finding.
+      - Identifies impact and supporting evidence.
+    measurements: [task-completion, time-on-task, navigation-errors, comprehension-accuracy, confidence]
+  - id: identify-next-action
+    prompt: Identify the recommended next action and how its success will be verified.
+    successCriteria:
+      - Locates the remediation action.
+      - Identifies the stated validation method.
+    measurements: [task-completion, time-on-task, navigation-errors, recovery-attempts, confidence]
+  - id: recognize-fallback
+    prompt: Start analysis and determine whether live processing or a fallback produced the result.
+    successCriteria:
+      - Correctly identifies the processing path.
+      - Finds the result-level limitation or provenance statement.
+    measurements: [task-completion, time-on-task, navigation-errors, comprehension-accuracy, confidence]
+  - id: verify-export-provenance
+    prompt: Export the result and verify that data origin, freshness, environment, and limitations are retained.
+    successCriteria:
+      - Completes the export.
+      - Correctly identifies all required provenance fields.
+    measurements: [task-completion, time-on-task, navigation-errors, comprehension-accuracy, confidence]
+rubric:
+  scale:
+    minimum: 0
+    maximum: 4
+    anchors:
+      "0": Absent, misleading, or unusable
+      "1": Present but materially deficient
+      "2": Functional and understandable
+      "3": Polished and consistently implemented
+      "4": Exceptional and supported by evidence
+  categories:
+    - id: truthful-disclosure
+      label: Truthful interface disclosure
+      weight: 30
+      criteria:
+        - id: disclosure-speed
+          prompt: Data origin, connection, environment, and freshness are identifiable without documentation.
+          measurement: comprehension
+          evidenceLevel: representative-user
+          scoreMinimum: 0
+          scoreMaximum: 4
+        - id: disclosure-consistency
+          prompt: Disclosure persists through action, result, history, fallback, error, and export states.
+          measurement: task-observation
+          evidenceLevel: human-expert
+          scoreMinimum: 0
+          scoreMaximum: 4
+    - id: information-design
+      label: Operational information design
+      weight: 35
+      criteria:
+        - id: priority-comprehension
+          prompt: Priority, impact, evidence, next action, and validation method form one understandable path.
+          measurement: comprehension
+          evidenceLevel: representative-user
+          scoreMinimum: 0
+          scoreMaximum: 4
+        - id: decision-density
+          prompt: Visible metrics and charts support identifiable decisions without decorative duplication.
+          measurement: rating
+          evidenceLevel: human-expert
+          scoreMinimum: 0
+          scoreMaximum: 4
+    - id: visual-polish
+      label: Visual hierarchy and polish
+      weight: 35
+      criteria:
+        - id: visual-rhythm
+          prompt: Spacing, alignment, typography, density, and emphasis appear intentional and coherent.
+          measurement: rating
+          evidenceLevel: human-expert
+          scoreMinimum: 0
+          scoreMaximum: 4
+        - id: responsive-composition
+          prompt: Composition remains balanced, legible, and task-focused at every required viewport.
+          measurement: task-observation
+          evidenceLevel: human-expert
+          scoreMinimum: 0
+          scoreMaximum: 4
+evidencePolicy:
+  anonymizeCandidates: true
+  counterbalanceOrder: true
+  retainArtifacts: true
+  separateEvidenceLevels: true
+  requireHumanAttribution: true
+  prohibitAgentHumanAttestation: true
+decision:
+  minimumCategoryScore: 3
+  requireAllStagesPass: true
+  prohibitContradictedClaims: true
+  requiredEvidenceLevels: [automated, ai-assisted-expert, human-expert, representative-user]

@@ -22,6 +22,10 @@ export const mockProductionPathRule: AuditRule = {
     if (!match || match.index === undefined) {
       return [];
     }
+    const hasDisclosureContract =
+      /data-ztothez-design-(?:data-mode|interface-trust|result-origin)/.test(file.content) &&
+      /\b(?:demo|fallback|simulated)\b/i.test(file.content);
+    if (hasDisclosureContract) return [];
 
     return [
       {

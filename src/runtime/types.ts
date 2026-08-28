@@ -22,6 +22,20 @@ export type RuntimeScreenshot = {
   width: number;
   height: number;
   fullPage: boolean;
+  sha256: string;
+  dynamicSelectors: string[];
+};
+
+export type RuntimeScreenshotRegression = {
+  status: "not-configured" | "created" | "matched" | "mismatched";
+  baselinePath?: string;
+  compared: number;
+  mismatches: string[];
+};
+
+export type RuntimeEvidenceBoundary = {
+  verifierLimitations: string[];
+  humanReviewRequired: string[];
 };
 
 export type RuntimeJourneyEvidence = {
@@ -97,11 +111,13 @@ export type RuntimeReport = {
   outputDirectory: string;
   viewports: RuntimeViewport[];
   screenshots: RuntimeScreenshot[];
+  screenshotRegression: RuntimeScreenshotRegression;
   journeys: RuntimeJourneyResult[];
   expectedNetwork: RuntimeExpectedNetworkObservation[];
   findings: RuntimeFinding[];
   summary: RuntimeSummary;
   passed: boolean;
+  evidenceBoundary: RuntimeEvidenceBoundary;
 };
 
 export type RuntimeVerificationOptions = {
@@ -113,4 +129,8 @@ export type RuntimeVerificationOptions = {
   navigationTimeoutMs?: number;
   settleMs?: number;
   chromiumPath?: string;
+  chromiumCdpUrl?: string;
+  dynamicSelectors?: string[];
+  screenshotBaselinePath?: string;
+  updateScreenshotBaseline?: boolean;
 };

@@ -52,6 +52,8 @@ try {
   const cliPath = join(installedRoot, installedPackage.bin["zz-design"]);
 
   for (const prohibitedPath of [
+    ".ztothez-design-local",
+    ".ztothez-design-benchmarks",
     join("knowledge-base", "architecture"),
     join("knowledge-base", "figma-and-systems"),
     join("knowledge-base", ["legacy", "sources"].join("-")),
@@ -63,6 +65,7 @@ try {
 
   assert.equal(runNode([cliPath, "--version"]).trim(), installedPackage.version);
   assert.match(runNode([cliPath, "--help"]), /ztothez-design-engineering/);
+  assert.match(runNode([cliPath, "portfolio", "--help"]), /portfolio snapshot --project ID/);
 
   const client = new Client({ name: "packed-install-smoke", version: "1.0.0" });
   const transport = new StdioClientTransport({
@@ -85,6 +88,9 @@ try {
     const tools = await client.listTools();
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
+    assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
 
     const architecture = await client.callTool({
       name: "get_architecture_spec",
@@ -101,6 +107,40 @@ try {
     const dashboardsText = dashboards.content.find((entry) => entry.type === "text");
     assert.equal(dashboards.isError, undefined);
     assert.match(dashboardsText?.text ?? "", /operational-dashboards[.]md/);
+
+    for (const [file, heading] of [
+      ["interface-trust.md", /Interface Trust And Data Provenance/],
+      ["information-design.md", /Operational Information Design/],
+      ["visual-polish.md", /Visual Polish System/],
+    ]) {
+      const exactRead = await client.callTool({
+        name: "get_design_intelligence",
+        arguments: { file },
+      });
+      const exactReadText = exactRead.content.find((entry) => entry.type === "text");
+      assert.equal(exactRead.isError, undefined);
+      assert.match(exactReadText?.text ?? "", heading);
+    }
+
+    const designManifest = await client.callTool({
+      name: "validate_design_deliverable",
+      arguments: {
+        manifestFile: "knowledge-base/design-intelligence/design-deliverable.template.yaml",
+      },
+    });
+    assert.equal(designManifest.isError, undefined);
+    assert.equal(designManifest.structuredContent?.passed, true);
+    assert.equal(designManifest.structuredContent?.coverage?.typographyRoles, 8);
+    assert.equal(designManifest.structuredContent?.coverage?.metricContracts, 3);
+    assert.equal(designManifest.structuredContent?.coverage?.generationStages, 9);
+    assert.equal(designManifest.structuredContent?.integration?.generationReady, true);
+    assert.equal(designManifest.structuredContent?.integration?.trustStatus, "declared");
+    assert.equal(designManifest.structuredContent?.integration?.informationStatus, "declared");
+    assert.equal(designManifest.structuredContent?.integration?.contractsValidated, false);
+    assert.equal(designManifest.structuredContent?.integration?.automatedVerificationReady, false);
+    assert.equal(designManifest.structuredContent?.integration?.humanReviewReady, false);
+    assert.equal(designManifest.structuredContent?.integration?.releaseReady, false);
+    assert.equal(designManifest.structuredContent?.visualPolish?.releaseReady, false);
 
     const result = await client.callTool({
       name: "search_design_knowledge",
@@ -122,6 +162,38 @@ try {
     assert.equal(corpus.isError, undefined);
     assert.equal(corpus.structuredContent?.passed, true);
     assert.equal(corpus.structuredContent?.overallScore, 1);
+
+    const comparison = await client.callTool({
+      name: "evaluate_interface_comparison",
+      arguments: {
+        methodologyFile:
+          "knowledge-base/benchmarks/interface-quality/comparison-methodology.template.yaml",
+        reviewFile: "knowledge-base/benchmarks/interface-quality/review.template.yaml",
+      },
+    });
+    assert.equal(comparison.isError, undefined);
+    assert.equal(comparison.structuredContent?.passed, true);
+    assert.equal(comparison.structuredContent?.releaseReady, false);
+
+    const trust = await client.callTool({
+      name: "validate_interface_trust",
+      arguments: {
+        contractFile: "knowledge-base/design-intelligence/interface-trust.template.yaml",
+      },
+    });
+    assert.equal(trust.isError, undefined);
+    assert.equal(trust.structuredContent?.passed, true);
+    assert.equal(trust.structuredContent?.coverage?.states, 5);
+
+    const information = await client.callTool({
+      name: "validate_information_design",
+      arguments: {
+        contractFile: "knowledge-base/design-intelligence/information-design.template.yaml",
+      },
+    });
+    assert.equal(information.isError, undefined);
+    assert.equal(information.structuredContent?.passed, true);
+    assert.equal(information.structuredContent?.coverage?.hierarchyLevels, 8);
   } catch (error) {
     const detail = serverDiagnostics.trim();
     throw new Error(

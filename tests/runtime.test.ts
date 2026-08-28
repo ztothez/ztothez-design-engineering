@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
 import { createServer } from "node:http";
-import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
+import { mkdtemp, readFile, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import test from "node:test";
 
+import { loadRuntimeJourneySelection } from "../src/contracts/journeys.js";
 import { verifyUiRuntime } from "../src/runtime/verifier.js";
 
 const fixtureDirectory = resolve(process.cwd(), "tests", "runtime-fixture");
@@ -16,6 +17,11 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   const overlapHtml = await readFile(join(fixtureDirectory, "overlap.html"), "utf8");
   const advancedHtml = await readFile(join(fixtureDirectory, "advanced.html"), "utf8");
   const blobDownloadHtml = await readFile(join(fixtureDirectory, "blob-download.html"), "utf8");
+  const v2BadHtml = await readFile(join(fixtureDirectory, "v2-bad.html"), "utf8");
+  const v2StatesHtml = await readFile(
+    resolve(process.cwd(), "ci", "fixtures", "v2-quality-states.html"),
+    "utf8",
+  );
   const server = createServer((request, response) => {
     if (request.url === "/good") {
       response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
@@ -48,6 +54,16 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
         "content-security-policy": "default-src 'self'; script-src 'unsafe-inline'; connect-src 'self'",
       });
       response.end(blobDownloadHtml);
+      return;
+    }
+    if (request.url?.startsWith("/v2-quality-states")) {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(v2StatesHtml);
+      return;
+    }
+    if (request.url === "/v2-bad") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(v2BadHtml);
       return;
     }
     if (request.url === "/api/failure") {
@@ -298,6 +314,13 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
       (finding) => finding.checkId === "ZTDE-RUNTIME-014" && finding.severity === "error",
     ),
   );
+  assert.equal(
+    advanced.findings.some(
+      (finding) =>
+        finding.checkId === "ZTDE-RUNTIME-015" && finding.selector === "#scrollable-input",
+    ),
+    false,
+  );
 
   const journeyDestination = await verifyUiRuntime({
     url: `${origin}/good`,
@@ -322,4 +345,77 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
         finding.viewport === "mobile-test",
     ),
   );
+
+  const v2Selection = await loadRuntimeJourneySelection(
+    resolve(process.cwd(), "ci", "v2-quality-states.journeys.json"),
+    "v2-state-matrix",
+  );
+  const v2States = await verifyUiRuntime({
+    url: `${origin}/v2-quality-states`,
+    outputDirectory: join(outputRoot, "v2-states"),
+    viewports: viewport,
+    settleMs: 20,
+    journeys: v2Selection.journeys,
+    dynamicSelectors: ["#dynamic-clock"],
+  });
+  assert.equal(v2States.passed, true, JSON.stringify(v2States.findings, null, 2));
+  assert.equal(v2States.journeys.length, 8);
+  assert.equal(v2States.screenshots.length, 9);
+  assert.ok(v2States.screenshots.every((entry) => /^[a-f0-9]{64}$/.test(entry.sha256)));
+  assert.ok(v2States.screenshots.every((entry) => entry.dynamicSelectors.includes("#dynamic-clock")));
+  assert.equal(v2States.evidenceBoundary.verifierLimitations.length, 3);
+  assert.equal(v2States.evidenceBoundary.humanReviewRequired.length, 2);
+
+  const v2Bad = await verifyUiRuntime({
+    url: `${origin}/v2-bad`,
+    outputDirectory: join(outputRoot, "v2-bad"),
+    viewports: viewport,
+    settleMs: 20,
+  });
+  assert.equal(v2Bad.passed, false);
+  const v2BadCheckIds = new Set(v2Bad.findings.map((finding) => finding.checkId));
+  assert.ok(v2BadCheckIds.has("ZTDE-RUNTIME-017"));
+  assert.ok(v2BadCheckIds.has("ZTDE-RUNTIME-018"));
+
+  const screenshotBaselinePath = join(outputRoot, "screenshot-baseline.json");
+  const baselineCreated = await verifyUiRuntime({
+    url: `${origin}/good`,
+    outputDirectory: join(outputRoot, "baseline-created"),
+    viewports: viewport,
+    settleMs: 20,
+    dynamicSelectors: ["#json"],
+    screenshotBaselinePath,
+    updateScreenshotBaseline: true,
+  });
+  assert.equal(baselineCreated.passed, true);
+  assert.equal(baselineCreated.screenshotRegression.status, "created");
+
+  const baselineMatched = await verifyUiRuntime({
+    url: `${origin}/good`,
+    outputDirectory: join(outputRoot, "baseline-matched"),
+    viewports: viewport,
+    settleMs: 20,
+    dynamicSelectors: ["#json"],
+    screenshotBaselinePath,
+  });
+  assert.equal(baselineMatched.passed, true, JSON.stringify(baselineMatched.findings, null, 2));
+  assert.equal(baselineMatched.screenshotRegression.status, "matched");
+  assert.equal(baselineMatched.screenshotRegression.compared, 1);
+
+  const tamperedBaseline = JSON.parse(await readFile(screenshotBaselinePath, "utf8")) as {
+    screenshots: Array<{ sha256: string }>;
+  };
+  tamperedBaseline.screenshots[0]!.sha256 = "f".repeat(64);
+  await writeFile(screenshotBaselinePath, `${JSON.stringify(tamperedBaseline, null, 2)}\n`, "utf8");
+  const baselineMismatch = await verifyUiRuntime({
+    url: `${origin}/good`,
+    outputDirectory: join(outputRoot, "baseline-mismatch"),
+    viewports: viewport,
+    settleMs: 20,
+    dynamicSelectors: ["#json"],
+    screenshotBaselinePath,
+  });
+  assert.equal(baselineMismatch.passed, false);
+  assert.equal(baselineMismatch.screenshotRegression.status, "mismatched");
+  assert.ok(baselineMismatch.findings.some((finding) => finding.checkId === "ZTDE-RUNTIME-019"));
 });

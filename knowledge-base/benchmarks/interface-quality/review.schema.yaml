@@ -1,0 +1,296 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://local.ztothez-design-engineering/schemas/interface-comparison-review-1.0.schema.json
+title: ZtotheZ Interface Comparison Review
+description: Version 1.0 review, claim-ledger, retained-artifact, and evidence-provenance contract.
+type: object
+additionalProperties: false
+required: [version, id, methodologyId, preparedAt, preparedBy, candidates, artifacts, stages, sessions, claims]
+properties:
+  version:
+    const: "1.0"
+  id:
+    $ref: "#/$defs/id"
+  methodologyId:
+    $ref: "#/$defs/id"
+  preparedAt:
+    type: string
+    format: date-time
+  preparedBy:
+    $ref: "#/$defs/preparedBy"
+  candidates:
+    type: array
+    minItems: 2
+    maxItems: 12
+    items:
+      $ref: "#/$defs/id"
+  artifacts:
+    type: array
+    maxItems: 10000
+    items:
+      $ref: "#/$defs/artifact"
+  stages:
+    type: array
+    maxItems: 100
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, candidate, status, evidenceRefs]
+      properties:
+        id:
+          $ref: "#/$defs/id"
+        candidate:
+          $ref: "#/$defs/evidenceSubject"
+        status:
+          enum: [pass, fail, partial, not-run]
+        evidenceRefs:
+          $ref: "#/$defs/idList"
+  sessions:
+    type: array
+    maxItems: 2000
+    items:
+      $ref: "#/$defs/session"
+  claims:
+    type: array
+    minItems: 1
+    maxItems: 10000
+    items:
+      $ref: "#/$defs/claim"
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  shortText:
+    type: string
+    minLength: 1
+    maxLength: 256
+  text:
+    type: string
+    minLength: 1
+    maxLength: 2048
+  path:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  idList:
+    type: array
+    maxItems: 100
+    items:
+      $ref: "#/$defs/id"
+  evidenceLevel:
+    enum: [automated, ai-assisted-expert, human-expert, representative-user]
+  evidenceSubject:
+    anyOf:
+      - $ref: "#/$defs/id"
+      - const: comparison
+  preparedBy:
+    type: object
+    additionalProperties: false
+    required: [type, name]
+    properties:
+      type:
+        enum: [agent, human, mixed]
+      name:
+        $ref: "#/$defs/shortText"
+  accessibility:
+    type: object
+    additionalProperties: false
+    required: [standard, version, level, coverage]
+    properties:
+      standard:
+        const: WCAG
+      version:
+        enum: ["2.1", "2.2"]
+      level:
+        enum: [A, AA, AAA]
+      coverage:
+        enum: [sampled-states, declared-routes, full-product]
+  artifact:
+    type: object
+    additionalProperties: false
+    required: [id, candidate, stage, kind, path, producer, retained, scope, recordedAt, sourceRevision, sha256]
+    allOf:
+      - if:
+          properties:
+            kind:
+              const: screenshot
+        then:
+          required: [capture]
+        else:
+          not:
+            required: [capture]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      candidate:
+        $ref: "#/$defs/evidenceSubject"
+      stage:
+        $ref: "#/$defs/id"
+      kind:
+        enum: [build-report, typecheck-report, test-report, static-audit, runtime-report, journey-report, screenshot, export, source-inspection, human-review, user-session]
+      path:
+        $ref: "#/$defs/path"
+      producer:
+        enum: [automation, agent, human]
+      retained:
+        type: boolean
+      scope:
+        type: string
+        minLength: 1
+        maxLength: 1024
+      recordedAt:
+        type: string
+        format: date-time
+      sourceRevision:
+        $ref: "#/$defs/shortText"
+      sha256:
+        type: string
+        pattern: "^[a-f0-9]{64}$"
+      capture:
+        type: object
+        additionalProperties: false
+        required: [viewport, state, width, height]
+        properties:
+          viewport:
+            $ref: "#/$defs/id"
+          state:
+            $ref: "#/$defs/id"
+          width:
+            type: integer
+            minimum: 240
+            maximum: 3840
+          height:
+            type: integer
+            minimum: 240
+            maximum: 5000
+      accessibility:
+        $ref: "#/$defs/accessibility"
+  taskResult:
+    type: object
+    additionalProperties: false
+    required: [task, candidate, outcome, navigationErrors, recoveryAttempts]
+    properties:
+      task:
+        $ref: "#/$defs/id"
+      candidate:
+        $ref: "#/$defs/id"
+      outcome:
+        enum: [completed, partial, failed, not-run]
+      durationSeconds:
+        type: number
+        minimum: 0
+        maximum: 86400
+      navigationErrors:
+        type: integer
+        minimum: 0
+      recoveryAttempts:
+        type: integer
+        minimum: 0
+      comprehensionCorrect:
+        type: boolean
+      confidence:
+        type: integer
+        minimum: 1
+        maximum: 5
+      notes:
+        $ref: "#/$defs/text"
+  rating:
+    type: object
+    additionalProperties: false
+    required: [candidate, criterion, score, rationale]
+    properties:
+      candidate:
+        $ref: "#/$defs/id"
+      criterion:
+        $ref: "#/$defs/id"
+      score:
+        type: integer
+        minimum: 0
+        maximum: 4
+      rationale:
+        $ref: "#/$defs/text"
+  session:
+    type: object
+    additionalProperties: false
+    required: [id, level, origin, candidateOrder, taskResults, ratings]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      level:
+        enum: [ai-assisted-expert, human-expert, representative-user]
+      origin:
+        enum: [agent-generated, reviewer-supplied]
+      contributor:
+        $ref: "#/$defs/shortText"
+      recordedAt:
+        type: string
+        format: date-time
+      participantId:
+        $ref: "#/$defs/id"
+      blinding:
+        type: object
+        additionalProperties: false
+        required: [candidateIdentitiesWithheld, priorCandidateExposure, conflicts]
+        properties:
+          candidateIdentitiesWithheld:
+            type: boolean
+          priorCandidateExposure:
+            type: boolean
+          conflicts:
+            type: array
+            maxItems: 20
+            items:
+              type: string
+              minLength: 1
+              maxLength: 512
+      candidateOrder:
+        type: array
+        minItems: 2
+        maxItems: 12
+        items:
+          $ref: "#/$defs/id"
+      taskResults:
+        type: array
+        maxItems: 2000
+        items:
+          $ref: "#/$defs/taskResult"
+      ratings:
+        type: array
+        maxItems: 2000
+        items:
+          $ref: "#/$defs/rating"
+  claim:
+    type: object
+    additionalProperties: false
+    required: [id, candidate, kind, statement, evidenceType, evidenceRefs, sessionRefs, scope, status, limitations]
+    properties:
+      id:
+        $ref: "#/$defs/id"
+      candidate:
+        $ref: "#/$defs/evidenceSubject"
+      kind:
+        enum: [overall-result, stage-result, accessibility-conformance, design-quality, implementation-fact]
+      statement:
+        $ref: "#/$defs/text"
+      evidenceType:
+        $ref: "#/$defs/evidenceLevel"
+      evidenceRefs:
+        $ref: "#/$defs/idList"
+      sessionRefs:
+        $ref: "#/$defs/idList"
+      scope:
+        type: string
+        minLength: 1
+        maxLength: 1024
+      status:
+        enum: [verified, partial, unverified, contradicted]
+      outcome:
+        enum: [pass, fail, partial, not-evaluated]
+      limitations:
+        type: array
+        maxItems: 50
+        items:
+          type: string
+          minLength: 1
+          maxLength: 1024
+      accessibility:
+        $ref: "#/$defs/accessibility"

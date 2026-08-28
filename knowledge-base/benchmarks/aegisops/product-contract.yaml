@@ -1,4 +1,4 @@
-version: "1.0"
+version: "1.1"
 id: aegisops
 name: AegisOPS SOC Readiness Command Center
 status: benchmark
@@ -283,3 +283,46 @@ verification:
       actor: soc-analyst
       mode: single-technique
       acceptanceCriteria: [responsive-integrity, accessible-operation]
+
+benchmark:
+  archetype: operational-dashboard
+  interface: browser
+  qualityDimensions:
+    - { id: truthful-disclosure, status: required, reason: "Live and demo execution must remain distinguishable." }
+    - { id: information-design, status: required, reason: "Analysts must trace prioritized findings to evidence and action." }
+    - { id: visual-system, status: required, reason: "Dense security operations require consistent visual hierarchy." }
+    - { id: accessibility, status: required, reason: "Core analysis and export paths require keyboard and non-color operation." }
+    - { id: responsive-structure, status: required, reason: "The command center is verified from mobile through wide desktop." }
+    - { id: state-integrity, status: required, reason: "Pipeline progress, failure, fallback, and recovery must remain explicit." }
+    - { id: maintainability, status: required, reason: "Detection, response, validation, and export boundaries must remain separable." }
+  tasks:
+    - id: generate-detection-package
+      primary: true
+      actor: detection-engineer
+      mode: single-technique
+      intent: Generate and inspect evidence-linked detection, response, validation, and export artifacts for an authorized ATT&CK technique.
+      start:
+        stateMachine: pipeline-run
+        state: idle
+        observable: The authorized technique input is available and no pipeline run is active.
+      success:
+        stateMachine: pipeline-run
+        state: success
+        observable: Generated artifacts, source evidence, validation results, and export controls are inspectable.
+        evidence: [contract, runtime, network, export]
+      recovery:
+        required: true
+        failure:
+          stateMachine: pipeline-run
+          state: error
+          observable: The failed stage and preserved authorized input remain visible.
+        observable: The analyst can retry without losing the technique input or confusing fallback data with live output.
+      journey: { profile: demo-success, journey: single-technique-success }
+      browser: { route: /, narrowViewport: mobile-375 }
+  evidencePolicy:
+    missingEvidence: unverified
+    failedBehavior: failed
+    unsupportedCapability: limitation
+  comparison:
+    taskContractId: aegisops-detection-package
+    crossContractRanking: false

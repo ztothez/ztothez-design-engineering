@@ -14,3 +14,16 @@ export function Dashboard({ total, onRefresh }: DashboardProps) {
     </main>
   );
 }
+
+export function DisclosedDemoFallback() {
+  const result = "mock fallback report";
+  return (
+    <p
+      data-ztothez-design-interface-trust
+      data-ztothez-design-data-mode="demo"
+      data-ztothez-design-result-origin="simulated"
+    >
+      Demo fallback: {result}
+    </p>
+  );
+}

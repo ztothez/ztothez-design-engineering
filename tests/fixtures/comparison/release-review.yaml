@@ -1,0 +1,122 @@
+version: "1.0"
+id: valid-release-review
+methodologyId: minimal-comparison-v1
+preparedAt: 2026-08-26T16:00:00+03:00
+preparedBy:
+  type: mixed
+  name: Comparison fixture team
+candidates: [anonymous-a, anonymous-b]
+artifacts:
+  - id: runtime-a
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: runtime-report
+    path: evidence/release-evidence.json
+    producer: automation
+    retained: true
+    scope: Synthetic candidate A runtime fixture
+    recordedAt: 2026-08-26T16:01:00+03:00
+    sourceRevision: fixture-a
+    sha256: 3bcba9b7476bead262546be97fea0806844b12c68c47d208446a37cee040642e
+  - id: runtime-b
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: runtime-report
+    path: evidence/release-evidence.json
+    producer: automation
+    retained: true
+    scope: Synthetic candidate B runtime fixture
+    recordedAt: 2026-08-26T16:01:00+03:00
+    sourceRevision: fixture-b
+    sha256: 3bcba9b7476bead262546be97fea0806844b12c68c47d208446a37cee040642e
+  - id: human-evidence
+    candidate: comparison
+    stage: human-review
+    kind: human-review
+    path: evidence/release-evidence.json
+    producer: human
+    retained: true
+    scope: Synthetic attributable review fixture
+    recordedAt: 2026-08-26T16:10:00+03:00
+    sourceRevision: fixture-review
+    sha256: 3bcba9b7476bead262546be97fea0806844b12c68c47d208446a37cee040642e
+stages:
+  - { id: browser-verification, candidate: anonymous-a, status: pass, evidenceRefs: [runtime-a] }
+  - { id: browser-verification, candidate: anonymous-b, status: pass, evidenceRefs: [runtime-b] }
+  - { id: human-review, candidate: comparison, status: pass, evidenceRefs: [human-evidence] }
+sessions:
+  - id: ai-inspection
+    level: ai-assisted-expert
+    origin: agent-generated
+    contributor: Fixture agent
+    recordedAt: 2026-08-26T16:05:00+03:00
+    candidateOrder: [anonymous-a, anonymous-b]
+    taskResults: []
+    ratings: []
+  - id: expert-review
+    level: human-expert
+    origin: reviewer-supplied
+    contributor: Fixture expert
+    recordedAt: 2026-08-26T16:10:00+03:00
+    candidateOrder: [anonymous-b, anonymous-a]
+    taskResults: []
+    ratings: []
+  - id: user-session-one
+    level: representative-user
+    origin: reviewer-supplied
+    contributor: Fixture facilitator
+    recordedAt: 2026-08-26T16:15:00+03:00
+    participantId: participant-001
+    candidateOrder: [anonymous-a, anonymous-b]
+    taskResults:
+      - task: identify-origin
+        candidate: anonymous-a
+        outcome: completed
+        durationSeconds: 4.2
+        navigationErrors: 0
+        recoveryAttempts: 0
+        comprehensionCorrect: true
+        confidence: 4
+    ratings: []
+claims:
+  - id: all-stages-pass
+    candidate: comparison
+    kind: overall-result
+    statement: Every required synthetic validation stage passed.
+    evidenceType: automated
+    evidenceRefs: [runtime-a, runtime-b]
+    sessionRefs: []
+    scope: Synthetic comparison fixture
+    status: verified
+    outcome: pass
+    limitations: []
+  - id: ai-inspection-recorded
+    candidate: comparison
+    kind: implementation-fact
+    statement: An AI-assisted inspection session is recorded separately.
+    evidenceType: ai-assisted-expert
+    evidenceRefs: []
+    sessionRefs: [ai-inspection]
+    scope: Synthetic comparison fixture
+    status: verified
+    limitations: []
+  - id: expert-rating-recorded
+    candidate: comparison
+    kind: design-quality
+    statement: An attributable expert record is present.
+    evidenceType: human-expert
+    evidenceRefs: [human-evidence]
+    sessionRefs: [expert-review]
+    scope: Synthetic comparison fixture
+    status: verified
+    limitations: []
+  - id: user-task-recorded
+    candidate: comparison
+    kind: design-quality
+    statement: An attributable representative-user task result is recorded.
+    evidenceType: representative-user
+    evidenceRefs: [human-evidence]
+    sessionRefs: [user-session-one]
+    scope: Synthetic comparison fixture
+    status: verified
+    limitations: []

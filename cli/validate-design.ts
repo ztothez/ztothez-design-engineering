@@ -15,8 +15,8 @@ function usage(): string {
   return [
     "Usage: npm run validate-design -- --manifest PATH [--json]",
     "",
-    "Validates a version 1.0 design-deliverable manifest for tokens, Figma structure, assets, rights records, icon semantics, presentations, and declared visual accessibility.",
-    "The result does not replace rendered accessibility testing, human review, or legal review.",
+    "Validates versioned design-deliverable manifests for tokens, visual polish, responsive composition, states, motion, charts, rendered-evidence declarations, Figma structure, assets, rights, icon semantics, presentations, and visual accessibility.",
+    "Read visualPolish.releaseReady separately from passed. Planned captures and agent-authored review text do not satisfy rendered or human evidence.",
   ].join("\n");
 }
 

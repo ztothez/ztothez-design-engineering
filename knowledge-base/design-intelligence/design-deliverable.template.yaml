@@ -1,4 +1,4 @@
-version: "1.0"
+version: "2.0"
 id: example-product-design-system
 product: Example Product
 preparedAt: 2026-08-26T12:00:00+03:00
@@ -6,7 +6,7 @@ preparedBy:
   type: mixed
   name: Product design team
 scope:
-  deliverables: [brand-system, figma-library, asset-set, icon-system, presentation]
+  deliverables: [interface-system, brand-system, figma-library, asset-set, icon-system, presentation]
   audience: Operations professionals evaluating and acting on product evidence
   channels: [web, mobile, presentation]
 tokenSystem:
@@ -46,6 +46,89 @@ tokenSystem:
       level: component
       reference: color.primitive.white
       description: Label foreground for primary buttons
+    - { name: color.primitive.neutral-50, type: color, level: primitive, value: "#f6f8fa", description: Subtle neutral surface }
+    - { name: color.primitive.neutral-200, type: color, level: primitive, value: "#d0d7de", description: Default neutral border }
+    - { name: color.primitive.neutral-500, type: color, level: primitive, value: "#57606a", description: Secondary neutral foreground }
+    - { name: color.primitive.blue-50, type: color, level: primitive, value: "#ddf4ff", description: Selected surface blue }
+    - { name: color.primitive.green-700, type: color, level: primitive, value: "#1a7f37", description: Success foreground }
+    - { name: color.primitive.amber-700, type: color, level: primitive, value: "#9a6700", description: Warning foreground }
+    - { name: color.primitive.red-700, type: color, level: primitive, value: "#cf222e", description: Error foreground }
+    - { name: font.primitive.sans, type: font-family, level: primitive, value: "Inter, system-ui, sans-serif", description: Product interface family }
+    - { name: font.primitive.mono, type: font-family, level: primitive, value: "ui-monospace, SFMono-Regular, monospace", description: Evidence and code family }
+    - { name: weight.primitive.regular, type: font-weight, level: primitive, value: 400, description: Regular text weight }
+    - { name: weight.primitive.medium, type: font-weight, level: primitive, value: 500, description: Medium text weight }
+    - { name: weight.primitive.semibold, type: font-weight, level: primitive, value: 600, description: Semibold label weight }
+    - { name: weight.primitive.bold, type: font-weight, level: primitive, value: 700, description: Strong heading and metric weight }
+    - { name: size.primitive.4, type: dimension, level: primitive, value: 4, description: Four pixel spacing step }
+    - { name: size.primitive.8, type: dimension, level: primitive, value: 8, description: Eight pixel spacing step }
+    - { name: size.primitive.12, type: dimension, level: primitive, value: 12, description: Twelve pixel size step }
+    - { name: size.primitive.14, type: dimension, level: primitive, value: 14, description: Fourteen pixel type step }
+    - { name: size.primitive.16, type: dimension, level: primitive, value: 16, description: Sixteen pixel type and spacing step }
+    - { name: size.primitive.20, type: dimension, level: primitive, value: 20, description: Twenty pixel type step }
+    - { name: size.primitive.24, type: dimension, level: primitive, value: 24, description: Twenty-four pixel spacing step }
+    - { name: size.primitive.28, type: dimension, level: primitive, value: 28, description: Heading type step }
+    - { name: size.primitive.32, type: dimension, level: primitive, value: 32, description: Metric type and spacing step }
+    - { name: size.primitive.40, type: dimension, level: primitive, value: 40, description: Compact control and row height }
+    - { name: size.primitive.48, type: dimension, level: primitive, value: 48, description: Default row height }
+    - { name: size.primitive.64, type: dimension, level: primitive, value: 64, description: Large spacing step }
+    - { name: size.primitive.1200, type: dimension, level: primitive, value: 1200, description: Bounded application content width }
+    - { name: leading.primitive.tight, type: number, level: primitive, value: 1.25, description: Tight display line height }
+    - { name: leading.primitive.normal, type: number, level: primitive, value: 1.4, description: Compact evidence line height }
+    - { name: leading.primitive.reading, type: number, level: primitive, value: 1.5, description: Body reading line height }
+    - { name: duration.primitive.80, type: duration, level: primitive, value: 80, description: Instant state update }
+    - { name: duration.primitive.160, type: duration, level: primitive, value: 160, description: Direct feedback duration }
+    - { name: duration.primitive.250, type: duration, level: primitive, value: 250, description: Spatial transition duration }
+    - { name: duration.primitive.400, type: duration, level: primitive, value: 400, description: Bounded emphasis duration }
+    - { name: shadow.primitive.none, type: shadow, level: primitive, value: none, description: Base surface without elevation }
+    - { name: shadow.primitive.raised, type: shadow, level: primitive, value: "0 1px 2px rgba(11,15,20,0.12)", description: Raised control or panel shadow }
+    - { name: shadow.primitive.overlay, type: shadow, level: primitive, value: "0 8px 24px rgba(11,15,20,0.18)", description: Overlay shadow }
+    - { name: color.semantic.text-secondary, type: color, level: semantic, reference: color.primitive.neutral-500, description: Secondary foreground }
+    - { name: color.semantic.surface-subtle, type: color, level: semantic, reference: color.primitive.neutral-50, description: Subtle grouped surface }
+    - { name: color.semantic.surface-raised, type: color, level: semantic, reference: color.primitive.white, description: Raised task surface }
+    - { name: color.semantic.surface-overlay, type: color, level: semantic, reference: color.primitive.white, description: Overlay surface }
+    - { name: color.semantic.surface-inverse, type: color, level: semantic, reference: color.primitive.ink-950, description: Inverse surface }
+    - { name: color.semantic.border-default, type: color, level: semantic, reference: color.primitive.neutral-200, description: Default grouped border }
+    - { name: color.semantic.border-strong, type: color, level: semantic, reference: color.primitive.neutral-500, description: Strong separator border }
+    - { name: color.semantic.border-selected, type: color, level: semantic, reference: color.primitive.blue-700, description: Selected item border }
+    - { name: color.semantic.surface-selected, type: color, level: semantic, reference: color.primitive.blue-50, description: Selected item surface }
+    - { name: color.semantic.status-success, type: color, level: semantic, reference: color.primitive.green-700, description: Success state foreground }
+    - { name: color.semantic.status-warning, type: color, level: semantic, reference: color.primitive.amber-700, description: Warning and partial foreground }
+    - { name: color.semantic.status-error, type: color, level: semantic, reference: color.primitive.red-700, description: Error state foreground }
+    - { name: font.semantic.interface, type: font-family, level: semantic, reference: font.primitive.sans, description: Interface type family }
+    - { name: font.semantic.code, type: font-family, level: semantic, reference: font.primitive.mono, description: Code and log family }
+    - { name: weight.semantic.body, type: font-weight, level: semantic, reference: weight.primitive.regular, description: Body weight }
+    - { name: weight.semantic.label, type: font-weight, level: semantic, reference: weight.primitive.semibold, description: Label weight }
+    - { name: weight.semantic.heading, type: font-weight, level: semantic, reference: weight.primitive.bold, description: Heading weight }
+    - { name: weight.semantic.metric, type: font-weight, level: semantic, reference: weight.primitive.bold, description: Metric weight }
+    - { name: type.semantic.body, type: dimension, level: semantic, reference: size.primitive.16, description: Body size }
+    - { name: type.semantic.label, type: dimension, level: semantic, reference: size.primitive.14, description: Label size }
+    - { name: type.semantic.heading, type: dimension, level: semantic, reference: size.primitive.28, description: Section heading size }
+    - { name: type.semantic.metadata, type: dimension, level: semantic, reference: size.primitive.12, description: Metadata size }
+    - { name: type.semantic.metric, type: dimension, level: semantic, reference: size.primitive.32, description: Primary metric size }
+    - { name: type.semantic.evidence, type: dimension, level: semantic, reference: size.primitive.14, description: Evidence text size }
+    - { name: type.semantic.log, type: dimension, level: semantic, reference: size.primitive.14, description: Log text size }
+    - { name: type.semantic.code, type: dimension, level: semantic, reference: size.primitive.14, description: Code text size }
+    - { name: leading.semantic.tight, type: number, level: semantic, reference: leading.primitive.tight, description: Tight heading and metric line height }
+    - { name: leading.semantic.normal, type: number, level: semantic, reference: leading.primitive.normal, description: Compact evidence line height }
+    - { name: leading.semantic.reading, type: number, level: semantic, reference: leading.primitive.reading, description: Body reading line height }
+    - { name: space.semantic.4, type: dimension, level: semantic, reference: size.primitive.4, description: Small internal gap }
+    - { name: space.semantic.8, type: dimension, level: semantic, reference: size.primitive.8, description: Compact internal gap }
+    - { name: space.semantic.12, type: dimension, level: semantic, reference: size.primitive.12, description: Standard internal gap }
+    - { name: space.semantic.16, type: dimension, level: semantic, reference: size.primitive.16, description: Standard container inset }
+    - { name: space.semantic.24, type: dimension, level: semantic, reference: size.primitive.24, description: Section gap }
+    - { name: space.semantic.32, type: dimension, level: semantic, reference: size.primitive.32, description: Large section gap }
+    - { name: space.semantic.64, type: dimension, level: semantic, reference: size.primitive.64, description: Major composition gap }
+    - { name: size.semantic.control, type: dimension, level: semantic, reference: size.primitive.40, description: Stable control height }
+    - { name: size.semantic.row, type: dimension, level: semantic, reference: size.primitive.48, description: Default operational row height }
+    - { name: size.semantic.row-compact, type: dimension, level: semantic, reference: size.primitive.40, description: Compact operational row height }
+    - { name: size.semantic.content-max, type: dimension, level: semantic, reference: size.primitive.1200, description: Bounded application width }
+    - { name: duration.semantic.instant, type: duration, level: semantic, reference: duration.primitive.80, description: Immediate interface response }
+    - { name: duration.semantic.feedback, type: duration, level: semantic, reference: duration.primitive.160, description: Direct action feedback }
+    - { name: duration.semantic.transition, type: duration, level: semantic, reference: duration.primitive.250, description: Spatial state transition }
+    - { name: duration.semantic.emphasis, type: duration, level: semantic, reference: duration.primitive.400, description: Bounded attention emphasis }
+    - { name: shadow.semantic.base, type: shadow, level: semantic, reference: shadow.primitive.none, description: Base elevation }
+    - { name: shadow.semantic.raised, type: shadow, level: semantic, reference: shadow.primitive.raised, description: Raised task surface elevation }
+    - { name: shadow.semantic.overlay, type: shadow, level: semantic, reference: shadow.primitive.overlay, description: Overlay elevation }
   modes:
     - name: dark
       overrides:
@@ -53,6 +136,201 @@ tokenSystem:
           reference: color.primitive.white
         - token: color.semantic.surface
           reference: color.primitive.ink-950
+productTask:
+  productContractId: example-product-contract
+  contractPath: evidence/product/product-contract.yaml
+  primaryUser: Operations professional responsible for reviewing and resolving evidence-backed findings
+  task: Identify the highest-priority issue, inspect its evidence and impact, route remediation, and verify the outcome.
+  successCriteria:
+    - The user can identify scope, priority, evidence, impact, next action, and validation method.
+    - Consequential actions preserve state, provenance, and recovery information.
+  consequentialActions:
+    - Route an approved finding to the remediation queue.
+    - Export or retain an operational result.
+interfaceTrust:
+  contractId: operational-interface-trust-v1
+  contractPath: knowledge-base/design-intelligence/interface-trust.template.yaml
+  version: "1.0"
+  status: declared
+  requiredScenarios: [demo, live, fallback, stale, disconnected]
+informationHierarchy:
+  contractId: operational-information-design-v1
+  contractPath: knowledge-base/design-intelligence/information-design.template.yaml
+  version: "1.0"
+  status: declared
+  levels:
+    - context-provenance
+    - primary-outcome-action
+    - critical-exceptions
+    - health-impact-metrics
+    - prioritized-findings
+    - operational-telemetry
+    - evidence-audit-trail
+    - history-exports
+metricContracts:
+  informationContractId: operational-information-design-v1
+  metrics:
+    - metricId: recoverable-monthly-cost
+      decision: Decide how much current cost merits drill-down and validated remediation.
+      hierarchyLevel: primary-outcome-action
+      chartRefs: []
+    - metricId: critical-finding-count
+      decision: Decide which current exceptions require immediate review.
+      hierarchyLevel: health-impact-metrics
+      chartRefs: []
+    - metricId: validation-pass-rate
+      decision: Decide whether remediation failures need process correction or targeted follow-up.
+      hierarchyLevel: operational-telemetry
+      chartRefs: [validation-outcome-trend]
+generationWorkflow:
+  steps:
+    - { stage: product-task, status: declared, artifactRefs: [example-product-contract] }
+    - { stage: truth-data-source-contract, status: declared, artifactRefs: [operational-interface-trust-v1] }
+    - { stage: information-architecture, status: declared, artifactRefs: [operational-information-design-v1] }
+    - { stage: interaction-state-model, status: declared, artifactRefs: [example-product-design-system] }
+    - { stage: visual-direction, status: declared, artifactRefs: [visual-direction-brief] }
+    - { stage: token-architecture, status: declared, artifactRefs: [example-product-design-system] }
+    - { stage: implementation, status: required, artifactRefs: [] }
+    - { stage: automated-verification, status: required, artifactRefs: [] }
+    - { stage: human-visual-review, status: review-required, artifactRefs: [] }
+visualDirection:
+  domain: Enterprise operations and evidence review
+  intent: A calm, precise, work-focused interface that makes scope, exceptions, evidence, and next actions immediately scannable.
+  principles: [task-first hierarchy, restrained surfaces, explicit evidence, stable geometry]
+  avoid: [decorative agent diagrams, excessive glow, meaningless gradients, ornamental status elements]
+  tokenRefs: [color.semantic.text-primary, color.semantic.text-secondary, color.semantic.surface, color.semantic.surface-subtle, color.semantic.action-primary, color.semantic.border-default]
+  ornamentPolicy:
+    decorativeAgentDiagrams: false
+    excessiveGlow: false
+    meaninglessGradients: false
+    ornamentalStatusElements: false
+  referenceEvidenceRefs: [visual-direction-brief]
+typography:
+  minimumBodySizePx: 16
+  maximumLineLengthCharacters: 72
+  numericAlignment: tabular
+  roles:
+    - { role: body, familyToken: font.semantic.interface, sizeToken: type.semantic.body, weightToken: weight.semantic.body, lineHeightToken: leading.semantic.reading, colorToken: color.semantic.text-primary, usage: "Instructions, descriptions, and sustained reading." }
+    - { role: label, familyToken: font.semantic.interface, sizeToken: type.semantic.label, weightToken: weight.semantic.label, lineHeightToken: leading.semantic.normal, colorToken: color.semantic.text-primary, usage: "Controls, fields, table headers, and concise categories." }
+    - { role: heading, familyToken: font.semantic.interface, sizeToken: type.semantic.heading, weightToken: weight.semantic.heading, lineHeightToken: leading.semantic.tight, colorToken: color.semantic.text-primary, usage: Page and section hierarchy without dashboard hero scaling. }
+    - { role: metadata, familyToken: font.semantic.interface, sizeToken: type.semantic.metadata, weightToken: weight.semantic.body, lineHeightToken: leading.semantic.normal, colorToken: color.semantic.text-secondary, usage: "Scope, timestamps, provenance, and secondary identifiers." }
+    - { role: metric, familyToken: font.semantic.interface, sizeToken: type.semantic.metric, weightToken: weight.semantic.metric, lineHeightToken: leading.semantic.tight, colorToken: color.semantic.text-primary, usage: Decision metrics with tabular numerals and explicit units. }
+    - { role: evidence, familyToken: font.semantic.interface, sizeToken: type.semantic.evidence, weightToken: weight.semantic.body, lineHeightToken: leading.semantic.reading, colorToken: color.semantic.text-primary, usage: "Observations, limitations, and validation evidence." }
+    - { role: log, familyToken: font.semantic.code, sizeToken: type.semantic.log, weightToken: weight.semantic.body, lineHeightToken: leading.semantic.normal, colorToken: color.semantic.text-secondary, usage: Runtime logs and ordered processing output. }
+    - { role: code, familyToken: font.semantic.code, sizeToken: type.semantic.code, weightToken: weight.semantic.body, lineHeightToken: leading.semantic.normal, colorToken: color.semantic.text-primary, usage: "Commands, identifiers, paths, and code fragments." }
+composition:
+  contentWidth: { strategy: hybrid, maximumPx: 1200 }
+  grids:
+    - { viewport: 375, columns: 4, gutterToken: space.semantic.12, marginToken: space.semantic.16, composition: "Single-column task flow with primary outcome, exceptions, and action before telemetry." }
+    - { viewport: 768, columns: 8, gutterToken: space.semantic.16, marginToken: space.semantic.24, composition: Two-region layout where evidence follows the primary task without side scrolling. }
+    - { viewport: 1024, columns: 12, gutterToken: space.semantic.24, marginToken: space.semantic.24, composition: Operational overview with bounded metric row and prioritized findings. }
+    - { viewport: 1440, columns: 12, gutterToken: space.semantic.24, marginToken: space.semantic.32, composition: "Bounded workspace with stable navigation, main evidence, and contextual detail regions." }
+  spacingRhythm:
+    baseToken: space.semantic.4
+    allowedStepTokens: [space.semantic.4, space.semantic.8, space.semantic.12, space.semantic.16, space.semantic.24, space.semantic.32, space.semantic.64]
+  alignmentRules:
+    - Align labels, values, and actions to shared grid lines rather than card edges chosen per section.
+    - Right-align comparable numeric columns and preserve tabular numeral alignment during loading.
+    - Keep evidence and limitations directly below the outcome they qualify.
+  stableDimensions:
+    - { component: primary-toolbar, behavior: fixed, tokenRefs: [size.semantic.control], rationale: Loading labels and tool states must not resize the command surface. }
+    - { component: findings-table-row, behavior: bounded, tokenRefs: [size.semantic.row, size.semantic.row-compact], rationale: Long labels wrap within bounded rows without shifting adjacent controls. }
+  surfaces:
+    - { role: canvas, tokenRef: color.semantic.surface }
+    - { role: subtle, tokenRef: color.semantic.surface-subtle }
+    - { role: raised, tokenRef: color.semantic.surface-raised }
+    - { role: overlay, tokenRef: color.semantic.surface-overlay }
+    - { role: inverse, tokenRef: color.semantic.surface-inverse }
+  borders:
+    - { role: default, tokenRef: color.semantic.border-default }
+    - { role: strong, tokenRef: color.semantic.border-strong }
+    - { role: focus, tokenRef: color.semantic.action-primary }
+    - { role: selected, tokenRef: color.semantic.border-selected }
+  elevations:
+    - { role: base, tokenRef: shadow.semantic.base }
+    - { role: raised, tokenRef: shadow.semantic.raised }
+    - { role: overlay, tokenRef: shadow.semantic.overlay }
+  emphasis:
+    - { level: primary, textToken: color.semantic.text-primary, surfaceToken: color.semantic.surface }
+    - { level: secondary, textToken: color.semantic.text-primary, surfaceToken: color.semantic.surface-subtle }
+    - { level: tertiary, textToken: color.semantic.text-secondary, surfaceToken: color.semantic.surface }
+    - { level: muted, textToken: color.semantic.text-secondary, surfaceToken: color.semantic.surface-subtle }
+  selectedState:
+    backgroundToken: color.semantic.surface-selected
+    borderToken: color.semantic.border-selected
+    indicator: Persistent leading selection indicator
+    nonColorCue: Selected label and checked icon remain visible without color
+densityProfile:
+  mode: adaptive
+  rationale: Repeated operational scanning benefits from compact rows while consequential actions and evidence retain comfortable spacing.
+  controlHeightToken: size.semantic.control
+  rowHeightToken: size.semantic.row
+  compactRowHeightToken: size.semantic.row-compact
+  spacingTokenRefs: [space.semantic.4, space.semantic.8, space.semantic.12, space.semantic.16, space.semantic.24]
+  maximumPrimaryActions: 2
+  viewportBehavior:
+    - { viewport: 375, mode: comfortable, visiblePriorities: [context, primary outcome, critical exception, next action] }
+    - { viewport: 768, mode: comfortable, visiblePriorities: [context, primary outcome, critical exceptions, impact, next action] }
+    - { viewport: 1024, mode: compact, visiblePriorities: [context, outcome, exceptions, metrics, findings, action] }
+    - { viewport: 1440, mode: compact, visiblePriorities: [context, outcome, exceptions, metrics, findings, telemetry, evidence] }
+interactionStates:
+  states:
+    - { state: loading, behavior: Preserve component geometry and announce bounded progress., tokenRefs: [color.semantic.text-secondary, color.semantic.surface-subtle], textCue: true, iconCue: false }
+    - { state: empty, behavior: "Preserve scope, explain why no records appear, and expose recovery.", tokenRefs: [color.semantic.text-secondary, color.semantic.surface-subtle], textCue: true, iconCue: true }
+    - { state: success, behavior: Name the completed outcome and retain validation evidence., tokenRefs: [color.semantic.status-success, color.semantic.surface], textCue: true, iconCue: true }
+    - { state: warning, behavior: State the risk and available action without blocking unrelated work., tokenRefs: [color.semantic.status-warning, color.semantic.surface], textCue: true, iconCue: true }
+    - { state: error, behavior: "Preserve entered context, state the failure, and expose retry or recovery.", tokenRefs: [color.semantic.status-error, color.semantic.surface], textCue: true, iconCue: true }
+    - { state: partial, behavior: "Show available content, excluded scope, limitation, and retry action.", tokenRefs: [color.semantic.status-warning, color.semantic.surface-subtle], textCue: true, iconCue: true }
+    - { state: disabled, behavior: Keep the control legible and explain prerequisites when the reason is not obvious., tokenRefs: [color.semantic.text-secondary, color.semantic.surface-subtle], textCue: true, iconCue: false }
+    - { state: selected, behavior: "Preserve a border, indicator, label, and checked icon independent of color.", tokenRefs: [color.semantic.surface-selected, color.semantic.border-selected], textCue: true, iconCue: true }
+    - { state: focus, behavior: Draw a persistent high-contrast focus border outside component content., tokenRefs: [color.semantic.action-primary, color.semantic.surface], textCue: false, iconCue: false }
+motion:
+  durationTokens:
+    instant: duration.semantic.instant
+    feedback: duration.semantic.feedback
+    transition: duration.semantic.transition
+    emphasis: duration.semantic.emphasis
+  motions:
+    - { id: selection-feedback, purpose: Confirm a changed selection without moving surrounding content., trigger: User selects a finding row, property: color, durationCategory: feedback, interruptible: true }
+    - { id: detail-transition, purpose: Preserve spatial continuity when contextual details open., trigger: User opens finding details, property: opacity, durationCategory: transition, interruptible: true }
+  reducedMotion:
+    strategy: replace
+    equivalents:
+      - { motionRef: selection-feedback, behavior: Apply the final selected tokens immediately while retaining border and icon cues. }
+      - { motionRef: detail-transition, behavior: Show the detail region immediately and move focus to its heading without animation. }
+chartContracts:
+  - id: validation-outcome-trend
+    purpose: Show whether remediation validation performance is improving and expose failed periods for investigation.
+    type: line
+    metricRefs: [validation-pass-rate]
+    labelStrategy: direct
+    titleVisible: true
+    valuesVisible: true
+    legend: { visible: false, reason: A single directly labeled series makes a separate legend redundant. }
+    comparison: { status: available, context: Current seven-day period compared with the previous seven complete days. }
+    alternative: { kind: table, path: /metrics/validation-pass-rate?view=table }
+    states:
+      loading: Preserve chart dimensions and show bounded loading text.
+      empty: State that no completed validation runs exist in the selected period.
+      partial: Show available periods and label excluded or delayed records.
+      error: Preserve metric context and expose retry plus the table alternative.
+    tokenRefs: [color.semantic.action-primary, color.semantic.text-primary, color.semantic.border-default]
+    nonColorCues: [color, text, value, line-style]
+    decorative: false
+renderedEvidence:
+  fixture:
+    id: operational-overview
+    sourcePath: ci/fixtures/responsive-overview.html
+    route: /responsive-overview
+  captures:
+    - { viewport: 375, status: planned }
+    - { viewport: 768, status: planned }
+    - { viewport: 1024, status: planned }
+    - { viewport: 1440, status: planned }
+humanVisualReview:
+  status: required
+  dimensions: [hierarchy, balance, scanability, density, domain-fit]
+  reviewers: []
 brand:
   promise: Make consequential operational work understandable and verifiable
   audiences:
@@ -218,6 +496,10 @@ accessibility:
     - meaning: Selected item
       cues: [color, shape]
 evidence:
+  - id: visual-direction-brief
+    kind: source
+    path: evidence/visual/visual-direction-brief.md
+    detail: Product task, domain constraints, visual principles, prohibited ornament, and reference rationale.
   - id: brand-review
     kind: review
     path: evidence/reviews/brand-review.md

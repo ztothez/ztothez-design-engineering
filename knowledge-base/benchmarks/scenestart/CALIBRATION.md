@@ -2,78 +2,94 @@
 
 ## Calibration Context
 
-- Date: 2026-08-26
+- Date: 2026-08-27
 - Application: `/home/ztothez/Studio/portfolio/scenestart`
-- Runtime: local TanStack Start development server
-- Browser: Chromium 151
+- Runtime: local TanStack Start development server at `http://127.0.0.1:4173`
+- Browser: Chromium 151 connected through a loopback CDP endpoint
 - Contract viewports: 320, 390, 768, 1024, and 1440 CSS pixels
-- Human attestations: none supplied
+- Human attestations: `local-first-boundary` passed by ZtotheZ, product owner and maintainer
 
-## Contract And Journey Results
+## Final Profile Results
 
-- Contract validation passed with 3 actors, 4 modes, 10 acceptance criteria, 4 profiles, and 4 journeys.
-- `learning-persistence` completed all 8 journey steps and preserved `1/9` progress across route navigation.
-- `studio-export` completed all 13 steps and retained both generated artifacts: a 2,210-byte versioned project JSON and a 7,015-byte standalone HTML production.
-- `guided-workshop` retained its HTML export but failed the final continuity assertion: after entering `NOVA` and choosing `CONTINUE IN DEMO STUDIO`, the Studio handle was `DEMO` instead of `NOVA`.
-- `release-provenance` completed all 12 steps and retained a 926-byte `readme.txt` containing the production title, creator, licence, and AI-assistance disclosure.
+| Profile | Journey | Runtime | Acceptance | Gate |
+|---|---:|---:|---:|---:|
+| `studio-export` | 1 of 1 passed | 0 errors, 1 warning | 6 passed | Pass |
+| `guided-workshop` | 1 of 1 passed | 0 errors, 0 warnings | 6 passed | Pass |
+| `learning-persistence` | 1 of 1 passed | 0 errors, 0 warnings | 4 passed | Pass |
+| `release-provenance` | 1 of 1 passed | 0 errors, 0 warnings | 5 passed | Pass |
 
-Version 1.9.1 resolves the Blob evidence boundary without changing SceneStart's CSP. Before application code runs, the isolated journey page retains Blob objects associated with object URLs for up to 60 seconds. If Chromium cannot save a download directly, the verifier reads the retained Blob through the Blob API, enforces a 20 MB evidence limit, and writes the artifact to the evidence directory. A CSP-restricted fixture with immediate URL revocation verifies this path. If every path fails, the report preserves browser-save, browser-download, and fallback diagnostics instead of presenting the verifier limitation as a product download failure.
+Every profile captured five base-route and five completed-journey screenshots. All four
+journeys completed, including their state assertions and retained download evidence where
+required.
 
-## Multi-Route Verifier Finding
+The remaining Studio warning is a single early canvas sample without pixel variation. The
+completed journey screenshots contain the rendered production, so this is retained as a timing
+warning rather than suppressed or promoted to a product failure.
 
-Initial calibration revealed that the runtime verifier checked responsive and accessibility rules only on the base URL, while journeys could navigate to unscanned routes. Version 1.9.0 corrects this by preserving the completed journey state, resizing it through every contract viewport, rerunning rendered checks, and capturing one final-state screenshot per viewport.
+The aggregate release gate passes all four required profiles and all 10 acceptance criteria with
+zero failed or unverified criteria. The `local-first-boundary` result uses the attributable
+ZtotheZ review in `human-review.md` and `attestations.yaml`; the remaining criteria use contract,
+runtime, accessibility, screenshot, network, and export evidence.
 
-The calibrated `learning-persistence` quality gate produced:
+## Remediated Product Findings
 
-- Contract: pass.
-- Architecture: pass with 7 warnings.
-- Journey: 1 of 1 passed.
-- Screenshots: 10, covering five base states and five completed journey states.
-- Acceptance: learning persistence, honest scope, and responsive integrity passed; accessible operation failed.
+- Demo Studio now initializes from local storage before the first client render. The completed
+  Workshop project therefore arrives in Studio with the same handle and project state.
+- A storage round-trip regression test covers the Workshop-to-Studio transfer.
+- Home actions, footer links, shared support navigation, Studio controls, release actions, and
+  release checklist labels now expose stable touch targets.
+- Studio and remix sliders use a 44 CSS pixel interaction area.
+- The visually hidden Studio file input has an explicit accessible name.
+- Release-provenance checkboxes use a 24 CSS pixel control inside a 44 CSS pixel label target.
+- Fixed-height release controls were replaced with growable minimum heights so labels remain
+  readable at 200 percent text size.
+- The Studio metadata section is named `Project details`, avoiding an unsupported operational
+  status interpretation of the previous `Production` heading.
+- The three interactive Core Demo Craft lessons now expose `CHECK GOAL AND COMPLETE`. An unmet
+  goal reveals actionable guidance; a satisfied goal completes only after learner confirmation.
+- The learning journey completes all nine lessons, verifies `PATH COMPLETE`, navigates away, and
+  confirms that `9/9 DONE` persists when the route is reopened.
 
-The post-fix profile runs produced:
+## Verifier Correction
 
-| Profile | Journey | Retained export evidence | Acceptance |
-|---|---:|---|---:|
-| `studio-export` | 13 of 13 steps passed | Project JSON and offline HTML | 4 passed, 2 failed |
-| `guided-workshop` | 20 of 21 steps passed | Offline HTML | 0 passed, 6 failed |
-| `learning-persistence` | 8 of 8 steps passed | Not applicable | 3 passed, 1 failed |
-| `release-provenance` | 12 of 12 steps passed | Release readme | 2 passed, 2 failed, 1 unverified |
+The 200 percent text-resize rule previously reported a normal single-line input value as clipped
+when the native control exposed horizontal value scrolling. The rule now evaluates text nodes
+and genuinely constrained buttons while leaving native editable-value scrolling intact. The
+runtime regression fixture contains a long editable value and proves that it is not reported as
+lost content; the existing clipped-text fixture remains detected.
 
-All four quality-gate runs remain failed overall because product findings are unresolved. A successful journey or retained download does not override blocker accessibility findings or manual-review requirements.
+Managed environments may start Chromium separately and set
+`ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL` to a loopback HTTP origin such as
+`http://127.0.0.1:9222`. The runtime policy rejects non-loopback hosts, WebSocket URLs,
+credentials, paths, queries, and fragments. Direct Playwright launch remains the default.
 
-## Current Product Findings
+## Retained Evidence
 
-### Blocker Accessibility Findings
+- `evidence/interface-quality/scenestart/studio-export/`
+- `evidence/interface-quality/scenestart/guided-workshop/`
+- `evidence/interface-quality/scenestart/learning-persistence/`
+- `evidence/interface-quality/scenestart/release-provenance/`
+- `evidence/interface-quality/scenestart/release/`
 
-- Home `RUN LIVE` control renders at approximately 82 by 31.5 CSS pixels.
-- Home footer links render at approximately 15 CSS pixels high.
-- Shared support link renders at approximately 16.5 CSS pixels high.
-- Core Demo Craft concept-completion buttons render at approximately 33 CSS pixels high.
-- The shared SceneStart brand link renders at 32 CSS pixels high, below the 44-pixel recommendation but above the 24-pixel minimum.
+The Studio profile retained the versioned project JSON and standalone HTML production. The
+Workshop profile retained its standalone HTML production. The release profile retained its
+generated `readme.txt`. Blob-based downloads are captured through the verifier's CSP-compatible
+evidence path without weakening SceneStart's CSP.
 
-The generic runtime selector may collapse multiple same-tag targets into one reported selector. Source-level remediation must inspect every matching target rather than fixing only the first visible example.
+## Verification Results
 
-### Architecture Review Warnings
+- SceneStart tests: 21 files and 229 tests passed.
+- SceneStart production build: passed.
+- ZtotheZ regression suite: 65 tests passed, including the runtime verifier through the loopback
+  CDP path and the SceneStart contract, profiles, and clean-room authority checks.
+- ZtotheZ TypeScript typecheck, production build, package check, installed-package smoke,
+  independence check, archive-removal smoke, release pack, and offline release verification:
+  passed.
+- SceneStart lint remains affected by the existing workspace formatting baseline and was not
+  treated as evidence produced by this remediation.
 
-- `DemoStudio.tsx` exceeds the 400-line review threshold.
-- `CreatorStudio.tsx`, `GuidedWorkshop.tsx`, and `learn.$slug.tsx` combine large rendering surfaces with direct side-effect orchestration.
-- `chart.tsx`, `foundation-paths.ts`, and `error-page.ts` contain repeated raw colors outside an identifiable token definition file.
+## Review Boundary
 
-Warnings are review triggers, not automatic proof of incorrect architecture. Refactor only where ownership, testability, or change isolation materially improves.
-
-### Workshop Continuity Finding
-
-The guided project is correct when exported, but the same handle is not visible after continuing into Demo Studio. The failure is reproducible at the final journey assertion and is separate from download evidence capture. Review the handoff between `GuidedWorkshop` and `DemoStudio`, especially initial state hydration and persistence effects; add a product-level regression test before changing the benchmark expectation.
-
-### Canvas Evidence
-
-One early Studio run sampled an initially uniform canvas before journey completion. Later route scans rendered variation. Treat this as a timing/calibration warning until repeated evidence proves either a blank-state defect or a sampler race; do not apply a blanket canvas exemption.
-
-## Next Calibration Actions
-
-1. Correct the Workshop-to-Studio project handoff and add a product-level regression test that proves the current handle and project survive navigation.
-2. Increase target hit areas in shared navigation, home controls, learning controls, Workshop sliders, and support links; add an accessible name to the visually hidden control reported in the Workshop state.
-3. Resolve or explicitly disposition the remaining contrast, focus, reflow, and target-size findings using the per-profile runtime reports.
-4. Obtain attributable human review for `local-first-boundary`; AI-generated attestation is prohibited.
-5. Rerun and aggregate all required profiles only after every blocker criterion is passed or legitimately attested.
+The SceneStart benchmark is complete under its declared maintainer-review evidence model. This
+does not create representative-user evidence or independent comparative validation. Those claims
+remain governed by V2 Item 8 and require their own supplied sessions.

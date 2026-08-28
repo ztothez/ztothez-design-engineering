@@ -42,5 +42,17 @@ export function formatQualityGateReport(report: QualityGateReport): string {
     if (stage.evidence.length === 0) lines.push("", "No evidence file was produced.");
     else lines.push("", ...stage.evidence.map((path) => `- \`${path}\``));
   }
+  lines.push(
+    "",
+    "## Evidence Boundary",
+    "",
+    "### Verifier Limitations",
+    "",
+    ...report.evidenceBoundary.verifierLimitations.map((entry) => `- ${entry}`),
+    "",
+    "### Human Review Required",
+    "",
+    ...report.evidenceBoundary.humanReviewRequired.map((entry) => `- ${entry}`),
+  );
   return lines.join("\n");
 }

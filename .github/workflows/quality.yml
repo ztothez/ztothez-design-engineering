@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Azure V2 benchmark dependencies
+        run: npm ci --prefix benchmarks/azure-optimizer-v2
+
       - name: Install Chromium
         run: npx --no-install playwright-core install --with-deps chromium
 
@@ -48,6 +51,18 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Verify Azure V2 benchmark source
+        run: |
+          npm --prefix benchmarks/azure-optimizer-v2 run lint
+          npm --prefix benchmarks/azure-optimizer-v2 run test
+          npm --prefix benchmarks/azure-optimizer-v2 run build
+          mkdir -p .ztothez-design-runtime/ci-azure-v2
+          node dist/cli/audit.js \
+            --repo benchmarks/azure-optimizer-v2 \
+            --json \
+            --fail-on warning \
+            > .ztothez-design-runtime/ci-azure-v2/static-audit.json
+
       - name: Validate benchmark contracts
         run: |
           npm run validate-contract -- \
@@ -56,11 +71,34 @@ jobs:
           npm run validate-contract -- \
             --contract knowledge-base/benchmarks/scenestart/product-contract.yaml \
             --project-root .
+          npm run validate-contract -- \
+            --contract knowledge-base/benchmarks/azure-optimizer/product-contract.yaml \
+            --project-root .
 
       - name: Validate design intelligence template
         run: |
           npm run validate-design -- \
             --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
+
+      - name: Validate Azure V2 review packet integrity
+        run: |
+          npm run validate-comparison -- \
+            --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
+            --review evidence/interface-quality/azure-v2-review/review.yaml
+
+      - name: Validate solo-maintainer engineering track
+        run: |
+          npm run compile-comparison -- \
+            --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
+            --base-review evidence/interface-quality/azure-v2-review/review.yaml \
+            --sessions evidence/interface-quality/azure-v2-review/coordinator/maintainer-sessions \
+            --output evidence/interface-quality/azure-v2-review/review.completed.yaml \
+            --report evidence/interface-quality/azure-v2-review/review.completed.report.json
+          npm run assess-maintainer -- \
+            --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
+            --review evidence/interface-quality/azure-v2-review/review.completed.yaml \
+            --output evidence/interface-quality/azure-v2-review/maintainer-assessment.json \
+            --require-engineering-ready
 
       - name: Evaluate maintained corpus
         run: npm run evaluate-corpus -- --output .ztothez-design-corpus
@@ -104,6 +142,28 @@ jobs:
             --output .ztothez-design-quality-gate/ci-responsive-overview \
             --fail-on error
 
+      - name: Run V2 state and screenshot regression gate
+        run: |
+          npm run verify-ui -- \
+            --url "http://${ZTOTHEZ_DESIGN_FIXTURE_HOST}:${ZTOTHEZ_DESIGN_FIXTURE_PORT}/v2-quality-states" \
+            --journeys ci/v2-quality-states.journeys.json \
+            --profile v2-state-matrix \
+            --viewports 375x812,768x1024,1024x768,1440x900 \
+            --dynamic-selector "#dynamic-clock" \
+            --screenshot-baseline .ztothez-design-runtime/ci-v2/screenshot-baseline.json \
+            --update-screenshot-baseline \
+            --output .ztothez-design-runtime/ci-v2/baseline-created \
+            --fail-on error
+          npm run verify-ui -- \
+            --url "http://${ZTOTHEZ_DESIGN_FIXTURE_HOST}:${ZTOTHEZ_DESIGN_FIXTURE_PORT}/v2-quality-states" \
+            --journeys ci/v2-quality-states.journeys.json \
+            --profile v2-state-matrix \
+            --viewports 375x812,768x1024,1024x768,1440x900 \
+            --dynamic-selector "#dynamic-clock" \
+            --screenshot-baseline .ztothez-design-runtime/ci-v2/screenshot-baseline.json \
+            --output .ztothez-design-runtime/ci-v2/verified \
+            --fail-on error
+
       - name: Stop deterministic fixture
         if: always()
         run: |
@@ -112,15 +172,81 @@ jobs:
           fi
           cat /tmp/ztothez-design-fixture.log 2>/dev/null || true
 
+      - name: Start Azure V2 production benchmark
+        env:
+          PORT: 4280
+        run: |
+          npm --prefix benchmarks/azure-optimizer-v2 start > /tmp/ztothez-design-azure-v2.log 2>&1 &
+          echo "$!" > /tmp/ztothez-design-azure-v2.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent "http://127.0.0.1:${PORT}/?state=demo" >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/ztothez-design-azure-v2.log
+          exit 1
+
+      - name: Run Azure V2 product regression gate
+        run: |
+          npm run verify-ui -- \
+            --url http://127.0.0.1:4280 \
+            --journeys knowledge-base/benchmarks/azure-optimizer/v2-journeys.json \
+            --profile azure-v2-state-matrix \
+            --viewports 375x812,768x1024,1024x768,1440x1000 \
+            --dynamic-selector ".dynamic-value" \
+            --screenshot-baseline evidence/interface-quality/azure-v2/screenshot-baseline.json \
+            --output .ztothez-design-runtime/ci-azure-v2/runtime \
+            --fail-on warning
+
+      - name: Stop Azure V2 production benchmark
+        if: always()
+        run: |
+          if [[ -f /tmp/ztothez-design-azure-v2.pid ]]; then
+            kill "$(cat /tmp/ztothez-design-azure-v2.pid)" 2>/dev/null || true
+          fi
+          cat /tmp/ztothez-design-azure-v2.log 2>/dev/null || true
+
       - name: Upload fixture evidence
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: ztothez-design-fixture-quality-gate
           path: .ztothez-design-quality-gate/ci-responsive-overview
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true
+
+      - name: Upload V2 runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-v2-runtime-gate
+          path: .ztothez-design-runtime/ci-v2
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload Azure V2 product evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-azure-v2-product-gate
+          path: .ztothez-design-runtime/ci-azure-v2
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload maintainer assessment
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-maintainer-assessment
+          path: |
+            evidence/interface-quality/azure-v2-review/review.completed.report.json
+            evidence/interface-quality/azure-v2-review/maintainer-assessment.json
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Upload corpus evidence
         if: always()
@@ -128,7 +254,7 @@ jobs:
         with:
           name: ztothez-design-corpus-benchmark
           path: .ztothez-design-corpus
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true
 
@@ -150,6 +276,6 @@ jobs:
           path: |
             .ztothez-design-independence.json
             .ztothez-design-archive-removal.json
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true

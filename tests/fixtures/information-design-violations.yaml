@@ -1,0 +1,55 @@
+version: "1.0"
+base: knowledge-base/design-intelligence/information-design.template.yaml
+cases:
+  - id: metric-missing-source
+    target: { collection: metrics, id: recoverable-monthly-cost }
+    changes: { sourceRefs: [missing-source] }
+    expectedRules: [ZTDE-INFO-101]
+  - id: decorative-metric
+    target: { collection: metrics, id: recoverable-monthly-cost }
+    changes: { decorative: true }
+    expectedRules: [ZTDE-INFO-202]
+  - id: missing-baseline
+    target: { collection: metrics, id: recoverable-monthly-cost }
+    changes:
+      baseline: { status: available, reference: missing-baseline }
+    expectedRules: [ZTDE-INFO-204]
+  - id: inaccessible-label-truncation
+    target: { collection: labelPolicies, id: operational-labels }
+    changes: { overflow: truncate-with-reveal, accessibleReveal: false }
+    expectedRules: [ZTDE-INFO-205]
+  - id: indistinguishable-value-states
+    target: { collection: valuePolicies, id: operational-values }
+    changes:
+      states:
+        partial: { label: Value unavailable, behavior: Show no-value text and the source or permission recovery path; never substitute zero. }
+    expectedRules: [ZTDE-INFO-203]
+  - id: color-only-finding
+    target: { collection: findings, id: idle-production-resources }
+    changes: { nonColorCues: [color, color] }
+    expectedRules: [ZTDE-INFO-302]
+  - id: decorative-chart
+    target: { collection: charts, id: remediation-outcome-trend }
+    changes: { decorative: true }
+    expectedRules: [ZTDE-INFO-401]
+  - id: chart-with-hidden-values
+    target: { collection: charts, id: remediation-outcome-trend }
+    changes:
+      labeling: { titleVisible: true, valuesVisible: false, legendVisible: false }
+    expectedRules: [ZTDE-INFO-402]
+  - id: unbounded-large-collection
+    target: { collection: collections, id: prioritized-finding-list }
+    changes: { strategy: bounded, search: false, filter: false, sort: false }
+    expectedRules: [ZTDE-INFO-501]
+  - id: reversed-context-hierarchy
+    target: { collection: hierarchy, id: context-provenance }
+    changes: { order: 8 }
+    expectedRules: [ZTDE-INFO-002]
+  - id: missing-context-task
+    target: { collection: tasks, id: review-context }
+    changes: { question: identify-priority, contextRefs: [], findingRefs: [idle-production-resources] }
+    expectedRules: [ZTDE-INFO-601]
+  - id: next-action-without-destination
+    target: { collection: tasks, id: review-next-action }
+    changes: { destinationRefs: [] }
+    expectedRules: [ZTDE-INFO-602]

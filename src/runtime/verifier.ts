@@ -1,5 +1,6 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { basename, join, resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { basename, dirname, join, resolve } from "node:path";
 
 import { chromium, type Page } from "playwright-core";
 
@@ -10,17 +11,25 @@ import {
   checkTouchTargets,
 } from "./advanced-checks.js";
 import {
+  addInterfaceCoverageFindings,
+  checkChartContracts,
+  checkInterfaceTrust,
+  createInterfaceCoverage,
+  type InterfaceCoverage,
+} from "./interface-checks.js";
+import {
   DEFAULT_NAVIGATION_TIMEOUT_MS,
   DEFAULT_RUNTIME_VIEWPORTS,
   DEFAULT_SETTLE_MS,
   MAX_JOURNEY_STEPS,
   MAX_RUNTIME_JOURNEYS,
+  resolveChromiumCdpUrl,
   resolveChromiumPath,
   validateRuntimeUrl,
   validateViewports,
 } from "./policy.js";
 import { formatRuntimeReport } from "./report.js";
-import { runtimeExpectedNetworkSchema } from "./schema.js";
+import { runtimeExpectedNetworkSchema, runtimeScreenshotBaselineSchema } from "./schema.js";
 import type {
   RuntimeExpectedNetwork,
   RuntimeExpectedNetworkObservation,
@@ -29,12 +38,13 @@ import type {
   RuntimeJourneyResult,
   RuntimeReport,
   RuntimeScreenshot,
+  RuntimeScreenshotRegression,
   RuntimeSeverity,
   RuntimeVerificationOptions,
   RuntimeViewport,
 } from "./types.js";
 
-const RUNTIME_REPORT_VERSION = "1.0.0";
+const RUNTIME_REPORT_VERSION = "1.1.0";
 const MAX_DOWNLOAD_FALLBACK_BYTES = 20 * 1024 * 1024;
 const CAPTURED_BLOB_STORE = "__ztothezDesignCapturedBlobsV1";
 
@@ -1020,10 +1030,26 @@ async function captureScreenshot(
   name: string,
   viewport: RuntimeViewport,
   screenshots: RuntimeScreenshot[],
+  dynamicSelectors: string[],
 ): Promise<string> {
   const screenshotPath = join(outputDirectory, `${safeName(name)}.png`);
-  await page.screenshot({ path: screenshotPath, fullPage: true, animations: "disabled" });
-  screenshots.push({ name, path: screenshotPath, width: viewport.width, height: viewport.height, fullPage: true });
+  await page.screenshot({
+    path: screenshotPath,
+    fullPage: true,
+    animations: "disabled",
+    mask: dynamicSelectors.map((selector) => page.locator(selector)),
+    maskColor: "#7f7f7f",
+  });
+  const sha256 = createHash("sha256").update(await readFile(screenshotPath)).digest("hex");
+  screenshots.push({
+    name,
+    path: screenshotPath,
+    width: viewport.width,
+    height: viewport.height,
+    fullPage: true,
+    sha256,
+    dynamicSelectors,
+  });
   return screenshotPath;
 }
 
@@ -1031,6 +1057,7 @@ async function checkRenderedPage(
   page: Page,
   viewport: RuntimeViewport,
   findings: RuntimeFinding[],
+  interfaceCoverage: InterfaceCoverage,
   journey?: string,
 ): Promise<void> {
   const findingStart = findings.length;
@@ -1043,11 +1070,90 @@ async function checkRenderedPage(
   await checkReflowAndTextResize(page, viewport, findings);
   await checkReducedMotion(page, viewport, findings);
   await checkMedia(page, viewport, findings);
+  await checkInterfaceTrust(page, viewport, findings, interfaceCoverage);
+  await checkChartContracts(page, viewport, findings);
   if (journey) {
     for (let index = findingStart; index < findings.length; index += 1) {
       findings[index]!.journey ??= journey;
     }
   }
+}
+
+async function evaluateScreenshotRegression(
+  screenshots: RuntimeScreenshot[],
+  baselinePath: string | undefined,
+  updateBaseline: boolean,
+  findings: RuntimeFinding[],
+): Promise<RuntimeScreenshotRegression> {
+  if (!baselinePath) {
+    return { status: "not-configured", compared: 0, mismatches: [] };
+  }
+  const resolvedPath = resolve(baselinePath);
+  const records = screenshots.map(({ name, width, height, sha256, dynamicSelectors }) => ({
+    name,
+    width,
+    height,
+    sha256,
+    dynamicSelectors,
+  }));
+  if (updateBaseline) {
+    await mkdir(dirname(resolvedPath), { recursive: true });
+    await writeFile(
+      resolvedPath,
+      `${JSON.stringify({ version: "1.0", screenshots: records }, null, 2)}\n`,
+      "utf8",
+    );
+    return {
+      status: "created",
+      baselinePath: resolvedPath,
+      compared: records.length,
+      mismatches: [],
+    };
+  }
+
+  const baseline = runtimeScreenshotBaselineSchema.parse(
+    JSON.parse(await readFile(resolvedPath, "utf8")),
+  );
+  const expected = new Map(baseline.screenshots.map((entry) => [entry.name, entry]));
+  const actual = new Map(records.map((entry) => [entry.name, entry]));
+  const mismatches: string[] = [];
+  let compared = 0;
+  for (const [name, screenshot] of actual) {
+    const reference = expected.get(name);
+    if (!reference) {
+      mismatches.push(`No baseline record for ${name}.`);
+      continue;
+    }
+    compared += 1;
+    if (
+      reference.width !== screenshot.width ||
+      reference.height !== screenshot.height ||
+      reference.sha256 !== screenshot.sha256 ||
+      JSON.stringify(reference.dynamicSelectors) !== JSON.stringify(screenshot.dynamicSelectors)
+    ) {
+      mismatches.push(`Screenshot ${name} differs from its baseline hash, dimensions, or dynamic-region policy.`);
+    }
+  }
+  for (const name of expected.keys()) {
+    if (!actual.has(name)) mismatches.push(`Baseline screenshot ${name} was not captured.`);
+  }
+  if (mismatches.length > 0) {
+    findings.push({
+      checkId: "ZTDE-RUNTIME-019",
+      severity: "error",
+      message: "Rendered screenshot regression baseline does not match.",
+      evidence: [
+        ...mismatches.slice(0, 20),
+        "A hash mismatch detects change only. It does not establish whether the design is good or whether an intentional change is acceptable.",
+      ],
+    });
+  }
+  return {
+    status: mismatches.length === 0 ? "matched" : "mismatched",
+    baselinePath: resolvedPath,
+    compared,
+    mismatches,
+  };
 }
 
 async function runJourney(
@@ -1255,6 +1361,16 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
   const timeoutMs = options.navigationTimeoutMs ?? DEFAULT_NAVIGATION_TIMEOUT_MS;
   const settleMs = options.settleMs ?? DEFAULT_SETTLE_MS;
   const expectedNetworkTrackers = createExpectedNetworkTrackers(options.expectedNetwork ?? []);
+  const dynamicSelectors = [...(options.dynamicSelectors ?? [])];
+  if (dynamicSelectors.length > 20 || dynamicSelectors.some((selector) => selector.length === 0 || selector.length > 1_024)) {
+    throw new Error("Provide no more than 20 non-empty dynamic selectors of at most 1024 characters");
+  }
+  if (new Set(dynamicSelectors).size !== dynamicSelectors.length) {
+    throw new Error("Dynamic screenshot selectors must be unique");
+  }
+  if (options.updateScreenshotBaseline && !options.screenshotBaselinePath) {
+    throw new Error("updateScreenshotBaseline requires screenshotBaselinePath");
+  }
   validateViewports(viewports);
   if (journeys.length > MAX_RUNTIME_JOURNEYS) {
     throw new Error(`Provide no more than ${MAX_RUNTIME_JOURNEYS} journeys`);
@@ -1266,15 +1382,19 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
   }
 
   await mkdir(outputDirectory, { recursive: true });
-  const executablePath = resolveChromiumPath(options.chromiumPath);
-  const browser = await chromium.launch({
-    headless: true,
-    ...(executablePath ? { executablePath } : {}),
-    args: ["--disable-dev-shm-usage", "--no-sandbox"],
-  });
+  const chromiumCdpUrl = resolveChromiumCdpUrl(options.chromiumCdpUrl);
+  const executablePath = chromiumCdpUrl ? undefined : resolveChromiumPath(options.chromiumPath);
+  const browser = chromiumCdpUrl
+    ? await chromium.connectOverCDP(chromiumCdpUrl)
+    : await chromium.launch({
+        headless: true,
+        ...(executablePath ? { executablePath } : {}),
+        args: ["--disable-dev-shm-usage", "--no-sandbox"],
+      });
   const findings: RuntimeFinding[] = [];
   const screenshots: RuntimeScreenshot[] = [];
   const journeyResults: RuntimeJourneyResult[] = [];
+  const interfaceCoverage = createInterfaceCoverage();
 
   try {
     for (const viewport of viewports) {
@@ -1288,8 +1408,8 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
           addFinding(findings, "ZTDE-RUNTIME-001", "warning", "Navigation completed without an HTTP response object.", [targetUrl.toString()], { viewport: viewport.name });
         }
         await page.waitForTimeout(settleMs);
-        await checkRenderedPage(page, viewport, findings);
-        await captureScreenshot(page, outputDirectory, viewport.name, viewport, screenshots);
+        await checkRenderedPage(page, viewport, findings, interfaceCoverage);
+        await captureScreenshot(page, outputDirectory, viewport.name, viewport, screenshots, dynamicSelectors);
       } catch (error) {
         addFinding(findings, "ZTDE-RUNTIME-001", "error", "Viewport verification could not complete.", [error instanceof Error ? error.message : String(error)], { viewport: viewport.name });
       } finally {
@@ -1324,13 +1444,14 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
                 height: journeyViewport.height,
               });
               await page.waitForTimeout(settleMs);
-              await checkRenderedPage(page, journeyViewport, findings, journey.name);
+              await checkRenderedPage(page, journeyViewport, findings, interfaceCoverage, journey.name);
               const screenshot = await captureScreenshot(
                 page,
                 outputDirectory,
                 `journey-${journey.name}-${journeyViewport.name}`,
                 journeyViewport,
                 screenshots,
+                dynamicSelectors,
               );
               result.screenshot ??= screenshot;
             } catch (error) {
@@ -1380,6 +1501,14 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     );
   }
 
+  addInterfaceCoverageFindings(findings, interfaceCoverage);
+  const screenshotRegression = await evaluateScreenshotRegression(
+    screenshots,
+    options.screenshotBaselinePath,
+    options.updateScreenshotBaseline ?? false,
+    findings,
+  );
+
   const uniqueFindings = deduplicateFindings(findings);
   const summary = {
     errors: uniqueFindings.filter((finding) => finding.severity === "error").length,
@@ -1394,11 +1523,23 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     outputDirectory,
     viewports,
     screenshots,
+    screenshotRegression,
     journeys: journeyResults,
     expectedNetwork,
     findings: uniqueFindings,
     summary,
     passed: summary.errors === 0,
+    evidenceBoundary: {
+      verifierLimitations: [
+        "Solid-color contrast sampling cannot establish contrast over gradients, images, video, canvas, or transparency without separate evidence.",
+        "Static DOM and browser checks cannot establish metric correctness, backend availability beyond observed requests, legal clearance, or representative-user comprehension.",
+        "Screenshot hashes detect rendered change only; they do not prove visual quality or improvement.",
+      ],
+      humanReviewRequired: [
+        "An attributable reviewer must assess hierarchy, balance, scanability, density, domain fit, and intentional baseline changes.",
+        "Representative-user evidence is required for claims about task comprehension, confidence, efficiency, or usability.",
+      ],
+    },
   };
   await writeFile(join(outputDirectory, "runtime-report.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
   await writeFile(join(outputDirectory, "runtime-report.md"), `${formatRuntimeReport(report)}\n`, "utf8");

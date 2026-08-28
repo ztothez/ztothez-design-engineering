@@ -1,0 +1,43 @@
+version: "1.0"
+id: incomplete-operational-interface-review
+methodologyId: operational-interface-comparison-v1
+preparedAt: 2026-08-26T15:15:00+03:00
+preparedBy:
+  type: agent
+  name: ZtotheZ Design Engineering
+candidates: [anonymous-a, anonymous-b, anonymous-c, anonymous-d]
+artifacts:
+  - id: example-runtime
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: runtime-report
+    path: evidence/example-runtime-report.json
+    producer: automation
+    retained: true
+    scope: Synthetic template evidence for one sampled browser state; not product evidence
+    recordedAt: 2026-08-26T15:10:00+03:00
+    sourceRevision: synthetic-template-v1
+    sha256: 90147b28b13930154a1a0a8df490e1cdd19b92b640d4370afcb2dfd65ac6ef8b
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+stages:
+  - id: browser-verification
+    candidate: anonymous-a
+    status: partial
+    evidenceRefs: [example-runtime]
+sessions: []
+claims:
+  - id: template-runtime-exists
+    candidate: anonymous-a
+    kind: implementation-fact
+    statement: The template includes one retained synthetic runtime artifact.
+    evidenceType: automated
+    evidenceRefs: [example-runtime]
+    sessionRefs: []
+    scope: Comparison template only
+    status: verified
+    limitations:
+      - This artifact does not describe or certify a product implementation.

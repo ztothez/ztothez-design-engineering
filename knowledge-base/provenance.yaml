@@ -22,6 +22,12 @@ sources:
     license: owner-authorized benchmark use
     evidence: knowledge-base/benchmarks/scenestart/SOURCE-EVIDENCE.md
     reuse: Approved benchmark contract, summaries, journeys, and evidence templates.
+  - id: azure-optimizer-owner-evidence
+    origin: user-owned
+    owner: ZtotheZ
+    license: owner-authorized benchmark use
+    evidence: knowledge-base/benchmarks/azure-optimizer/SOURCE-EVIDENCE.md
+    reuse: Approved comparison contract, bounded source summary, journeys, acceptance criteria, and anti-patterns.
   - id: ztothez-corpus
     origin: original
     owner: ZtotheZ
@@ -37,7 +43,10 @@ artifactSets:
     transformation: Independently authored and maintained from project requirements, owner evidence, and publicly identified standards without copied reference-product implementation.
     paths:
       - README.md
+      - ROADMAP.md
       - SKILL.md
+      - V2-ROADMAP.md
+      - V3-ROADMAP.md
       - docs/installation.md
       - knowledge-base/INDEX.md
       - knowledge-base/dependencies.yaml
@@ -50,9 +59,16 @@ artifactSets:
       - knowledge-base/design-intelligence/design-deliverable.template.yaml
       - knowledge-base/design-intelligence/figma-production.md
       - knowledge-base/design-intelligence/iconography.md
+      - knowledge-base/design-intelligence/information-design.md
+      - knowledge-base/design-intelligence/information-design.schema.yaml
+      - knowledge-base/design-intelligence/information-design.template.yaml
+      - knowledge-base/design-intelligence/interface-trust.md
+      - knowledge-base/design-intelligence/interface-trust.schema.yaml
+      - knowledge-base/design-intelligence/interface-trust.template.yaml
       - knowledge-base/design-intelligence/licensing-and-provenance.md
       - knowledge-base/design-intelligence/presentation-design.md
       - knowledge-base/design-intelligence/visual-accessibility.md
+      - knowledge-base/design-intelligence/visual-polish.md
       - knowledge-base/maintained/architecture/MASTER.md
       - knowledge-base/maintained/architecture/component-boundaries.md
       - knowledge-base/maintained/architecture/product-platforms.md
@@ -63,6 +79,22 @@ artifactSets:
       - knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md
       - knowledge-base/usability-evaluation/heuristic-review.schema.yaml
       - knowledge-base/usability-evaluation/heuristic-review.template.yaml
+      - knowledge-base/benchmarks/interface-quality/README.md
+      - knowledge-base/benchmarks/interface-quality/SOLO-MAINTAINER-TRACK.md
+      - knowledge-base/benchmarks/interface-quality/comparison-methodology.schema.yaml
+      - knowledge-base/benchmarks/interface-quality/comparison-methodology-v1.1.schema.yaml
+      - knowledge-base/benchmarks/interface-quality/comparison-methodology.template.yaml
+      - knowledge-base/benchmarks/interface-quality/evidence/example-runtime-report.json
+      - knowledge-base/benchmarks/interface-quality/review.schema.yaml
+      - knowledge-base/benchmarks/interface-quality/review-session.schema.yaml
+      - knowledge-base/benchmarks/interface-quality/review.template.yaml
+      - knowledge-base/benchmarks/portfolio-corpus/ADAPTERS.md
+      - knowledge-base/benchmarks/portfolio-corpus/PORTFOLIO-RUNNER.md
+      - knowledge-base/benchmarks/portfolio-corpus/PRODUCT-TASK-CONTRACTS.md
+      - knowledge-base/benchmarks/portfolio-corpus/archetype-profiles.yaml
+      - knowledge-base/benchmarks/portfolio-corpus/product-task-profile.schema.yaml
+      - knowledge-base/benchmarks/portfolio-corpus/registry.schema.yaml
+      - knowledge-base/benchmarks/portfolio-corpus/registry.template.yaml
   - id: aegisops-benchmark
     source: aegisops-owner-evidence
     status: approved
@@ -79,12 +111,27 @@ artifactSets:
       - knowledge-base/benchmarks/aegisops/attestations.yaml
       - knowledge-base/benchmarks/aegisops/journeys.json
       - knowledge-base/benchmarks/aegisops/product-contract.yaml
+  - id: azure-optimizer-benchmark
+    source: azure-optimizer-owner-evidence
+    status: approved
+    reviewedBy: ZtotheZ
+    reviewedAt: "2026-08-26T00:00:00+03:00"
+    transformation: Owner-authorized implementations were normalized into one independently authored comparison task contract without distributing candidate source code.
+    paths:
+      - knowledge-base/benchmarks/azure-optimizer/SOURCE-EVIDENCE.md
+      - knowledge-base/benchmarks/azure-optimizer/V2-IMPLEMENTATION.md
+      - knowledge-base/benchmarks/azure-optimizer/acceptance-criteria.md
+      - knowledge-base/benchmarks/azure-optimizer/anti-patterns.md
+      - knowledge-base/benchmarks/azure-optimizer/journeys.json
+      - knowledge-base/benchmarks/azure-optimizer/product-contract.yaml
+      - knowledge-base/benchmarks/azure-optimizer/v2-journeys.json
+      - knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml
   - id: scenestart-benchmark
     source: scenestart-owner-evidence
     status: approved
     reviewedBy: ZtotheZ
-    reviewedAt: "2026-08-26T00:00:00+03:00"
-    transformation: Owner-authorized product behavior was normalized into project contracts, bounded evidence summaries, journeys, anti-patterns, and review templates.
+    reviewedAt: "2026-08-27T11:05:01+03:00"
+    transformation: Owner-authorized product behavior and attributable maintainer review were normalized into project contracts, bounded evidence summaries, journeys, anti-patterns, review templates, and acceptance attestations.
     paths:
       - knowledge-base/benchmarks/scenestart/CALIBRATION.md
       - knowledge-base/benchmarks/scenestart/MANIFEST.md
@@ -92,6 +139,8 @@ artifactSets:
       - knowledge-base/benchmarks/scenestart/acceptance-criteria.md
       - knowledge-base/benchmarks/scenestart/anti-patterns.md
       - knowledge-base/benchmarks/scenestart/attestations.template.yaml
+      - knowledge-base/benchmarks/scenestart/attestations.yaml
+      - knowledge-base/benchmarks/scenestart/human-review.md
       - knowledge-base/benchmarks/scenestart/human-review.template.md
       - knowledge-base/benchmarks/scenestart/journeys.json
       - knowledge-base/benchmarks/scenestart/product-contract.yaml

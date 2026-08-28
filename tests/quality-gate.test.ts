@@ -56,6 +56,8 @@ test("quality gate consolidates passing, failing, and incomplete stages", async 
   assert.equal(passing.stages.architecture.status, "pass");
   assert.equal(passing.stages.runtime.status, "pass");
   assert.equal(passing.stages.acceptance.status, "pass");
+  assert.ok(passing.evidenceBoundary.verifierLimitations.length > 0);
+  assert.ok(passing.evidenceBoundary.humanReviewRequired.length > 0);
   await stat(join(passing.outputDirectory, "quality-gate.json"));
   await stat(join(passing.outputDirectory, "quality-gate.md"));
   await stat(join(passing.outputDirectory, "runtime", "runtime-report.json"));

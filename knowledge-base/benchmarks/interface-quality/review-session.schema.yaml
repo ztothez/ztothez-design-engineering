@@ -1,0 +1,14 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://local.ztothez-design-engineering/schemas/interface-comparison-review-session-1.0.schema.json
+title: ZtotheZ Interface Comparison Review Session
+description: Portable envelope for draft or completed human-expert and representative-user comparison sessions.
+type: object
+additionalProperties: false
+required: [version, status, session]
+properties:
+  version:
+    const: "1.0"
+  status:
+    enum: [draft, complete]
+  session:
+    $ref: review.schema.yaml#/$defs/session

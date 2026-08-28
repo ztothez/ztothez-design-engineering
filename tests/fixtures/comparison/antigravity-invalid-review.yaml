@@ -1,0 +1,110 @@
+version: "1.0"
+id: antigravity-style-invalid-review
+methodologyId: operational-interface-comparison-v1
+preparedAt: 2026-08-26T16:30:00+03:00
+preparedBy:
+  type: agent
+  name: Synthetic delivery agent
+candidates: [anonymous-a, anonymous-b, anonymous-c, anonymous-d]
+artifacts:
+  - id: ai-delivery-log
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: runtime-report
+    path: evidence/antigravity-style-log.md
+    producer: agent
+    retained: true
+    scope: Sampled runtime states only
+    recordedAt: 2026-08-26T16:25:00+03:00
+    sourceRevision: synthetic-antigravity-log
+    sha256: fad8c90c124783c4c78823b42054433cac68b54f429e8b22601605f43bfb65af
+    accessibility:
+      standard: WCAG
+      version: "2.1"
+      level: AA
+      coverage: sampled-states
+stages:
+  - id: build
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs: [ai-delivery-log]
+  - id: typecheck
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs: [ai-delivery-log]
+  - id: architecture-audit
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs: [ai-delivery-log]
+  - id: browser-verification
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs: [ai-delivery-log]
+  - id: product-journeys
+    candidate: anonymous-a
+    status: fail
+    evidenceRefs: [ai-delivery-log]
+  - id: human-review
+    candidate: comparison
+    status: pass
+    evidenceRefs: [ai-delivery-log]
+sessions:
+  - id: invented-human-review
+    level: human-expert
+    origin: agent-generated
+    candidateOrder: [anonymous-a, anonymous-b, anonymous-c, anonymous-d]
+    taskResults: []
+    ratings: []
+  - id: invented-user-evidence
+    level: representative-user
+    origin: agent-generated
+    candidateOrder: [anonymous-a, anonymous-b, anonymous-c, anonymous-d]
+    taskResults: []
+    ratings: []
+claims:
+  - id: complete-pass
+    candidate: comparison
+    kind: overall-result
+    statement: The complete quality gate passed with one hundred percent resolution.
+    evidenceType: automated
+    evidenceRefs: [ai-delivery-log]
+    sessionRefs: []
+    scope: Entire product
+    status: verified
+    outcome: pass
+    limitations: []
+  - id: invented-visual-review
+    candidate: comparison
+    kind: design-quality
+    statement: Human experts approved the visual hierarchy.
+    evidenceType: human-expert
+    evidenceRefs: []
+    sessionRefs: [invented-human-review]
+    scope: Entire product
+    status: verified
+    limitations: []
+  - id: invented-user-result
+    candidate: comparison
+    kind: design-quality
+    statement: Representative users verified keyboard and screen-reader accessibility.
+    evidenceType: representative-user
+    evidenceRefs: []
+    sessionRefs: [invented-user-evidence]
+    scope: Entire product
+    status: verified
+    limitations: []
+  - id: overstated-accessibility
+    candidate: anonymous-a
+    kind: accessibility-conformance
+    statement: The entire product conforms to WCAG 2.1 AAA.
+    evidenceType: automated
+    evidenceRefs: [ai-delivery-log]
+    sessionRefs: []
+    scope: Entire product
+    status: verified
+    limitations: []
+    accessibility:
+      standard: WCAG
+      version: "2.1"
+      level: AAA
+      coverage: full-product

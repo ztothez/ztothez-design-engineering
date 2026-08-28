@@ -1,0 +1,216 @@
+version: "1.1"
+id: azure-optimizer
+name: Azure Optimizer Infrastructure Analysis Dashboard
+status: benchmark
+purpose: >-
+  Enable an infrastructure operator to identify Azure resource risk and optimization opportunities,
+  inspect evidence and impact, run an analysis with truthful processing disclosure, choose a next
+  action, and export a result whose provenance remains inspectable.
+authority:
+  behavior: Current candidate behavior is evidence, while the normalized task model in SOURCE-EVIDENCE.md defines comparison intent.
+  visual: Candidate visuals are comparison inputs and never override task integrity, accessibility, responsive behavior, or evidence truth.
+  precedence:
+    - { path: SOURCE-EVIDENCE.md, role: Normalized owner-authorized product and comparison evidence, authority: primary }
+    - { path: acceptance-criteria.md, role: Task and evidence interpretation, authority: supporting }
+    - { path: anti-patterns.md, role: Azure-specific rejection patterns, authority: supporting }
+actors:
+  - id: infrastructure-operator
+    name: Infrastructure operator
+    goals:
+      - Identify the highest-priority infrastructure problem and its impact.
+      - Inspect evidence before accepting a recommendation.
+      - Distinguish live analysis from demo, cached, imported, or fallback results.
+    responsibilities:
+      - Verify environment, data origin, scope, and freshness.
+      - Validate remediation against organizational policy before implementation.
+      - Preserve evidence and provenance during export or handoff.
+outputs:
+  - id: estate-summary
+    name: Estate summary
+    sourceOfTruth: Current fixed comparison dataset or explicitly identified connected source.
+    requiredEvidence: [Environment, data origin, scope, freshness]
+  - id: prioritized-findings
+    name: Prioritized findings
+    sourceOfTruth: Structured resource observations and severity policy.
+    requiredEvidence: [Affected resource, observation, impact, evidence, severity, confidence]
+  - id: remediation-plan
+    name: Remediation plan
+    sourceOfTruth: Finding-specific recommendation and validation contract.
+    requiredEvidence: [Recommended action, expected effect, owner or destination, validation method]
+  - id: analysis-report
+    name: Analysis report
+    sourceOfTruth: Declared live, simulated, cached, or imported processing result.
+    requiredEvidence: [Processing origin, started and completed timestamps, limitations]
+  - id: provenance-export
+    name: Provenance-preserving export
+    sourceOfTruth: Current visible result and its evidence metadata.
+    requiredEvidence: [Environment, origin, freshness, findings, limitations]
+modes:
+  - id: overview
+    name: Overview
+    purpose: Understand estate context, priority, impact, and next actions.
+    input: Fixed comparison dataset or declared connected estate scope.
+    outputs: [estate-summary, prioritized-findings, remediation-plan]
+  - id: analysis
+    name: Analysis
+    purpose: Run the candidate analysis workflow and inspect processing origin and results.
+    input: Current declared environment and data source.
+    outputs: [analysis-report, prioritized-findings, remediation-plan]
+  - id: export
+    name: Export
+    purpose: Preserve the current result and provenance for review or handoff.
+    input: Current completed or imported result.
+    outputs: [provenance-export]
+stateMachines:
+  - id: analysis-run
+    initial: idle
+    states:
+      - { id: idle, category: idle, userVisible: true, requirement: "Data mode, scope, and available action are visible before execution." }
+      - { id: running, category: loading, userVisible: true, requirement: Processing path and progress are visible without implying completion. }
+      - { id: success, category: success, userVisible: true, requirement: "Result origin, freshness, evidence, findings, and actions are visible together." }
+      - { id: error, category: error, userVisible: true, requirement: "Failure cause, preserved context, and recovery action are visible." }
+      - { id: fallback, category: fallback, userVisible: true, requirement: Simulation or local fallback is persistently distinguished from live analysis. }
+      - { id: disconnected, category: terminal, userVisible: true, requirement: Disconnection is explicit and unsupported operational claims are absent. }
+    transitions:
+      - { from: idle, to: running, trigger: Start analysis }
+      - { from: running, to: success, trigger: Receive a complete declared result }
+      - { from: running, to: error, trigger: Backend or processing failure }
+      - { from: error, to: running, trigger: Retry preserved analysis }
+      - { from: error, to: fallback, trigger: Continue with explicitly labeled local or demo data }
+      - { from: running, to: disconnected, trigger: Connection becomes unavailable without fallback }
+      - { from: success, to: running, trigger: Run another analysis }
+metrics:
+  - id: resource-count
+    name: Tracked resources
+    definition: Number of resources included in the current declared estate scope.
+    sourceOfTruth: Current dataset resource inventory.
+    format: count
+    evidenceRequired: true
+    range: { min: 0, max: 1000000000 }
+  - id: potential-savings
+    name: Potential monthly savings
+    definition: Estimated recurring monthly reduction associated with evidenced recommendations.
+    sourceOfTruth: Sum of finding-level estimates under one declared currency, period, and baseline.
+    format: text
+    evidenceRequired: true
+  - id: issue-count
+    name: Issues found
+    definition: Number of current findings in the declared scope, grouped by labeled severity.
+    sourceOfTruth: Structured current findings collection.
+    format: count
+    evidenceRequired: true
+    range: { min: 0, max: 1000000000 }
+  - id: health-score
+    name: Infrastructure health
+    definition: Declared scoring function over current evidenced findings and telemetry.
+    sourceOfTruth: Versioned score formula with current inputs and limitations.
+    format: percentage
+    evidenceRequired: true
+    range: { min: 0, max: 100 }
+constraints:
+  outOfScope:
+    - Automatic production remediation without operator authorization.
+    - Claims about real Azure connectivity when only bundled or simulated data is available.
+    - General cloud optimization conclusions outside the declared evidence scope.
+  prohibitedClaims:
+    - Online, operational, connected, production, continuous-monitoring, or verified claims without current runtime evidence.
+    - Savings, health, issue, performance, or trend values without a declared source, scope, period, and freshness.
+    - Human approval or representative-user validation generated by an agent.
+  mockData:
+    allowedEnvironments: [development, test, demo]
+    mustBeLabeled: true
+    prohibitedInProduction: true
+    fallbackDisclosure: Simulation or local fallback must be disclosed before execution, during processing, in results, history, and exports.
+acceptanceCriteria:
+  - id: truthful-context
+    title: Environment and data provenance are explicit
+    severity: blocker
+    requirement: Users can identify environment, origin, connection state, scope, and freshness without consulting documentation.
+    evidence: [contract, runtime, screenshot, manual-review]
+    appliesToModes: [overview, analysis, export]
+  - id: priority-path
+    title: Priority, impact, evidence, and action form one path
+    severity: blocker
+    requirement: The highest-priority finding exposes affected scope, impact, supporting evidence, remediation, and validation method.
+    evidence: [contract, runtime, manual-review]
+    appliesToModes: [overview, analysis]
+  - id: honest-processing
+    title: Processing origin remains truthful
+    severity: blocker
+    requirement: Live, simulated, cached, imported, fallback, stale, and disconnected results cannot be mistaken for one another.
+    evidence: [contract, runtime, network, screenshot]
+    appliesToModes: [analysis, export]
+  - id: metric-integrity
+    title: Metrics support inspectable decisions
+    severity: blocker
+    requirement: Every visible metric has a definition, source, scope, period or timestamp, comparison baseline where relevant, and a supported decision.
+    evidence: [contract, runtime, manual-review]
+    appliesToModes: [overview, analysis]
+  - id: export-provenance
+    title: Export preserves visible provenance
+    severity: blocker
+    requirement: Exports retain environment, origin, freshness, findings, evidence references, and limitations from the current result.
+    evidence: [runtime, export]
+    appliesToModes: [export]
+  - id: responsive-integrity
+    title: Comparison task remains operable at required widths
+    severity: blocker
+    requirement: Context, metrics, findings, evidence, and actions remain readable without clipping, overlap, or incoherent competing scroll regions.
+    evidence: [runtime, screenshot, accessibility]
+    appliesToModes: [overview, analysis, export]
+verification:
+  journeyFile: journeys.json
+  viewports:
+    - { name: mobile-375, width: 375, height: 812 }
+    - { name: tablet-768, width: 768, height: 1024 }
+    - { name: desktop-1024, width: 1024, height: 768 }
+    - { name: wide-1440, width: 1440, height: 1000 }
+  bindings:
+    - { profile: overview-baseline, journey: overview-integrity, actor: infrastructure-operator, mode: overview, acceptanceCriteria: [truthful-context, priority-path, metric-integrity, responsive-integrity] }
+    - { profile: original-analysis, journey: run-original-analysis, actor: infrastructure-operator, mode: analysis, acceptanceCriteria: [honest-processing, priority-path] }
+    - { profile: lovable-analysis, journey: run-lovable-analysis, actor: infrastructure-operator, mode: analysis, acceptanceCriteria: [honest-processing, priority-path] }
+    - { profile: uiux-analysis, journey: run-uiux-analysis, actor: infrastructure-operator, mode: analysis, acceptanceCriteria: [honest-processing, priority-path] }
+    - { profile: ztothez-analysis, journey: run-ztothez-analysis, actor: infrastructure-operator, mode: analysis, acceptanceCriteria: [honest-processing, priority-path] }
+
+benchmark:
+  archetype: operational-dashboard
+  interface: browser
+  qualityDimensions:
+    - { id: truthful-disclosure, status: required, reason: "Data origin, environment, freshness, and processing mode drive trust." }
+    - { id: information-design, status: required, reason: "Operators must identify priority, impact, evidence, action, and validation." }
+    - { id: visual-system, status: required, reason: "Metrics and findings require a consistent operational hierarchy." }
+    - { id: accessibility, status: required, reason: "Analysis and findings must remain readable and operable without color alone." }
+    - { id: responsive-structure, status: required, reason: "The same decision path is verified across four viewport sizes." }
+    - { id: state-integrity, status: required, reason: "Live, fallback, stale, disconnected, and failed analysis states must not collapse." }
+    - { id: maintainability, status: required, reason: "Data processing, domain findings, state, and rendering require clear boundaries." }
+  tasks:
+    - id: prioritize-cloud-savings
+      primary: true
+      actor: infrastructure-operator
+      mode: analysis
+      intent: Run analysis, identify the highest-priority supported saving opportunity, inspect its evidence, and determine the next validation action.
+      start:
+        stateMachine: analysis-run
+        state: idle
+        observable: The operator can identify the current dataset and initiate analysis.
+      success:
+        stateMachine: analysis-run
+        state: success
+        observable: A prioritized finding exposes impact, source evidence, remediation, ownership, and validation guidance.
+        evidence: [contract, runtime, network]
+      recovery:
+        required: true
+        failure:
+          stateMachine: analysis-run
+          state: disconnected
+          observable: The interface identifies unavailable processing and does not present disconnected results as live.
+        observable: The operator can reconnect, retry, or explicitly choose labeled local fallback without losing context.
+      journey: { profile: ztothez-analysis, journey: run-ztothez-analysis }
+      browser: { route: /, narrowViewport: mobile-375 }
+  evidencePolicy:
+    missingEvidence: unverified
+    failedBehavior: failed
+    unsupportedCapability: limitation
+  comparison:
+    taskContractId: azure-optimizer-priority-analysis
+    crossContractRanking: false

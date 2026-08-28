@@ -369,10 +369,8 @@ export async function checkReflowAndTextResize(
     const candidates = [...document.body.querySelectorAll("*")].filter((element) => {
       if (!visible(element) || element.closest("[data-ztothez-design-allow-text-resize]")) return false;
       if (element.matches("script, style, svg, path, canvas, img, video")) return false;
-      return (
-        [...element.childNodes].some(
-          (node) => node.nodeType === Node.TEXT_NODE && Boolean(node.textContent?.trim()),
-        ) || element.matches("input, select, textarea")
+      return [...element.childNodes].some(
+        (node) => node.nodeType === Node.TEXT_NODE && Boolean(node.textContent?.trim()),
       );
     });
     const originals = candidates.map((element) => ({
@@ -390,8 +388,7 @@ export async function checkReflowAndTextResize(
         const htmlElement = element as HTMLElement;
         const style = getComputedStyle(element);
         const constrained =
-          element.matches("button, input, select, textarea") ||
-          /hidden|clip/.test(`${style.overflowX} ${style.overflowY}`);
+          element.matches("button") || /hidden|clip/.test(`${style.overflowX} ${style.overflowY}`);
         return (
           constrained &&
           (htmlElement.scrollWidth > htmlElement.clientWidth + 2 ||

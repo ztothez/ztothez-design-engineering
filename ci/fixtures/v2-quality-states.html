@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZtotheZ V2 quality state fixture</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --canvas: #ffffff;
+        --surface: #f4f6f8;
+        --text: #17202a;
+        --muted: #46515c;
+        --border: #aab4be;
+        --action: #075f56;
+        --success: #176b36;
+        --warning: #815500;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; color: var(--text); background: var(--canvas); font: 16px/1.5 system-ui, sans-serif; }
+      #app { width: min(100% - 32px, 1080px); margin: 24px auto 48px; }
+      .context { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 12px 16px; border: 1px solid var(--border); background: var(--surface); }
+      .context span, .context time { color: var(--muted); overflow-wrap: anywhere; }
+      .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.7fr); gap: 24px; margin-top: 24px; }
+      section, figure { min-width: 0; margin: 0; }
+      h1 { margin: 24px 0 4px; font-size: 1.75rem; overflow-wrap: anywhere; }
+      h2 { margin-top: 0; font-size: 1.25rem; }
+      .state-copy { overflow-wrap: anywhere; }
+      button { min-width: 44px; min-height: 44px; padding: 8px 16px; color: #ffffff; background: var(--action); border: 0; }
+      button:focus-visible { outline: 3px solid #075f56; outline-offset: 3px; }
+      .chart { display: grid; gap: 12px; padding: 16px; border: 1px solid var(--border); }
+      .legend { display: flex; flex-wrap: wrap; gap: 12px; }
+      .legend span::before { display: inline-block; width: 12px; height: 12px; margin-right: 6px; content: ""; background: var(--success); }
+      .legend span:last-child::before { background: var(--warning); }
+      .bars { display: grid; gap: 8px; }
+      .bar { display: grid; grid-template-columns: minmax(80px, 1fr) 3fr auto; gap: 8px; align-items: center; }
+      .track { height: 16px; background: var(--surface); }
+      .fill { height: 100%; background: var(--success); }
+      .fill.warning { background: var(--warning); }
+      table { width: 100%; margin-top: 16px; border-collapse: collapse; }
+      .table-scroll { max-width: 100%; overflow-x: auto; }
+      th, td { padding: 8px; border: 1px solid var(--border); text-align: left; }
+      @media (max-width: 700px) {
+        .layout { grid-template-columns: 1fr; }
+        .bar { grid-template-columns: 1fr auto; }
+        .track { grid-column: 1 / -1; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <main
+      id="app"
+      data-ztothez-design-interface-trust
+      data-ztothez-design-stage="initial"
+      data-ztothez-design-state="normal"
+      data-ztothez-design-required-stages="initial loading result error history export"
+      data-ztothez-design-required-states="normal long-content empty partial slow fallback stale disconnected"
+    >
+      <div class="context" aria-label="Data context">
+        <span id="mode" data-ztothez-design-data-mode="demo">Data mode: demo</span>
+        <span id="connection" data-ztothez-design-connection="connected">Connection: connected</span>
+        <span id="origin" data-ztothez-design-result-origin="imported">Result origin: imported fixture</span>
+        <time
+          id="freshness"
+          data-ztothez-design-freshness="current"
+          data-ztothez-design-timestamp="2026-08-26T12:00:00+03:00"
+          data-ztothez-design-timezone="Europe/Helsinki"
+        >Freshness: current at 2026-08-26 12:00 Europe/Helsinki</time>
+        <time id="dynamic-clock">Verifier clock</time>
+      </div>
+      <h1>Operational validation overview</h1>
+      <p id="state-summary" class="state-copy" role="status">Normal fixture state is ready for review.</p>
+      <div class="layout">
+        <section>
+          <h2>Next action</h2>
+          <p id="state-detail" class="state-copy">Inspect the declared evidence before routing remediation.</p>
+          <button id="primary-action" type="button" data-ztothez-design-consequential-action>Review evidence</button>
+          <button id="recovery" type="button" data-ztothez-design-recovery-action hidden>Reconnect</button>
+        </section>
+        <section>
+          <figure
+            id="validation-chart"
+            class="chart"
+            data-ztothez-design-chart
+            data-ztothez-design-chart-values="visible"
+            data-ztothez-design-chart-alternative="#validation-table"
+            data-ztothez-design-chart-series="2"
+            aria-labelledby="chart-title"
+          >
+            <figcaption id="chart-title">Validation outcomes by period</figcaption>
+            <div class="legend" data-ztothez-design-chart-legend>
+              <span>Passed</span><span>Needs review</span>
+            </div>
+            <div class="bars">
+              <div class="bar"><span>Current</span><div class="track"><div class="fill" style="width: 82%"></div></div><strong data-ztothez-design-chart-value>82%</strong></div>
+              <div class="bar"><span>Previous</span><div class="track"><div class="fill warning" style="width: 68%"></div></div><strong data-ztothez-design-chart-value>68%</strong></div>
+            </div>
+          </figure>
+          <div class="table-scroll" data-ztothez-design-allow-reflow data-ztothez-design-allow-text-resize>
+            <table id="validation-table">
+              <caption>Validation outcome values</caption>
+              <thead><tr><th>Period</th><th>Passed</th><th>Needs review</th></tr></thead>
+              <tbody><tr><td>Current</td><td>82%</td><td>18%</td></tr><tr><td>Previous</td><td>68%</td><td>32%</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script>
+      const states = {
+        normal: { stage: "initial", mode: "demo", connection: "connected", origin: "imported", summary: "Normal fixture state is ready for review.", detail: "Inspect the declared evidence before routing remediation." },
+        "long-content": { stage: "result", mode: "demo", connection: "connected", origin: "imported", summary: "Long-content fixture preserves complete operational terminology without clipping or hiding the task decision.", detail: "This deliberately extended evidence explanation verifies that long labels, limitations, remediation guidance, ownership destinations, and validation methods wrap within the available responsive composition." },
+        empty: { stage: "result", mode: "demo", connection: "connected", origin: "imported", summary: "No completed validation records exist for this scope.", detail: "Change the selected period or run the first validation." },
+        partial: { stage: "result", mode: "demo", connection: "degraded", origin: "imported", summary: "Partial result: 7 of 10 sources responded.", detail: "Review available evidence and retry the three excluded sources before approval." },
+        slow: { stage: "loading", mode: "demo", connection: "checking", origin: "imported", summary: "Loading validation evidence from bounded fixture sources.", detail: "The task context remains available while processing continues." },
+        fallback: { stage: "error", mode: "demo", connection: "degraded", origin: "simulated", summary: "Live processing failed. Demo fallback result is shown.", detail: "This simulated result cannot establish current service availability." },
+        stale: { stage: "history", mode: "cached", connection: "connected", origin: "cached", freshness: "stale", summary: "Stale history result from the last completed synchronization.", detail: "Verify freshness before using this record for a consequential decision." },
+        disconnected: { stage: "export", mode: "cached", connection: "disconnected", origin: "cached", summary: "Disconnected export preserves cached provenance.", detail: "Reconnect before requesting current data, or continue with the labeled cached export." }
+      };
+      const requested = new URLSearchParams(location.search).get("state") || "normal";
+      const state = states[requested] || states.normal;
+      const app = document.querySelector("#app");
+      app.dataset.ztothezDesignStage = state.stage;
+      app.dataset.ztothezDesignState = requested in states ? requested : "normal";
+      const mode = document.querySelector("#mode");
+      mode.dataset.ztothezDesignDataMode = state.mode;
+      mode.textContent = `Data mode: ${state.mode}`;
+      const connection = document.querySelector("#connection");
+      connection.dataset.ztothezDesignConnection = state.connection;
+      connection.textContent = `Connection: ${state.connection}`;
+      const origin = document.querySelector("#origin");
+      origin.dataset.ztothezDesignResultOrigin = state.origin;
+      origin.textContent = state.origin === "simulated" ? "Result origin: simulated demo fallback" : `Result origin: ${state.origin} fixture`;
+      const freshness = document.querySelector("#freshness");
+      freshness.dataset.ztothezDesignFreshness = state.freshness || "current";
+      freshness.textContent = state.freshness === "stale" ? "Freshness: stale at 2026-08-26 12:00 Europe/Helsinki" : "Freshness: current at 2026-08-26 12:00 Europe/Helsinki";
+      document.querySelector("#state-summary").textContent = state.summary;
+      document.querySelector("#state-detail").textContent = state.detail;
+      document.querySelector("#recovery").hidden = state.connection !== "disconnected";
+      document.querySelector("#dynamic-clock").textContent = `Verifier clock: ${new Date().toISOString()}`;
+    </script>
+  </body>
+</html>

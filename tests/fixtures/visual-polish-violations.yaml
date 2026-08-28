@@ -1,0 +1,55 @@
+version: "1.0"
+base: knowledge-base/design-intelligence/design-deliverable.template.yaml
+cases:
+  - id: primitive-visual-binding
+    target: { collection: visualDirection, id: visual-direction }
+    changes: { tokenRefs: [color.primitive.white, color.semantic.text-primary, color.semantic.surface, color.semantic.action-primary] }
+    expectedRules: [ZTDE-DI-701]
+  - id: prohibited-ornament
+    target: { collection: ornamentPolicy, id: ornament-policy }
+    changes: { excessiveGlow: true }
+    expectedRules: [ZTDE-DI-707]
+  - id: missing-body-role
+    target: { collection: typographyRoles, id: body }
+    changes: { role: label }
+    expectedRules: [ZTDE-DI-702]
+  - id: missing-mobile-grid
+    target: { collection: grids, id: "375" }
+    changes: { viewport: 768 }
+    expectedRules: [ZTDE-DI-703]
+  - id: missing-canvas-surface
+    target: { collection: surfaces, id: canvas }
+    changes: { role: subtle }
+    expectedRules: [ZTDE-DI-704]
+  - id: missing-mobile-density
+    target: { collection: densityViewports, id: "375" }
+    changes: { viewport: 768 }
+    expectedRules: [ZTDE-DI-705]
+  - id: color-only-warning
+    target: { collection: interactionStates, id: warning }
+    changes: { textCue: false, iconCue: false }
+    expectedRules: [ZTDE-DI-706]
+  - id: excessive-feedback-duration
+    target: { collection: tokens, id: duration.primitive.160 }
+    changes: { value: 900 }
+    expectedRules: [ZTDE-DI-708]
+  - id: missing-reduced-motion-equivalent
+    target: { collection: motionEquivalents, id: selection-feedback }
+    changes: { motionRef: detail-transition }
+    expectedRules: [ZTDE-DI-708]
+  - id: hidden-chart-values
+    target: { collection: charts, id: validation-outcome-trend }
+    changes: { valuesVisible: false }
+    expectedRules: [ZTDE-DI-801]
+  - id: chart-color-only
+    target: { collection: charts, id: validation-outcome-trend }
+    changes: { nonColorCues: [color, color] }
+    expectedRules: [ZTDE-DI-801]
+  - id: missing-mobile-capture
+    target: { collection: captures, id: "375" }
+    changes: { viewport: 768 }
+    expectedRules: [ZTDE-DI-901]
+  - id: invented-completed-review
+    target: { collection: humanReview, id: human-review }
+    changes: { status: completed }
+    expectedRules: [ZTDE-DI-902]

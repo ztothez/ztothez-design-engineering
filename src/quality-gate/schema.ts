@@ -31,4 +31,8 @@ export const qualityGateReportSchema = {
   }),
   complete: z.boolean(),
   passed: z.boolean(),
+  evidenceBoundary: z.object({
+    verifierLimitations: z.array(z.string()),
+    humanReviewRequired: z.array(z.string()),
+  }).default({ verifierLimitations: [], humanReviewRequired: [] }),
 };

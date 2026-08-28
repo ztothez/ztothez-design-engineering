@@ -1,0 +1,173 @@
+version: "1.0"
+id: operational-interface-trust-v1
+product: Example Operations Workspace
+preparedAt: 2026-08-26T16:00:00+03:00
+preparedBy:
+  type: agent
+  name: ZtotheZ Design Engineering
+
+sources:
+  - id: demo-dataset
+    kind: demo-fixture
+    authority: fixture
+    description: Versioned demonstration dataset bundled for local evaluation.
+    evidence: fixtures/demo-dataset.json
+  - id: service-api
+    kind: authenticated-api
+    authority: runtime
+    description: Authenticated application API providing the current scoped dataset.
+    evidence: evidence/service-api-contract.json
+    checkedAt: 2026-08-26T12:00:00Z
+  - id: health-probe
+    kind: runtime-probe
+    authority: runtime
+    description: Runtime connection probe for the application service.
+    evidence: evidence/health-probe.json
+    checkedAt: 2026-08-26T12:00:00Z
+  - id: analysis-engine
+    kind: runtime-processing
+    authority: runtime
+    description: Runtime analysis execution and result metadata.
+    evidence: evidence/analysis-run.json
+    checkedAt: 2026-08-26T12:00:00Z
+  - id: fallback-engine
+    kind: local-simulation
+    authority: fixture
+    description: Explicit local fallback used only after the primary path fails.
+    evidence: fixtures/fallback-result.json
+  - id: last-known-cache
+    kind: cache-record
+    authority: cache
+    description: Last successful result retained with original scope and observation time.
+    evidence: evidence/cache-record.json
+    checkedAt: 2026-08-25T09:30:00Z
+  - id: deployment-context
+    kind: configuration
+    authority: configuration
+    description: Declared tenant and deployment context; does not establish service availability.
+    evidence: evidence/deployment-context.json
+
+states:
+  - id: demo-ready
+    scenario: demo
+    dataMode: demo
+    connection: unknown
+    result: { availability: available, origin: simulated }
+    freshness: { status: current, observedAt: 2026-08-26T12:00:00Z, timezone: UTC }
+    environment: Demonstration workspace
+    scope: Bundled example estate with 142 synthetic resources
+    limitations: [Values do not represent an external account or current service state.]
+    sourceRefs: [demo-dataset, deployment-context]
+  - id: service-ready
+    scenario: live
+    dataMode: live
+    connection: connected
+    result: { availability: available, origin: live }
+    freshness: { status: current, observedAt: 2026-08-26T12:00:00Z, timezone: UTC }
+    environment: Primary tenant prod-eu-west-1
+    scope: Authenticated tenant resources returned by the current request
+    limitations: [Results cover only resources authorized for the current tenant and request.]
+    sourceRefs: [service-api, health-probe, analysis-engine, deployment-context]
+  - id: local-fallback
+    scenario: fallback
+    dataMode: hybrid
+    connection: degraded
+    result: { availability: available, origin: simulated }
+    freshness: { status: current, observedAt: 2026-08-26T12:00:00Z, timezone: UTC }
+    environment: Primary tenant with local fallback
+    scope: Current request inputs evaluated by the local fallback fixture
+    limitations: [Primary processing failed; the displayed result is simulated and cannot establish external state.]
+    sourceRefs: [service-api, health-probe, fallback-engine, deployment-context]
+    recoveryAction: Retry primary analysis or continue with the labeled local result.
+  - id: cached-stale
+    scenario: stale
+    dataMode: cached
+    connection: unknown
+    result: { availability: available, origin: cached }
+    freshness: { status: stale, observedAt: 2026-08-25T09:30:00Z, timezone: UTC }
+    environment: Primary tenant last-known snapshot
+    scope: Resources included in the last successful scoped request
+    limitations: [Changes after the recorded observation time are not included.]
+    sourceRefs: [last-known-cache, deployment-context]
+    recoveryAction: Refresh the snapshot when a service connection is available.
+  - id: service-disconnected
+    scenario: disconnected
+    dataMode: cached
+    connection: disconnected
+    result: { availability: partial, origin: cached }
+    freshness: { status: stale, observedAt: 2026-08-25T09:30:00Z, timezone: UTC }
+    environment: Primary tenant offline view
+    scope: Last-known resources from the previous successful request
+    limitations: [Current external state is unavailable; only the last-known cached result is shown.]
+    sourceRefs: [last-known-cache, health-probe, deployment-context]
+    recoveryAction: Retry the connection while preserving the current cached context.
+
+claims:
+  - { id: demo-mode, state: demo-ready, kind: data-mode, text: "Demo dataset", classification: demonstration, sourceRefs: [demo-dataset], locations: [shell, before-action, result, history, export], visibility: persistent }
+  - { id: demo-connection, state: demo-ready, kind: connection-status, text: "Connection has not been checked", classification: unknown, sourceRefs: [], locations: [shell, before-action, result, history, export], visibility: persistent }
+  - { id: demo-origin, state: demo-ready, kind: result-origin, text: "Simulated result from the bundled fixture", classification: demonstration, sourceRefs: [demo-dataset], locations: [result, history, export], visibility: contextual }
+  - { id: demo-freshness, state: demo-ready, kind: freshness, text: "Fixture observed 2026-08-26 12:00 UTC", classification: demonstration, sourceRefs: [demo-dataset], locations: [result, history, export], visibility: contextual }
+  - { id: demo-environment, state: demo-ready, kind: environment, text: "Demonstration workspace", classification: verified, sourceRefs: [deployment-context], locations: [shell, result, history, export], visibility: persistent }
+  - { id: demo-scope, state: demo-ready, kind: scope, text: "142 synthetic resources", classification: demonstration, sourceRefs: [demo-dataset], locations: [before-action, result, history, export], visibility: contextual }
+  - { id: demo-limitation, state: demo-ready, kind: limitation, text: "Values do not represent an external account", classification: demonstration, sourceRefs: [demo-dataset], locations: [result, history, export], visibility: contextual }
+  - { id: demo-processing, state: demo-ready, kind: processing-boundary, text: "Analysis uses the bundled fixture on this device", classification: demonstration, sourceRefs: [demo-dataset], locations: [before-action, loading, result], visibility: contextual }
+
+  - { id: live-mode, state: service-ready, kind: data-mode, text: "Live tenant data", classification: verified, sourceRefs: [service-api], locations: [shell, before-action, result, history, export], visibility: persistent }
+  - { id: live-connection, state: service-ready, kind: connection-status, text: "Connected to the application service", classification: verified, sourceRefs: [health-probe], locations: [shell, before-action, loading, result, history, export], visibility: persistent }
+  - { id: live-origin, state: service-ready, kind: result-origin, text: "Live result from the runtime analysis", classification: verified, sourceRefs: [analysis-engine], locations: [result, history, export], visibility: contextual }
+  - { id: live-freshness, state: service-ready, kind: freshness, text: "Observed 2026-08-26 12:00 UTC", classification: verified, sourceRefs: [service-api], locations: [result, history, export], visibility: contextual }
+  - { id: live-environment, state: service-ready, kind: environment, text: "Primary tenant prod-eu-west-1", classification: verified, sourceRefs: [deployment-context], locations: [shell, result, history, export], visibility: persistent }
+  - { id: live-scope, state: service-ready, kind: scope, text: "Resources authorized for the current tenant request", classification: verified, sourceRefs: [service-api], locations: [before-action, result, history, export], visibility: contextual }
+  - { id: live-limitation, state: service-ready, kind: limitation, text: "Results exclude resources outside current tenant authorization", classification: verified, sourceRefs: [deployment-context], locations: [result, history, export], visibility: contextual }
+  - { id: live-processing, state: service-ready, kind: processing-boundary, text: "The application service processes this request", classification: verified, sourceRefs: [analysis-engine], locations: [before-action, loading, result], visibility: contextual }
+
+  - { id: fallback-mode, state: local-fallback, kind: data-mode, text: "Hybrid mode using local fallback", classification: verified, sourceRefs: [service-api, fallback-engine], locations: [shell, before-action, loading, result, history, export], visibility: persistent }
+  - { id: fallback-connection, state: local-fallback, kind: connection-status, text: "Service degraded", classification: verified, sourceRefs: [health-probe], locations: [shell, before-action, loading, result, history, export], visibility: persistent }
+  - { id: fallback-origin, state: local-fallback, kind: result-origin, text: "Simulated result from the local fallback", classification: demonstration, sourceRefs: [fallback-engine], locations: [loading, result, history, export], visibility: persistent }
+  - { id: fallback-freshness, state: local-fallback, kind: freshness, text: "Fallback generated 2026-08-26 12:00 UTC", classification: demonstration, sourceRefs: [fallback-engine], locations: [result, history, export], visibility: contextual }
+  - { id: fallback-environment, state: local-fallback, kind: environment, text: "Primary tenant with local fallback", classification: verified, sourceRefs: [deployment-context], locations: [shell, result, history, export], visibility: persistent }
+  - { id: fallback-scope, state: local-fallback, kind: scope, text: "Current inputs evaluated by the local fixture", classification: demonstration, sourceRefs: [fallback-engine], locations: [before-action, result, history, export], visibility: contextual }
+  - { id: fallback-limitation, state: local-fallback, kind: limitation, text: "Primary processing failed; this result cannot establish external state", classification: demonstration, sourceRefs: [fallback-engine], locations: [loading, result, history, export], visibility: persistent }
+  - { id: fallback-processing, state: local-fallback, kind: processing-boundary, text: "The local fallback processes this request", classification: demonstration, sourceRefs: [fallback-engine], locations: [before-action, loading, result], visibility: contextual }
+
+  - { id: stale-mode, state: cached-stale, kind: data-mode, text: "Cached snapshot", classification: verified, sourceRefs: [last-known-cache], locations: [shell, before-action, result, history, export], visibility: persistent }
+  - { id: stale-connection, state: cached-stale, kind: connection-status, text: "Current connection state is unknown", classification: unknown, sourceRefs: [], locations: [shell, before-action, result, history, export], visibility: persistent }
+  - { id: stale-origin, state: cached-stale, kind: result-origin, text: "Cached result from the last successful request", classification: verified, sourceRefs: [last-known-cache], locations: [result, history, export], visibility: contextual }
+  - { id: stale-freshness, state: cached-stale, kind: freshness, text: "Stale since 2026-08-25 09:30 UTC", classification: verified, sourceRefs: [last-known-cache], locations: [shell, result, history, export], visibility: persistent }
+  - { id: stale-environment, state: cached-stale, kind: environment, text: "Primary tenant last-known snapshot", classification: verified, sourceRefs: [deployment-context], locations: [shell, result, history, export], visibility: persistent }
+  - { id: stale-scope, state: cached-stale, kind: scope, text: "Resources in the last successful request", classification: verified, sourceRefs: [last-known-cache], locations: [before-action, result, history, export], visibility: contextual }
+  - { id: stale-limitation, state: cached-stale, kind: limitation, text: "Changes after the observation time are not included", classification: verified, sourceRefs: [last-known-cache], locations: [result, history, export], visibility: persistent }
+  - { id: stale-processing, state: cached-stale, kind: processing-boundary, text: "No new external processing occurs while viewing this snapshot", classification: verified, sourceRefs: [last-known-cache], locations: [before-action, loading, result], visibility: contextual }
+
+  - { id: disconnected-mode, state: service-disconnected, kind: data-mode, text: "Cached offline view", classification: verified, sourceRefs: [last-known-cache], locations: [shell, before-action, result, history, export], visibility: persistent }
+  - { id: disconnected-connection, state: service-disconnected, kind: connection-status, text: "Disconnected from the application service", classification: verified, sourceRefs: [health-probe], locations: [shell, before-action, error, result, history, export], visibility: persistent }
+  - { id: disconnected-origin, state: service-disconnected, kind: result-origin, text: "Cached result from the previous request", classification: verified, sourceRefs: [last-known-cache], locations: [result, history, export], visibility: contextual }
+  - { id: disconnected-freshness, state: service-disconnected, kind: freshness, text: "Stale since 2026-08-25 09:30 UTC", classification: verified, sourceRefs: [last-known-cache], locations: [shell, result, history, export], visibility: persistent }
+  - { id: disconnected-environment, state: service-disconnected, kind: environment, text: "Primary tenant offline view", classification: verified, sourceRefs: [deployment-context], locations: [shell, result, history, export], visibility: persistent }
+  - { id: disconnected-scope, state: service-disconnected, kind: scope, text: "Last-known resources from the previous request", classification: verified, sourceRefs: [last-known-cache], locations: [before-action, result, history, export], visibility: contextual }
+  - { id: disconnected-limitation, state: service-disconnected, kind: limitation, text: "Current external state is unavailable", classification: verified, sourceRefs: [health-probe], locations: [error, result, history, export], visibility: persistent }
+  - { id: disconnected-processing, state: service-disconnected, kind: processing-boundary, text: "Retry requires restoring the service connection", classification: verified, sourceRefs: [health-probe], locations: [before-action, error, result], visibility: contextual }
+
+actions:
+  - id: run-analysis
+    label: Run analysis
+    outcome: Produce a scoped result whose processing path and provenance remain visible.
+    consequential: true
+    stateRefs: [demo-ready, service-ready, local-fallback, cached-stale, service-disconnected]
+    disclosureClaimRefs: [demo-mode, demo-processing, live-mode, live-processing, fallback-mode, fallback-processing, stale-mode, stale-processing, disconnected-mode, disconnected-processing]
+
+records:
+  history:
+    enabled: true
+    fields: [data-mode, connection, result-origin, freshness, environment, scope, limitations]
+    stateRefs: [demo-ready, service-ready, local-fallback, cached-stale, service-disconnected]
+    disclosureClaimRefs: [demo-mode, demo-connection, demo-origin, demo-freshness, demo-environment, demo-scope, demo-limitation, live-mode, live-connection, live-origin, live-freshness, live-environment, live-scope, live-limitation, fallback-mode, fallback-connection, fallback-origin, fallback-freshness, fallback-environment, fallback-scope, fallback-limitation, stale-mode, stale-connection, stale-origin, stale-freshness, stale-environment, stale-scope, stale-limitation, disconnected-mode, disconnected-connection, disconnected-origin, disconnected-freshness, disconnected-environment, disconnected-scope, disconnected-limitation]
+  export:
+    enabled: true
+    fields: [data-mode, connection, result-origin, freshness, environment, scope, limitations]
+    stateRefs: [demo-ready, service-ready, local-fallback, cached-stale, service-disconnected]
+    disclosureClaimRefs: [demo-mode, demo-connection, demo-origin, demo-freshness, demo-environment, demo-scope, demo-limitation, live-mode, live-connection, live-origin, live-freshness, live-environment, live-scope, live-limitation, fallback-mode, fallback-connection, fallback-origin, fallback-freshness, fallback-environment, fallback-scope, fallback-limitation, stale-mode, stale-connection, stale-origin, stale-freshness, stale-environment, stale-scope, stale-limitation, disconnected-mode, disconnected-connection, disconnected-origin, disconnected-freshness, disconnected-environment, disconnected-scope, disconnected-limitation]
+
+security:
+  allowsEmbeddedCredentials: false
+  credentialSources: [environment, secret-manager, oauth]

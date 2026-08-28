@@ -1,0 +1,105 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://ztothez.dev/schemas/product-task-profile-1.1.schema.json
+title: ZtotheZ Design Engineering Product Task Profile
+type: object
+additionalProperties: false
+required: [archetype, interface, qualityDimensions, tasks, evidencePolicy, comparison]
+properties:
+  archetype:
+    enum: [operational-dashboard, ai-workspace, content-site, utility, full-stack-workflow]
+  interface: { enum: [browser, desktop, source-only] }
+  qualityDimensions:
+    type: array
+    minItems: 7
+    maxItems: 7
+    items: { $ref: "#/$defs/qualityDimension" }
+  tasks:
+    type: array
+    minItems: 1
+    maxItems: 50
+    items: { $ref: "#/$defs/task" }
+  evidencePolicy:
+    type: object
+    additionalProperties: false
+    required: [missingEvidence, failedBehavior, unsupportedCapability]
+    properties:
+      missingEvidence: { const: unverified }
+      failedBehavior: { const: failed }
+      unsupportedCapability: { const: limitation }
+  comparison:
+    type: object
+    additionalProperties: false
+    required: [taskContractId, crossContractRanking]
+    properties:
+      taskContractId: { $ref: "#/$defs/id" }
+      crossContractRanking: { const: false }
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  text:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  state:
+    type: object
+    additionalProperties: false
+    required: [stateMachine, state, observable]
+    properties:
+      stateMachine: { $ref: "#/$defs/id" }
+      state: { $ref: "#/$defs/id" }
+      observable: { $ref: "#/$defs/text" }
+  qualityDimension:
+    type: object
+    additionalProperties: false
+    required: [id, status, reason]
+    properties:
+      id:
+        enum: [truthful-disclosure, information-design, visual-system, accessibility, responsive-structure, state-integrity, maintainability]
+      status: { enum: [required, not-applicable] }
+      reason: { type: string, minLength: 1, maxLength: 512 }
+  task:
+    type: object
+    additionalProperties: false
+    required: [id, primary, actor, mode, intent, start, success, recovery]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      primary: { type: boolean }
+      actor: { $ref: "#/$defs/id" }
+      mode: { $ref: "#/$defs/id" }
+      intent: { $ref: "#/$defs/text" }
+      start: { $ref: "#/$defs/state" }
+      success:
+        type: object
+        additionalProperties: false
+        required: [stateMachine, state, observable, evidence]
+        properties:
+          stateMachine: { $ref: "#/$defs/id" }
+          state: { $ref: "#/$defs/id" }
+          observable: { $ref: "#/$defs/text" }
+          evidence:
+            type: array
+            minItems: 1
+            items: { enum: [contract, runtime, network, export, manual-review] }
+      recovery:
+        type: object
+        additionalProperties: false
+        required: [required, failure, observable]
+        properties:
+          required: { type: boolean }
+          failure: { $ref: "#/$defs/state" }
+          observable: { $ref: "#/$defs/text" }
+      journey:
+        type: object
+        additionalProperties: false
+        required: [profile, journey]
+        properties:
+          profile: { $ref: "#/$defs/id" }
+          journey: { $ref: "#/$defs/id" }
+      browser:
+        type: object
+        additionalProperties: false
+        required: [route, narrowViewport]
+        properties:
+          route: { type: string, pattern: "^/(?!/)", maxLength: 1024 }
+          narrowViewport: { type: string, minLength: 1, maxLength: 128 }

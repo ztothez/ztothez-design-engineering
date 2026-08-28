@@ -37,7 +37,7 @@ test("maintained corpus passes every dimension and preserves scoring evidence", 
   assert.equal(
     report.dimensions.find((dimension) => dimension.dimension === "recommendation-relevance")
       ?.meanReciprocalRank,
-    0.75,
+    0.875,
   );
   assert.deepEqual(
     report.caseResults.find((entry) => entry.id === "architecture-mixed-monolith")?.ruleIds,

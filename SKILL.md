@@ -35,6 +35,65 @@ When retrieval returns `no-match`, refine the query or broaden only the approved
 
 Do not let supporting retrieval override current repository behavior, product contracts, user requirements, or this root skill. Cite the repository-relative paths that materially affected a recommendation or implementation.
 
+## Portfolio Benchmark Safety
+
+Use the portfolio workflow only when the user asks to benchmark, inventory, or evaluate multiple local products. The local registry is authorization metadata, not design guidance and not permission to modify a project.
+
+1. Validate the local registry before inspecting a registered project. Reject unknown ownership, disabled projects, duplicate or nested canonical roots, path escapes, and unsafe publication policy.
+2. Use inventory only to discover manifest-bearing candidates. Discovery does not authorize execution, publication, retrieval indexing, or source reuse.
+3. Treat every registered source as read-only. Never install, build, test, format, migrate, serve, or clean from the original project directory.
+4. Create a disposable portfolio snapshot before any operation that can write. Exclude secrets, user data, dependency trees, generated output, models, backups, and escaping symlinks.
+5. Run project processes only through the isolated snapshot process boundary. Deny network access unless the registry explicitly permits dependency installation, pass only allowlisted environment values, and keep package lifecycle scripts disabled unless reviewed.
+6. Compare the original source manifest and scoped Git status after copying, after each executable stage, and before cleanup. Treat any difference as a failed run and never repair or revert the original automatically.
+7. Store local snapshots and evidence only under ignored benchmark directories. Do not add project source, private screenshots, absolute paths, client content, or local reports to knowledge retrieval, MCP exact reads, Git, package output, or offline releases.
+8. Produce advisory findings only. Apply remediation to an original project only after a separate explicit user request.
+
+Use `zz-design portfolio validate-registry`, `zz-design portfolio inventory`, and `zz-design portfolio snapshot --project ID`. Read `knowledge-base/benchmarks/portfolio-corpus/registry.template.yaml` only when creating or revising registry policy.
+
+## V2 Interface Generation Workflow
+
+Use this bounded workflow for a new interface or consequential redesign. Load `interface-trust.md`, `information-design.md`, and `visual-polish.md` only when their routing conditions apply, and record the nine stages in a version `2.0` design-deliverable manifest.
+
+1. **Product task:** validate the version 1.1 product contract, archetype, activated quality dimensions, primary user, observable start and success states, recovery path, and consequential actions. For browser products, bind the task to an existing journey, route, and viewport no wider than 768 CSS pixels. Keep missing evidence `unverified`, executed failure `failed`, and unsupported capability a `limitation`.
+2. **Truth and data-source contract:** declare demo, live, fallback, stale, and disconnected behavior. Run the trust validator before implementation.
+3. **Information architecture:** bind every metric, finding, chart, and hierarchy level to a decision. Run the information validator before implementation.
+4. **Interaction and state model:** define loading, empty, success, warning, error, partial, disabled, selected, and focus behavior.
+5. **Visual direction:** define domain fit, typography, composition, density, motion, chart treatment, and prohibited ornament.
+6. **Token architecture:** bind implementation values through primitive, semantic, and component tokens.
+7. **Implementation:** build the smallest coherent task path using the declared contracts.
+8. **Automated verification:** run contract, architecture, browser, retrieval, and package checks that match the changed surface.
+9. **Human visual review:** request attributable review of rendered hierarchy, balance, scanability, density, and domain fit.
+
+Do not advance a stage from `declared`, `required`, or `review-required` without the evidence that stage specifies. A passing declaration is not rendered proof. Automated or AI-assisted evidence can never complete the human-review stage or establish representative-user validation.
+
+## Interface Trust Workflow
+
+Use this workflow before implementing any interface that shows external data, operational status, generated analysis, cached or imported results, environment labels, history, or exports. Read `knowledge-base/design-intelligence/interface-trust.md` and start from `interface-trust.template.yaml` when a formal contract is needed.
+
+1. Identify each source as runtime evidence, user input, import record, cache record, demonstration fixture, local simulation, or configuration. Do not treat configuration as proof of availability.
+2. Model separate `dataMode`, `connection`, `resultOrigin`, and freshness values. Include concrete demo, live, fallback, stale, and disconnected states; use `unknown` while a fact is not established.
+3. Bind every operational claim to the source that establishes that exact fact, or classify it explicitly as demonstration or unknown. Labels such as `operational`, `online`, `connected`, `production`, and `live` require verified evidence.
+4. Keep data mode visible in the shell. Before consequential actions, show data mode and processing boundary next to the action.
+5. Preserve fallback origin and limitations during loading, in results, history, and exports. Preserve stale timestamps with timezone and scope.
+6. Keep interface availability, backend availability, connection, and result provenance as separate claims. A rendered page or successful simulation does not prove an external integration works.
+7. Preserve data mode, connection, result origin, freshness, environment, scope, and limitations in history and exports.
+8. Never place credentials or realistic secret placeholders in contracts, source, UI, or screenshots. Declare only approved credential sourcing.
+9. Run `validate_interface_trust` or `npm run validate-trust -- --contract PATH`. Treat a passing declaration as prerequisite evidence, then verify rendered placement and runtime behavior separately.
+
+## Operational Information Design Workflow
+
+Use this workflow for dashboards, workspaces, reports, findings queues, monitoring surfaces, and interfaces that use metrics or charts to support decisions. Read `knowledge-base/design-intelligence/information-design.md` and start from `information-design.template.yaml`.
+
+1. Declare environment, scope, data description, sources, freshness, timezone, and limitations before presenting outcomes.
+2. Give each metric a definition, formula, sources, context, scope, period, freshness, baseline or explicit baseline exception, drill-down, limitations, and supported decision.
+3. Reject decorative metrics and charts. Keep only information that answers a task question or supports a concrete action.
+4. Give each finding severity, affected entities, observation, evidence, impact, confidence basis, remediation, owner or action destination, and validation method.
+5. Define distinct loading, available, missing, partial, stale, and error behavior. Never display missing as zero, partial as complete, or stale as current.
+6. Pair color with text, icons, values, shape, pattern, or position. Make long labels revealable without pointer hover and large collections searchable with scalable rendering.
+7. Order operational content as context and provenance, primary outcome and action, critical exceptions, health and impact metrics, prioritized findings, telemetry, evidence, then history and exports.
+8. Declare tasks for identifying context, priority, impact, evidence, next action, and success verification. Do not present agent-authored task declarations as human evidence.
+9. Run `validate_information_design` or `npm run validate-information -- --contract PATH`. Then verify rendered hierarchy, responsive behavior, chart alternatives, and comprehension separately.
+
 ## Design & Architecture Workflow
 
 ### Step 1: Frame The System
@@ -256,6 +315,21 @@ Use this workflow when the user asks for a UX audit, heuristic analysis, usabili
 9. Validate the artifact with `evaluate_heuristic_review` or `npm run review-heuristics -- --review PATH`. Review and merge generated severity 3-4 acceptance candidates into the applicable product contract; the evaluator must not edit contracts automatically.
 10. Never treat an AI-assisted review as a human-expert record, representative-user result, risk-acceptance decision, or manual-review attestation. An agent may format evidence supplied by a person but must not invent identity, timestamps, sessions, decisions, or approval.
 
+## Anonymous Comparison Workflow
+
+Use this workflow when the user asks whether one implementation improves truthful disclosure, information design, visual polish, comprehension, confidence, or task efficiency relative to another implementation.
+
+1. Define the method before inspecting candidate identities. Use comparison methodology version `1.1` when a release decision depends on complete reviewer matrices or target-versus-comparator results.
+2. Keep candidate identity mapping in a coordinator-only directory. Reviewer-facing filenames, prompts, screenshots, and session templates must use anonymous candidate labels only.
+3. Give every candidate the same tasks, common-state captures, viewport set, rubric anchors, and opportunity to expose missing behavior. Never repair a candidate during the review.
+4. Configure explicit minimum human-expert and representative-user session counts, complete task and rating matrices, and sufficient counterbalanced orders. A single incomplete form cannot satisfy the review stage.
+5. Separate human-expert visual assessment from representative-user task observation. Record task completion, duration, navigation errors, recovery attempts, comprehension, confidence, and concrete rationale at the declared evidence level.
+6. Keep session templates at `status: draft`. Only the actual reviewer or facilitator may replace observations and change a session to `complete`. An agent may validate and compile supplied records but must not author, sign, infer, or upgrade human evidence.
+7. Run `compile-comparison` to hash completed source sessions and produce the combined review, then run `validate-comparison`. Read `passed`, `humanReview.requirementsMet`, `benchmarkDecision.passed`, and `releaseReady` as separate decisions.
+8. Preserve missing behavior, failed tasks, dissenting ratings, and target regressions. Do not remove an inconvenient session or average evidence levels together to obtain a preferred winner.
+
+For the Azure V2 benchmark, use `knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml` and the generated packet under `evidence/interface-quality/azure-v2-review/`. Item 8 remains incomplete until real reviewer-supplied sessions satisfy the configured thresholds.
+
 ## Enterprise Readiness
 
 For production or enterprise-facing tools, include these requirements in architecture and UX acceptance criteria:
@@ -276,7 +350,7 @@ For production or enterprise-facing tools, include these requirements in archite
 
 Use this workflow when the request includes a brand system, Figma library, generated or sourced assets, iconography, or presentation design. Read `knowledge-base/design-intelligence/MASTER.md`, then load only the modules matching the requested deliverables.
 
-Create a version 1.0 design-deliverable manifest from `knowledge-base/design-intelligence/design-deliverable.template.yaml`. Record the audience, channels, deliverable types, token system, accessibility declarations, and evidence. Do not declare work that is outside the request.
+Create a design-deliverable manifest from `knowledge-base/design-intelligence/design-deliverable.template.yaml`. Use version `2.0` and declare `interface-system` when visual polish, responsive composition, charts, rendered evidence, or human visual review is in scope. Keep version `1.0` compatibility only for legacy non-interface manifests. Do not declare work that is outside the request.
 
 ### Step 2: Build One Canonical System
 
@@ -290,7 +364,18 @@ Create a version 1.0 design-deliverable manifest from `knowledge-base/design-int
 
 Do not treat visual novelty, generation metadata, a provider subscription, or asset possession as evidence of task fit, accessibility, ownership, permission, or legal clearance.
 
-### Step 3: Validate Declarations
+### Step 3: Gate Visual Polish
+
+When `interface-system` is declared, read `knowledge-base/design-intelligence/visual-polish.md` and complete these actions:
+
+1. Define a domain-specific direction and explicitly prohibit decorative agent diagrams, excessive glow, meaningless gradients, and ornamental status elements.
+2. Bind typography, layout, density, interaction states, motion, and charts to semantic or component tokens rather than primitives or raw values.
+3. Declare all typography roles, all nine interaction states, reduced-motion equivalents, and responsive composition at 375, 768, 1024, and 1440 CSS pixels.
+4. Give every chart a decision purpose, readable labels and values, comparison context, accessible alternative, exceptional states, and non-color cues.
+5. Keep viewport evidence `planned` until captured. Mark it `verified` only with screenshot path, runtime report path, and checksum.
+6. Keep human visual review `required` until a reviewer supplies attributable evidence for hierarchy, balance, scanability, density, and domain fit. Never generate the reviewer record.
+
+### Step 4: Validate Declarations
 
 Run `validate_design_deliverable` against the manifest. Resolve every error before shipping. Review warnings against product context and document the decision.
 
@@ -300,7 +385,7 @@ CLI fallback:
 npm run validate-design -- --manifest PATH
 ```
 
-The validator checks structure, references, token chains, contrast math, provenance records, icon semantics, and presentation masters. It does not inspect Figma, SVG geometry, raster content, exported reading order, or rendered pixels. Complete those checks with source inspection, browser verification, export inspection, and qualified human review.
+The validator checks structure, cross-contract references, generation order, token chains, semantic visual bindings, composition, states, motion, charts, evidence declarations, contrast math, provenance records, icon semantics, and presentation masters. Read `integration.releaseReady` and `visualPolish.releaseReady` separately from `passed`; declarations, planned captures, automated checks, and required human review are distinct gates. Complete remaining checks with source inspection, browser verification, export inspection, and qualified human review.
 
 ## Corpus Benchmark Workflow
 
@@ -399,13 +484,14 @@ Before declaring completion:
 7. When design-intelligence deliverables are in scope, validate their manifest and inspect final assets, Figma source, presentation exports, provenance evidence, and alternative content. A passing declaration is not rendered or legal proof.
 8. Inspect dependency direction, package cycles, component contracts, and ownership of state and side effects.
 9. Run the repository's formatter, lint, typecheck, focused tests, and build when available. Report what ran and any residual risk; never imply unrun checks passed.
-10. When a matching benchmark product contract exists, validate it with `validate_product_contract` before implementation and use its actors, modes, states, sources of truth, acceptance criteria, and journey profiles as the task model. Current product requirements and working behavior override archived examples. CLI fallback: `npm run validate-contract -- --contract PATH` from the ZtotheZ Design Engineering project.
+10. When a matching benchmark product contract exists, validate it with `validate_product_contract` before implementation and use its archetype, activated quality dimensions, primary tasks, actors, modes, states, sources of truth, acceptance criteria, recovery paths, and journey profiles as the task model. Compare implementations only when the task-contract ID, archetype, primary intent, and observable success match. Current product requirements and working behavior override archived examples. CLI fallback: `npm run validate-contract -- --contract PATH` from the ZtotheZ Design Engineering project.
 11. When `audit_repository_architecture` is available, run it before handoff. Treat error findings as blockers and review every warning against product context. The static audit does not replace browser, interaction, accessibility, or responsive verification. If MCP is unavailable in this repository, use `npm run audit -- --repo PATH` from the ZtotheZ Design Engineering project.
-12. When the application can run, use `verify_ui_runtime` against the local URL with representative product journeys. Inspect its screenshots and evidence for contrast, target size, focus, keyboard flow, reflow, text resizing, motion, collision, media, console, and network findings. Treat runtime errors as blockers and resolve or explicitly justify warnings. If MCP is unavailable, run `npm run verify-ui -- --url URL` from the ZtotheZ Design Engineering project. Runtime automation supplements, but does not replace, human review of content hierarchy, task fit, and visual quality.
-13. When `run_design_quality_gate` is available, prefer it for final handoff because it consolidates contract, architecture, runtime, and profile-scoped acceptance evidence under one failure policy. Every blocker criterion must pass; `UNVERIFIED` is not success. The target application must already be running. CLI fallback: `npm run quality-gate -- --contract PATH --repo PATH --url URL --profile ID`. Never report a skipped runtime stage as a passing gate, and never invent or self-author a manual-review attestation.
-14. Run every profile required by the contract in its declared service environment, preserving a separate evidence directory for each. Controlled offline profiles may declare expected network failures only with narrow method, URL, status, and occurrence bounds; an unobserved expectation is a failure, not permission to suppress errors. Aggregate profile reports with `aggregate_design_quality_gates` or `npm run aggregate-gates -- --contract PATH --reports DIR,DIR`. Release only when the aggregate report is complete and passing.
-15. After changing this skill, approved knowledge, retrieval, audit rules, product-contract validation, or anti-slop enforcement, run `evaluate_corpus_benchmark` or `npm run evaluate-corpus`. Treat a missed dimension threshold or MRR floor as a release blocker unless the corpus contract is intentionally revised with provenance and review.
-16. When changing this design-engineering system itself, validate provenance and dependencies, test the packed installation, verify the offline release, and run the archive-removal certification. A normal product UI implementation does not need to run these system-maintainer checks.
+12. When the application can run, use `verify_ui_runtime` against the local URL with representative product journeys. Inspect its screenshots and evidence for contrast, target size, focus, keyboard flow, reflow, text resizing, motion, collision, media, console, network, interface-trust, and chart-contract findings. For V2 surfaces, opt in with `data-ztothez-design-interface-trust`; declare required stages and states on the marked root, expose visible data-mode and provenance attributes, and mark charts with names, values, alternatives, and legends where required. Treat runtime errors as blockers and resolve or explicitly justify warnings.
+13. Use screenshot baselines only to detect rendered change. Mask dynamic regions with the narrowest selectors, retain their declared selector list with each checksum, and require attributable human review for intentional baseline changes. If MCP is unavailable, run `npm run verify-ui -- --url URL` from the ZtotheZ Design Engineering project. Runtime automation supplements, but does not replace, human review of content hierarchy, task fit, and visual quality.
+14. When `run_design_quality_gate` is available, prefer it for final handoff because it consolidates contract, architecture, runtime, and profile-scoped acceptance evidence under one failure policy. Every blocker criterion must pass; `UNVERIFIED` is not success. The target application must already be running. CLI fallback: `npm run quality-gate -- --contract PATH --repo PATH --url URL --profile ID`. Never report a skipped runtime stage as a passing gate, and never invent or self-author a manual-review attestation.
+15. Run every profile required by the contract in its declared service environment, preserving a separate evidence directory for each. Controlled offline profiles may declare expected network failures only with narrow method, URL, status, and occurrence bounds; an unobserved expectation is a failure, not permission to suppress errors. Aggregate profile reports with `aggregate_design_quality_gates` or `npm run aggregate-gates -- --contract PATH --reports DIR,DIR`. Release only when the aggregate report is complete and passing.
+16. After changing this skill, approved knowledge, retrieval, audit rules, product-contract validation, or anti-slop enforcement, run `evaluate_corpus_benchmark` or `npm run evaluate-corpus`. Treat a missed dimension threshold or MRR floor as a release blocker unless the corpus contract is intentionally revised with provenance and review.
+17. When changing this design-engineering system itself, validate provenance and dependencies, test the packed installation, verify the offline release, and run the archive-removal certification. A normal product UI implementation does not need to run these system-maintainer checks.
 
 ## Examples
 

@@ -16,10 +16,36 @@ export function formatRuntimeReport(report: RuntimeReport): string {
     `- Result: ${report.passed ? "PASS" : "FAIL"}`,
     `- Findings: ${report.summary.errors} errors, ${report.summary.warnings} warnings, ${report.summary.info} info`,
     `- Screenshots: ${report.screenshots.length}`,
+    `- Screenshot regression: ${report.screenshotRegression.status}`,
     `- Journeys: ${report.journeys.filter((journey) => journey.passed).length}/${report.journeys.length} passed`,
     `- Expected network policies: ${report.expectedNetwork.filter((policy) => policy.satisfied).length}/${report.expectedNetwork.length} satisfied`,
     `- Evidence directory: \`${report.outputDirectory}\``,
   ];
+
+  lines.push(
+    "",
+    "## Evidence Boundary",
+    "",
+    "### Verifier Limitations",
+    "",
+    ...report.evidenceBoundary.verifierLimitations.map((entry) => `- ${entry}`),
+    "",
+    "### Human Review Required",
+    "",
+    ...report.evidenceBoundary.humanReviewRequired.map((entry) => `- ${entry}`),
+  );
+
+  if (report.screenshotRegression.baselinePath) {
+    lines.push(
+      "",
+      "## Screenshot Regression",
+      "",
+      `- Baseline: \`${report.screenshotRegression.baselinePath}\``,
+      `- Compared: ${report.screenshotRegression.compared}`,
+      `- Mismatches: ${report.screenshotRegression.mismatches.length}`,
+      ...report.screenshotRegression.mismatches.map((entry) => `- ${entry}`),
+    );
+  }
 
   if (report.expectedNetwork.length > 0) {
     lines.push("", "## Expected Network Evidence");

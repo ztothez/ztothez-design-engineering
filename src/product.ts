@@ -10,9 +10,11 @@ export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
     PRODUCT_NAME,
     "",
     `Usage: ${command} [--help | --version]`,
+    `       ${command} portfolio validate-registry|inventory|capabilities|run-stage|snapshot|baseline|benchmark|verify-unchanged|report [options]`,
     "",
     `Without arguments, starts the ${PRODUCT_ID} MCP server over stdio.`,
     `Both ${CLI_COMMANDS[0]} and ${CLI_COMMANDS[1]} invoke this executable.`,
+    `Use ${command} portfolio --help for local read-only benchmark commands.`,
     "",
   ].join("\n");
 }

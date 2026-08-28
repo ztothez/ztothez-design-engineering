@@ -1,9 +1,11 @@
 $schema: https://json-schema.org/draft/2020-12/schema
-$id: https://local.ztothez-design-engineering/schemas/design-deliverable-1.0.schema.json
+$id: https://local.ztothez-design-engineering/schemas/design-deliverable.schema.json
 title: ZtotheZ Design Engineering Design Deliverable
 description: >-
-  Version 1.0 declaration for design tokens, brand systems, Figma libraries, assets,
-  iconography, presentations, rights evidence, and visual-accessibility checks.
+  Versioned declaration for product tasks, linked trust and information contracts,
+  generation stages, design tokens, interface visual polish, brand systems, Figma
+  libraries, assets, iconography, presentations, rights evidence, rendered evidence,
+  human review status, and visual-accessibility checks.
 type: object
 additionalProperties: false
 required:
@@ -18,7 +20,7 @@ required:
   - evidence
 properties:
   version:
-    const: "1.0"
+    enum: ["1.0", "2.0"]
   id:
     $ref: "#/$defs/id"
   product:
@@ -43,10 +45,10 @@ properties:
       deliverables:
         type: array
         minItems: 1
-        maxItems: 5
+        maxItems: 6
         uniqueItems: true
         items:
-          enum: [brand-system, figma-library, asset-set, icon-system, presentation]
+          enum: [interface-system, brand-system, figma-library, asset-set, icon-system, presentation]
       audience:
         $ref: "#/$defs/text"
       channels:
@@ -73,6 +75,37 @@ properties:
         default: []
         items:
           $ref: "#/$defs/tokenMode"
+  productTask:
+    $ref: "#/$defs/productTask"
+  interfaceTrust:
+    $ref: "#/$defs/interfaceTrust"
+  informationHierarchy:
+    $ref: "#/$defs/informationHierarchy"
+  metricContracts:
+    $ref: "#/$defs/metricContracts"
+  generationWorkflow:
+    $ref: "#/$defs/generationWorkflow"
+  visualDirection:
+    $ref: "#/$defs/visualDirection"
+  typography:
+    $ref: "#/$defs/typography"
+  composition:
+    $ref: "#/$defs/composition"
+  densityProfile:
+    $ref: "#/$defs/densityProfile"
+  interactionStates:
+    $ref: "#/$defs/interactionStates"
+  motion:
+    $ref: "#/$defs/motion"
+  chartContracts:
+    type: array
+    maxItems: 500
+    items:
+      $ref: "#/$defs/chartContract"
+  renderedEvidence:
+    $ref: "#/$defs/renderedEvidence"
+  humanVisualReview:
+    $ref: "#/$defs/humanVisualReview"
   brand:
     $ref: "#/$defs/brand"
   figma:
@@ -97,6 +130,19 @@ properties:
     maxItems: 1000
     items:
       $ref: "#/$defs/evidence"
+allOf:
+  - if:
+      properties:
+        scope:
+          properties:
+            deliverables:
+              contains:
+                const: interface-system
+    then:
+      properties:
+        version:
+          const: "2.0"
+      required: [productTask, interfaceTrust, informationHierarchy, metricContracts, generationWorkflow, visualDirection, typography, composition, densityProfile, interactionStates, motion, chartContracts, renderedEvidence, humanVisualReview]
 $defs:
   id:
     type: string
@@ -124,7 +170,7 @@ $defs:
       name:
         $ref: "#/$defs/tokenName"
       type:
-        enum: [color, dimension, font-family, font-weight, duration, number]
+        enum: [color, dimension, font-family, font-weight, duration, number, shadow]
       level:
         enum: [primitive, semantic, component]
       value:
@@ -183,6 +229,508 @@ $defs:
           oneOf:
             - required: [value]
             - required: [reference]
+  productTask:
+    type: object
+    additionalProperties: false
+    required: [productContractId, contractPath, primaryUser, task, successCriteria, consequentialActions]
+    properties:
+      productContractId: { $ref: "#/$defs/id" }
+      contractPath: { $ref: "#/$defs/path" }
+      primaryUser: { $ref: "#/$defs/shortText" }
+      task: { $ref: "#/$defs/text" }
+      successCriteria:
+        type: array
+        minItems: 1
+        maxItems: 30
+        items: { type: string, minLength: 1, maxLength: 512 }
+      consequentialActions:
+        type: array
+        maxItems: 30
+        items: { type: string, minLength: 1, maxLength: 512 }
+  interfaceTrust:
+    type: object
+    additionalProperties: false
+    required: [contractId, contractPath, version, status, requiredScenarios]
+    properties:
+      contractId: { $ref: "#/$defs/id" }
+      contractPath: { $ref: "#/$defs/path" }
+      version: { const: "1.0" }
+      status: { enum: [declared, validated] }
+      requiredScenarios:
+        type: array
+        minItems: 5
+        maxItems: 5
+        uniqueItems: true
+        items: { enum: [demo, live, fallback, stale, disconnected] }
+      reportPath: { $ref: "#/$defs/path" }
+      evidenceRef: { $ref: "#/$defs/id" }
+  informationHierarchy:
+    type: object
+    additionalProperties: false
+    required: [contractId, contractPath, version, status, levels]
+    properties:
+      contractId: { $ref: "#/$defs/id" }
+      contractPath: { $ref: "#/$defs/path" }
+      version: { const: "1.0" }
+      status: { enum: [declared, validated] }
+      levels:
+        type: array
+        minItems: 8
+        maxItems: 8
+        uniqueItems: true
+        prefixItems:
+          - { const: context-provenance }
+          - { const: primary-outcome-action }
+          - { const: critical-exceptions }
+          - { const: health-impact-metrics }
+          - { const: prioritized-findings }
+          - { const: operational-telemetry }
+          - { const: evidence-audit-trail }
+          - { const: history-exports }
+        items: false
+      reportPath: { $ref: "#/$defs/path" }
+      evidenceRef: { $ref: "#/$defs/id" }
+  metricContracts:
+    type: object
+    additionalProperties: false
+    required: [informationContractId, metrics]
+    properties:
+      informationContractId: { $ref: "#/$defs/id" }
+      metrics:
+        type: array
+        minItems: 1
+        maxItems: 5000
+        items:
+          type: object
+          additionalProperties: false
+          required: [metricId, decision, hierarchyLevel, chartRefs]
+          properties:
+            metricId: { $ref: "#/$defs/id" }
+            decision: { type: string, minLength: 1, maxLength: 512 }
+            hierarchyLevel: { enum: [primary-outcome-action, health-impact-metrics, operational-telemetry] }
+            chartRefs:
+              type: array
+              maxItems: 50
+              items: { $ref: "#/$defs/id" }
+  generationWorkflow:
+    type: object
+    additionalProperties: false
+    required: [steps]
+    properties:
+      steps:
+        type: array
+        minItems: 9
+        maxItems: 9
+        items:
+          type: object
+          additionalProperties: false
+          required: [stage, status, artifactRefs]
+          properties:
+            stage: { enum: [product-task, truth-data-source-contract, information-architecture, interaction-state-model, visual-direction, token-architecture, implementation, automated-verification, human-visual-review] }
+            status: { enum: [required, declared, implemented, verified, review-required, review-completed] }
+            artifactRefs:
+              type: array
+              maxItems: 100
+              items: { $ref: "#/$defs/id" }
+  requiredViewport:
+    enum: [375, 768, 1024, 1440]
+  visualDirection:
+    type: object
+    additionalProperties: false
+    required: [domain, intent, principles, avoid, tokenRefs, ornamentPolicy, referenceEvidenceRefs]
+    properties:
+      domain: { $ref: "#/$defs/shortText" }
+      intent: { $ref: "#/$defs/text" }
+      principles:
+        type: array
+        minItems: 3
+        maxItems: 8
+        items: { $ref: "#/$defs/shortText" }
+      avoid:
+        type: array
+        minItems: 3
+        maxItems: 16
+        items: { $ref: "#/$defs/shortText" }
+      tokenRefs:
+        type: array
+        minItems: 4
+        maxItems: 100
+        items: { $ref: "#/$defs/tokenName" }
+      ornamentPolicy:
+        type: object
+        additionalProperties: false
+        required: [decorativeAgentDiagrams, excessiveGlow, meaninglessGradients, ornamentalStatusElements]
+        properties:
+          decorativeAgentDiagrams: { const: false }
+          excessiveGlow: { const: false }
+          meaninglessGradients: { const: false }
+          ornamentalStatusElements: { const: false }
+      referenceEvidenceRefs:
+        type: array
+        maxItems: 50
+        items: { $ref: "#/$defs/id" }
+  typography:
+    type: object
+    additionalProperties: false
+    required: [minimumBodySizePx, maximumLineLengthCharacters, numericAlignment, roles]
+    properties:
+      minimumBodySizePx: { type: number, minimum: 16, maximum: 32 }
+      maximumLineLengthCharacters: { type: integer, minimum: 45, maximum: 90 }
+      numericAlignment: { enum: [tabular, proportional] }
+      roles:
+        type: array
+        minItems: 8
+        maxItems: 8
+        items:
+          type: object
+          additionalProperties: false
+          required: [role, familyToken, sizeToken, weightToken, lineHeightToken, colorToken, usage]
+          properties:
+            role: { enum: [body, label, heading, metadata, metric, evidence, log, code] }
+            familyToken: { $ref: "#/$defs/tokenName" }
+            sizeToken: { $ref: "#/$defs/tokenName" }
+            weightToken: { $ref: "#/$defs/tokenName" }
+            lineHeightToken: { $ref: "#/$defs/tokenName" }
+            colorToken: { $ref: "#/$defs/tokenName" }
+            usage: { type: string, minLength: 1, maxLength: 512 }
+  composition:
+    type: object
+    additionalProperties: false
+    required: [contentWidth, grids, spacingRhythm, alignmentRules, stableDimensions, surfaces, borders, elevations, emphasis, selectedState]
+    properties:
+      contentWidth:
+        type: object
+        additionalProperties: false
+        required: [strategy, maximumPx]
+        properties:
+          strategy: { enum: [fluid, bounded, hybrid] }
+          maximumPx: { type: integer, minimum: 320, maximum: 2560 }
+      grids:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          type: object
+          additionalProperties: false
+          required: [viewport, columns, gutterToken, marginToken, composition]
+          properties:
+            viewport: { $ref: "#/$defs/requiredViewport" }
+            columns: { type: integer, minimum: 1, maximum: 16 }
+            gutterToken: { $ref: "#/$defs/tokenName" }
+            marginToken: { $ref: "#/$defs/tokenName" }
+            composition: { type: string, minLength: 1, maxLength: 512 }
+      spacingRhythm:
+        type: object
+        additionalProperties: false
+        required: [baseToken, allowedStepTokens]
+        properties:
+          baseToken: { $ref: "#/$defs/tokenName" }
+          allowedStepTokens:
+            type: array
+            minItems: 4
+            maxItems: 16
+            items: { $ref: "#/$defs/tokenName" }
+      alignmentRules:
+        type: array
+        minItems: 2
+        maxItems: 12
+        items: { type: string, minLength: 1, maxLength: 512 }
+      stableDimensions:
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          type: object
+          additionalProperties: false
+          required: [component, behavior, tokenRefs, rationale]
+          properties:
+            component: { $ref: "#/$defs/id" }
+            behavior: { enum: [fixed, bounded, aspect-ratio] }
+            tokenRefs:
+              type: array
+              minItems: 1
+              maxItems: 10
+              items: { $ref: "#/$defs/tokenName" }
+            rationale: { type: string, minLength: 1, maxLength: 512 }
+      surfaces:
+        type: array
+        minItems: 3
+        maxItems: 5
+        items:
+          type: object
+          additionalProperties: false
+          required: [role, tokenRef]
+          properties:
+            role: { enum: [canvas, subtle, raised, overlay, inverse] }
+            tokenRef: { $ref: "#/$defs/tokenName" }
+      borders:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          type: object
+          additionalProperties: false
+          required: [role, tokenRef]
+          properties:
+            role: { enum: [default, strong, focus, selected] }
+            tokenRef: { $ref: "#/$defs/tokenName" }
+      elevations:
+        type: array
+        minItems: 3
+        maxItems: 3
+        items:
+          type: object
+          additionalProperties: false
+          required: [role, tokenRef]
+          properties:
+            role: { enum: [base, raised, overlay] }
+            tokenRef: { $ref: "#/$defs/tokenName" }
+      emphasis:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          type: object
+          additionalProperties: false
+          required: [level, textToken, surfaceToken]
+          properties:
+            level: { enum: [primary, secondary, tertiary, muted] }
+            textToken: { $ref: "#/$defs/tokenName" }
+            surfaceToken: { $ref: "#/$defs/tokenName" }
+      selectedState:
+        type: object
+        additionalProperties: false
+        required: [backgroundToken, borderToken, indicator, nonColorCue]
+        properties:
+          backgroundToken: { $ref: "#/$defs/tokenName" }
+          borderToken: { $ref: "#/$defs/tokenName" }
+          indicator: { $ref: "#/$defs/shortText" }
+          nonColorCue: { $ref: "#/$defs/shortText" }
+  densityProfile:
+    type: object
+    additionalProperties: false
+    required: [mode, rationale, controlHeightToken, rowHeightToken, compactRowHeightToken, spacingTokenRefs, maximumPrimaryActions, viewportBehavior]
+    properties:
+      mode: { enum: [comfortable, compact, dense, adaptive] }
+      rationale: { $ref: "#/$defs/text" }
+      controlHeightToken: { $ref: "#/$defs/tokenName" }
+      rowHeightToken: { $ref: "#/$defs/tokenName" }
+      compactRowHeightToken: { $ref: "#/$defs/tokenName" }
+      spacingTokenRefs:
+        type: array
+        minItems: 4
+        maxItems: 16
+        items: { $ref: "#/$defs/tokenName" }
+      maximumPrimaryActions: { type: integer, minimum: 1, maximum: 3 }
+      viewportBehavior:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          type: object
+          additionalProperties: false
+          required: [viewport, mode, visiblePriorities]
+          properties:
+            viewport: { $ref: "#/$defs/requiredViewport" }
+            mode: { enum: [comfortable, compact, dense] }
+            visiblePriorities:
+              type: array
+              minItems: 1
+              maxItems: 8
+              items: { type: string, minLength: 1, maxLength: 160 }
+  interactionStates:
+    type: object
+    additionalProperties: false
+    required: [states]
+    properties:
+      states:
+        type: array
+        minItems: 9
+        maxItems: 9
+        items:
+          type: object
+          additionalProperties: false
+          required: [state, behavior, tokenRefs, textCue, iconCue]
+          properties:
+            state: { enum: [loading, empty, success, warning, error, partial, disabled, selected, focus] }
+            behavior: { type: string, minLength: 1, maxLength: 512 }
+            tokenRefs:
+              type: array
+              minItems: 1
+              maxItems: 20
+              items: { $ref: "#/$defs/tokenName" }
+            textCue: { type: boolean }
+            iconCue: { type: boolean }
+  motion:
+    type: object
+    additionalProperties: false
+    required: [durationTokens, motions, reducedMotion]
+    properties:
+      durationTokens:
+        type: object
+        additionalProperties: false
+        required: [instant, feedback, transition, emphasis]
+        properties:
+          instant: { $ref: "#/$defs/tokenName" }
+          feedback: { $ref: "#/$defs/tokenName" }
+          transition: { $ref: "#/$defs/tokenName" }
+          emphasis: { $ref: "#/$defs/tokenName" }
+      motions:
+        type: array
+        minItems: 1
+        maxItems: 100
+        items:
+          type: object
+          additionalProperties: false
+          required: [id, purpose, trigger, property, durationCategory, interruptible]
+          properties:
+            id: { $ref: "#/$defs/id" }
+            purpose: { type: string, minLength: 1, maxLength: 512 }
+            trigger: { $ref: "#/$defs/shortText" }
+            property: { enum: [opacity, transform, color, size, position, progress] }
+            durationCategory: { enum: [instant, feedback, transition, emphasis] }
+            interruptible: { type: boolean }
+      reducedMotion:
+        type: object
+        additionalProperties: false
+        required: [strategy, equivalents]
+        properties:
+          strategy: { enum: [remove, replace, shorten] }
+          equivalents:
+            type: array
+            minItems: 1
+            maxItems: 100
+            items:
+              type: object
+              additionalProperties: false
+              required: [motionRef, behavior]
+              properties:
+                motionRef: { $ref: "#/$defs/id" }
+                behavior: { type: string, minLength: 1, maxLength: 512 }
+  chartContract:
+    type: object
+    additionalProperties: false
+    required: [id, purpose, type, metricRefs, labelStrategy, titleVisible, valuesVisible, legend, comparison, alternative, states, tokenRefs, nonColorCues, decorative]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      purpose: { $ref: "#/$defs/text" }
+      type: { enum: [bar, line, area, scatter, distribution, timeline, table-first] }
+      metricRefs:
+        type: array
+        minItems: 1
+        maxItems: 50
+        items: { $ref: "#/$defs/id" }
+      labelStrategy: { enum: [direct, axis-and-legend, table-first] }
+      titleVisible: { type: boolean }
+      valuesVisible: { type: boolean }
+      legend:
+        type: object
+        additionalProperties: false
+        required: [visible]
+        properties:
+          visible: { type: boolean }
+          reason: { type: string, minLength: 1, maxLength: 512 }
+      comparison:
+        oneOf:
+          - type: object
+            additionalProperties: false
+            required: [status, context]
+            properties:
+              status: { const: available }
+              context: { type: string, minLength: 1, maxLength: 512 }
+          - type: object
+            additionalProperties: false
+            required: [status, reason]
+            properties:
+              status: { const: not-applicable }
+              reason: { type: string, minLength: 1, maxLength: 512 }
+      alternative:
+        type: object
+        additionalProperties: false
+        required: [kind, path]
+        properties:
+          kind: { enum: [table, text] }
+          path: { $ref: "#/$defs/path" }
+      states:
+        type: object
+        additionalProperties: false
+        required: [loading, empty, partial, error]
+        properties:
+          loading: { type: string, minLength: 1, maxLength: 512 }
+          empty: { type: string, minLength: 1, maxLength: 512 }
+          partial: { type: string, minLength: 1, maxLength: 512 }
+          error: { type: string, minLength: 1, maxLength: 512 }
+      tokenRefs:
+        type: array
+        minItems: 2
+        maxItems: 30
+        items: { $ref: "#/$defs/tokenName" }
+      nonColorCues:
+        type: array
+        minItems: 2
+        maxItems: 8
+        uniqueItems: true
+        contains: { enum: [text, icon, shape, pattern, position, value, line-style] }
+        items: { enum: [color, text, icon, shape, pattern, position, value, line-style] }
+      decorative: { const: false }
+  renderedEvidence:
+    type: object
+    additionalProperties: false
+    required: [fixture, captures]
+    properties:
+      fixture:
+        type: object
+        additionalProperties: false
+        required: [id, sourcePath, route]
+        properties:
+          id: { $ref: "#/$defs/id" }
+          sourcePath: { $ref: "#/$defs/path" }
+          route: { $ref: "#/$defs/text" }
+      captures:
+        type: array
+        minItems: 4
+        maxItems: 4
+        items:
+          oneOf:
+            - type: object
+              additionalProperties: false
+              required: [viewport, status]
+              properties:
+                viewport: { $ref: "#/$defs/requiredViewport" }
+                status: { const: planned }
+            - type: object
+              additionalProperties: false
+              required: [viewport, status, screenshotPath, runtimeReportPath, sha256]
+              properties:
+                viewport: { $ref: "#/$defs/requiredViewport" }
+                status: { enum: [captured, verified] }
+                screenshotPath: { $ref: "#/$defs/path" }
+                runtimeReportPath: { $ref: "#/$defs/path" }
+                sha256: { type: string, pattern: "^[a-f0-9]{64}$" }
+  humanVisualReview:
+    type: object
+    additionalProperties: false
+    required: [status, dimensions, reviewers]
+    properties:
+      status: { enum: [required, completed] }
+      dimensions:
+        type: array
+        minItems: 5
+        maxItems: 5
+        uniqueItems: true
+        items: { enum: [hierarchy, balance, scanability, density, domain-fit] }
+      reviewers:
+        type: array
+        maxItems: 50
+        items:
+          type: object
+          additionalProperties: false
+          required: [name, role, reviewedAt, evidenceRef]
+          properties:
+            name: { $ref: "#/$defs/shortText" }
+            role: { $ref: "#/$defs/shortText" }
+            reviewedAt: { type: string, format: date-time }
+            evidenceRef: { $ref: "#/$defs/id" }
   brand:
     type: object
     additionalProperties: false

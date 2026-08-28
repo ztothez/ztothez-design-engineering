@@ -1,0 +1,281 @@
+version: "1.0"
+id: operational-information-design-v1
+product: Example Operations Workspace
+preparedAt: 2026-08-26T16:00:00+03:00
+preparedBy:
+  type: agent
+  name: ZtotheZ Design Engineering
+
+sources:
+  - id: estate-api
+    kind: runtime
+    description: Authenticated API response for the selected estate and period.
+    evidence: evidence/estate-api-response.json
+  - id: metric-calculation
+    kind: calculation
+    description: Versioned metric calculation over the scoped API response.
+    evidence: evidence/metric-calculation.json
+  - id: audit-log
+    kind: runtime
+    description: Runtime audit events supporting findings and remediation verification.
+    evidence: evidence/audit-events.json
+
+freshness:
+  - id: estate-current
+    status: current
+    observedAt: 2026-08-26T12:00:00Z
+    timezone: UTC
+    sourceRef: estate-api
+
+baselines:
+  - id: previous-seven-days
+    kind: previous-period
+    label: Previous seven-day period for the same estate scope
+    sourceRefs: [estate-api, metric-calculation]
+
+destinations:
+  - { id: findings-view, label: Open prioritized findings, kind: drill-down, target: /findings }
+  - { id: metric-details, label: Inspect metric records, kind: drill-down, target: /metrics }
+  - { id: remediation-queue, label: Add to remediation queue, kind: action, target: /remediation/new }
+  - { id: validation-run, label: Run validation query, kind: action, target: /validation/run }
+  - { id: platform-team, label: Platform operations team, kind: owner, target: team:platform-operations }
+  - { id: run-history, label: Open run history, kind: history, target: /history }
+  - { id: export-report, label: Export scoped report, kind: export, target: /exports/new }
+
+contexts:
+  - id: selected-estate
+    environment: Production tenant eu-west
+    scope: 142 resources authorized for the selected tenant and seven-day period
+    dataDescription: Runtime resource inventory, cost observations, and audit events.
+    sourceRefs: [estate-api, metric-calculation, audit-log]
+    freshnessRef: estate-current
+    limitations:
+      - Resources outside current tenant authorization are excluded.
+
+labelPolicies:
+  - id: operational-labels
+    maxVisibleCharacters: 80
+    overflow: wrap
+    accessibleReveal: true
+
+valuePolicies:
+  - id: operational-values
+    states:
+      loading: { label: "Loading current value", behavior: "Preserve label and layout while showing bounded progress." }
+      available: { label: "Current value available", behavior: "Show value with scope, period, source, and drill-down." }
+      missing: { label: "Value unavailable", behavior: "Show no-value text and the source or permission recovery path; never substitute zero." }
+      partial: { label: "Partial value", behavior: "Show the available portion, excluded scope, limitation, and retry path." }
+      stale: { label: "Stale value", behavior: "Show the last value with timestamp, timezone, stale label, and refresh action." }
+      error: { label: "Value failed", behavior: "Preserve context and expose a retry or diagnostic destination." }
+
+evidence:
+  - id: idle-resource-observation
+    sourceRef: estate-api
+    kind: observation
+    description: Seven resources report no workload activity during the selected period.
+    location: evidence/estate-api-response.json#/idleResources
+  - id: savings-calculation
+    sourceRef: metric-calculation
+    kind: calculation
+    description: Recoverable monthly cost calculated from idle resource rates and exclusions.
+    location: evidence/metric-calculation.json#/recoverableMonthlyCost
+  - id: validation-query
+    sourceRef: audit-log
+    kind: log
+    description: Query that verifies removed idle resources no longer emit billable events.
+    location: evidence/audit-events.json#/validationQuery
+
+metrics:
+  - id: recoverable-monthly-cost
+    label: Estimated recoverable monthly cost
+    definition: Monthly cost associated with resources that meet the declared idle-resource rule.
+    formula: Sum current monthly rates for resources with zero workload activity, excluding protected and reserved resources.
+    sourceRefs: [estate-api, metric-calculation]
+    contextRef: selected-estate
+    scope: Authorized resources in production tenant eu-west
+    period: { kind: rolling, label: Last seven complete days projected to one month }
+    freshnessRef: estate-current
+    baseline: { status: available, reference: previous-seven-days }
+    drilldownRef: findings-view
+    limitations: [Projection assumes current rates and workload behavior remain stable.]
+    supportedDecision:
+      question: How much current cost can the team investigate for recovery?
+      action: Open the affected resources and prioritize validated remediation.
+    labelPolicyRef: operational-labels
+    valuePolicyRef: operational-values
+    decorative: false
+  - id: critical-finding-count
+    label: Critical findings requiring action
+    definition: Count of unresolved findings classified critical under the current ruleset.
+    formula: Count unresolved findings where severity equals critical in the selected scope.
+    sourceRefs: [estate-api, audit-log]
+    contextRef: selected-estate
+    scope: Authorized resources in production tenant eu-west
+    period: { kind: point-in-time, label: Current observed estate }
+    freshnessRef: estate-current
+    baseline: { status: not-applicable, reason: "The count is a current action queue, not a performance comparison." }
+    drilldownRef: findings-view
+    limitations: [Severity reflects the current versioned ruleset.]
+    supportedDecision:
+      question: Which exceptions require immediate review?
+      action: Open the critical findings queue.
+    labelPolicyRef: operational-labels
+    valuePolicyRef: operational-values
+    decorative: false
+  - id: validation-pass-rate
+    label: Remediation validation pass rate
+    definition: Share of completed remediation validations that produced the expected signal.
+    formula: Successful validation runs divided by completed validation runs, excluding canceled runs.
+    sourceRefs: [audit-log, metric-calculation]
+    contextRef: selected-estate
+    scope: Completed validation runs for the selected estate
+    period: { kind: rolling, label: Last seven complete days }
+    freshnessRef: estate-current
+    baseline: { status: available, reference: previous-seven-days }
+    drilldownRef: metric-details
+    limitations: [Open and canceled validation runs are excluded.]
+    supportedDecision:
+      question: Are remediation actions producing the expected operational result?
+      action: Inspect failed validation runs and return them to the owning team.
+    labelPolicyRef: operational-labels
+    valuePolicyRef: operational-values
+    decorative: false
+
+findings:
+  - id: idle-production-resources
+    title: Seven production resources show no workload activity
+    severity: critical
+    affectedEntities:
+      - { id: resource-group-idle, type: resource-group, label: Seven idle production resources }
+    observation: No workload activity was observed for seven resources during the selected seven-day period.
+    evidenceRefs: [idle-resource-observation, savings-calculation]
+    impact:
+      category: financial
+      statement: The current rate projection identifies recoverable monthly cost if ownership and protection checks pass.
+    confidence:
+      level: high
+      basis: Runtime activity observations and the versioned rate calculation agree for the selected scope.
+    remediation: Confirm ownership and protection status, then stop or remove validated idle resources through change control.
+    destinationRef: remediation-queue
+    validation:
+      method: Run the billable-event query after the approved change window.
+      expectedSignal: Removed resources emit no billable events and remaining resources retain expected workload activity.
+      evidenceRefs: [validation-query]
+    nonColorCues: [color, text, icon]
+  - id: failed-remediation-validations
+    title: Two remediation validations did not produce the expected signal
+    severity: high
+    affectedEntities:
+      - { id: validation-group-failed, type: validation-run-group, label: Two failed validation runs }
+    observation: Two completed validation runs still contain billable events after their change windows.
+    evidenceRefs: [validation-query]
+    impact:
+      category: operational
+      statement: The intended remediation outcome is unverified and the resources require investigation.
+    confidence:
+      level: medium
+      basis: Runtime events establish the failed signal, but ownership and change execution details require review.
+    remediation: Return the runs to platform operations with the event evidence and change identifiers.
+    destinationRef: platform-team
+    validation:
+      method: Re-run validation after corrected remediation and compare against the same scoped event query.
+      expectedSignal: The query returns no billable events for remediated entities during the verification period.
+      evidenceRefs: [validation-query]
+    nonColorCues: [text, icon, position]
+
+charts:
+  - id: remediation-outcome-trend
+    title: Remediation validation outcomes over seven days
+    purpose: Show whether validation performance is improving and expose failed runs for investigation.
+    metricRefs: [validation-pass-rate]
+    supportedDecision: Decide whether failed validations need process correction or targeted remediation.
+    destinationRef: metric-details
+    decorative: false
+    labeling:
+      titleVisible: true
+      valuesVisible: true
+      legendVisible: true
+    alternative:
+      kind: table
+      destinationRef: metric-details
+    valuePolicyRef: operational-values
+
+collections:
+  - id: prioritized-finding-list
+    label: Prioritized findings
+    entity: operational finding
+    estimatedMaximumItems: 10000
+    strategy: virtualization
+    search: true
+    filter: true
+    sort: true
+    emptyState: No findings match the selected scope and filters; retain context and offer filter reset.
+    partialState: Some findings are unavailable; show loaded records, excluded scope, and retry action.
+    staleState: Findings are from the displayed timestamp; preserve selection and offer refresh.
+    labelPolicyRef: operational-labels
+
+hierarchy:
+  - { level: context-provenance, order: 1, contextRefs: [selected-estate], metricRefs: [], findingRefs: [], chartRefs: [], destinationRefs: [] }
+  - { level: primary-outcome-action, order: 2, contextRefs: [], metricRefs: [recoverable-monthly-cost], findingRefs: [], chartRefs: [], destinationRefs: [findings-view] }
+  - { level: critical-exceptions, order: 3, contextRefs: [], metricRefs: [], findingRefs: [idle-production-resources], chartRefs: [], destinationRefs: [remediation-queue] }
+  - { level: health-impact-metrics, order: 4, contextRefs: [], metricRefs: [critical-finding-count, validation-pass-rate], findingRefs: [], chartRefs: [], destinationRefs: [] }
+  - { level: prioritized-findings, order: 5, contextRefs: [], metricRefs: [], findingRefs: [idle-production-resources, failed-remediation-validations], chartRefs: [], destinationRefs: [findings-view] }
+  - { level: operational-telemetry, order: 6, contextRefs: [], metricRefs: [validation-pass-rate], findingRefs: [], chartRefs: [remediation-outcome-trend], destinationRefs: [metric-details] }
+  - { level: evidence-audit-trail, order: 7, contextRefs: [], metricRefs: [], findingRefs: [idle-production-resources, failed-remediation-validations], chartRefs: [], destinationRefs: [validation-run] }
+  - { level: history-exports, order: 8, contextRefs: [], metricRefs: [], findingRefs: [], chartRefs: [], destinationRefs: [run-history, export-report] }
+
+tasks:
+  - id: review-context
+    question: identify-context
+    prompt: Identify the environment, scope, data source, freshness, and limitations.
+    contextRefs: [selected-estate]
+    metricRefs: []
+    findingRefs: []
+    destinationRefs: []
+    expectedAnswer: Production tenant eu-west, 142 authorized resources, runtime and calculated data observed at the displayed UTC timestamp, excluding unauthorized resources.
+    nonColorRequired: true
+  - id: review-priority
+    question: identify-priority
+    prompt: Identify the issue requiring immediate attention.
+    contextRefs: [selected-estate]
+    metricRefs: [critical-finding-count]
+    findingRefs: [idle-production-resources]
+    destinationRefs: [findings-view]
+    expectedAnswer: Seven idle production resources are the critical current finding.
+    nonColorRequired: true
+  - id: review-impact
+    question: explain-impact
+    prompt: Explain the impact and its limitation.
+    contextRefs: [selected-estate]
+    metricRefs: [recoverable-monthly-cost]
+    findingRefs: [idle-production-resources]
+    destinationRefs: []
+    expectedAnswer: The idle resources indicate recoverable monthly cost, subject to ownership, protection, rate, and stable-workload assumptions.
+    nonColorRequired: true
+  - id: review-evidence
+    question: inspect-evidence
+    prompt: Identify the evidence supporting the critical finding.
+    contextRefs: [selected-estate]
+    metricRefs: [recoverable-monthly-cost]
+    findingRefs: [idle-production-resources]
+    destinationRefs: [metric-details]
+    expectedAnswer: Runtime activity observations and the versioned savings calculation support the finding.
+    nonColorRequired: true
+  - id: review-next-action
+    question: identify-next-action
+    prompt: Identify the next action and its destination.
+    contextRefs: [selected-estate]
+    metricRefs: []
+    findingRefs: [idle-production-resources]
+    destinationRefs: [remediation-queue, platform-team]
+    expectedAnswer: Confirm ownership and protection, then route approved idle-resource changes through the remediation queue to platform operations.
+    nonColorRequired: true
+  - id: review-verification
+    question: verify-success
+    prompt: Explain how the remediation outcome will be verified.
+    contextRefs: [selected-estate]
+    metricRefs: [validation-pass-rate]
+    findingRefs: [idle-production-resources]
+    destinationRefs: [validation-run]
+    expectedAnswer: Run the scoped billable-event query after the change and verify removed resources have no events while retained resources remain active.
+    nonColorRequired: true

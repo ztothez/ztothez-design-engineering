@@ -1,0 +1,188 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://ztothez.dev/schemas/portfolio-registry-1.0.schema.json
+title: ZtotheZ Design Engineering Local Portfolio Registry
+type: object
+additionalProperties: false
+required: [version, id, description, roots, projects]
+properties:
+  version: { const: "1.0" }
+  id: { $ref: "#/$defs/id" }
+  description: { type: string, minLength: 1, maxLength: 1024 }
+  roots:
+    type: array
+    minItems: 1
+    maxItems: 20
+    items: { $ref: "#/$defs/root" }
+  projects:
+    type: array
+    maxItems: 500
+    items: { $ref: "#/$defs/project" }
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  text:
+    type: string
+    minLength: 1
+    maxLength: 1024
+  relativePattern:
+    type: string
+    minLength: 1
+    maxLength: 1024
+    pattern: "^(?!/)(?![A-Za-z]:[\\\\/])(?!.*(?:^|[\\\\/])\\.\\.(?:[\\\\/]|$))[^\\u0000]+$"
+  publication:
+    type: object
+    additionalProperties: false
+    required: [sourceExcerpts, screenshots, machineReports, aggregateMetrics]
+    properties:
+      sourceExcerpts: { type: boolean }
+      screenshots: { type: boolean }
+      machineReports: { type: boolean }
+      aggregateMetrics: { type: boolean }
+  root:
+    type: object
+    additionalProperties: false
+    required: [id, class, path]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      class:
+        enum: [studio-clients, studio-fullstack, studio-personal, studio-portfolio, ai, apps]
+      path: { type: string, minLength: 1, maxLength: 4096 }
+      discoveryDepth: { type: integer, minimum: 1, maximum: 12, default: 4 }
+      excludes:
+        type: array
+        maxItems: 100
+        default: []
+        items: { $ref: "#/$defs/relativePattern" }
+  capability:
+    type: object
+    additionalProperties: false
+    required: [stage, status, reason]
+    properties:
+      stage:
+        enum: [source-audit, typecheck, lint, unit-test, production-build, local-fixture-server, browser-journeys, export-verification]
+      status: { enum: [supported, unsupported, not-applicable] }
+      reason: { type: string, minLength: 1, maxLength: 512 }
+  adapterCommand:
+    type: object
+    additionalProperties: false
+    required: [stage, command]
+    properties:
+      stage:
+        enum: [source-audit, typecheck, lint, unit-test, production-build, local-fixture-server, browser-journeys, export-verification]
+      command:
+        type: string
+        pattern: "^[A-Za-z0-9][A-Za-z0-9._+-]{0,127}$"
+      arguments:
+        type: array
+        maxItems: 50
+        default: []
+        items: { type: string, minLength: 1, maxLength: 512 }
+      cwd: { allOf: [{ $ref: "#/$defs/relativePattern" }], default: "." }
+      timeoutMs: { type: integer, minimum: 100, maximum: 1800000, default: 120000 }
+      maxOutputBytes: { type: integer, minimum: 1024, maximum: 33554432, default: 2097152 }
+      allowDependencyNetwork: { type: boolean, default: false }
+  project:
+    type: object
+    additionalProperties: false
+    required: [id, root, path, enabled, ownership, confidentiality, cohort, publication, product, technology, capabilities, execution, paths, source]
+    properties:
+      id: { $ref: "#/$defs/id" }
+      root: { $ref: "#/$defs/id" }
+      path: { $ref: "#/$defs/relativePattern" }
+      enabled: { type: boolean }
+      ownership: { enum: [first-party, client-authorized, third-party-reference, unknown] }
+      authorizationEvidence: { type: string, minLength: 1, maxLength: 1024 }
+      confidentiality: { enum: [public, private-local, restricted] }
+      cohort: { enum: [development, holdout, excluded] }
+      publication: { $ref: "#/$defs/publication" }
+      product:
+        type: object
+        additionalProperties: false
+        required: [domain, archetype, intendedUsers, primaryTasks]
+        properties:
+          domain: { type: string, minLength: 1, maxLength: 128 }
+          archetype: { enum: [operational-dashboard, ai-workspace, content-site, utility, full-stack-workflow, other] }
+          intendedUsers:
+            type: array
+            minItems: 1
+            maxItems: 20
+            items: { type: string, minLength: 1, maxLength: 256 }
+          primaryTasks:
+            type: array
+            minItems: 1
+            maxItems: 20
+            items: { type: string, minLength: 1, maxLength: 512 }
+      technology:
+        type: object
+        additionalProperties: false
+        required: [framework, packageManager, entrypoint]
+        properties:
+          framework: { type: string, minLength: 1, maxLength: 128 }
+          packageManager: { enum: [npm, pnpm, yarn, bun, pip, poetry, none, other] }
+          entrypoint: { $ref: "#/$defs/relativePattern" }
+          adapter: { enum: [react-vite, nextjs, angular, static-web, node-python-fullstack, python-source] }
+      capabilities:
+        type: array
+        minItems: 1
+        maxItems: 8
+        items: { $ref: "#/$defs/capability" }
+      execution:
+        type: object
+        additionalProperties: false
+        required: [fixtureMode, networkPolicy, lifecycleScripts]
+        properties:
+          fixtureMode: { enum: [local-fixture, disconnected, not-applicable] }
+          networkPolicy: { enum: [denied, dependency-install-only] }
+          lifecycleScripts: { type: boolean }
+          allowedEnvironmentVariables:
+            type: array
+            maxItems: 50
+            default: []
+            items: { type: string, pattern: "^[A-Z][A-Z0-9_]{0,127}$" }
+          localPorts:
+            type: array
+            maxItems: 20
+            default: []
+            items: { type: integer, minimum: 1, maximum: 65535 }
+          commands:
+            type: array
+            maxItems: 8
+            default: []
+            items: { $ref: "#/$defs/adapterCommand" }
+      verification:
+        type: object
+        additionalProperties: false
+        required: [serveDirectory, port, contractPath, profile]
+        properties:
+          serveDirectory: { $ref: "#/$defs/relativePattern" }
+          port: { type: integer, minimum: 1, maximum: 65535 }
+          route: { type: string, pattern: "^/[^/].*|^/$", maxLength: 2048, default: "/" }
+          readinessPath: { type: string, pattern: "^/[^/].*|^/$", maxLength: 2048, default: "/" }
+          contractPath: { $ref: "#/$defs/relativePattern" }
+          profile: { $ref: "#/$defs/id" }
+          attestationsPath: { $ref: "#/$defs/relativePattern" }
+          heuristicReviewPath: { $ref: "#/$defs/relativePattern" }
+          settleMs: { type: integer, minimum: 0, maximum: 30000, default: 500 }
+      paths:
+        type: object
+        additionalProperties: false
+        required: [include]
+        properties:
+          include:
+            type: array
+            minItems: 1
+            maxItems: 100
+            items: { $ref: "#/$defs/relativePattern" }
+          exclude:
+            type: array
+            maxItems: 200
+            default: []
+            items: { $ref: "#/$defs/relativePattern" }
+      source:
+        type: object
+        additionalProperties: false
+        required: [revisionPolicy, canonicalizationKey]
+        properties:
+          revisionPolicy: { enum: [capture-current, require-clean] }
+          canonicalizationKey: { $ref: "#/$defs/id" }

@@ -36,6 +36,10 @@ export type AuditReport = {
   findings: AuditFinding[];
   summary: AuditSummary;
   passed: boolean;
+  evidenceBoundary: {
+    verifierLimitations: string[];
+    humanReviewRequired: string[];
+  };
 };
 
 export type AuditPolicy = {

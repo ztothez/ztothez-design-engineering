@@ -34,6 +34,28 @@ export function resolveChromiumPath(configuredPath?: string): string | undefined
   return chromiumCandidates.find((candidate) => existsSync(candidate));
 }
 
+export function resolveChromiumCdpUrl(configuredUrl?: string): string | undefined {
+  const explicitUrl = configuredUrl ?? process.env.ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL;
+  if (!explicitUrl) return undefined;
+
+  let url: URL;
+  try {
+    url = new URL(explicitUrl);
+  } catch {
+    throw new Error("Configured Chromium CDP URL must be a valid absolute URL");
+  }
+  if (url.protocol !== "http:" && url.protocol !== "https:") {
+    throw new Error("Configured Chromium CDP URL must use http or https");
+  }
+  if (!["127.0.0.1", "localhost", "::1"].includes(url.hostname)) {
+    throw new Error("Configured Chromium CDP URL must use a loopback host");
+  }
+  if (url.username || url.password || url.pathname !== "/" || url.search || url.hash) {
+    throw new Error("Configured Chromium CDP URL must contain only a loopback origin");
+  }
+  return url.toString();
+}
+
 export function validateRuntimeUrl(value: string): URL {
   let url: URL;
   try {

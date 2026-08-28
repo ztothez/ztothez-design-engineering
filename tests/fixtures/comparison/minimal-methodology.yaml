@@ -1,0 +1,63 @@
+version: "1.0"
+id: minimal-comparison-v1
+title: Minimal comparison validation fixture
+preparedAt: 2026-08-26T15:45:00+03:00
+preparedBy:
+  type: agent
+  name: Fixture author
+candidates:
+  - { id: anonymous-a, label: Candidate A }
+  - { id: anonymous-b, label: Candidate B }
+viewports:
+  - { id: mobile, width: 375, height: 812 }
+states:
+  - { id: initial, label: Initial state, required: true }
+stages:
+  - id: browser-verification
+    label: Browser verification
+    required: true
+    scope: candidate
+    evidenceKinds: [runtime-report]
+  - id: human-review
+    label: Human review
+    required: true
+    scope: comparison
+    evidenceKinds: [human-review, user-session]
+tasks:
+  - id: identify-origin
+    prompt: Identify the data origin.
+    successCriteria: [Correctly identifies the origin.]
+    measurements: [task-completion, comprehension-accuracy]
+rubric:
+  scale:
+    minimum: 0
+    maximum: 4
+    anchors:
+      "0": Absent
+      "1": Deficient
+      "2": Functional
+      "3": Polished
+      "4": Exceptional
+  categories:
+    - id: trust
+      label: Trust
+      weight: 100
+      criteria:
+        - id: origin-clear
+          prompt: Origin is clear.
+          measurement: comprehension
+          evidenceLevel: representative-user
+          scoreMinimum: 0
+          scoreMaximum: 4
+evidencePolicy:
+  anonymizeCandidates: true
+  counterbalanceOrder: true
+  retainArtifacts: true
+  separateEvidenceLevels: true
+  requireHumanAttribution: true
+  prohibitAgentHumanAttestation: true
+decision:
+  minimumCategoryScore: 3
+  requireAllStagesPass: true
+  prohibitContradictedClaims: true
+  requiredEvidenceLevels: [automated, ai-assisted-expert, human-expert, representative-user]

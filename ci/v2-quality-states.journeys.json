@@ -1,0 +1,21 @@
+{
+  "version": "1.0",
+  "contract": "ztothez-v2-quality-fixture",
+  "profiles": [
+    {
+      "id": "v2-state-matrix",
+      "name": "V2 trust, information, and polish state matrix",
+      "environment": ["Deterministic fixture server is running"],
+      "journeys": [
+        { "id": "normal", "name": "normal", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=normal" }, { "action": "expectAttribute", "selector": "#app", "name": "data-ztothez-design-state", "value": "normal" }, { "action": "expectAttribute", "selector": "#mode", "name": "data-ztothez-design-data-mode", "value": "demo" }] },
+        { "id": "long-content", "name": "long-content", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=long-content" }, { "action": "expectAttribute", "selector": "#app", "name": "data-ztothez-design-state", "value": "long-content" }] },
+        { "id": "empty", "name": "empty", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=empty" }, { "action": "expectAttribute", "selector": "#app", "name": "data-ztothez-design-state", "value": "empty" }] },
+        { "id": "partial", "name": "partial", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=partial" }, { "action": "expectAttribute", "selector": "#app", "name": "data-ztothez-design-state", "value": "partial" }] },
+        { "id": "slow", "name": "slow", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=slow" }, { "action": "expectAttribute", "selector": "#app", "name": "data-ztothez-design-stage", "value": "loading" }] },
+        { "id": "fallback", "name": "fallback", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=fallback" }, { "action": "expectAttribute", "selector": "#origin", "name": "data-ztothez-design-result-origin", "value": "simulated" }, { "action": "expectText", "selector": "#origin", "value": "fallback" }] },
+        { "id": "stale", "name": "stale", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=stale" }, { "action": "expectAttribute", "selector": "#freshness", "name": "data-ztothez-design-freshness", "value": "stale" }] },
+        { "id": "disconnected", "name": "disconnected", "steps": [{ "action": "navigate", "value": "/v2-quality-states?state=disconnected" }, { "action": "expectAttribute", "selector": "#connection", "name": "data-ztothez-design-connection", "value": "disconnected" }, { "action": "expectVisible", "selector": "#recovery" }] }
+      ]
+    }
+  ]
+}

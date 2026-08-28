@@ -1,0 +1,51 @@
+version: "1.0"
+base: knowledge-base/design-intelligence/design-deliverable.template.yaml
+cases:
+  - id: incomplete-trust-scenarios
+    target: { collection: interfaceTrust, id: interface-trust }
+    changes: { requiredScenarios: [demo, live, fallback, stale, stale] }
+    expectedRules: [ZTDE-DI-912]
+  - id: unsupported-trust-validation
+    target: { collection: interfaceTrust, id: interface-trust }
+    changes: { status: validated }
+    expectedRules: [ZTDE-DI-912]
+  - id: reordered-information-hierarchy
+    target: { collection: informationHierarchy, id: information-hierarchy }
+    changes: { levels: [primary-outcome-action, context-provenance, critical-exceptions, health-impact-metrics, prioritized-findings, operational-telemetry, evidence-audit-trail, history-exports] }
+    expectedRules: [ZTDE-DI-913]
+  - id: unsupported-information-validation
+    target: { collection: informationHierarchy, id: information-hierarchy }
+    changes: { status: validated }
+    expectedRules: [ZTDE-DI-913]
+  - id: mismatched-information-contract
+    target: { collection: metricContracts, id: metric-contracts }
+    changes: { informationContractId: unrelated-information-contract }
+    expectedRules: [ZTDE-DI-914]
+  - id: missing-chart-contract
+    target: { collection: metrics, id: validation-pass-rate }
+    changes: { chartRefs: [missing-chart] }
+    expectedRules: [ZTDE-DI-914]
+  - id: chart-references-undeclared-metric
+    target: { collection: charts, id: validation-outcome-trend }
+    changes: { metricRefs: [missing-metric] }
+    expectedRules: [ZTDE-DI-914]
+  - id: reordered-generation-stage
+    target: { collection: generationSteps, id: product-task }
+    changes: { stage: visual-direction }
+    expectedRules: [ZTDE-DI-915]
+  - id: invalid-declaration-status
+    target: { collection: generationSteps, id: product-task }
+    changes: { status: verified }
+    expectedRules: [ZTDE-DI-915]
+  - id: verification-before-implementation
+    target: { collection: generationSteps, id: automated-verification }
+    changes: { status: verified, artifactRefs: [visual-direction-brief] }
+    expectedRules: [ZTDE-DI-915]
+  - id: invented-human-completion
+    target: { collection: generationSteps, id: human-visual-review }
+    changes: { status: review-completed, artifactRefs: [visual-direction-brief] }
+    expectedRules: [ZTDE-DI-915]
+  - id: unknown-workflow-evidence
+    target: { collection: generationSteps, id: implementation }
+    changes: { artifactRefs: [unrecorded-implementation] }
+    expectedRules: [ZTDE-DI-915]

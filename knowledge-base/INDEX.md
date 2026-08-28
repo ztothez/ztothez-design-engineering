@@ -25,7 +25,7 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 |---|---|---|
 | `maintained/architecture/` | Independently authored quality-attribute, architecture-evaluation, component-boundary, and product-platform guidance | Evaluating architecture, coupling, cohesion, trade-offs, and shared product variation |
 | `maintained/product-patterns/` | Independently authored AI-workspace and operational-dashboard contracts | Designing task-centered workspaces and operational tools without importing a template catalog |
-| `design-intelligence/` | Maintained brand, Figma production, asset generation, iconography, presentation, licensing, visual-accessibility, and manifest-validation modules | Creating visual-system deliverables that need structured provenance, token, accessibility, and handoff evidence |
+| `design-intelligence/` | Maintained interface trust, operational information design, visual polish, brand, Figma production, asset generation, iconography, presentation, licensing, accessibility, and integrated manifest-validation modules | Running the bounded product-task through human-review workflow or creating visual-system deliverables with structured provenance, tokens, accessibility, and handoff evidence |
 | `benchmarks/` | Executable product contracts, journey profiles, acceptance criteria, and anti-pattern corpora | Evaluating whether generated UI is behaviorally coherent, evidence-backed, and production-ready for a specific product domain |
 | `usability-evaluation/` | Maintained heuristic-evaluation workflow, portable schema, and review template | Conducting a UX audit, defining human-review evidence, separating automated findings from user-testing claims, or turning usability risks into acceptance criteria |
 | `retrieval-scope.yaml` | Explicit allowlist for the distributable BM25 index | Auditing or changing which knowledge files can appear in ranked retrieval |
@@ -59,6 +59,10 @@ Product benchmarks supplement the root skill with domain semantics and executabl
 - SceneStart Studio, Workshop, Learn, and Release profiles: `benchmarks/scenestart/journeys.json`.
 - SceneStart evidence boundaries, rejection examples, and calibration: `benchmarks/scenestart/acceptance-criteria.md`, `benchmarks/scenestart/anti-patterns.md`, and `benchmarks/scenestart/CALIBRATION.md`.
 - System corpus manifest, portable schema, provenance, and controlled positive and negative cases: `benchmarks/corpus/corpus.yaml`, `benchmarks/corpus/corpus.schema.yaml`, `benchmarks/corpus/PROVENANCE.md`, and `benchmarks/corpus/cases/`.
+- Portable anonymous comparison contracts: `benchmarks/interface-quality/comparison-methodology.schema.yaml`, `benchmarks/interface-quality/comparison-methodology-v1.1.schema.yaml`, `benchmarks/interface-quality/review.schema.yaml`, and `benchmarks/interface-quality/review-session.schema.yaml`.
+- Solo-maintainer engineering continuation rules and claim boundaries: `benchmarks/interface-quality/SOLO-MAINTAINER-TRACK.md`.
+- Azure V2 human and interaction review method: `benchmarks/azure-optimizer/v2-human-review-methodology.yaml`. Reviewer-facing evidence remains outside the distributable knowledge corpus under `evidence/interface-quality/azure-v2-review/`.
+- Portable product-task profile, archetype activation rules, and evidence boundary: `benchmarks/portfolio-corpus/PRODUCT-TASK-CONTRACTS.md`, `benchmarks/portfolio-corpus/product-task-profile.schema.yaml`, and `benchmarks/portfolio-corpus/archetype-profiles.yaml`.
 
 Use `evaluate_corpus_benchmark` after changing retrieval, auditing, product-contract validation, anti-slop rules, or approved knowledge. CLI fallback:
 
@@ -73,6 +77,11 @@ Use `validate_product_contract` when MCP is available. CLI fallback:
 ```bash
 npm run validate-contract -- --contract knowledge-base/benchmarks/aegisops/product-contract.yaml
 ```
+
+Contract version `1.1` binds the product archetype and activated quality dimensions to observable
+primary task success, failure recovery, and narrow-viewport journeys. Missing evidence remains
+`unverified`; an executed failed task remains `failed`; unsupported capabilities remain explicit
+limitations. Do not rank products that use materially different task contracts.
 
 For final evidence, prefer the consolidated quality gate against an already-running application:
 
@@ -140,6 +149,44 @@ For implementation work, start with `maintained/product-patterns/MASTER.md` and 
 - AI analysis, generation, review, and evidence workspaces: `maintained/product-patterns/ai-workspaces.md`.
 - Pipelines, records, jobs, obligations, media, and document operations: `maintained/product-patterns/operational-dashboards.md`.
 
+## Portfolio Benchmark Registry
+
+Use `benchmarks/portfolio-corpus/registry.template.yaml` to define local project authorization and
+`benchmarks/portfolio-corpus/registry.schema.yaml` as the portable version 1.0 contract. Store real
+absolute roots only in `.ztothez-design-local/portfolio-registry.yaml`, which is intentionally
+excluded from Git, retrieval, packaging, and offline releases.
+
+Use `benchmarks/portfolio-corpus/ADAPTERS.md` to select a stack adapter, declare exact stage
+commands, and distinguish supported, unsupported, and not-applicable capabilities. Adapters never
+discover and execute arbitrary package scripts.
+
+Validate before discovery or snapshot creation:
+
+```bash
+zz-design portfolio validate-registry
+zz-design portfolio inventory
+zz-design portfolio capabilities --project PROJECT_ID
+zz-design portfolio run-stage --project PROJECT_ID --stage STAGE
+zz-design portfolio snapshot --project PROJECT_ID
+```
+
+Inventory is metadata-only and does not authorize execution. Snapshot creation copies only approved
+files into `.ztothez-design-benchmarks/`, verifies the source before cleanup, and leaves all
+remediation unapplied.
+
+Run an isolated baseline or cohort benchmark and inspect its retained report:
+
+```bash
+zz-design portfolio baseline --project PROJECT_ID --run baseline-001
+zz-design portfolio benchmark --cohort development --run development-001
+zz-design portfolio benchmark --cohort holdout --run holdout-001
+zz-design portfolio verify-unchanged --run development-001
+zz-design portfolio report --run development-001
+```
+
+See `benchmarks/portfolio-corpus/PORTFOLIO-RUNNER.md` for stage behavior, report fields, exit codes,
+and the current browser-verification limitations.
+
 ## AI Development Environment Guide
 
 The repository paths above are the canonical references across Claude Code, Cursor, Windsurf, Antigravity, GitHub Copilot, Kiro, Codex, Qoder, and Lovable. Do not create environment-specific copies of the knowledge base.
@@ -178,10 +225,26 @@ For Lovable, keep this repository synchronized with the connected Git provider s
 
 Start with `design-intelligence/MASTER.md` when the task includes brand identity, Figma production, generated or sourced assets, iconography, presentation design, licensing, or visual accessibility. Load only the matching focused modules.
 
-Create structured evidence from `design-intelligence/design-deliverable.template.yaml`; use `design-intelligence/design-deliverable.schema.yaml` as the portable version 1.0 contract. Validate it through MCP with `validate_design_deliverable`, or through CLI:
+For operational claims, generated results, fallback, stale or disconnected behavior, history, or exports, start from `design-intelligence/interface-trust.template.yaml` and use `design-intelligence/interface-trust.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/interface-trust.md`, then validate through MCP with `validate_interface_trust`, or through CLI:
+
+```bash
+npm run validate-trust -- --contract PATH_TO_INTERFACE_TRUST_CONTRACT
+```
+
+The trust validator checks declaration structure, source traceability, state consistency, pre-action disclosure, fallback persistence, freshness metadata, disconnected recovery, credential-like values, and history or export provenance. It does not inspect rendered placement or prove runtime service availability.
+
+For operational metrics, findings, charts, hierarchy, long labels, exceptional values, or large collections, start from `design-intelligence/information-design.template.yaml` and use `design-intelligence/information-design.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/information-design.md`, then validate through MCP with `validate_information_design`, or through CLI:
+
+```bash
+npm run validate-information -- --contract PATH_TO_INFORMATION_DESIGN_CONTRACT
+```
+
+The validator checks sources, context, metric decisions, findings, evidence, chart purpose, non-color cues, missing and stale states, scalable collections, the eight-level hierarchy, and six answer-flow task declarations. It does not inspect rendered output or turn agent-authored tasks into human evidence.
+
+Create structured evidence from `design-intelligence/design-deliverable.template.yaml`; use `design-intelligence/design-deliverable.schema.yaml` as the portable contract. Version `1.0` remains readable for non-interface manifests. Use version `2.0` with `interface-system` for visual direction, typography, composition, density, states, motion, chart contracts, rendered evidence, and human visual review. Read `design-intelligence/visual-polish.md`, then validate through MCP with `validate_design_deliverable`, or through CLI:
 
 ```bash
 npm run validate-design -- --manifest PATH_TO_DESIGN_DELIVERABLE
 ```
 
-The validator checks declaration structure, token references and cycles, mode-aware contrast, Figma mappings, brand and presentation references, asset rights records, generated-media provenance, icon semantics, and non-color cues. It does not inspect design-source files, exported media, rendered pixels, or legal sufficiency. Preserve those as separate evidence and human-review obligations.
+The validator checks declaration structure, semantic visual bindings, token references and cycles, responsive composition, typography, density, states, motion, charts, viewport-evidence declarations, human-review attribution, mode-aware contrast, Figma mappings, brand and presentation references, asset rights records, generated-media provenance, icon semantics, and non-color cues. A structural pass can remain visually not ready. Read `visualPolish.releaseReady`; only verified viewport records and reviewer-supplied human evidence satisfy that release gate.

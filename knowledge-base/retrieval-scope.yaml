@@ -20,9 +20,12 @@ categories:
       - knowledge-base/design-intelligence/brand-systems.md
       - knowledge-base/design-intelligence/figma-production.md
       - knowledge-base/design-intelligence/iconography.md
+      - knowledge-base/design-intelligence/information-design.md
+      - knowledge-base/design-intelligence/interface-trust.md
       - knowledge-base/design-intelligence/licensing-and-provenance.md
       - knowledge-base/design-intelligence/presentation-design.md
       - knowledge-base/design-intelligence/visual-accessibility.md
+      - knowledge-base/design-intelligence/visual-polish.md
   ux-patterns:
     label: Maintained product and dashboard patterns
     files:

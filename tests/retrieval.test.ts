@@ -16,9 +16,9 @@ test("retrieval indexes only the explicit approved distributable scope", async (
   const index = await buildKnowledgeIndex(process.cwd());
 
   assert.equal(index.authorityPath, "SKILL.md");
-  assert.equal(index.documents.length, 17);
+  assert.equal(index.documents.length, 20);
   assert.ok(index.chunks.length > 100);
-  assert.equal(new Set(index.documents.map((document) => document.path)).size, 17);
+  assert.equal(new Set(index.documents.map((document) => document.path)).size, 20);
   assert.ok(index.documents.some((document) => document.path === "SKILL.md"));
   assert.equal(
     index.documents.some((document) => document.path.includes("legacy-sources")),

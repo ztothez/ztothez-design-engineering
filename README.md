@@ -11,10 +11,14 @@ This project focuses on design engineering instead of style recommendation. It c
 - Production-ready Agent Skill in [`SKILL.md`](SKILL.md).
 - Scoped MCP access to architecture, Figma, design-system, UX-pattern, and usability guidance.
 - Independently authored brand, Figma production, asset-generation, iconography, presentation, licensing, and visual-accessibility modules.
-- Versioned design-deliverable manifests with deterministic token, contrast, provenance, icon, and presentation validation.
+- Versioned design-deliverable manifests with deterministic visual direction, semantic token, typography, composition, density, state, motion, chart, rendered-evidence, contrast, provenance, icon, and presentation validation.
+- Versioned interface-trust contracts for data mode, connection, result origin, freshness, fallback disclosure, and provenance-preserving records.
+- Versioned operational information-design contracts for decision metrics, evidence-backed findings, chart purpose, hierarchy, exceptional states, and scalable collections.
+- A bounded nine-stage interface workflow linking product task, truthful state, information hierarchy, interaction states, visual direction, semantic tokens, implementation, automated evidence, and attributable human review.
 - Repository architecture audits for coupling, component size, raw design values, mock production paths, network states, accessible names, and placeholder interactions.
 - Structured heuristic reviews with evidence provenance and severity-based acceptance candidates.
 - Browser verification for responsive layout, clipping, overlap, focus, contrast, target sizing, keyboard behavior, text resizing, reflow, reduced motion, media, console errors, and network failures.
+- Opt-in V2 browser contracts for persistent data-mode disclosure, trust-stage and fixture-state coverage, chart names and alternatives, masked dynamic regions, and checksum-based screenshot regression detection.
 - Product contracts with declarative task journeys and acceptance criteria.
 - Consolidated quality gates and multi-profile release decisions.
 - Executable AegisOPS and SceneStart benchmark contracts.
@@ -22,6 +26,7 @@ This project focuses on design engineering instead of style recommendation. It c
 - Exact provenance and dependency inventories with active-reference isolation checks.
 - A self-contained offline runtime with approved knowledge, a serialized retrieval index, production dependencies, and SHA-256 integrity evidence.
 - GitHub Actions verification with retained fixture evidence.
+- A local-only portfolio registry and disposable snapshot boundary for non-destructive cross-product benchmarking.
 
 Ranked BM25 knowledge retrieval and exact filename reads are available now. The versioned retrieval scope contains only explicitly approved distributable files and excludes local raw research and legacy archives.
 
@@ -101,15 +106,20 @@ The release archive is checked against an explicit distribution allowlist and in
 | `get_architecture_spec` | List or read approved architecture guidance. |
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
 | `get_design_intelligence` | List or read maintained brand, asset, icon, presentation, licensing, and visual-accessibility modules. |
-| `validate_design_deliverable` | Validate a versioned design manifest, token chains, contrast pairs, asset provenance, icon semantics, and presentation masters. |
+| `validate_design_deliverable` | Validate visual polish, semantic tokens, responsive composition, states, motion, charts, evidence readiness, contrast, provenance, icons, and presentations. |
+| `validate_interface_trust` | Validate operational claims, source traceability, fallback and stale states, disconnected recovery, and history or export provenance. |
+| `validate_information_design` | Validate metrics, findings, chart decisions, value states, large collections, operational hierarchy, and answer-flow tasks. |
+| `evaluate_interface_comparison` | Validate anonymous comparison methods, required stages, retained claim evidence, and attributable human or representative-user records. |
 | `get_dashboard_pattern` | List or read approved dashboard and UX patterns. |
 | `get_usability_evaluation` | List or read usability-evaluation guidance and schemas. |
-| `validate_product_contract` | Validate a product contract, source references, journeys, and cross-references. |
+| `validate_product_contract` | Validate a product archetype, primary tasks, recovery states, narrow paths, sources, journeys, and cross-references. |
 | `evaluate_heuristic_review` | Validate a structured review and derive candidates from unresolved severity 3 and 4 findings. |
 | `audit_repository_architecture` | Scan a repository against deterministic architecture and anti-slop rules. |
 | `verify_ui_runtime` | Run browser checks and capture runtime evidence. |
 | `run_design_quality_gate` | Combine contract, audit, runtime, acceptance, and human evidence into one decision. |
 | `aggregate_design_quality_gates` | Combine required journey-profile reports into a release decision. |
+| `list_portfolio_projects` | List explicitly enabled local benchmark IDs and effective capabilities without source roots. |
+| `get_portfolio_benchmark_report` | Read a completed local benchmark summary without starting commands. |
 
 Knowledge tools enforce category boundaries, Markdown-only reads, file-size limits, and path-traversal protection. `SKILL.md` remains authoritative when supporting documents conflict.
 
@@ -125,6 +135,36 @@ limit: 5
 The search index is defined by `knowledge-base/retrieval-scope.yaml`. A no-match response is a valid result. Do not replace it with content from ignored research or legacy archives.
 
 ## Command Line Workflows
+
+Validate and inventory the ignored local portfolio registry:
+
+```bash
+zz-design portfolio validate-registry
+zz-design portfolio inventory
+```
+
+Create, verify, and delete a disposable snapshot without running a command in the original project:
+
+```bash
+zz-design portfolio snapshot --project scenestart
+```
+
+Use `--keep` only when an isolated adapter needs the snapshot for a later local stage. The local
+registry lives at `.ztothez-design-local/portfolio-registry.yaml`; snapshots live under
+`.ztothez-design-benchmarks/`. Both are excluded from Git and package output. Linux executable
+stages use Bubblewrap and fail closed when process isolation is unavailable.
+
+Run a complete isolated baseline or cohort and verify source integrity:
+
+```bash
+zz-design portfolio baseline --project scenestart --run scenestart-baseline
+zz-design portfolio benchmark --cohort development --run development-001
+zz-design portfolio verify-unchanged --run development-001
+zz-design portfolio report --run development-001
+```
+
+Projects with a declared static fixture and product contract also run browser journeys, the
+consolidated quality gate, optional heuristic review, and checksummed artifact capture.
 
 Audit a repository:
 
@@ -154,6 +194,56 @@ npm run validate-design -- \
   --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
 ```
 
+Validate interface trust and data provenance:
+
+```bash
+npm run validate-trust -- \
+  --contract knowledge-base/design-intelligence/interface-trust.template.yaml
+```
+
+Validate operational information design:
+
+```bash
+npm run validate-information -- \
+  --contract knowledge-base/design-intelligence/information-design.template.yaml
+```
+
+Validate an interface comparison and require complete release evidence:
+
+```bash
+npm run validate-comparison -- \
+  --methodology knowledge-base/benchmarks/interface-quality/comparison-methodology.template.yaml \
+  --review knowledge-base/benchmarks/interface-quality/review.template.yaml \
+  --require-release-ready
+```
+
+Omit `--require-release-ready` while preparing an honest incomplete review. Structural validation can pass while the release decision remains blocked by missing stages or evidence classes.
+
+Compile only reviewer-supplied sessions marked `complete`:
+
+```bash
+npm run compile-comparison -- \
+  --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
+  --base-review evidence/interface-quality/azure-v2-review/review.yaml \
+  --sessions evidence/interface-quality/azure-v2-review/reviewer-packet/completed-sessions \
+  --output evidence/interface-quality/azure-v2-review/review.completed.yaml \
+  --require-release-ready
+```
+
+The compiler hashes each source session and reports matrix completeness, counterbalancing, category scores, task metrics, and the anonymous target-versus-comparator decision. It rejects draft templates and never creates human observations.
+
+Assess a disclosed maintainer review without claiming independent validation:
+
+```bash
+npm run assess-maintainer -- \
+  --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
+  --review evidence/interface-quality/azure-v2-review/review.completed.yaml \
+  --output evidence/interface-quality/azure-v2-review/maintainer-assessment.json \
+  --require-engineering-ready
+```
+
+The solo-maintainer track may authorize continued engineering when the target stages and maintainer-scored categories pass. It never changes the anonymous comparison thresholds or converts maintainer evidence into representative-user or external release evidence.
+
 Evaluate the maintained system corpus:
 
 ```bash
@@ -168,6 +258,35 @@ npm run verify-ui -- \
   --journeys knowledge-base/benchmarks/aegisops/journeys.json \
   --profile responsive-overview \
   --output .ztothez-design-runtime/responsive-overview
+```
+
+Create and then compare a screenshot baseline while masking only declared dynamic regions:
+
+```bash
+npm run verify-ui -- \
+  --url http://127.0.0.1:3000 \
+  --dynamic-selector "[data-runtime-clock]" \
+  --screenshot-baseline evidence/runtime/screenshots.json \
+  --update-screenshot-baseline
+
+npm run verify-ui -- \
+  --url http://127.0.0.1:3000 \
+  --dynamic-selector "[data-runtime-clock]" \
+  --screenshot-baseline evidence/runtime/screenshots.json
+```
+
+Screenshot matching establishes only that the captured pixels and masking policy are unchanged in the current environment. It does not establish visual quality, task success, or approval of an intentional change.
+
+When Playwright cannot launch Chromium directly in a managed environment, start Chromium with a
+loopback CDP endpoint and set `ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL` to its HTTP origin. Only loopback
+origins are accepted:
+
+```bash
+chromium --headless --no-sandbox --remote-debugging-address=127.0.0.1 \
+  --remote-debugging-port=9222 --user-data-dir=/tmp/ztothez-design-cdp about:blank
+
+ZTOTHEZ_DESIGN_CHROMIUM_CDP_URL=http://127.0.0.1:9222 npm run verify-ui -- \
+  --url http://127.0.0.1:3000
 ```
 
 Run a complete profile quality gate:
@@ -219,6 +338,9 @@ Historical research is outside the supported workflow. It is not a runtime depen
 | `src/contracts/` | Product-contract and journey validation. |
 | `src/heuristics/` | Structured heuristic-review evaluation. |
 | `src/design-intelligence/` | Design-deliverable schema, provenance, token, contrast, icon, and presentation validation. |
+| `src/interface-trust/` | Interface-state truth, claim-source traceability, and history or export provenance validation. |
+| `src/information-design/` | Operational metric, finding, chart, hierarchy, collection, and answer-flow validation. |
+| `src/comparison/` | Anonymous comparison, claim-ledger, evidence-integrity, and release-readiness validation. |
 | `src/corpus/` | Versioned corpus loading, deterministic case evaluation, scoring, and reporting. |
 | `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
 | `src/quality-gate/` | Consolidated profile quality gate. |
@@ -243,4 +365,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria.
+All nine V1 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md) for evidence-backed status and completion criteria. The V2 design-engineering program is recorded in [`V2-ROADMAP.md`](V2-ROADMAP.md), with its optional external-validation track deferred by scope. The planned read-only, cross-product benchmark program is defined in [`V3-ROADMAP.md`](V3-ROADMAP.md).

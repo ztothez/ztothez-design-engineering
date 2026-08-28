@@ -74,6 +74,10 @@ export async function expectedKnowledgePaths() {
     "knowledge-base/retrieval-scope.yaml",
     "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
     "knowledge-base/design-intelligence/design-deliverable.template.yaml",
+    "knowledge-base/design-intelligence/interface-trust.schema.yaml",
+    "knowledge-base/design-intelligence/interface-trust.template.yaml",
+    "knowledge-base/design-intelligence/information-design.schema.yaml",
+    "knowledge-base/design-intelligence/information-design.template.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
     ...scopedKnowledgePaths,
@@ -84,7 +88,10 @@ export async function expectedKnowledgePaths() {
 export async function expectedProvenancePaths() {
   return [...new Set([
     "README.md",
+    "ROADMAP.md",
     "SKILL.md",
+    "V2-ROADMAP.md",
+    "V3-ROADMAP.md",
     "docs/installation.md",
     ...(await expectedKnowledgePaths()),
   ])].sort();
@@ -119,7 +126,10 @@ export async function validatePackageArchive(report) {
   const requiredPaths = [
     "LICENSE",
     "README.md",
+    "ROADMAP.md",
     "SKILL.md",
+    "V2-ROADMAP.md",
+    "V3-ROADMAP.md",
     "dist/cli/index.js",
     "dist/src/server.js",
     "docs/installation.md",

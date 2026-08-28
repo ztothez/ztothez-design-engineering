@@ -1,0 +1,26 @@
+version: "1.0"
+profiles:
+  - id: operational-dashboard
+    interfaces: [browser, desktop]
+    requiredDimensions: [truthful-disclosure, information-design, visual-system, accessibility, responsive-structure, state-integrity, maintainability]
+  - id: ai-workspace
+    interfaces: [browser, desktop]
+    requiredDimensions: [truthful-disclosure, information-design, visual-system, accessibility, responsive-structure, state-integrity, maintainability]
+  - id: content-site
+    interfaces: [browser]
+    requiredDimensions: [information-design, visual-system, accessibility, responsive-structure, maintainability]
+  - id: utility
+    interfaces: [browser, desktop, source-only]
+    requiredDimensions: [truthful-disclosure, information-design, accessibility, state-integrity, maintainability]
+  - id: full-stack-workflow
+    interfaces: [browser, desktop]
+    requiredDimensions: [truthful-disclosure, information-design, visual-system, accessibility, responsive-structure, state-integrity, maintainability]
+
+evidencePolicy:
+  missingEvidence: unverified
+  failedBehavior: failed
+  unsupportedCapability: limitation
+
+comparisonPolicy:
+  crossContractRanking: false
+  requirement: Compare implementations only when archetype, task-contract ID, and observable primary task success match.

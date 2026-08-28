@@ -12,6 +12,12 @@ function writeHelp(): void {
 }
 
 async function main(): Promise<void> {
+  const argumentsList = process.argv.slice(2);
+  if (argumentsList[0] === "portfolio") {
+    const { runPortfolioCli } = await import("./portfolio.js");
+    process.exitCode = await runPortfolioCli(argumentsList.slice(1), basename(process.argv[1] ?? CLI_COMMANDS[0]));
+    return;
+  }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
     writeHelp();
     return;
@@ -19,6 +25,10 @@ async function main(): Promise<void> {
   if (process.argv.includes("--version") || process.argv.includes("-v")) {
     process.stdout.write(`${VERSION}\n`);
     return;
+  }
+
+  if (argumentsList.length > 0) {
+    throw new Error(`Unknown command: ${argumentsList[0]}`);
   }
 
   const { server } = await import("../src/server.js");

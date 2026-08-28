@@ -1,0 +1,139 @@
+{
+  "version": "1.0",
+  "contract": "azure-optimizer",
+  "profiles": [
+    {
+      "id": "azure-v2-state-matrix",
+      "name": "Azure Optimizer V2 contract and state matrix",
+      "environment": [
+        "Azure Optimizer V2 production build is running",
+        "The fixed imported comparison fixture is unchanged",
+        "No Azure tenant connection is configured"
+      ],
+      "expectedNetwork": [
+        {
+          "id": "disclosed-fallback-failure",
+          "method": "POST",
+          "urlIncludes": "/api/analyze?scenario=fallback",
+          "status": 503,
+          "minOccurrences": 1,
+          "maxOccurrences": 1
+        }
+      ],
+      "journeys": [
+        {
+          "id": "demo-success",
+          "name": "demo-success",
+          "steps": [
+            { "action": "navigate", "value": "/?state=demo" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-state", "value": "normal" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-data-mode]", "name": "data-ztothez-design-data-mode", "value": "demo" },
+            { "action": "click", "selector": "[data-view=analysis]" },
+            { "action": "expectResponse", "selector": "#run-analysis", "urlIncludes": "/api/analyze?scenario=demo", "status": 200, "method": "POST" },
+            { "action": "waitFor", "selector": ".run-complete" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-stage", "value": "result" },
+            { "action": "expectText", "selector": "body", "value": "Analysis complete" }
+          ]
+        },
+        {
+          "id": "live-connected",
+          "name": "live-connected",
+          "steps": [
+            { "action": "navigate", "value": "/?state=live" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-data-mode]", "name": "data-ztothez-design-data-mode", "value": "live" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-connection]", "name": "data-ztothez-design-connection", "value": "connected" },
+            { "action": "click", "selector": "[data-view=analysis]" },
+            { "action": "expectResponse", "selector": "#run-analysis", "urlIncludes": "/api/analyze?scenario=live", "status": 200, "method": "POST" },
+            { "action": "waitFor", "selector": ".run-complete" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-result-origin]", "name": "data-ztothez-design-result-origin", "value": "live" }
+          ]
+        },
+        {
+          "id": "slow-analysis",
+          "name": "slow-analysis",
+          "steps": [
+            { "action": "navigate", "value": "/?state=slow" },
+            { "action": "click", "selector": "[data-view=analysis]" },
+            { "action": "click", "selector": "#run-analysis" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-stage", "value": "loading" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-state", "value": "slow" },
+            { "action": "waitFor", "selector": ".run-complete" },
+            { "action": "expectText", "selector": "body", "value": "Analysis complete" }
+          ]
+        },
+        {
+          "id": "backend-failure-fallback",
+          "name": "backend-failure-fallback",
+          "steps": [
+            { "action": "navigate", "value": "/?state=fallback" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-data-mode]", "name": "data-ztothez-design-data-mode", "value": "hybrid" },
+            { "action": "expectText", "selector": "[data-ztothez-design-result-origin]", "value": "fallback simulation" },
+            { "action": "click", "selector": "[data-view=analysis]" },
+            { "action": "expectResponse", "selector": "#run-analysis", "urlIncludes": "/api/analyze?scenario=fallback", "status": 503, "method": "POST" },
+            { "action": "waitFor", "selector": ".run-error" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-stage", "value": "error" },
+            { "action": "click", "selector": "#use-local-fallback" },
+            { "action": "waitFor", "selector": ".run-complete" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-result-origin]", "name": "data-ztothez-design-result-origin", "value": "simulated" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-state", "value": "fallback" }
+          ]
+        },
+        {
+          "id": "disconnected-recovery",
+          "name": "disconnected-recovery",
+          "steps": [
+            { "action": "navigate", "value": "/?state=disconnected" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-connection]", "name": "data-ztothez-design-connection", "value": "disconnected" },
+            { "action": "expectVisible", "selector": "[data-ztothez-design-recovery-action]" },
+            { "action": "click", "selector": ".trust-recovery" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-connection]", "name": "data-ztothez-design-connection", "value": "connected" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-state", "value": "normal" }
+          ]
+        },
+        {
+          "id": "partial-result",
+          "name": "partial-result",
+          "steps": [
+            { "action": "navigate", "value": "/?state=partial" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-state", "value": "partial" },
+            { "action": "expectText", "selector": "body", "value": "Partial result" },
+            { "action": "expectText", "selector": ".count-label", "value": "2 evidenced" }
+          ]
+        },
+        {
+          "id": "stale-result",
+          "name": "stale-result",
+          "steps": [
+            { "action": "navigate", "value": "/?state=stale" },
+            { "action": "expectAttribute", "selector": "[data-ztothez-design-freshness]", "name": "data-ztothez-design-freshness", "value": "stale" },
+            { "action": "expectText", "selector": "body", "value": "Stale result" }
+          ]
+        },
+        {
+          "id": "finding-detail-history",
+          "name": "finding-detail-history",
+          "steps": [
+            { "action": "navigate", "value": "/?state=demo" },
+            { "action": "click", "selector": "[data-finding-id=AZ-CONFIG-001]" },
+            { "action": "expectText", "selector": "#finding-detail-heading", "value": "backup policy" },
+            { "action": "click", "selector": "[data-view=history]" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-stage", "value": "history" },
+            { "action": "expectText", "selector": "body", "value": "No scheduled monitoring is implied" }
+          ]
+        },
+        {
+          "id": "export-provenance",
+          "name": "export-provenance",
+          "steps": [
+            { "action": "navigate", "value": "/?state=demo" },
+            { "action": "click", "selector": "[data-view=export]" },
+            { "action": "expectAttribute", "selector": "#azure-v2-app", "name": "data-ztothez-design-stage", "value": "export" },
+            { "action": "expectText", "selector": "body", "value": "processing origin" },
+            { "action": "expectDownload", "selector": "#download-provenance", "filenameIncludes": "provenance.json" },
+            { "action": "expectText", "selector": "body", "value": "Export created with provenance" }
+          ]
+        }
+      ]
+    }
+  ]
+}

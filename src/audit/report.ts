@@ -24,23 +24,35 @@ export function formatAuditReport(report: AuditReport): string {
 
   if (report.findings.length === 0) {
     lines.push("", "No architecture findings were detected by the configured static rules.");
-    return lines.join("\n");
+  } else {
+    lines.push("", "## Findings");
+    for (const finding of report.findings) {
+      lines.push(
+        "",
+        `### ${finding.severity.toUpperCase()} ${finding.ruleId} at ${findingLocation(finding)}`,
+        "",
+        finding.message,
+        "",
+        `Confidence: ${finding.confidence}.`,
+        "",
+        ...finding.evidence.map((evidence) => `- Evidence: ${evidence}`),
+        `- Remediation: ${finding.remediation}`,
+      );
+    }
   }
 
-  lines.push("", "## Findings");
-  for (const finding of report.findings) {
-    lines.push(
-      "",
-      `### ${finding.severity.toUpperCase()} ${finding.ruleId} at ${findingLocation(finding)}`,
-      "",
-      finding.message,
-      "",
-      `Confidence: ${finding.confidence}.`,
-      "",
-      ...finding.evidence.map((evidence) => `- Evidence: ${evidence}`),
-      `- Remediation: ${finding.remediation}`,
-    );
-  }
+  lines.push(
+    "",
+    "## Evidence Boundary",
+    "",
+    "### Verifier Limitations",
+    "",
+    ...report.evidenceBoundary.verifierLimitations.map((entry) => `- ${entry}`),
+    "",
+    "### Human Review Required",
+    "",
+    ...report.evidenceBoundary.humanReviewRequired.map((entry) => `- ${entry}`),
+  );
 
   return lines.join("\n");
 }

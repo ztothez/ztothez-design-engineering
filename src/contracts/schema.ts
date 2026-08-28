@@ -124,9 +124,152 @@ const journeyBindingSchema = z
   })
   .strict();
 
-export const productContractSchema = z
+export const productArchetypeSchema = z.enum([
+  "operational-dashboard",
+  "ai-workspace",
+  "content-site",
+  "utility",
+  "full-stack-workflow",
+]);
+
+export const productQualityDimensionSchema = z.enum([
+  "truthful-disclosure",
+  "information-design",
+  "visual-system",
+  "accessibility",
+  "responsive-structure",
+  "state-integrity",
+  "maintainability",
+]);
+
+const taskStateSchema = z
   .object({
-    version: z.literal("1.0"),
+    stateMachine: idSchema,
+    state: idSchema,
+    observable: z.string().trim().min(1).max(1_024),
+  })
+  .strict();
+
+const productTaskSchema = z
+  .object({
+    id: idSchema,
+    primary: z.boolean(),
+    actor: idSchema,
+    mode: idSchema,
+    intent: z.string().trim().min(1).max(1_024),
+    start: taskStateSchema,
+    success: taskStateSchema.extend({
+      evidence: z
+        .array(z.enum(["contract", "runtime", "network", "export", "manual-review"]))
+        .min(1),
+    }),
+    recovery: z
+      .object({
+        required: z.boolean(),
+        failure: taskStateSchema,
+        observable: z.string().trim().min(1).max(1_024),
+      })
+      .strict(),
+    journey: z
+      .object({
+        profile: idSchema,
+        journey: idSchema,
+      })
+      .strict()
+      .optional(),
+    browser: z
+      .object({
+        route: z.string().regex(/^\/(?!\/)/).max(1_024),
+        narrowViewport: z.string().trim().min(1).max(128),
+      })
+      .strict()
+      .optional(),
+  })
+  .strict();
+
+export const productTaskProfileSchema = z
+  .object({
+    archetype: productArchetypeSchema,
+    interface: z.enum(["browser", "desktop", "source-only"]),
+    qualityDimensions: z
+      .array(
+        z
+          .object({
+            id: productQualityDimensionSchema,
+            status: z.enum(["required", "not-applicable"]),
+            reason: z.string().trim().min(1).max(512),
+          })
+          .strict(),
+      )
+      .length(productQualityDimensionSchema.options.length),
+    tasks: z.array(productTaskSchema).min(1).max(50),
+    evidencePolicy: z
+      .object({
+        missingEvidence: z.literal("unverified"),
+        failedBehavior: z.literal("failed"),
+        unsupportedCapability: z.literal("limitation"),
+      })
+      .strict(),
+    comparison: z
+      .object({
+        taskContractId: idSchema,
+        crossContractRanking: z.literal(false),
+      })
+      .strict(),
+  })
+  .strict()
+  .superRefine((profile, context) => {
+    const dimensionIds = profile.qualityDimensions.map((dimension) => dimension.id);
+    if (new Set(dimensionIds).size !== dimensionIds.length) {
+      context.addIssue({
+        code: "custom",
+        path: ["qualityDimensions"],
+        message: "Quality dimensions must be unique.",
+      });
+    }
+    const missingDimensions = productQualityDimensionSchema.options.filter(
+      (dimension) => !dimensionIds.includes(dimension),
+    );
+    if (missingDimensions.length > 0) {
+      context.addIssue({
+        code: "custom",
+        path: ["qualityDimensions"],
+        message: `Missing quality dimensions: ${missingDimensions.join(", ")}.`,
+      });
+    }
+    if (!profile.tasks.some((task) => task.primary)) {
+      context.addIssue({
+        code: "custom",
+        path: ["tasks"],
+        message: "At least one primary product task is required.",
+      });
+    }
+    if (!profile.tasks.some((task) => task.recovery.required)) {
+      context.addIssue({
+        code: "custom",
+        path: ["tasks"],
+        message: "At least one task must require an observable failure or recovery path.",
+      });
+    }
+    for (const [index, task] of profile.tasks.entries()) {
+      if (profile.interface === "browser" && (!task.browser || !task.journey)) {
+        context.addIssue({
+          code: "custom",
+          path: ["tasks", index],
+          message: "Browser tasks require both browser and journey declarations.",
+        });
+      }
+      if (profile.interface === "source-only" && task.browser) {
+        context.addIssue({
+          code: "custom",
+          path: ["tasks", index, "browser"],
+          message: "Source-only tasks cannot claim a browser route or viewport.",
+        });
+      }
+    }
+  });
+
+const baseProductContractFields = {
     id: idSchema,
     name: z.string().trim().min(1).max(160),
     status: z.enum(["draft", "benchmark", "production"]),
@@ -165,8 +308,24 @@ export const productContractSchema = z
         bindings: z.array(journeyBindingSchema).min(1),
       })
       .strict(),
+};
+
+const legacyProductContractSchema = z
+  .object({ version: z.literal("1.0"), ...baseProductContractFields })
+  .strict();
+
+const benchmarkProductContractSchema = z
+  .object({
+    version: z.literal("1.1"),
+    ...baseProductContractFields,
+    benchmark: productTaskProfileSchema,
   })
   .strict();
+
+export const productContractSchema = z.discriminatedUnion("version", [
+  legacyProductContractSchema,
+  benchmarkProductContractSchema,
+]);
 
 export const journeyProfileSchema = z
   .object({
@@ -213,11 +372,25 @@ export const contractValidationReportSchema = {
     journeyProfiles: z.number().int().nonnegative(),
     journeys: z.number().int().nonnegative(),
   }),
+  taskModel: z.object({
+    status: z.enum(["ready", "legacy", "invalid"]),
+    archetype: productArchetypeSchema.optional(),
+    primaryTasks: z.number().int().nonnegative(),
+    recoveryTasks: z.number().int().nonnegative(),
+    narrowViewportTasks: z.number().int().nonnegative(),
+    evidencePolicy: z.object({
+      missingEvidence: z.literal("unverified"),
+      failedBehavior: z.literal("failed"),
+      unsupportedCapability: z.literal("limitation"),
+    }),
+  }),
+  limitations: z.array(z.string()),
   issues: z.array(contractIssueSchema),
   passed: z.boolean(),
 };
 
 export type ProductContract = z.infer<typeof productContractSchema>;
+export type ProductTaskProfile = z.infer<typeof productTaskProfileSchema>;
 export type JourneySuite = z.infer<typeof journeySuiteSchema>;
 export type ContractIssue = z.infer<typeof contractIssueSchema>;
 export type ContractValidationReport = z.infer<z.ZodObject<typeof contractValidationReportSchema>>;

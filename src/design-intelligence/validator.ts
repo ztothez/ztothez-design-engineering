@@ -7,6 +7,28 @@ import type {
 } from "./schema.js";
 
 const REPORT_VERSION = "1.0.0";
+const REQUIRED_GENERATION_STAGES = [
+  "product-task",
+  "truth-data-source-contract",
+  "information-architecture",
+  "interaction-state-model",
+  "visual-direction",
+  "token-architecture",
+  "implementation",
+  "automated-verification",
+  "human-visual-review",
+] as const;
+const REQUIRED_TRUST_SCENARIOS = ["demo", "live", "fallback", "stale", "disconnected"] as const;
+const REQUIRED_INFORMATION_LEVELS = [
+  "context-provenance",
+  "primary-outcome-action",
+  "critical-exceptions",
+  "health-impact-metrics",
+  "prioritized-findings",
+  "operational-telemetry",
+  "evidence-audit-trail",
+  "history-exports",
+] as const;
 
 function duplicateValues(values: string[]): string[] {
   const seen = new Set<string>();
@@ -94,6 +116,19 @@ function tokenChainTerminates(
   return token.reference ? tokenChainTerminates(token.reference, tokens, visited) : false;
 }
 
+function resolveTokenValue(
+  name: string,
+  tokens: Map<string, DesignDeliverable["tokenSystem"]["tokens"][number]>,
+  visited = new Set<string>(),
+): string | number | undefined {
+  if (visited.has(name)) return undefined;
+  visited.add(name);
+  const token = tokens.get(name);
+  if (!token) return undefined;
+  if (token.value !== undefined) return token.value;
+  return token.reference ? resolveTokenValue(token.reference, tokens, visited) : undefined;
+}
+
 function addDuplicates(
   values: string[],
   path: string,
@@ -117,6 +152,36 @@ export function validateDesignDeliverable(
 ): DesignDeliverableReport {
   const findings: DesignIntelligenceFinding[] = [];
   const declared = new Set(manifest.scope.deliverables);
+
+  if (declared.has("interface-system")) {
+    if (manifest.version !== "2.0") {
+      findings.push({
+        ruleId: "ZTDE-DI-701",
+        severity: "error",
+        path: "version",
+        message: "Interface-system deliverables require design-deliverable contract version 2.0.",
+        remediation: "Migrate the manifest to version 2.0 and declare every required visual-polish section.",
+      });
+    }
+    for (const [path, present] of [
+      ["productTask", manifest.productTask !== undefined],
+      ["interfaceTrust", manifest.interfaceTrust !== undefined],
+      ["informationHierarchy", manifest.informationHierarchy !== undefined],
+      ["metricContracts", manifest.metricContracts !== undefined],
+      ["generationWorkflow", manifest.generationWorkflow !== undefined],
+      ["visualDirection", manifest.visualDirection !== undefined],
+      ["typography", manifest.typography !== undefined],
+      ["composition", manifest.composition !== undefined],
+      ["densityProfile", manifest.densityProfile !== undefined],
+      ["interactionStates", manifest.interactionStates !== undefined],
+      ["motion", manifest.motion !== undefined],
+      ["chartContracts", manifest.chartContracts !== undefined],
+      ["renderedEvidence", manifest.renderedEvidence !== undefined],
+      ["humanVisualReview", manifest.humanVisualReview !== undefined],
+    ] as Array<[string, boolean]>) {
+      requiredSection("interface-system", present, path, findings);
+    }
+  }
 
   if (declared.has("brand-system")) {
     requiredSection("brand-system", manifest.brand !== undefined, "brand", findings);
@@ -168,6 +233,568 @@ export function validateDesignDeliverable(
         message: `Token ${token.name} has a cyclic or unresolved reference chain.`,
         remediation: "Terminate every token chain at one compatible primitive token.",
       });
+    }
+  }
+
+  const evidenceRecords = new Map(manifest.evidence.map((entry) => [entry.id, entry]));
+  const checkVisualTokenRefs = (
+    refs: string[],
+    path: string,
+    ruleId: string,
+    expectedType?: DesignDeliverable["tokenSystem"]["tokens"][number]["type"],
+  ): void => {
+    for (const [index, reference] of refs.entries()) {
+      const token = tokens.get(reference);
+      if (!token) {
+        findings.push({
+          ruleId,
+          severity: "error",
+          path: `${path}[${index}]`,
+          message: `Visual contract references missing token ${reference}.`,
+          remediation: "Add the canonical token or correct the visual-contract reference.",
+        });
+      } else if (token.level === "primitive") {
+        findings.push({
+          ruleId,
+          severity: "error",
+          path: `${path}[${index}]`,
+          message: `Visual usage references primitive token ${reference} directly.`,
+          remediation: "Bind component and composition usage to a semantic or component token that resolves to the primitive.",
+        });
+      } else if (expectedType && token.type !== expectedType) {
+        findings.push({
+          ruleId,
+          severity: "error",
+          path: `${path}[${index}]`,
+          message: `Visual token ${reference} has type ${token.type}; expected ${expectedType}.`,
+          remediation: `Reference a semantic or component ${expectedType} token.`,
+        });
+      }
+    }
+  };
+
+  if (manifest.interfaceTrust) {
+    addDuplicates(manifest.interfaceTrust.requiredScenarios, "interfaceTrust.requiredScenarios", "trust scenario", findings);
+    for (const scenario of REQUIRED_TRUST_SCENARIOS) {
+      if (!manifest.interfaceTrust.requiredScenarios.includes(scenario)) {
+        findings.push({
+          ruleId: "ZTDE-DI-912",
+          severity: "error",
+          path: "interfaceTrust.requiredScenarios",
+          message: `Interface-trust link omits required scenario ${scenario}.`,
+          remediation: `Include ${scenario} and bind the interface-system manifest to the complete trust contract.`,
+        });
+      }
+    }
+    const validated = manifest.interfaceTrust.status === "validated";
+    if (validated && (!manifest.interfaceTrust.reportPath || !manifest.interfaceTrust.evidenceRef)) {
+      findings.push({
+        ruleId: "ZTDE-DI-912",
+        severity: "error",
+        path: "interfaceTrust",
+        message: "Interface-trust link is marked validated without a report path and evidence reference.",
+        remediation: "Set status to declared or attach the actual validator report and an evidence record.",
+      });
+    }
+    if (!validated && (manifest.interfaceTrust.reportPath || manifest.interfaceTrust.evidenceRef)) {
+      findings.push({
+        ruleId: "ZTDE-DI-912",
+        severity: "error",
+        path: "interfaceTrust",
+        message: "Declared interface-trust link carries validation evidence without validated status.",
+        remediation: "Remove premature validation evidence or set validated only after the recorded report passes.",
+      });
+    }
+    if (manifest.interfaceTrust.evidenceRef && !evidenceRecords.has(manifest.interfaceTrust.evidenceRef)) {
+      findings.push({
+        ruleId: "ZTDE-DI-912",
+        severity: "error",
+        path: "interfaceTrust.evidenceRef",
+        message: `Interface-trust link references missing evidence ${manifest.interfaceTrust.evidenceRef}.`,
+        remediation: "Add the validator-report evidence record or correct the reference.",
+      });
+    }
+  }
+
+  if (manifest.informationHierarchy) {
+    addDuplicates(manifest.informationHierarchy.levels, "informationHierarchy.levels", "information hierarchy level", findings);
+    for (const [index, level] of REQUIRED_INFORMATION_LEVELS.entries()) {
+      if (manifest.informationHierarchy.levels[index] !== level) {
+        findings.push({
+          ruleId: "ZTDE-DI-913",
+          severity: "error",
+          path: `informationHierarchy.levels[${index}]`,
+          message: `Information hierarchy position ${index + 1} must be ${level}.`,
+          remediation: "Restore the required context-to-history operational answer order.",
+        });
+      }
+    }
+    const validated = manifest.informationHierarchy.status === "validated";
+    if (validated && (!manifest.informationHierarchy.reportPath || !manifest.informationHierarchy.evidenceRef)) {
+      findings.push({
+        ruleId: "ZTDE-DI-913",
+        severity: "error",
+        path: "informationHierarchy",
+        message: "Information hierarchy is marked validated without a report path and evidence reference.",
+        remediation: "Set status to declared or attach the actual information validator report and evidence record.",
+      });
+    }
+    if (!validated && (manifest.informationHierarchy.reportPath || manifest.informationHierarchy.evidenceRef)) {
+      findings.push({
+        ruleId: "ZTDE-DI-913",
+        severity: "error",
+        path: "informationHierarchy",
+        message: "Declared information hierarchy carries validation evidence without validated status.",
+        remediation: "Remove premature evidence or set validated only after the recorded report passes.",
+      });
+    }
+    if (manifest.informationHierarchy.evidenceRef && !evidenceRecords.has(manifest.informationHierarchy.evidenceRef)) {
+      findings.push({
+        ruleId: "ZTDE-DI-913",
+        severity: "error",
+        path: "informationHierarchy.evidenceRef",
+        message: `Information hierarchy references missing evidence ${manifest.informationHierarchy.evidenceRef}.`,
+        remediation: "Add the validator-report evidence record or correct the reference.",
+      });
+    }
+  }
+
+  if (manifest.metricContracts) {
+    addDuplicates(manifest.metricContracts.metrics.map((entry) => entry.metricId), "metricContracts.metrics", "metric contract", findings);
+    if (
+      manifest.informationHierarchy &&
+      manifest.metricContracts.informationContractId !== manifest.informationHierarchy.contractId
+    ) {
+      findings.push({
+        ruleId: "ZTDE-DI-914",
+        severity: "error",
+        path: "metricContracts.informationContractId",
+        message: "Metric contracts do not reference the declared information hierarchy contract.",
+        remediation: "Use the same information-contract identifier for hierarchy, metrics, and charts.",
+      });
+    }
+    const chartIds = new Set(manifest.chartContracts?.map((entry) => entry.id) ?? []);
+    for (const [metricIndex, metric] of manifest.metricContracts.metrics.entries()) {
+      for (const [chartIndex, chartRef] of metric.chartRefs.entries()) {
+        if (!chartIds.has(chartRef)) {
+          findings.push({
+            ruleId: "ZTDE-DI-914",
+            severity: "error",
+            path: `metricContracts.metrics[${metricIndex}].chartRefs[${chartIndex}]`,
+            message: `Metric ${metric.metricId} references missing chart ${chartRef}.`,
+            remediation: "Add the visual chart contract or remove the unsupported chart reference.",
+          });
+        }
+      }
+    }
+    const metricIds = new Set(manifest.metricContracts.metrics.map((entry) => entry.metricId));
+    for (const [chartIndex, chart] of manifest.chartContracts?.entries() ?? []) {
+      for (const [metricIndex, metricRef] of chart.metricRefs.entries()) {
+        if (!metricIds.has(metricRef)) {
+          findings.push({
+            ruleId: "ZTDE-DI-914",
+            severity: "error",
+            path: `chartContracts[${chartIndex}].metricRefs[${metricIndex}]`,
+            message: `Chart ${chart.id} references metric ${metricRef} outside metricContracts.`,
+            remediation: "Add the metric decision contract or correct the chart metric reference.",
+          });
+        }
+      }
+    }
+  }
+
+  if (manifest.generationWorkflow) {
+    addDuplicates(manifest.generationWorkflow.steps.map((entry) => entry.stage), "generationWorkflow.steps", "generation stage", findings);
+    const allowedStatuses: Record<(typeof REQUIRED_GENERATION_STAGES)[number], Set<string>> = {
+      "product-task": new Set(["declared"]),
+      "truth-data-source-contract": new Set(["declared"]),
+      "information-architecture": new Set(["declared"]),
+      "interaction-state-model": new Set(["declared"]),
+      "visual-direction": new Set(["declared"]),
+      "token-architecture": new Set(["declared"]),
+      implementation: new Set(["required", "implemented"]),
+      "automated-verification": new Set(["required", "verified"]),
+      "human-visual-review": new Set(["review-required", "review-completed"]),
+    };
+    const allowedArtifactRefs = new Set([
+      manifest.id,
+      manifest.productTask?.productContractId,
+      manifest.interfaceTrust?.contractId,
+      manifest.informationHierarchy?.contractId,
+      ...(manifest.metricContracts?.metrics.map((entry) => entry.metricId) ?? []),
+      ...evidenceRecords.keys(),
+    ].filter((value): value is string => Boolean(value)));
+    for (const [index, stage] of REQUIRED_GENERATION_STAGES.entries()) {
+      const entry = manifest.generationWorkflow.steps[index];
+      if (!entry || entry.stage !== stage) {
+        findings.push({
+          ruleId: "ZTDE-DI-915",
+          severity: "error",
+          path: `generationWorkflow.steps[${index}]`,
+          message: `Generation workflow position ${index + 1} must be ${stage}.`,
+          remediation: "Restore the required product-task through human-review generation order.",
+        });
+        continue;
+      }
+      if (!allowedStatuses[stage].has(entry.status)) {
+        findings.push({
+          ruleId: "ZTDE-DI-915",
+          severity: "error",
+          path: `generationWorkflow.steps[${index}].status`,
+          message: `Stage ${stage} cannot use status ${entry.status}.`,
+          remediation: `Use one of: ${[...allowedStatuses[stage]].join(", ")}.`,
+        });
+      }
+      for (const [referenceIndex, reference] of entry.artifactRefs.entries()) {
+        if (!allowedArtifactRefs.has(reference)) {
+          findings.push({
+            ruleId: "ZTDE-DI-915",
+            severity: "error",
+            path: `generationWorkflow.steps[${index}].artifactRefs[${referenceIndex}]`,
+            message: `Generation stage ${stage} references unknown artifact ${reference}.`,
+            remediation: "Reference the manifest, linked contracts, metric contracts, or declared evidence records.",
+          });
+        }
+      }
+      if (["verified", "review-completed"].includes(entry.status) && entry.artifactRefs.length === 0) {
+        findings.push({
+          ruleId: "ZTDE-DI-915",
+          severity: "error",
+          path: `generationWorkflow.steps[${index}].artifactRefs`,
+          message: `Completed stage ${stage} has no evidence reference.`,
+          remediation: "Attach the actual verification or reviewer-supplied evidence record.",
+        });
+      }
+    }
+    const implementation = manifest.generationWorkflow.steps.find((entry) => entry.stage === "implementation");
+    const automated = manifest.generationWorkflow.steps.find((entry) => entry.stage === "automated-verification");
+    const human = manifest.generationWorkflow.steps.find((entry) => entry.stage === "human-visual-review");
+    if (automated?.status === "verified" && implementation?.status !== "implemented") {
+      findings.push({
+        ruleId: "ZTDE-DI-915",
+        severity: "error",
+        path: "generationWorkflow.steps",
+        message: "Automated verification is marked complete before implementation.",
+        remediation: "Keep verification required until an implemented artifact has produced the referenced evidence.",
+      });
+    }
+    if (human?.status === "review-completed") {
+      if (automated?.status !== "verified" || manifest.humanVisualReview?.status !== "completed") {
+        findings.push({
+          ruleId: "ZTDE-DI-915",
+          severity: "error",
+          path: "generationWorkflow.steps",
+          message: "Human visual review is marked complete before automated evidence and attributable review are complete.",
+          remediation: "Keep review-required until automated verification passes and reviewer-supplied evidence is recorded.",
+        });
+      }
+    }
+  }
+
+  if (manifest.visualDirection) {
+    checkVisualTokenRefs(manifest.visualDirection.tokenRefs, "visualDirection.tokenRefs", "ZTDE-DI-701");
+    for (const [index, reference] of manifest.visualDirection.referenceEvidenceRefs.entries()) {
+      if (!evidenceRecords.has(reference)) {
+        findings.push({
+          ruleId: "ZTDE-DI-701",
+          severity: "error",
+          path: `visualDirection.referenceEvidenceRefs[${index}]`,
+          message: `Visual direction references missing evidence ${reference}.`,
+          remediation: "Add the evidence record or remove the unsupported visual reference.",
+        });
+      }
+    }
+    const ornament = manifest.visualDirection.ornamentPolicy as Record<string, boolean>;
+    for (const [name, allowed] of Object.entries(ornament)) {
+      if (allowed) {
+        findings.push({
+          ruleId: "ZTDE-DI-707",
+          severity: "error",
+          path: `visualDirection.ornamentPolicy.${name}`,
+          message: `Visual direction allows prohibited ornament category ${name}.`,
+          remediation: "Remove ornamental treatment or bind the visual element to a concrete product meaning and task.",
+        });
+      }
+    }
+  }
+
+  if (manifest.typography) {
+    addDuplicates(manifest.typography.roles.map((entry) => entry.role), "typography.roles", "typography role", findings);
+    const requiredRoles = ["body", "label", "heading", "metadata", "metric", "evidence", "log", "code"];
+    for (const role of requiredRoles) {
+      if (!manifest.typography.roles.some((entry) => entry.role === role)) {
+        findings.push({
+          ruleId: "ZTDE-DI-702",
+          severity: "error",
+          path: "typography.roles",
+          message: `Typography role ${role} is missing.`,
+          remediation: `Add the ${role} role with semantic family, size, weight, line-height, and color tokens.`,
+        });
+      }
+    }
+    for (const [index, role] of manifest.typography.roles.entries()) {
+      checkVisualTokenRefs([role.familyToken], `typography.roles[${index}].familyToken`, "ZTDE-DI-702", "font-family");
+      checkVisualTokenRefs([role.sizeToken], `typography.roles[${index}].sizeToken`, "ZTDE-DI-702", "dimension");
+      checkVisualTokenRefs([role.weightToken], `typography.roles[${index}].weightToken`, "ZTDE-DI-702", "font-weight");
+      checkVisualTokenRefs([role.lineHeightToken], `typography.roles[${index}].lineHeightToken`, "ZTDE-DI-702", "number");
+      checkVisualTokenRefs([role.colorToken], `typography.roles[${index}].colorToken`, "ZTDE-DI-702", "color");
+    }
+    if (manifest.typography.numericAlignment !== "tabular") {
+      findings.push({
+        ruleId: "ZTDE-DI-702",
+        severity: "warning",
+        path: "typography.numericAlignment",
+        message: "Operational metrics use proportional numeric alignment.",
+        remediation: "Use tabular numerals for changing metrics and aligned comparisons unless the typeface lacks support.",
+      });
+    }
+  }
+
+  if (manifest.composition) {
+    addDuplicates(manifest.composition.grids.map((entry) => String(entry.viewport)), "composition.grids", "responsive viewport", findings);
+    const requiredViewports = [375, 768, 1024, 1440];
+    for (const viewport of requiredViewports) {
+      if (!manifest.composition.grids.some((entry) => entry.viewport === viewport)) {
+        findings.push({
+          ruleId: "ZTDE-DI-703",
+          severity: "error",
+          path: "composition.grids",
+          message: `Composition grid for ${viewport} CSS pixels is missing.`,
+          remediation: `Declare columns, gutter, margin, and composition behavior at ${viewport} CSS pixels.`,
+        });
+      }
+    }
+    for (const [index, grid] of manifest.composition.grids.entries()) {
+      checkVisualTokenRefs([grid.gutterToken, grid.marginToken], `composition.grids[${index}].tokens`, "ZTDE-DI-703", "dimension");
+    }
+    checkVisualTokenRefs([manifest.composition.spacingRhythm.baseToken, ...manifest.composition.spacingRhythm.allowedStepTokens], "composition.spacingRhythm", "ZTDE-DI-703", "dimension");
+    for (const [index, component] of manifest.composition.stableDimensions.entries()) {
+      checkVisualTokenRefs(component.tokenRefs, `composition.stableDimensions[${index}].tokenRefs`, "ZTDE-DI-703", "dimension");
+    }
+    for (const [path, entries, required] of [
+      ["surfaces", manifest.composition.surfaces, ["canvas", "subtle", "raised"]],
+      ["borders", manifest.composition.borders, ["default", "strong", "focus", "selected"]],
+      ["elevations", manifest.composition.elevations, ["base", "raised", "overlay"]],
+      ["emphasis", manifest.composition.emphasis, ["primary", "secondary", "tertiary", "muted"]],
+    ] as Array<[string, Array<{ role?: string; level?: string }>, string[]]>) {
+      const values = entries.map((entry) => entry.role ?? entry.level ?? "");
+      addDuplicates(values, `composition.${path}`, `${path} role`, findings);
+      for (const role of required) {
+        if (!values.includes(role)) {
+          findings.push({
+            ruleId: "ZTDE-DI-704",
+            severity: "error",
+            path: `composition.${path}`,
+            message: `Composition ${path} hierarchy is missing ${role}.`,
+            remediation: `Declare the ${role} role with semantic token bindings.`,
+          });
+        }
+      }
+    }
+    for (const [index, entry] of manifest.composition.surfaces.entries()) {
+      checkVisualTokenRefs([entry.tokenRef], `composition.surfaces[${index}].tokenRef`, "ZTDE-DI-704", "color");
+    }
+    for (const [index, entry] of manifest.composition.borders.entries()) {
+      checkVisualTokenRefs([entry.tokenRef], `composition.borders[${index}].tokenRef`, "ZTDE-DI-704", "color");
+    }
+    for (const [index, entry] of manifest.composition.elevations.entries()) {
+      checkVisualTokenRefs([entry.tokenRef], `composition.elevations[${index}].tokenRef`, "ZTDE-DI-704", "shadow");
+    }
+    for (const [index, entry] of manifest.composition.emphasis.entries()) {
+      checkVisualTokenRefs([entry.textToken, entry.surfaceToken], `composition.emphasis[${index}].tokens`, "ZTDE-DI-704", "color");
+    }
+    checkVisualTokenRefs([manifest.composition.selectedState.backgroundToken, manifest.composition.selectedState.borderToken], "composition.selectedState", "ZTDE-DI-704", "color");
+  }
+
+  if (manifest.densityProfile) {
+    checkVisualTokenRefs([
+      manifest.densityProfile.controlHeightToken,
+      manifest.densityProfile.rowHeightToken,
+      manifest.densityProfile.compactRowHeightToken,
+      ...manifest.densityProfile.spacingTokenRefs,
+    ], "densityProfile", "ZTDE-DI-705", "dimension");
+    addDuplicates(manifest.densityProfile.viewportBehavior.map((entry) => String(entry.viewport)), "densityProfile.viewportBehavior", "density viewport", findings);
+    for (const viewport of [375, 768, 1024, 1440]) {
+      if (!manifest.densityProfile.viewportBehavior.some((entry) => entry.viewport === viewport)) {
+        findings.push({
+          ruleId: "ZTDE-DI-705",
+          severity: "error",
+          path: "densityProfile.viewportBehavior",
+          message: `Density behavior for ${viewport} CSS pixels is missing.`,
+          remediation: `Declare density mode and visible priorities at ${viewport} CSS pixels.`,
+        });
+      }
+    }
+  }
+
+  if (manifest.interactionStates) {
+    addDuplicates(manifest.interactionStates.states.map((entry) => entry.state), "interactionStates.states", "interaction state", findings);
+    const requiredStates = ["loading", "empty", "success", "warning", "error", "partial", "disabled", "selected", "focus"];
+    for (const state of requiredStates) {
+      if (!manifest.interactionStates.states.some((entry) => entry.state === state)) {
+        findings.push({
+          ruleId: "ZTDE-DI-706",
+          severity: "error",
+          path: "interactionStates.states",
+          message: `Interaction state ${state} is missing from the visual language.`,
+          remediation: `Declare ${state} behavior, semantic tokens, and visible cues.`,
+        });
+      }
+    }
+    for (const [index, state] of manifest.interactionStates.states.entries()) {
+      checkVisualTokenRefs(state.tokenRefs, `interactionStates.states[${index}].tokenRefs`, "ZTDE-DI-706");
+      if (["warning", "error", "partial", "selected"].includes(state.state) && !state.textCue && !state.iconCue) {
+        findings.push({
+          ruleId: "ZTDE-DI-706",
+          severity: "error",
+          path: `interactionStates.states[${index}]`,
+          message: `State ${state.state} has no text or icon cue independent of color.`,
+          remediation: "Add visible text or a semantic icon in addition to color and position.",
+        });
+      }
+    }
+  }
+
+  if (manifest.motion) {
+    const durationRanges = {
+      instant: [0, 100],
+      feedback: [100, 220],
+      transition: [150, 350],
+      emphasis: [200, 500],
+    } as const;
+    for (const [category, reference] of Object.entries(manifest.motion.durationTokens) as Array<[keyof typeof durationRanges, string]>) {
+      checkVisualTokenRefs([reference], `motion.durationTokens.${category}`, "ZTDE-DI-708", "duration");
+      const value = resolveTokenValue(reference, tokens);
+      const [minimum, maximum] = durationRanges[category];
+      if (typeof value !== "number" || value < minimum || value > maximum) {
+        findings.push({
+          ruleId: "ZTDE-DI-708",
+          severity: "error",
+          path: `motion.durationTokens.${category}`,
+          message: `Motion category ${category} does not resolve to ${minimum}-${maximum} milliseconds.`,
+          remediation: "Reference a semantic duration token whose primitive numeric value fits the category.",
+        });
+      }
+    }
+    addDuplicates(manifest.motion.motions.map((entry) => entry.id), "motion.motions", "motion identifier", findings);
+    const motions = new Set(manifest.motion.motions.map((entry) => entry.id));
+    const equivalents = new Set(manifest.motion.reducedMotion.equivalents.map((entry) => entry.motionRef));
+    for (const [index, equivalent] of manifest.motion.reducedMotion.equivalents.entries()) {
+      if (!motions.has(equivalent.motionRef)) {
+        findings.push({
+          ruleId: "ZTDE-DI-708",
+          severity: "error",
+          path: `motion.reducedMotion.equivalents[${index}].motionRef`,
+          message: `Reduced-motion equivalent references missing motion ${equivalent.motionRef}.`,
+          remediation: "Reference a declared motion or remove the unrelated equivalent.",
+        });
+      }
+    }
+    for (const motion of manifest.motion.motions) {
+      if (!equivalents.has(motion.id)) {
+        findings.push({
+          ruleId: "ZTDE-DI-708",
+          severity: "error",
+          path: "motion.reducedMotion.equivalents",
+          message: `Motion ${motion.id} has no reduced-motion equivalent.`,
+          remediation: "Declare how the motion is removed, replaced, or shortened without losing state meaning.",
+        });
+      }
+    }
+  }
+
+  if (manifest.chartContracts) {
+    addDuplicates(manifest.chartContracts.map((entry) => entry.id), "chartContracts", "chart contract", findings);
+    for (const [index, chart] of manifest.chartContracts.entries()) {
+      checkVisualTokenRefs(chart.tokenRefs, `chartContracts[${index}].tokenRefs`, "ZTDE-DI-801");
+      if (!chart.titleVisible || !chart.valuesVisible) {
+        findings.push({
+          ruleId: "ZTDE-DI-801",
+          severity: "error",
+          path: `chartContracts[${index}]`,
+          message: `Chart ${chart.id} hides its title or readable values.`,
+          remediation: "Show a visible title and values; do not depend on hover, shape, or color alone.",
+        });
+      }
+      if (!chart.legend.visible && !chart.legend.reason) {
+        findings.push({
+          ruleId: "ZTDE-DI-801",
+          severity: "error",
+          path: `chartContracts[${index}].legend.reason`,
+          message: `Chart ${chart.id} omits its legend without documenting direct labeling.`,
+          remediation: "Show a legend or state why direct labels make every series unambiguous.",
+        });
+      }
+      const cues = new Set(chart.nonColorCues);
+      if (cues.size !== chart.nonColorCues.length || [...cues].every((cue) => cue === "color")) {
+        findings.push({
+          ruleId: "ZTDE-DI-801",
+          severity: "error",
+          path: `chartContracts[${index}].nonColorCues`,
+          message: `Chart ${chart.id} lacks distinct color-independent cues.`,
+          remediation: "Combine color with direct text, values, shape, pattern, position, or line style.",
+        });
+      }
+      if ((chart as { decorative: boolean }).decorative) {
+        findings.push({
+          ruleId: "ZTDE-DI-801",
+          severity: "error",
+          path: `chartContracts[${index}].decorative`,
+          message: `Chart ${chart.id} is decorative.`,
+          remediation: "Remove the chart or bind it to a metric decision, comparison, accessible alternative, and explicit states.",
+        });
+      }
+    }
+  }
+
+  if (manifest.renderedEvidence) {
+    addDuplicates(manifest.renderedEvidence.captures.map((entry) => String(entry.viewport)), "renderedEvidence.captures", "rendered viewport", findings);
+    for (const viewport of [375, 768, 1024, 1440]) {
+      if (!manifest.renderedEvidence.captures.some((entry) => entry.viewport === viewport)) {
+        findings.push({
+          ruleId: "ZTDE-DI-901",
+          severity: "error",
+          path: "renderedEvidence.captures",
+          message: `Rendered-evidence declaration for ${viewport} CSS pixels is missing.`,
+          remediation: `Add a planned, captured, or verified record for ${viewport} CSS pixels.`,
+        });
+      }
+    }
+  }
+
+  if (manifest.humanVisualReview) {
+    addDuplicates(manifest.humanVisualReview.dimensions, "humanVisualReview.dimensions", "human-review dimension", findings);
+    for (const dimension of ["hierarchy", "balance", "scanability", "density", "domain-fit"]) {
+      if (!manifest.humanVisualReview.dimensions.includes(dimension as never)) {
+        findings.push({
+          ruleId: "ZTDE-DI-902",
+          severity: "error",
+          path: "humanVisualReview.dimensions",
+          message: `Human visual review omits ${dimension}.`,
+          remediation: `Include ${dimension} in the attributable rendered-output review.`,
+        });
+      }
+    }
+    if (manifest.humanVisualReview.status === "completed" && manifest.humanVisualReview.reviewers.length === 0) {
+      findings.push({
+        ruleId: "ZTDE-DI-902",
+        severity: "error",
+        path: "humanVisualReview.reviewers",
+        message: "Human visual review is marked completed without an attributable reviewer.",
+        remediation: "Set status to required or record reviewer-supplied name, role, timestamp, and review evidence. Agents must not invent this record.",
+      });
+    }
+    for (const [index, reviewer] of manifest.humanVisualReview.reviewers.entries()) {
+      const record = evidenceRecords.get(reviewer.evidenceRef);
+      if (!record || record.kind !== "review") {
+        findings.push({
+          ruleId: "ZTDE-DI-902",
+          severity: "error",
+          path: `humanVisualReview.reviewers[${index}].evidenceRef`,
+          message: `Human reviewer ${reviewer.name} does not reference review evidence.`,
+          remediation: "Add an evidence record with kind review that contains the reviewer-supplied assessment.",
+        });
+      }
     }
   }
 
@@ -527,6 +1154,41 @@ export function validateDesignDeliverable(
     warnings: findings.filter((finding) => finding.severity === "warning").length,
     info: findings.filter((finding) => finding.severity === "info").length,
   };
+  const requiredViewports = Object.fromEntries(
+    [375, 768, 1024, 1440].map((viewport) => {
+      const capture = manifest.renderedEvidence?.captures.find((entry) => entry.viewport === viewport);
+      return [String(viewport), capture?.status ?? "missing"];
+    }),
+  ) as Record<"375" | "768" | "1024" | "1440", "missing" | "planned" | "captured" | "verified">;
+  const visualPolishDeclared = declared.has("interface-system");
+  const renderedEvidenceReady = visualPolishDeclared && Object.values(requiredViewports).every((status) => status === "verified");
+  const humanReviewReady =
+    visualPolishDeclared &&
+    manifest.humanVisualReview?.status === "completed" &&
+    manifest.humanVisualReview.reviewers.length > 0;
+  const stages = Object.fromEntries(
+    REQUIRED_GENERATION_STAGES.map((stage) => [
+      stage,
+      manifest.generationWorkflow?.steps.find((entry) => entry.stage === stage)?.status ?? "missing",
+    ]),
+  ) as Record<(typeof REQUIRED_GENERATION_STAGES)[number], "missing" | "required" | "declared" | "implemented" | "verified" | "review-required" | "review-completed">;
+  const generationReady =
+    visualPolishDeclared &&
+    REQUIRED_GENERATION_STAGES.slice(0, 6).every((stage) => stages[stage] === "declared") &&
+    stages.implementation !== "missing" &&
+    stages["automated-verification"] !== "missing" &&
+    stages["human-visual-review"] !== "missing";
+  const trustStatus = manifest.interfaceTrust?.status ?? "missing";
+  const informationStatus = manifest.informationHierarchy?.status ?? "missing";
+  const contractsValidated = trustStatus === "validated" && informationStatus === "validated";
+  const automatedVerificationReady = stages["automated-verification"] === "verified";
+  const integratedReleaseReady =
+    summary.errors === 0 &&
+    generationReady &&
+    contractsValidated &&
+    automatedVerificationReady &&
+    renderedEvidenceReady &&
+    humanReviewReady;
 
   return {
     version: REPORT_VERSION,
@@ -544,11 +1206,37 @@ export function validateDesignDeliverable(
       presentations: manifest.presentations.length,
       slides: manifest.presentations.reduce((total, presentation) => total + presentation.slides.length, 0),
       contrastPairs: manifest.accessibility.contrastPairs.length,
+      typographyRoles: manifest.typography?.roles.length ?? 0,
+      interactionStates: manifest.interactionStates?.states.length ?? 0,
+      chartContracts: manifest.chartContracts?.length ?? 0,
+      renderedViewports: manifest.renderedEvidence?.captures.length ?? 0,
+      metricContracts: manifest.metricContracts?.metrics.length ?? 0,
+      generationStages: manifest.generationWorkflow?.steps.length ?? 0,
+    },
+    integration: {
+      generationReady,
+      trustStatus,
+      informationStatus,
+      contractsValidated,
+      automatedVerificationReady,
+      humanReviewReady,
+      releaseReady: integratedReleaseReady,
+      stages,
+    },
+    visualPolish: {
+      declared: visualPolishDeclared,
+      requiredViewports,
+      renderedEvidenceReady,
+      humanReviewReady,
+      releaseReady: summary.errors === 0 && renderedEvidenceReady && humanReviewReady,
     },
     summary,
     passed: summary.errors === 0,
     limitations: [
       "Manifest validation verifies declared structure, token math, references, and provenance records; it does not inspect Figma files or rendered pixels.",
+      "Planned or captured viewport records are not verified rendered evidence. Visual release readiness requires verified screenshots and runtime reports at 375, 768, 1024, and 1440 CSS pixels.",
+      "Human visual review is incomplete until a reviewer supplies attributable evidence for hierarchy, balance, scanability, density, and domain fit. An agent must not create that record.",
+      "Linked trust and information contracts count as validated only when the manifest records their actual passing reports and evidence references.",
       "Rights records support review but are not legal advice or a determination that an asset is cleared in every jurisdiction and channel.",
       "Run browser verification and human review against final exported or implemented artifacts.",
     ],

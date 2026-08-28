@@ -104,7 +104,24 @@ export const runtimeScreenshotSchema = z.object({
   width: z.number().int().positive(),
   height: z.number().int().positive(),
   fullPage: z.boolean(),
+  sha256: z.string().regex(/^[a-f0-9]{64}$/),
+  dynamicSelectors: z.array(z.string()),
 });
+
+export const runtimeScreenshotBaselineSchema = z
+  .object({
+    version: z.literal("1.0"),
+    screenshots: z.array(
+      z.object({
+        name: z.string().min(1).max(256),
+        width: z.number().int().positive(),
+        height: z.number().int().positive(),
+        sha256: z.string().regex(/^[a-f0-9]{64}$/),
+        dynamicSelectors: z.array(z.string().min(1).max(1_024)).max(20),
+      }).strict(),
+    ).max(1_000),
+  })
+  .strict();
 
 export const runtimeJourneyResultSchema = z.object({
   name: z.string(),
@@ -132,6 +149,12 @@ export const runtimeReportSchema = {
   outputDirectory: z.string(),
   viewports: z.array(runtimeViewportSchema),
   screenshots: z.array(runtimeScreenshotSchema),
+  screenshotRegression: z.object({
+    status: z.enum(["not-configured", "created", "matched", "mismatched"]),
+    baselinePath: z.string().optional(),
+    compared: z.number().int().nonnegative(),
+    mismatches: z.array(z.string()),
+  }),
   journeys: z.array(runtimeJourneyResultSchema),
   expectedNetwork: z.array(
     runtimeExpectedNetworkSchema.and(
@@ -149,4 +172,8 @@ export const runtimeReportSchema = {
     info: z.number().int().nonnegative(),
   }),
   passed: z.boolean(),
+  evidenceBoundary: z.object({
+    verifierLimitations: z.array(z.string()),
+    humanReviewRequired: z.array(z.string()),
+  }),
 };

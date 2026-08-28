@@ -47,6 +47,13 @@ async function validateProvenance() {
   }
   assert.equal(new Set(paths).size, paths.length, "provenance artifact paths must be unique");
   assert.deepEqual(paths.sort(), await expectedProvenancePaths());
+  for (const path of [
+    "knowledge-base/design-intelligence/interface-trust.md",
+    "knowledge-base/design-intelligence/information-design.md",
+    "knowledge-base/design-intelligence/visual-polish.md",
+  ]) {
+    assert.ok(paths.includes(path), `V2 module is missing approved provenance: ${path}`);
+  }
   return { artifacts: paths.length, sources: sources.size };
 }
 

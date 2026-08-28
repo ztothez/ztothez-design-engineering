@@ -1,4 +1,4 @@
-version: "1.0"
+version: "1.1"
 id: scenestart
 name: SceneStart Local-First Demoscene Learning Studio
 status: benchmark
@@ -359,3 +359,69 @@ verification:
       actor: independent-producer
       mode: release-preparation
       acceptanceCriteria: [provenance-workflow-integrity, honest-product-scope, local-first-boundary, responsive-integrity, accessible-operation]
+
+benchmark:
+  archetype: full-stack-workflow
+  interface: browser
+  qualityDimensions:
+    - { id: truthful-disclosure, status: required, reason: "Local-first storage, exports, and asset rights require explicit boundaries." }
+    - { id: information-design, status: required, reason: "Creators must understand progression, project state, release readiness, and next actions." }
+    - { id: visual-system, status: required, reason: "Workshop, Studio, learning, and release surfaces require coherent hierarchy." }
+    - { id: accessibility, status: required, reason: "Authoring and learning workflows require keyboard, reflow, and non-color operation." }
+    - { id: responsive-structure, status: required, reason: "Core workflows are verified from 320px mobile through wide desktop." }
+    - { id: state-integrity, status: required, reason: "Workshop handoff, saved project state, learning progress, and exports must persist." }
+    - { id: maintainability, status: required, reason: "Learning, authoring, storage, export, and provenance concerns require stable boundaries." }
+  tasks:
+    - id: workshop-to-studio
+      primary: true
+      actor: beginner-maker
+      mode: guided-workshop
+      intent: Complete the guided production workflow and continue into Studio with the project handle and scenes intact.
+      start:
+        stateMachine: guided-progression
+        state: not-started
+        observable: The learner can begin a new guided project from Workshop.
+      success:
+        stateMachine: guided-progression
+        state: workshop-complete
+        observable: Workshop is complete and the same project opens in Studio with its creative state preserved.
+        evidence: [contract, runtime, manual-review]
+      recovery:
+        required: true
+        failure:
+          stateMachine: guided-progression
+          state: storage-unavailable
+          observable: Local storage failure is disclosed without claiming successful persistence.
+        observable: The learner can retain the current in-memory project, retry storage, or export before leaving.
+      journey: { profile: guided-workshop, journey: complete-guided-production }
+      browser: { route: /workshop, narrowViewport: mobile-320 }
+    - id: export-offline-production
+      primary: true
+      actor: independent-producer
+      mode: studio-production
+      intent: Save an editable project and export a working offline HTML production without uploading creative data.
+      start:
+        stateMachine: production-authoring
+        state: loaded
+        observable: A local project is loaded in Studio and available for editing.
+      success:
+        stateMachine: production-authoring
+        state: exported
+        observable: Editable project data and offline HTML are downloaded with the expected project content.
+        evidence: [contract, runtime, export, manual-review]
+      recovery:
+        required: true
+        failure:
+          stateMachine: production-authoring
+          state: invalid-project
+          observable: Invalid imported project data is rejected with a visible explanation.
+        observable: The producer can return to the intact current project or import a corrected local file.
+      journey: { profile: studio-export, journey: compose-save-export }
+      browser: { route: /studio, narrowViewport: mobile-320 }
+  evidencePolicy:
+    missingEvidence: unverified
+    failedBehavior: failed
+    unsupportedCapability: limitation
+  comparison:
+    taskContractId: scenestart-production-continuity
+    crossContractRanking: false

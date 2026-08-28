@@ -259,5 +259,14 @@ export async function auditRepository(
     findings: sortedFindings,
     summary,
     passed: summary.errors === 0,
+    evidenceBoundary: {
+      verifierLimitations: [
+        "Static source patterns cannot prove rendered placement, runtime state, backend availability, or whether an interaction succeeds.",
+        "Medium-confidence findings require repository-context review before remediation or suppression.",
+      ],
+      humanReviewRequired: [
+        "A qualified reviewer must evaluate domain fit, architectural trade-offs, task coherence, and any accepted static-rule exception.",
+      ],
+    },
   };
 }

@@ -6,11 +6,24 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 
 test("MCP exposes the repository auditor with structured output", async () => {
+  delete process.env.ZTOTHEZ_DESIGN_PORTFOLIO_MCP;
   process.env.ZTOTHEZ_DESIGN_AUDIT_ROOTS = [resolve(process.cwd(), "tests", "fixtures")].join(delimiter);
   process.env.ZTOTHEZ_DESIGN_HEURISTIC_REVIEW_ROOTS = [
     resolve(process.cwd(), "tests", "fixtures"),
   ].join(delimiter);
   process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS = [
+    resolve(process.cwd(), "tests", "fixtures"),
+    resolve(process.cwd(), "knowledge-base", "design-intelligence"),
+  ].join(delimiter);
+  process.env.ZTOTHEZ_DESIGN_COMPARISON_ROOTS = [
+    resolve(process.cwd(), "tests", "fixtures", "comparison"),
+    resolve(process.cwd(), "knowledge-base", "benchmarks", "interface-quality"),
+  ].join(delimiter);
+  process.env.ZTOTHEZ_DESIGN_TRUST_ROOTS = [
+    resolve(process.cwd(), "tests", "fixtures"),
+    resolve(process.cwd(), "knowledge-base", "design-intelligence"),
+  ].join(delimiter);
+  process.env.ZTOTHEZ_DESIGN_INFORMATION_ROOTS = [
     resolve(process.cwd(), "tests", "fixtures"),
     resolve(process.cwd(), "knowledge-base", "design-intelligence"),
   ].join(delimiter);
@@ -38,6 +51,17 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_design_intelligence"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_design_deliverable"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
+    assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
+    assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
+    assert.ok(tools.tools.some((tool) => tool.name === "list_portfolio_projects"));
+    assert.ok(tools.tools.some((tool) => tool.name === "get_portfolio_benchmark_report"));
+
+    const disabledPortfolio = await client.callTool({
+      name: "list_portfolio_projects",
+      arguments: {},
+    });
+    assert.equal(disabledPortfolio.isError, true);
 
     const knowledgeSearch = await client.callTool({
       name: "search_design_knowledge",
@@ -101,23 +125,153 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(designListing.isError, undefined);
     assert.match(designListingText?.text ?? "", /brand-systems[.]md/);
     assert.match(designListingText?.text ?? "", /visual-accessibility[.]md/);
+    assert.match(designListingText?.text ?? "", /interface-trust[.]md/);
+    assert.match(designListingText?.text ?? "", /information-design[.]md/);
+    assert.match(designListingText?.text ?? "", /visual-polish[.]md/);
+
+    for (const [file, heading] of [
+      ["interface-trust.md", /Interface Trust And Data Provenance/],
+      ["information-design.md", /Operational Information Design/],
+      ["visual-polish.md", /Visual Polish System/],
+    ] as const) {
+      const exactRead = await client.callTool({
+        name: "get_design_intelligence",
+        arguments: { file },
+      });
+      const exactReadText = (exactRead.content as Array<{ type: string; text?: string }>).find(
+        (entry) => entry.type === "text",
+      );
+      assert.equal(exactRead.isError, undefined);
+      assert.match(exactReadText?.text ?? "", heading);
+    }
 
     const designManifest = await client.callTool({
       name: "validate_design_deliverable",
       arguments: { manifestFile: "design-deliverable.template.yaml" },
     });
     const designReport = designManifest.structuredContent as
-      | { passed?: unknown; contrastResults?: unknown[] }
+      | {
+          passed?: unknown;
+          contrastResults?: unknown[];
+          coverage?: {
+            typographyRoles?: unknown;
+            interactionStates?: unknown;
+            metricContracts?: unknown;
+            generationStages?: unknown;
+          };
+          integration?: {
+            generationReady?: unknown;
+            trustStatus?: unknown;
+            informationStatus?: unknown;
+            contractsValidated?: unknown;
+            automatedVerificationReady?: unknown;
+            humanReviewReady?: unknown;
+            releaseReady?: unknown;
+          };
+          visualPolish?: { renderedEvidenceReady?: unknown; humanReviewReady?: unknown; releaseReady?: unknown };
+        }
       | undefined;
     assert.equal(designManifest.isError, undefined);
     assert.equal(designReport?.passed, true);
     assert.equal(designReport?.contrastResults?.length, 4);
+    assert.equal(designReport?.coverage?.typographyRoles, 8);
+    assert.equal(designReport?.coverage?.interactionStates, 9);
+    assert.equal(designReport?.coverage?.metricContracts, 3);
+    assert.equal(designReport?.coverage?.generationStages, 9);
+    assert.equal(designReport?.integration?.generationReady, true);
+    assert.equal(designReport?.integration?.trustStatus, "declared");
+    assert.equal(designReport?.integration?.informationStatus, "declared");
+    assert.equal(designReport?.integration?.contractsValidated, false);
+    assert.equal(designReport?.integration?.automatedVerificationReady, false);
+    assert.equal(designReport?.integration?.humanReviewReady, false);
+    assert.equal(designReport?.integration?.releaseReady, false);
+    assert.equal(designReport?.visualPolish?.renderedEvidenceReady, false);
+    assert.equal(designReport?.visualPolish?.humanReviewReady, false);
+    assert.equal(designReport?.visualPolish?.releaseReady, false);
 
     const deniedDesignManifest = await client.callTool({
       name: "validate_design_deliverable",
       arguments: { manifestFile: resolve(process.cwd(), "package.json") },
     });
     assert.equal(deniedDesignManifest.isError, true);
+
+    const trustContract = await client.callTool({
+      name: "validate_interface_trust",
+      arguments: { contractFile: "interface-trust.template.yaml" },
+    });
+    const trustReport = trustContract.structuredContent as
+      | { passed?: unknown; coverage?: { states?: unknown; claims?: unknown; scenarios?: Record<string, unknown> } }
+      | undefined;
+    assert.equal(trustContract.isError, undefined);
+    assert.equal(trustReport?.passed, true);
+    assert.equal(trustReport?.coverage?.states, 5);
+    assert.equal(trustReport?.coverage?.claims, 40);
+    assert.equal(trustReport?.coverage?.scenarios?.disconnected, true);
+
+    const deniedTrustContract = await client.callTool({
+      name: "validate_interface_trust",
+      arguments: { contractFile: resolve(process.cwd(), "package.json") },
+    });
+    assert.equal(deniedTrustContract.isError, true);
+
+    const informationContract = await client.callTool({
+      name: "validate_information_design",
+      arguments: { contractFile: "information-design.template.yaml" },
+    });
+    const informationReport = informationContract.structuredContent as
+      | {
+          passed?: unknown;
+          coverage?: { metrics?: unknown; findings?: unknown; hierarchyLevels?: unknown };
+        }
+      | undefined;
+    assert.equal(informationContract.isError, undefined);
+    assert.equal(informationReport?.passed, true);
+    assert.equal(informationReport?.coverage?.metrics, 3);
+    assert.equal(informationReport?.coverage?.findings, 2);
+    assert.equal(informationReport?.coverage?.hierarchyLevels, 8);
+
+    const deniedInformationContract = await client.callTool({
+      name: "validate_information_design",
+      arguments: { contractFile: resolve(process.cwd(), "package.json") },
+    });
+    assert.equal(deniedInformationContract.isError, true);
+
+    const comparison = await client.callTool({
+      name: "evaluate_interface_comparison",
+      arguments: {
+        methodologyFile: "comparison-methodology.template.yaml",
+        reviewFile: "review.template.yaml",
+      },
+    });
+    const comparisonReport = comparison.structuredContent as
+      | { passed?: unknown; releaseReady?: unknown; evidenceLevels?: { humanExpert?: unknown } }
+      | undefined;
+    assert.equal(comparison.isError, undefined);
+    assert.equal(comparisonReport?.passed, true);
+    assert.equal(comparisonReport?.releaseReady, false);
+    assert.equal(comparisonReport?.evidenceLevels?.humanExpert, 0);
+
+    const invalidComparison = await client.callTool({
+      name: "evaluate_interface_comparison",
+      arguments: {
+        methodologyFile: "comparison-methodology.template.yaml",
+        reviewFile: "antigravity-invalid-review.yaml",
+      },
+    });
+    assert.equal(invalidComparison.isError, true);
+    assert.equal(
+      (invalidComparison.structuredContent as { passed?: unknown } | undefined)?.passed,
+      false,
+    );
+
+    const deniedComparison = await client.callTool({
+      name: "evaluate_interface_comparison",
+      arguments: {
+        methodologyFile: resolve(process.cwd(), "package.json"),
+        reviewFile: "review.template.yaml",
+      },
+    });
+    assert.equal(deniedComparison.isError, true);
 
     const usabilityListing = await client.callTool({
       name: "get_usability_evaluation",
@@ -194,20 +348,25 @@ test("MCP exposes the repository auditor with structured output", async () => {
       name: "validate_product_contract",
       arguments: { contract: "aegisops/product-contract.yaml" },
     });
-    const contractReport = contract.structuredContent as { passed?: unknown } | undefined;
+    const contractReport = contract.structuredContent as
+      | { passed?: unknown; taskModel?: { status?: unknown; archetype?: unknown } }
+      | undefined;
     assert.equal(contract.isError, undefined);
     assert.equal(contractReport?.passed, true);
+    assert.equal(contractReport?.taskModel?.status, "ready");
+    assert.equal(contractReport?.taskModel?.archetype, "operational-dashboard");
 
     const result = await client.callTool({
       name: "audit_repository_architecture",
       arguments: { targetDirectory: "passing" },
     });
     const structured = result.structuredContent as
-      | { passed?: unknown; filesScanned?: unknown }
+      | { passed?: unknown; filesScanned?: unknown; evidenceBoundary?: { humanReviewRequired?: unknown[] } }
       | undefined;
     assert.equal(result.isError, undefined);
     assert.equal(structured?.passed, true);
     assert.equal(structured?.filesScanned, 2);
+    assert.equal(structured?.evidenceBoundary?.humanReviewRequired?.length, 1);
 
     const denied = await client.callTool({
       name: "audit_repository_architecture",
@@ -237,5 +396,6 @@ test("MCP exposes the repository auditor with structured output", async () => {
     delete process.env.ZTOTHEZ_DESIGN_AUDIT_ROOTS;
     delete process.env.ZTOTHEZ_DESIGN_HEURISTIC_REVIEW_ROOTS;
     delete process.env.ZTOTHEZ_DESIGN_DELIVERABLE_ROOTS;
+    delete process.env.ZTOTHEZ_DESIGN_COMPARISON_ROOTS;
   }
 });

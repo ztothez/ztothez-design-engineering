@@ -55,6 +55,19 @@ test("SceneStart profiles preserve product-specific journey evidence", async () 
     learning[0]?.steps.filter((step) => step.action === "navigate").length,
     3,
   );
+  assert.equal(
+    learning[0]?.steps.filter(
+      (step) => step.action === "click" && step.selector.includes("CHECK GOAL AND COMPLETE"),
+    ).length,
+    3,
+  );
+  assert.ok(
+    learning[0]?.steps.some(
+      (step) =>
+        step.action === "expectText" &&
+        step.value === "9/9 LESSONS COMPLETE · PATH COMPLETE",
+    ),
+  );
 
   const release = await loadRuntimeJourneySelection(journeyPath, "release-provenance");
   assert.equal(release.journeys[0]?.name, "document-asset-and-readme");

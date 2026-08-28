@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "fixture": true,
+  "scope": "Synthetic comparison-template evidence only",
+  "viewport": {
+    "width": 375,
+    "height": 812
+  },
+  "state": "initial",
+  "result": "sampled"
+}

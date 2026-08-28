@@ -29,11 +29,12 @@ function runtimeReport(profileJourney: string): RuntimeReport {
       { name: "wide-1440", width: 1440, height: 900 },
     ],
     screenshots: [
-      { name: "mobile-375", path: "/tmp/mobile.png", width: 375, height: 812, fullPage: true },
-      { name: "tablet-768", path: "/tmp/tablet.png", width: 768, height: 1024, fullPage: true },
-      { name: "desktop-1024", path: "/tmp/desktop.png", width: 1024, height: 768, fullPage: true },
-      { name: "wide-1440", path: "/tmp/wide.png", width: 1440, height: 900, fullPage: true },
+      { name: "mobile-375", path: "/tmp/mobile.png", width: 375, height: 812, fullPage: true, sha256: "0".repeat(64), dynamicSelectors: [] },
+      { name: "tablet-768", path: "/tmp/tablet.png", width: 768, height: 1024, fullPage: true, sha256: "0".repeat(64), dynamicSelectors: [] },
+      { name: "desktop-1024", path: "/tmp/desktop.png", width: 1024, height: 768, fullPage: true, sha256: "0".repeat(64), dynamicSelectors: [] },
+      { name: "wide-1440", path: "/tmp/wide.png", width: 1440, height: 900, fullPage: true, sha256: "0".repeat(64), dynamicSelectors: [] },
     ],
+    screenshotRegression: { status: "not-configured", compared: 0, mismatches: [] },
     journeys: [
       {
         name: profileJourney,
@@ -47,6 +48,7 @@ function runtimeReport(profileJourney: string): RuntimeReport {
     findings: [],
     summary: { errors: 0, warnings: 0, info: 0 },
     passed: true,
+    evidenceBoundary: { verifierLimitations: [], humanReviewRequired: [] },
   };
 }
 
@@ -184,4 +186,33 @@ test("manual, network, and export criteria remain unverified until evidence exis
   });
   assert.equal(verified.passed, true, JSON.stringify(verified.criteria, null, 2));
   assert.equal(verified.summary.unverified, 0);
+});
+
+test("missing journey evidence is unverified while executed task failure is failed", async () => {
+  const inspection = await inspectProductContract(contractPath, { projectRoot: process.cwd() });
+  assert.ok(inspection.contract && inspection.suite);
+  const missing = evaluateAcceptance({
+    contract: inspection.contract,
+    suite: inspection.suite,
+    profile: "responsive-overview",
+    contractReport: inspection.report,
+    runtimeReport: { ...runtimeReport("overview-integrity"), journeys: [] },
+  });
+  assert.ok(missing.criteria.some((criterion) => criterion.status === "unverified"));
+
+  const failedRuntime = runtimeReport("overview-integrity");
+  failedRuntime.journeys[0] = {
+    ...failedRuntime.journeys[0]!,
+    passed: false,
+    stepsCompleted: 1,
+    totalSteps: 4,
+  };
+  const failed = evaluateAcceptance({
+    contract: inspection.contract,
+    suite: inspection.suite,
+    profile: "responsive-overview",
+    contractReport: inspection.report,
+    runtimeReport: failedRuntime,
+  });
+  assert.ok(failed.criteria.some((criterion) => criterion.status === "fail"));
 });

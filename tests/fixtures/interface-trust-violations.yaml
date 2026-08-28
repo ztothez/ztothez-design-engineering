@@ -1,0 +1,45 @@
+version: "1.0"
+base: knowledge-base/design-intelligence/interface-trust.template.yaml
+cases:
+  - id: demo-without-fixture
+    scenario: demo
+    target: { collection: states, id: demo-ready }
+    changes: { sourceRefs: [deployment-context] }
+    expectedRules: [ZTDE-TRUST-206]
+  - id: live-without-runtime-source
+    scenario: live
+    target: { collection: states, id: service-ready }
+    changes: { sourceRefs: [deployment-context] }
+    expectedRules: [ZTDE-TRUST-105, ZTDE-TRUST-206]
+  - id: unsupported-online-label
+    scenario: live
+    target: { collection: claims, id: live-connection }
+    changes: { classification: demonstration, sourceRefs: [], text: "System online" }
+    expectedRules: [ZTDE-TRUST-103, ZTDE-TRUST-402]
+  - id: fallback-disclosure-dropped
+    scenario: fallback
+    target: { collection: claims, id: fallback-origin }
+    changes: { locations: [result] }
+    expectedRules: [ZTDE-TRUST-202, ZTDE-TRUST-302]
+  - id: stale-presented-as-current
+    scenario: stale
+    target: { collection: states, id: cached-stale }
+    changes:
+      freshness: { status: current, observedAt: 2026-08-25T09:30:00Z, timezone: UTC }
+    expectedRules: [ZTDE-TRUST-203]
+  - id: disconnected-without-recovery
+    scenario: disconnected
+    target: { collection: states, id: service-disconnected }
+    remove: [recoveryAction]
+    changes: {}
+    expectedRules: [ZTDE-TRUST-204]
+  - id: credential-placeholder
+    scenario: demo
+    target: { collection: claims, id: demo-limitation }
+    changes: { text: "api_key=replace_api_key" }
+    expectedRules: [ZTDE-TRUST-401]
+  - id: history-loses-freshness
+    scenario: stale
+    target: { collection: records, id: history }
+    changes: { fields: [data-mode, connection, result-origin, environment, scope, limitations] }
+    expectedRules: [ZTDE-TRUST-301]

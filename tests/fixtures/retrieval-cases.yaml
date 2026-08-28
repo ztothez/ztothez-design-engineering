@@ -35,6 +35,27 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/design-intelligence/presentation-design.md
     maxRank: 2
+  - id: interface-trust-fallback
+    query: data mode result origin fallback stale disconnected export provenance
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/interface-trust.md
+    maxRank: 1
+  - id: operational-information-decisions
+    query: metric formula source freshness baseline finding evidence impact next action verification decorative chart large collection
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/information-design.md
+    maxRank: 1
+  - id: visual-polish-composition
+    query: visual polish typography density spacing rhythm responsive composition motion reduced motion chart labels rendered screenshots human hierarchy balance scanability domain fit
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/visual-polish.md
+    maxRank: 1
   - id: usability-evidence
     query: heuristic evaluation representative-user evidence severity remediation
     categories:
@@ -51,6 +72,14 @@ cases:
     maxRank: 1
   - id: authoritative-ai-workspace
     query: AI workspace progress evidence human approval
+    categories:
+      - skill
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: SKILL.md
+    maxRank: 1
+  - id: authoritative-v2-generation-workflow
+    query: product task truth data source contract information architecture interaction state model visual direction token architecture automated verification human visual review
     categories:
       - skill
       - design-intelligence
