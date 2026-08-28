@@ -1,4 +1,4 @@
-version: "2.0"
+version: "2.1"
 id: example-product-design-system
 product: Example Product
 preparedAt: 2026-08-26T12:00:00+03:00
@@ -49,6 +49,8 @@ tokenSystem:
     - { name: color.primitive.neutral-50, type: color, level: primitive, value: "#f6f8fa", description: Subtle neutral surface }
     - { name: color.primitive.neutral-200, type: color, level: primitive, value: "#d0d7de", description: Default neutral border }
     - { name: color.primitive.neutral-500, type: color, level: primitive, value: "#57606a", description: Secondary neutral foreground }
+    - { name: color.primitive.neutral-800, type: color, level: primitive, value: "#30363d", description: Dark-mode grouped surface }
+    - { name: color.primitive.blue-300, type: color, level: primitive, value: "#58a6ff", description: Dark-mode action and focus primitive }
     - { name: color.primitive.blue-50, type: color, level: primitive, value: "#ddf4ff", description: Selected surface blue }
     - { name: color.primitive.green-700, type: color, level: primitive, value: "#1a7f37", description: Success foreground }
     - { name: color.primitive.amber-700, type: color, level: primitive, value: "#9a6700", description: Warning foreground }
@@ -134,7 +136,21 @@ tokenSystem:
       overrides:
         - token: color.semantic.text-primary
           reference: color.primitive.white
+        - token: color.semantic.text-secondary
+          reference: color.primitive.neutral-200
         - token: color.semantic.surface
+          reference: color.primitive.ink-950
+        - token: color.semantic.surface-subtle
+          reference: color.primitive.neutral-800
+        - token: color.semantic.surface-raised
+          reference: color.primitive.neutral-800
+        - token: color.semantic.surface-overlay
+          reference: color.primitive.neutral-800
+        - token: color.semantic.action-primary
+          reference: color.primitive.blue-300
+        - token: color.semantic.border-selected
+          reference: color.primitive.blue-300
+        - token: color.component.button-primary-label
           reference: color.primitive.ink-950
 productTask:
   productContractId: example-product-contract
@@ -269,10 +285,22 @@ densityProfile:
   spacingTokenRefs: [space.semantic.4, space.semantic.8, space.semantic.12, space.semantic.16, space.semantic.24]
   maximumPrimaryActions: 2
   viewportBehavior:
-    - { viewport: 375, mode: comfortable, visiblePriorities: [context, primary outcome, critical exception, next action] }
-    - { viewport: 768, mode: comfortable, visiblePriorities: [context, primary outcome, critical exceptions, impact, next action] }
-    - { viewport: 1024, mode: compact, visiblePriorities: [context, outcome, exceptions, metrics, findings, action] }
-    - { viewport: 1440, mode: compact, visiblePriorities: [context, outcome, exceptions, metrics, findings, telemetry, evidence] }
+    - viewport: 375
+      mode: comfortable
+      visiblePriorities: [context, primary outcome, critical exception, next action]
+      priorityRoles: [context, primary-outcome, critical-exceptions, next-action]
+    - viewport: 768
+      mode: comfortable
+      visiblePriorities: [context, primary outcome, critical exceptions, impact, next action]
+      priorityRoles: [context, primary-outcome, critical-exceptions, impact, next-action]
+    - viewport: 1024
+      mode: compact
+      visiblePriorities: [context, outcome, exceptions, metrics, findings, action]
+      priorityRoles: [context, primary-outcome, critical-exceptions, supporting-metrics, findings, next-action]
+    - viewport: 1440
+      mode: compact
+      visiblePriorities: [context, outcome, exceptions, metrics, findings, action, telemetry, evidence]
+      priorityRoles: [context, primary-outcome, critical-exceptions, supporting-metrics, findings, next-action, telemetry, evidence]
 interactionStates:
   states:
     - { state: loading, behavior: Preserve component geometry and announce bounded progress., tokenRefs: [color.semantic.text-secondary, color.semantic.surface-subtle], textCue: true, iconCue: false }
@@ -477,6 +505,10 @@ accessibility:
       foreground: color.semantic.text-primary
       background: color.semantic.surface
       usage: normal-text
+    - id: secondary-text-on-surface
+      foreground: color.semantic.text-secondary
+      background: color.semantic.surface
+      usage: normal-text
     - id: button-label-on-primary
       foreground: color.component.button-primary-label
       background: color.semantic.action-primary
@@ -486,10 +518,25 @@ accessibility:
       background: color.semantic.surface
       usage: normal-text
       mode: dark
+    - id: dark-secondary-text-on-surface
+      foreground: color.semantic.text-secondary
+      background: color.semantic.surface
+      usage: normal-text
+      mode: dark
     - id: focus-on-surface
       foreground: color.semantic.action-primary
       background: color.semantic.surface
       usage: non-text
+    - id: dark-focus-on-surface
+      foreground: color.semantic.action-primary
+      background: color.semantic.surface
+      usage: non-text
+      mode: dark
+    - id: dark-button-label-on-primary
+      foreground: color.component.button-primary-label
+      background: color.semantic.action-primary
+      usage: normal-text
+      mode: dark
   nonColorCues:
     - meaning: Validation error
       cues: [color, text, icon]

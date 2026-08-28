@@ -1,6 +1,9 @@
 # Visual Accessibility Verification
 
-Validate visual accessibility at token, design-source, exported-artifact, and rendered-implementation levels. A passing token pair does not prove the pixels users receive.
+Use this module for normal-text contrast ratios, non-color status cues, semantic token pairs, focus
+contrast, visual alternatives, and rendered accessibility verification. Validate visual
+accessibility at token, design-source, exported-artifact, and rendered-implementation levels. A
+passing token pair does not prove the pixels users receive.
 
 ## Step 1: Declare Semantic Pairs
 

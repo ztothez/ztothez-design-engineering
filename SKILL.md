@@ -52,7 +52,7 @@ Use `zz-design portfolio validate-registry`, `zz-design portfolio inventory`, an
 
 ## V2 Interface Generation Workflow
 
-Use this bounded workflow for a new interface or consequential redesign. Load `interface-trust.md`, `information-design.md`, and `visual-polish.md` only when their routing conditions apply, and record the nine stages in a version `2.0` design-deliverable manifest.
+Use this bounded workflow for a new interface or consequential redesign. Load `interface-trust.md`, `information-design.md`, and `visual-polish.md` only when their routing conditions apply, and record the nine stages in a version `2.1` design-deliverable manifest.
 
 1. **Product task:** validate the version 1.1 product contract, archetype, activated quality dimensions, primary user, observable start and success states, recovery path, and consequential actions. For browser products, bind the task to an existing journey, route, and viewport no wider than 768 CSS pixels. Keep missing evidence `unverified`, executed failure `failed`, and unsupported capability a `limitation`.
 2. **Truth and data-source contract:** declare demo, live, fallback, stale, and disconnected behavior. Run the trust validator before implementation.
@@ -350,7 +350,7 @@ For production or enterprise-facing tools, include these requirements in archite
 
 Use this workflow when the request includes a brand system, Figma library, generated or sourced assets, iconography, or presentation design. Read `knowledge-base/design-intelligence/MASTER.md`, then load only the modules matching the requested deliverables.
 
-Create a design-deliverable manifest from `knowledge-base/design-intelligence/design-deliverable.template.yaml`. Use version `2.0` and declare `interface-system` when visual polish, responsive composition, charts, rendered evidence, or human visual review is in scope. Keep version `1.0` compatibility only for legacy non-interface manifests. Do not declare work that is outside the request.
+Create a design-deliverable manifest from `knowledge-base/design-intelligence/design-deliverable.template.yaml`. Use version `2.1` and declare `interface-system` when visual polish, responsive composition, charts, rendered evidence, or human visual review is in scope. Keep versions `1.0` and `2.0` compatible for existing manifests. Do not declare work that is outside the request.
 
 ### Step 2: Build One Canonical System
 
@@ -371,9 +371,11 @@ When `interface-system` is declared, read `knowledge-base/design-intelligence/vi
 1. Define a domain-specific direction and explicitly prohibit decorative agent diagrams, excessive glow, meaningless gradients, and ornamental status elements.
 2. Bind typography, layout, density, interaction states, motion, and charts to semantic or component tokens rather than primitives or raw values.
 3. Declare all typography roles, all nine interaction states, reduced-motion equivalents, and responsive composition at 375, 768, 1024, and 1440 CSS pixels.
-4. Give every chart a decision purpose, readable labels and values, comparison context, accessible alternative, exceptional states, and non-color cues.
-5. Keep viewport evidence `planned` until captured. Mark it `verified` only with screenshot path, runtime report path, and checksum.
-6. Keep human visual review `required` until a reviewer supplies attributable evidence for hierarchy, balance, scanability, density, and domain fit. Never generate the reviewer record.
+4. Map each viewport's visible priorities to canonical roles. Keep context, the primary outcome, critical exceptions, and the next action ahead of telemetry, evidence detail, and history. At 375 CSS pixels, expose no more than four decision-critical priorities before expandable detail.
+5. Validate every typography foreground and the focus treatment against the canvas in the default theme and every declared color mode. Do not assume that a passing light theme proves dark-theme readability, or the reverse.
+6. Give every chart a decision purpose, readable labels and values, comparison context, accessible alternative, exceptional states, and non-color cues.
+7. Keep viewport evidence `planned` until captured. Mark it `verified` only with screenshot path, runtime report path, and checksum.
+8. Keep human visual review `required` until a reviewer supplies attributable evidence for hierarchy, balance, scanability, density, and domain fit. Never generate the reviewer record.
 
 ### Step 4: Validate Declarations
 

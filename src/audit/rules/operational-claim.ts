@@ -34,6 +34,43 @@ function hasBinding(node: ts.Node): boolean {
   return false;
 }
 
+function isStaticCondition(node: ts.Expression): boolean {
+  let current = node;
+  while (ts.isParenthesizedExpression(current)) current = current.expression;
+  return (
+    current.kind === ts.SyntaxKind.TrueKeyword ||
+    current.kind === ts.SyntaxKind.FalseKeyword ||
+    current.kind === ts.SyntaxKind.NullKeyword ||
+    ts.isStringLiteral(current) ||
+    ts.isNumericLiteral(current)
+  );
+}
+
+function hasRuntimeCondition(node: ts.Node): boolean {
+  let child = node;
+  let current: ts.Node | undefined = node.parent;
+  while (current) {
+    if (
+      ts.isConditionalExpression(current) &&
+      (current.whenTrue === child || current.whenFalse === child) &&
+      !isStaticCondition(current.condition)
+    ) {
+      return true;
+    }
+    if (
+      ts.isBinaryExpression(current) &&
+      current.operatorToken.kind === ts.SyntaxKind.AmpersandAmpersandToken &&
+      current.right === child &&
+      !isStaticCondition(current.left)
+    ) {
+      return true;
+    }
+    child = current;
+    current = current.parent;
+  }
+  return false;
+}
+
 export const operationalClaimRule: AuditRule = {
   id: "ZTDE-TRUST-001",
   evaluate(file) {
@@ -44,16 +81,25 @@ export const operationalClaimRule: AuditRule = {
       if (!ts.isJsxText(node)) return;
       const claim = node.text.replace(/\s+/g, " ").trim();
       if (!claim || !claimPattern.test(claim) || hasBinding(node)) return;
+      const runtimeConditioned = hasRuntimeCondition(node);
       findings.push({
         ruleId: this.id,
-        severity: "error",
-        confidence: "high",
+        severity: runtimeConditioned ? "info" : "error",
+        confidence: runtimeConditioned ? "medium" : "high",
         file: file.relativePath,
         ...nodeLocation(file, node),
-        message: "Literal operational status claim has no declared runtime source binding.",
-        evidence: [`Unbound rendered claim: ${JSON.stringify(claim.slice(0, 120))}.`],
-        remediation:
-          "Derive the claim from runtime state and declare its source with data-ztothez-design-claim-source or data-ztothez-design-state-binding.",
+        message: runtimeConditioned
+          ? "Runtime-conditioned operational status claim has no explicit source annotation."
+          : "Literal operational status claim has no declared runtime source binding.",
+        evidence: [
+          `Unbound rendered claim: ${JSON.stringify(claim.slice(0, 120))}.`,
+          runtimeConditioned
+            ? "The claim is rendered only within a non-constant conditional branch."
+            : "No runtime conditional or source-binding attribute was detected.",
+        ],
+        remediation: runtimeConditioned
+          ? "When the claim is consequential, declare its source with data-ztothez-design-claim-source or data-ztothez-design-state-binding. Otherwise retain this as a static-verifier limitation."
+          : "Derive the claim from runtime state and declare its source with data-ztothez-design-claim-source or data-ztothez-design-state-binding.",
       });
     });
     return findings;

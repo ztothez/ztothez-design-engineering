@@ -40,6 +40,7 @@ type VisualCollection =
   | "motionEquivalents"
   | "charts"
   | "captures"
+  | "contrastPairs"
   | "humanReview";
 
 type VisualViolationSuite = {
@@ -85,6 +86,7 @@ function visualTarget(manifest: Record<string, any>, collection: VisualCollectio
     motionEquivalents: manifest.motion.reducedMotion.equivalents,
     charts: manifest.chartContracts,
     captures: manifest.renderedEvidence.captures,
+    contrastPairs: manifest.accessibility.contrastPairs,
     humanReview: [manifest.humanVisualReview],
   };
   const keys: Record<VisualCollection, string> = {
@@ -99,6 +101,7 @@ function visualTarget(manifest: Record<string, any>, collection: VisualCollectio
     motionEquivalents: "motionRef",
     charts: "id",
     captures: "viewport",
+    contrastPairs: "id",
     humanReview: "human-review",
   };
   if (["visualDirection", "ornamentPolicy", "humanReview"].includes(collection)) return records[collection][0];
@@ -128,10 +131,10 @@ test("maintained design-deliverable template passes all deterministic checks", a
 
   assert.equal(report.passed, true);
   assert.deepEqual(report.summary, { errors: 0, warnings: 0, info: 0 });
-  assert.equal(report.coverage.tokens, 90);
+  assert.equal(report.coverage.tokens, 92);
   assert.equal(report.coverage.assets, 3);
   assert.ok(report.contrastResults.every((result) => result.passed));
-  assert.equal(report.contrastResults.length, 4);
+  assert.equal(report.contrastResults.length, 8);
   assert.equal(report.contrastResults.find((result) => result.id === "primary-text-on-surface")?.ratio, 19.22);
   assert.equal(report.coverage.typographyRoles, 8);
   assert.equal(report.coverage.interactionStates, 9);
@@ -263,7 +266,7 @@ test("portable schema exposes the versioned design contract", async () => {
     };
   };
   assert.equal(portableSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
-  assert.deepEqual(portableSchema.properties?.version?.enum, ["1.0", "2.0"]);
+  assert.deepEqual(portableSchema.properties?.version?.enum, ["1.0", "2.0", "2.1"]);
   assert.ok(portableSchema.required?.includes("accessibility"));
   assert.equal(portableSchema.allOf?.length, 1);
   assert.ok(portableSchema.$defs?.productTask);

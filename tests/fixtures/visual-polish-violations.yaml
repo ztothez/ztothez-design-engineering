@@ -25,6 +25,19 @@ cases:
     target: { collection: densityViewports, id: "375" }
     changes: { viewport: 768 }
     expectedRules: [ZTDE-DI-705]
+  - id: overloaded-mobile-decision-view
+    target: { collection: densityViewports, id: "375" }
+    changes:
+      mode: dense
+      visiblePriorities: [context, primary outcome, exceptions, metrics, telemetry, next action]
+      priorityRoles: [context, primary-outcome, critical-exceptions, supporting-metrics, telemetry, next-action]
+    expectedRules: [ZTDE-DI-709]
+  - id: telemetry-before-next-action
+    target: { collection: densityViewports, id: "1440" }
+    changes:
+      visiblePriorities: [context, outcome, telemetry, action, evidence]
+      priorityRoles: [context, primary-outcome, telemetry, next-action, evidence]
+    expectedRules: [ZTDE-DI-709]
   - id: color-only-warning
     target: { collection: interactionStates, id: warning }
     changes: { textCue: false, iconCue: false }
@@ -53,3 +66,7 @@ cases:
     target: { collection: humanReview, id: human-review }
     changes: { status: completed }
     expectedRules: [ZTDE-DI-902]
+  - id: missing-dark-secondary-contrast-coverage
+    target: { collection: contrastPairs, id: dark-secondary-text-on-surface }
+    changes: { foreground: color.semantic.text-primary }
+    expectedRules: [ZTDE-DI-605]

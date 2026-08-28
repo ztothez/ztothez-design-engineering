@@ -1,6 +1,6 @@
 # Visual Polish System
 
-Use this module when an implemented interface must feel intentional, balanced, legible, domain-appropriate, and ready for rendered review. Declare `interface-system` in a version `2.0` design-deliverable manifest and complete the visual-polish sections before implementation is called visually complete.
+Use this module when an implemented interface must feel intentional, balanced, legible, domain-appropriate, and ready for rendered review. Declare `interface-system` in a version `2.1` design-deliverable manifest and complete the visual-polish sections before implementation is called visually complete. Existing version `2.0` manifests remain valid but do not enforce the review-derived decision-order and theme-coverage additions below.
 
 Visual polish is not decoration. It is the consistent control of hierarchy, typography, density, alignment, state language, chart communication, motion, and responsive composition around the product task.
 
@@ -80,7 +80,15 @@ Use elevation to explain stacking or interaction, not to make every region float
 
 Select `comfortable`, `compact`, `dense`, or `adaptive` from task frequency, data volume, pointer precision, and reading burden. Declare control height, row heights, spacing tokens, and no more than three simultaneous primary actions.
 
-For each required viewport, state the density mode and visible priorities. On small screens, preserve the primary outcome, critical exceptions, and next action before telemetry or history. Do not solve crowding only by shrinking text.
+For each required viewport, state the density mode and visible priorities, then map each priority to
+a canonical `priorityRole`. Keep `context`, `primary-outcome`, and `next-action` visible at every
+viewport. Place telemetry, detailed evidence, and history after the next action. At 375 CSS pixels,
+use comfortable density and expose at most four decision-critical priorities before expandable
+detail. At 768 CSS pixels, do not use dense mode. Do not solve crowding only by shrinking text.
+
+Use progressive disclosure for supporting metrics, telemetry, history, logs, and detailed evidence,
+but never hide the primary outcome, critical exception, or next action behind unrelated navigation.
+Expansion must preserve task context, focus order, and state continuity.
 
 ## Step 6: Unify Interaction States
 
@@ -119,6 +127,11 @@ Create one stable fixture or product journey and capture 375, 768, 1024, and 144
 - Exact viewport.
 
 Use `planned` before capture, `captured` when files exist but have not been reviewed against the report, and `verified` only after evidence integrity and expected composition are checked. Browser verification must still inspect clipping, overlap, contrast, focus, target size, keyboard behavior, reflow, text resize, and reduced motion.
+
+For version `2.1`, declare normal-text contrast pairs for every typography foreground against the
+canvas in the default mode and every declared token mode. Declare focus non-text contrast in the
+same modes. A passing light mode does not establish dark-mode readability, and a passing dark mode
+does not establish that a bright light canvas is comfortable in the intended viewing context.
 
 ## Step 10: Require Attributable Human Review
 

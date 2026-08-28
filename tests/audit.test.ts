@@ -163,3 +163,35 @@ test("ordinary authored raw styling remains detectable", async () => {
     await rm(directory, { recursive: true, force: true });
   }
 });
+
+test("runtime-conditioned status claims are informational while unconditional claims remain errors", async () => {
+  const directory = await mkdtemp(resolve(tmpdir(), "ztde-operational-claim-"));
+  try {
+    await writeFile(
+      resolve(directory, "StreamStatus.tsx"),
+      [
+        "export function StreamStatus({ stream }: { stream?: { id: string } }) {",
+        "  return (",
+        "    <>",
+        "      {stream ? <span>Live</span> : null}",
+        "      {true ? <span>Production</span> : null}",
+        "    </>",
+        "  );",
+        "}",
+      ].join("\n"),
+    );
+    const report = await auditRepository(directory, {
+      requiredPackageScripts: [],
+      requiredPackageScriptGroups: [],
+    });
+    const findings = report.findings.filter((finding) => finding.ruleId === "ZTDE-TRUST-001");
+    assert.equal(findings.length, 2);
+    assert.equal(findings.find((finding) => finding.evidence[0]?.includes('"Live"'))?.severity, "info");
+    assert.equal(
+      findings.find((finding) => finding.evidence[0]?.includes('"Production"'))?.severity,
+      "error",
+    );
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});

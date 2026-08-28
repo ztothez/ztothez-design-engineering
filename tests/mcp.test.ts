@@ -173,7 +173,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
       | undefined;
     assert.equal(designManifest.isError, undefined);
     assert.equal(designReport?.passed, true);
-    assert.equal(designReport?.contrastResults?.length, 4);
+    assert.equal(designReport?.contrastResults?.length, 8);
     assert.equal(designReport?.coverage?.typographyRoles, 8);
     assert.equal(designReport?.coverage?.interactionStates, 9);
     assert.equal(designReport?.coverage?.metricContracts, 3);

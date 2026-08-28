@@ -267,6 +267,19 @@ const compositionSchema = z
   })
   .strict();
 
+const densityPriorityRoleSchema = z.enum([
+  "context",
+  "primary-outcome",
+  "critical-exceptions",
+  "impact",
+  "next-action",
+  "supporting-metrics",
+  "findings",
+  "telemetry",
+  "evidence",
+  "history",
+]);
+
 const densityProfileSchema = z
   .object({
     mode: z.enum(["comfortable", "compact", "dense", "adaptive"]),
@@ -283,6 +296,7 @@ const densityProfileSchema = z
             viewport: requiredViewportSchema,
             mode: z.enum(["comfortable", "compact", "dense"]),
             visiblePriorities: z.array(boundedText(160)).min(1).max(8),
+            priorityRoles: z.array(densityPriorityRoleSchema).min(1).max(8).optional(),
           })
           .strict(),
       )
@@ -774,7 +788,7 @@ const accessibilitySchema = z
 
 export const designDeliverableSchema = z
   .object({
-    version: z.enum(["1.0", "2.0"]),
+    version: z.enum(["1.0", "2.0", "2.1"]),
     id: idSchema,
     product: boundedText(256),
     preparedAt: z.string().datetime({ offset: true }),

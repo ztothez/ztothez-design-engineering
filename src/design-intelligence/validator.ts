@@ -29,6 +29,9 @@ const REQUIRED_INFORMATION_LEVELS = [
   "evidence-audit-trail",
   "history-exports",
 ] as const;
+const REQUIRED_DENSITY_PRIORITY_ROLES = ["context", "primary-outcome", "next-action"] as const;
+const DEFERRED_DENSITY_PRIORITY_ROLES = ["telemetry", "evidence", "history"] as const;
+const DEFERRED_DENSITY_PRIORITY_ROLE_SET = new Set<string>(DEFERRED_DENSITY_PRIORITY_ROLES);
 
 function duplicateValues(values: string[]): string[] {
   const seen = new Set<string>();
@@ -154,13 +157,13 @@ export function validateDesignDeliverable(
   const declared = new Set(manifest.scope.deliverables);
 
   if (declared.has("interface-system")) {
-    if (manifest.version !== "2.0") {
+    if (manifest.version === "1.0") {
       findings.push({
         ruleId: "ZTDE-DI-701",
         severity: "error",
         path: "version",
-        message: "Interface-system deliverables require design-deliverable contract version 2.0.",
-        remediation: "Migrate the manifest to version 2.0 and declare every required visual-polish section.",
+        message: "Interface-system deliverables require design-deliverable contract version 2.0 or 2.1.",
+        remediation: "Migrate the manifest to version 2.1 and declare every required visual-polish section.",
       });
     }
     for (const [path, present] of [
@@ -623,6 +626,78 @@ export function validateDesignDeliverable(
           message: `Density behavior for ${viewport} CSS pixels is missing.`,
           remediation: `Declare density mode and visible priorities at ${viewport} CSS pixels.`,
         });
+      }
+    }
+    if (manifest.version === "2.1") {
+      for (const [index, entry] of manifest.densityProfile.viewportBehavior.entries()) {
+        const path = `densityProfile.viewportBehavior[${index}]`;
+        if (!entry.priorityRoles) {
+          findings.push({
+            ruleId: "ZTDE-DI-709",
+            severity: "error",
+            path: `${path}.priorityRoles`,
+            message: `Density behavior for ${entry.viewport} CSS pixels has no machine-readable decision order.`,
+            remediation: "Map each visible priority to a canonical priority role in the same order.",
+          });
+          continue;
+        }
+        addDuplicates(entry.priorityRoles, `${path}.priorityRoles`, "density priority role", findings);
+        if (entry.priorityRoles.length !== entry.visiblePriorities.length) {
+          findings.push({
+            ruleId: "ZTDE-DI-709",
+            severity: "error",
+            path,
+            message: `Density behavior for ${entry.viewport} CSS pixels declares ${entry.visiblePriorities.length} visible priorities but ${entry.priorityRoles.length} priority roles.`,
+            remediation: "Provide one canonical priority role for each visible priority.",
+          });
+        }
+        for (const role of REQUIRED_DENSITY_PRIORITY_ROLES) {
+          if (!entry.priorityRoles.includes(role)) {
+            findings.push({
+              ruleId: "ZTDE-DI-709",
+              severity: "error",
+              path: `${path}.priorityRoles`,
+              message: `Density behavior for ${entry.viewport} CSS pixels omits required ${role} content.`,
+              remediation: "Keep context, the primary outcome, and the next action visible before optional detail.",
+            });
+          }
+        }
+        const actionIndex = entry.priorityRoles.indexOf("next-action");
+        for (const role of DEFERRED_DENSITY_PRIORITY_ROLES) {
+          const detailIndex = entry.priorityRoles.indexOf(role);
+          if (detailIndex !== -1 && (actionIndex === -1 || detailIndex < actionIndex)) {
+            findings.push({
+              ruleId: "ZTDE-DI-709",
+              severity: "error",
+              path: `${path}.priorityRoles`,
+              message: `Density behavior for ${entry.viewport} CSS pixels places ${role} before the next action.`,
+              remediation: "Place decision-critical context, outcome, exceptions, and action before telemetry, evidence detail, or history.",
+            });
+          }
+        }
+        if (
+          entry.viewport === 375 &&
+          (entry.mode !== "comfortable" ||
+            entry.priorityRoles.length > 4 ||
+            entry.priorityRoles.some((role) => DEFERRED_DENSITY_PRIORITY_ROLE_SET.has(role)))
+        ) {
+          findings.push({
+            ruleId: "ZTDE-DI-709",
+            severity: "error",
+            path,
+            message: "The 375 CSS-pixel composition does not preserve a restrained decision-first view.",
+            remediation: "Use comfortable density and expose at most context, outcome, critical exceptions, and next action before expandable detail.",
+          });
+        }
+        if (entry.viewport === 768 && entry.mode === "dense") {
+          findings.push({
+            ruleId: "ZTDE-DI-709",
+            severity: "error",
+            path: `${path}.mode`,
+            message: "The 768 CSS-pixel composition uses dense mode before sufficient horizontal space is available.",
+            remediation: "Use comfortable or compact density and verify text resize and touch operation before selecting dense mode.",
+          });
+        }
       }
     }
   }
@@ -1133,6 +1208,57 @@ export function validateDesignDeliverable(
         message: `Contrast pair ${pair.id} has ratio ${ratio.toFixed(2)}:1 and requires ${required}:1.`,
         remediation: "Change semantic token references or primitive values, then verify the rendered result.",
       });
+    }
+  }
+
+  if (manifest.version === "2.1" && declared.has("interface-system")) {
+    const canvasToken = manifest.composition?.surfaces.find((surface) => surface.role === "canvas")?.tokenRef;
+    const focusToken = manifest.composition?.borders.find((border) => border.role === "focus")?.tokenRef;
+    const textTokens = new Set(manifest.typography?.roles.map((role) => role.colorToken) ?? []);
+    const requiredModes: Array<string | undefined> = [
+      undefined,
+      ...manifest.tokenSystem.modes.map((mode) => mode.name),
+    ];
+
+    if (canvasToken) {
+      for (const mode of requiredModes) {
+        for (const foreground of textTokens) {
+          const covered = manifest.accessibility.contrastPairs.some(
+            (pair) =>
+              pair.foreground === foreground &&
+              pair.background === canvasToken &&
+              pair.usage === "normal-text" &&
+              pair.mode === mode,
+          );
+          if (!covered) {
+            findings.push({
+              ruleId: "ZTDE-DI-605",
+              severity: "error",
+              path: "accessibility.contrastPairs",
+              message: `Typography token ${foreground} has no normal-text contrast declaration on ${canvasToken}${mode ? ` in ${mode} mode` : " in the default mode"}.`,
+              remediation: "Add and pass an explicit contrast pair for every typography foreground on the canvas in every declared mode.",
+            });
+          }
+        }
+        if (focusToken) {
+          const focusCovered = manifest.accessibility.contrastPairs.some(
+            (pair) =>
+              pair.foreground === focusToken &&
+              pair.background === canvasToken &&
+              pair.usage === "non-text" &&
+              pair.mode === mode,
+          );
+          if (!focusCovered) {
+            findings.push({
+              ruleId: "ZTDE-DI-605",
+              severity: "error",
+              path: "accessibility.contrastPairs",
+              message: `Focus token ${focusToken} has no non-text contrast declaration on ${canvasToken}${mode ? ` in ${mode} mode` : " in the default mode"}.`,
+              remediation: "Add and pass an explicit focus contrast pair for every declared interface mode.",
+            });
+          }
+        }
+      }
     }
   }
 

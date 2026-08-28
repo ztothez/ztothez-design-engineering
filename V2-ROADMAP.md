@@ -152,13 +152,20 @@ Completion criteria:
 
 ### 4. Visual Polish System
 
-Status: **Implemented and maintainer-reviewed; external release evidence pending**
+Status: **Done for engineering release; formal independent comparative validation not claimed**
 
-Implemented evidence: `knowledge-base/design-intelligence/visual-polish.md` defines the independently owned visual-polish workflow and evidence boundary. The design-deliverable contract now supports version `2.0` and the `interface-system` scope while retaining version `1.0` compatibility for legacy non-interface manifests. The portable schema, runtime schema, maintained template, CLI, MCP report, and package smoke path cover visual direction, eight typography roles, four responsive grids, spacing rhythm, stable dimensions, surface, border, elevation and emphasis hierarchy, adaptive density, nine interaction states, semantic motion durations, reduced-motion equivalents, chart contracts, rendered captures, and attributable human review.
+Implemented evidence: `knowledge-base/design-intelligence/visual-polish.md` defines the independently owned visual-polish workflow and evidence boundary. The design-deliverable contract now supports version `2.1` and the `interface-system` scope while retaining versions `1.0` and `2.0` compatibility. The portable schema, runtime schema, maintained template, CLI, MCP report, and package smoke path cover visual direction, eight typography roles, four responsive grids, spacing rhythm, stable dimensions, surface, border, elevation and emphasis hierarchy, adaptive density, decision-first priority roles, per-mode text and focus contrast coverage, nine interaction states, semantic motion durations, reduced-motion equivalents, chart contracts, rendered captures, and attributable human review.
 
-`src/design-intelligence/validator.ts` enforces semantic or component usage tokens, role and viewport completeness, domain ornament prohibitions, selected-state and non-color semantics, duration ranges, reduced-motion coverage, chart labels, values, comparison context, alternatives and exceptional states, capture declarations, and human-review attribution. `src/audit/rules/raw-design-values.ts` now detects recurring raw colors, dimensions, durations, shadows, and font declarations outside token files. Thirteen mutation fixtures isolate visual-token leakage, ornamental styling, missing roles and viewports, color-only states and charts, excessive motion, missing reduced-motion behavior, incomplete evidence, and falsely completed human review.
+`src/design-intelligence/validator.ts` enforces semantic or component usage tokens, role and viewport completeness, decision-first priority order, per-mode text and focus contrast, domain ornament prohibitions, selected-state and non-color semantics, duration ranges, reduced-motion coverage, chart labels, values, comparison context, alternatives and exceptional states, capture declarations, and human-review attribution. `src/audit/rules/raw-design-values.ts` now detects recurring raw colors, dimensions, durations, shadows, and font declarations outside token files. Sixteen mutation fixtures isolate visual-token leakage, ornamental styling, missing roles and viewports, overloaded mobile density, telemetry-before-action order, incomplete theme coverage, color-only states and charts, excessive motion, missing reduced-motion behavior, incomplete evidence, and falsely completed human review.
 
-Evidence boundary: the maintained template passes structural validation but reports `visualPolish.releaseReady: false`. Azure V2 now has verified rendered evidence and one attributed, disclosed maintainer review. That review supports continued engineering but does not satisfy anonymous external release evidence. Independent hierarchy, balance, scanability, density, domain-fit, and representative-user evidence remain Item 8 work and must not be generated as if observed.
+Evidence boundary: the maintained template passes structural validation but reports
+`visualPolish.releaseReady: false` because it is a reusable declaration template rather than a
+completed product release record. Azure V2 has verified rendered evidence, one attributed disclosed
+maintainer review, eight complete anonymous short-form responses, and one partial response. This is
+sufficient for the scoped engineering release and preserves external qualitative dissent, but it is
+not a controlled independent comparison or representative-user study. Those stronger claims remain
+out of scope unless separately attributable, structured evidence is collected. Agents must not
+generate or upgrade that evidence.
 
 Create `knowledge-base/design-intelligence/visual-polish.md` and extend the design deliverable contract with visual direction, density, composition, chart, and rendered-evidence declarations.
 
