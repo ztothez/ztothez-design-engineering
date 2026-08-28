@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Broken visual composition fixture</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; background: #ffffff; color: #111111; font: 16px/1.5 system-ui, sans-serif; }
+      main { padding: 1rem; }
+      section { border: 1px solid #dddddd; padding: 1rem; margin-bottom: .5rem; }
+      button { min-height: 44px; background: #ffffff; border: 1px solid #eeeeee; color: #111111; }
+      button:focus { outline: 1px solid #eeeeee; }
+      .weak { color: #dddddd; }
+    </style>
+  </head>
+  <body>
+    <main data-ztothez-design-composition="1.0" data-ztothez-design-max-primary-actions="1" data-ztothez-design-max-visible-regions="1">
+      <section data-ztothez-design-priority="next-action" data-ztothez-design-region="one">
+        <button type="button" data-ztothez-design-primary-action>First action</button>
+        <button type="button" data-ztothez-design-primary-action>Second action</button>
+      </section>
+      <section data-ztothez-design-priority="context" data-ztothez-design-region="two">
+        <h1>Context appears after the action</h1>
+        <p class="weak" data-ztothez-design-status data-ztothez-design-state-visual>Unexplained status</p>
+      </section>
+      <section data-ztothez-design-priority="primary-outcome" data-ztothez-design-region="three" data-ztothez-design-visual-claim="unsupported-result">
+        <h2>Unsupported visual result</h2>
+        <img alt="" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%23dddddd'/%3E%3C/svg%3E" data-ztothez-design-asset="unknown-image" />
+      </section>
+      <figure data-ztothez-design-chart aria-label="Weak chart" data-ztothez-design-chart-values="visible" data-ztothez-design-chart-alternative="#weak-table" data-ztothez-design-chart-series="1">
+        <span class="weak" data-ztothez-design-chart-series-visual data-ztothez-design-chart-color="#dddddd">■</span>
+        <span data-ztothez-design-chart-value>1</span>
+        <table id="weak-table"><tbody><tr><td>Weak</td><td>1</td></tr></tbody></table>
+      </figure>
+    </main>
+  </body>
+</html>

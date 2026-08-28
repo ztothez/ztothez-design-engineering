@@ -10,6 +10,9 @@ const fixturePath = fileURLToPath(
 const v2FixturePath = fileURLToPath(
   new URL("./fixtures/v2-quality-states.html", import.meta.url),
 );
+const visualCompositionFixturePath = fileURLToPath(
+  new URL("../tests/runtime-fixture/visual-composition-good.html", import.meta.url),
+);
 
 if (!Number.isInteger(port) || port < 1 || port > 65_535) {
   throw new Error("ZTOTHEZ_DESIGN_FIXTURE_PORT must be an integer between 1 and 65535");
@@ -17,6 +20,7 @@ if (!Number.isInteger(port) || port < 1 || port > 65_535) {
 
 const fixture = await readFile(fixturePath);
 const v2Fixture = await readFile(v2FixturePath);
+const visualCompositionFixture = await readFile(visualCompositionFixturePath);
 const server = createServer((request, response) => {
   if (request.url === "/health") {
     response.writeHead(200, { "content-type": "application/json; charset=utf-8" });
@@ -35,6 +39,14 @@ const server = createServer((request, response) => {
       "content-type": "text/html; charset=utf-8",
     });
     response.end(v2Fixture);
+    return;
+  }
+  if (requestPath === "/visual-composition") {
+    response.writeHead(200, {
+      "cache-control": "no-store",
+      "content-type": "text/html; charset=utf-8",
+    });
+    response.end(visualCompositionFixture);
     return;
   }
   if (requestPath !== "/") {

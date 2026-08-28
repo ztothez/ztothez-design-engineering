@@ -6,6 +6,8 @@ export const runtimeViewportSchema = z.object({
   height: z.number().int().min(240).max(2_160),
 });
 
+export const runtimeColorSchemeSchema = z.enum(["light", "dark"]);
+
 export const journeyStepSchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("navigate"), value: z.string().min(1).max(4_096) }),
   z.object({ action: z.literal("click"), selector: z.string().min(1).max(1_024) }),
@@ -148,6 +150,7 @@ export const runtimeReportSchema = {
   browser: z.string(),
   outputDirectory: z.string(),
   viewports: z.array(runtimeViewportSchema),
+  colorSchemes: z.array(runtimeColorSchemeSchema).min(1).max(2).optional(),
   screenshots: z.array(runtimeScreenshotSchema),
   screenshotRegression: z.object({
     status: z.enum(["not-configured", "created", "matched", "mismatched"]),

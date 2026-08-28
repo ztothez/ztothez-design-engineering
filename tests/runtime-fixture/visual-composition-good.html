@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Passing visual composition fixture</title>
+    <style>
+      :root { color-scheme: light; --canvas: #f5f7f9; --surface: #ffffff; --text: #172029; --muted: #52606d; --border: #667788; --action: #075985; --action-text: #ffffff; --focus: #b45309; --state: #166534; --series: #075985; }
+      @media (prefers-color-scheme: dark) { :root { color-scheme: dark; --canvas: #11161c; --surface: #18212a; --text: #f4f7f9; --muted: #c3ced7; --border: #8292a3; --action: #38bdf8; --action-text: #082f49; --focus: #fbbf24; --state: #86efac; --series: #7dd3fc; } }
+      * { box-sizing: border-box; }
+      html { background: var(--canvas); color: var(--text); font: 16px/1.5 system-ui, sans-serif; }
+      body { margin: 0; }
+      main { width: min(calc(100% - 2rem), 72rem); margin: 0 auto; padding: 1.5rem 0 3rem; }
+      header, section, aside, figure { margin: 0 0 1rem; }
+      .layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr); gap: 1rem; }
+      [data-ztothez-design-region], figure { border: 1px solid var(--border); background: var(--surface); padding: 1rem; }
+      h1, h2, p { margin-top: 0; }
+      .outcome { border-left: 4px solid var(--action); padding-left: 1rem; }
+      button { min-width: 7rem; min-height: 44px; border: 2px solid var(--action); border-radius: 4px; background: var(--action); color: var(--action-text); font: inherit; font-weight: 700; }
+      button:focus { outline: 3px solid var(--focus); outline-offset: 3px; }
+      .status { color: var(--state); font-weight: 700; }
+      .series { color: var(--series); font-size: 1.5rem; }
+      table { border-collapse: collapse; }
+      th, td { border: 1px solid var(--border); padding: .5rem; text-align: left; }
+      img { width: 48px; height: 48px; object-fit: contain; }
+      @media (max-width: 48rem) { .layout { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main data-ztothez-design-composition="1.0" data-ztothez-design-max-primary-actions="1" data-ztothez-design-max-visible-regions="4">
+      <header data-ztothez-design-priority="context">
+        <p>Local synthetic verification fixture</p>
+        <h1>Review one supported decision</h1>
+      </header>
+      <div class="layout">
+        <section data-ztothez-design-region="decision">
+          <div class="outcome" data-ztothez-design-priority="primary-outcome" data-ztothez-design-visual-claim="fixture-result" data-ztothez-design-claim-basis="synthetic" data-ztothez-design-evidence-ref="fixture-record-01">
+            <h2>One fixture record needs review</h2>
+            <p>The result is explicitly synthetic and supports only this browser-check test.</p>
+          </div>
+          <div data-ztothez-design-priority="next-action">
+            <button type="button" data-ztothez-design-primary-action>Review record</button>
+          </div>
+          <p class="status" data-ztothez-design-status data-ztothez-design-status-purpose="review-state" data-ztothez-design-state-visual data-ztothez-design-non-color-cue="visible-text">Ready for review</p>
+        </section>
+        <aside data-ztothez-design-region="evidence">
+          <h2>Evidence</h2>
+          <img
+            alt="Blue square used as a synthetic evidence marker"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%23075985'/%3E%3C/svg%3E"
+            data-ztothez-design-asset="fixture-marker"
+            data-ztothez-design-asset-purpose="Identify the synthetic fixture evidence"
+            data-ztothez-design-asset-source="original"
+            data-ztothez-design-asset-rights="approved"
+            data-ztothez-design-asset-alternative="short-text"
+            data-ztothez-design-asset-failure="text-alternative"
+          />
+        </aside>
+      </div>
+      <figure data-ztothez-design-region="trend" data-ztothez-design-chart aria-labelledby="chart-title" data-ztothez-design-chart-values="visible" data-ztothez-design-chart-alternative="#chart-alternative" data-ztothez-design-chart-series="1">
+        <figcaption id="chart-title">Verified fixture count</figcaption>
+        <span class="series" data-ztothez-design-chart-series-visual aria-hidden="true">■</span>
+        <strong data-ztothez-design-chart-value>1 verified fixture</strong>
+        <table id="chart-alternative"><thead><tr><th>State</th><th>Count</th></tr></thead><tbody><tr><td>Verified fixture</td><td>1</td></tr></tbody></table>
+      </figure>
+    </main>
+  </body>
+</html>

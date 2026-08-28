@@ -4,6 +4,12 @@ The active `.github/workflows/quality.yml` workflow validates this skill reposit
 
 The V2 fixture covers normal, long-content, empty, partial, slow, fallback, stale, and disconnected states across initial, loading, result, error, history, and export stages. It opts into interface-trust and chart checks, masks only the declared dynamic clock, writes a screenshot baseline, and immediately verifies a second run against it at 375, 768, 1024, and 1440 CSS pixels. A matching screenshot hash detects change only. It is not visual-quality approval.
 
+The V4 visual-composition fixture opts into the version 1.0 composition markers. CI verifies its
+context, primary outcome, next action, action and region limits, state meaning, visual-claim
+evidence, chart alternative and contrast, and rendered asset metadata at 375, 768, 1024, and 1440
+CSS pixels in light and dark modes. The eight screenshots and runtime report are retained as a
+separate artifact. This proves deterministic enforcement, not aesthetic preference or human review.
+
 These deterministic fixtures prove that the quality-gate engine and responsive browser checks can produce complete passing reports. They are not evidence that AegisOPS or another product passes its own journeys.
 
 The Azure V2 product lane runs ESLint, TypeScript, the Next production build, a zero-warning static audit, and `knowledge-base/benchmarks/azure-optimizer/v2-journeys.json` against the versioned 40-capture baseline. It covers demo, live local-API, slow, fallback, disconnected, partial, stale, finding-history, and provenance-export behavior. Its artifact remains automated evidence and does not satisfy the Item 8 human-review gate.

@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 
-import type { RuntimeViewport } from "./types.js";
+import type { RuntimeColorScheme, RuntimeViewport } from "./types.js";
 
 export const DEFAULT_RUNTIME_VIEWPORTS: readonly RuntimeViewport[] = [
   { name: "mobile-375", width: 375, height: 812 },
@@ -8,6 +8,7 @@ export const DEFAULT_RUNTIME_VIEWPORTS: readonly RuntimeViewport[] = [
   { name: "desktop-1024", width: 1024, height: 768 },
   { name: "wide-1440", width: 1440, height: 900 },
 ];
+export const DEFAULT_RUNTIME_COLOR_SCHEMES: readonly RuntimeColorScheme[] = ["light"];
 
 export const DEFAULT_NAVIGATION_TIMEOUT_MS = 30_000;
 export const DEFAULT_SETTLE_MS = 500;
@@ -93,5 +94,14 @@ export function validateViewports(viewports: RuntimeViewport[]): void {
     if (viewport.height < 240 || viewport.height > 2_160) {
       throw new Error(`Viewport height is outside 240-2160: ${viewport.height}`);
     }
+  }
+}
+
+export function validateColorSchemes(colorSchemes: RuntimeColorScheme[]): void {
+  if (colorSchemes.length === 0 || colorSchemes.length > 2) {
+    throw new Error("Provide one or both supported color schemes: light and dark");
+  }
+  if (new Set(colorSchemes).size !== colorSchemes.length) {
+    throw new Error("Color schemes must be unique");
   }
 }

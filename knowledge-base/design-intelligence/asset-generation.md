@@ -6,6 +6,7 @@ Treat asset creation as a controlled production pipeline. Generate or source rea
 
 For each asset, define:
 
+- A stable identifier, one concrete purpose, and the decision or task it supports.
 - Product task and location.
 - Information the asset must communicate.
 - Audience, channel, dimensions, crop behavior, and density.
@@ -13,6 +14,8 @@ For each asset, define:
 - Required subject accuracy and details that must remain visible.
 - Background, transparency, safe area, and text-overlay constraints.
 - Alternative-content requirement.
+- Failure behavior: hide decorative media, preserve a text alternative, show a factual placeholder,
+  offer retry, or block only when the task cannot remain truthful without the asset.
 - Rights and provenance requirements.
 
 Do not use an atmospheric placeholder where users need to inspect a product, person, state, place, or result.
@@ -51,7 +54,10 @@ Selection must be based on the brief and not only visual novelty.
 
 ## Step 5: Record Provenance
 
-Every asset record must include origin, creator, local path, rights status, rights basis, evidence, restrictions, attribution when required, and alternative-content classification. Generated assets also require model and prompt records, human contributions, and reference-rights status.
+Every version 2.1 asset record must include purpose, origin, creator, local path, rights status,
+rights basis, evidence, restrictions, attribution when required, alternative-content classification,
+and explicit failure behavior. Generated assets also require model and prompt records, human
+contributions, and reference-rights status.
 
 An `approved` label without a source URL or evidence path is invalid. Generated output is not automatically owned, copyrightable, non-infringing, or suitable for every use.
 

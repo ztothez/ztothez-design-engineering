@@ -1,4 +1,5 @@
 export type RuntimeSeverity = "error" | "warning" | "info";
+export type RuntimeColorScheme = "light" | "dark";
 
 export type RuntimeViewport = {
   name: string;
@@ -110,6 +111,7 @@ export type RuntimeReport = {
   browser: string;
   outputDirectory: string;
   viewports: RuntimeViewport[];
+  colorSchemes?: RuntimeColorScheme[];
   screenshots: RuntimeScreenshot[];
   screenshotRegression: RuntimeScreenshotRegression;
   journeys: RuntimeJourneyResult[];
@@ -124,6 +126,7 @@ export type RuntimeVerificationOptions = {
   url: string;
   outputDirectory: string;
   viewports?: RuntimeViewport[];
+  colorSchemes?: RuntimeColorScheme[];
   journeys?: RuntimeJourney[];
   expectedNetwork?: RuntimeExpectedNetwork[];
   navigationTimeoutMs?: number;

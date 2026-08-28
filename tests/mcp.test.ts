@@ -46,6 +46,12 @@ test("MCP exposes the repository auditor with structured output", async () => {
     const tools = await client.listTools();
     assert.ok(tools.tools.some((tool) => tool.name === "audit_repository_architecture"));
     assert.ok(tools.tools.some((tool) => tool.name === "verify_ui_runtime"));
+    const runtimeTool = tools.tools.find((tool) => tool.name === "verify_ui_runtime");
+    assert.ok(
+      runtimeTool?.inputSchema &&
+      "properties" in runtimeTool.inputSchema &&
+      (runtimeTool.inputSchema.properties as Record<string, unknown>).colorSchemes,
+    );
     assert.ok(tools.tools.some((tool) => tool.name === "validate_product_contract"));
     assert.ok(tools.tools.some((tool) => tool.name === "run_design_quality_gate"));
     assert.ok(tools.tools.some((tool) => tool.name === "aggregate_design_quality_gates"));
@@ -181,7 +187,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
       | undefined;
     assert.equal(designManifest.isError, undefined);
     assert.equal(designReport?.passed, true);
-    assert.equal(designReport?.contrastResults?.length, 8);
+    assert.equal(designReport?.contrastResults?.length, 20);
     assert.equal(designReport?.coverage?.typographyRoles, 8);
     assert.equal(designReport?.coverage?.interactionStates, 9);
     assert.equal(designReport?.coverage?.metricContracts, 3);

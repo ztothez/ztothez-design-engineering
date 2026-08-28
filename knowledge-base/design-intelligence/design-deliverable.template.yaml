@@ -54,6 +54,7 @@ tokenSystem:
     - { name: color.primitive.blue-50, type: color, level: primitive, value: "#ddf4ff", description: Selected surface blue }
     - { name: color.primitive.green-700, type: color, level: primitive, value: "#1a7f37", description: Success foreground }
     - { name: color.primitive.amber-700, type: color, level: primitive, value: "#9a6700", description: Warning foreground }
+    - { name: color.primitive.amber-300, type: color, level: primitive, value: "#f2cc60", description: Dark-mode warning foreground }
     - { name: color.primitive.red-700, type: color, level: primitive, value: "#cf222e", description: Error foreground }
     - { name: font.primitive.sans, type: font-family, level: primitive, value: "Inter, system-ui, sans-serif", description: Product interface family }
     - { name: font.primitive.mono, type: font-family, level: primitive, value: "ui-monospace, SFMono-Regular, monospace", description: Evidence and code family }
@@ -150,6 +151,10 @@ tokenSystem:
           reference: color.primitive.blue-300
         - token: color.semantic.border-selected
           reference: color.primitive.blue-300
+        - token: color.semantic.surface-selected
+          reference: color.primitive.neutral-800
+        - token: color.semantic.status-warning
+          reference: color.primitive.amber-300
         - token: color.component.button-primary-label
           reference: color.primitive.ink-950
 productTask:
@@ -343,6 +348,7 @@ chartContracts:
       partial: Show available periods and label excluded or delayed records.
       error: Preserve metric context and expose retry plus the table alternative.
     tokenRefs: [color.semantic.action-primary, color.semantic.text-primary, color.semantic.border-default]
+    backgroundToken: color.semantic.surface
     nonColorCues: [color, text, value, line-style]
     decorative: false
 renderedEvidence:
@@ -410,6 +416,7 @@ figma:
       documented: true
 assets:
   - id: brand-wordmark
+    purpose: Identify the product in branded navigation and exported review material.
     kind: logo
     path: assets/brand/wordmark.svg
     source:
@@ -425,7 +432,11 @@ assets:
     alternative:
       kind: short-text
       content: Example Product
+    failureBehavior:
+      strategy: text-alternative
+      behavior: Render the product name as text without reserving an empty image region.
   - id: icon-analyze
+    purpose: Reinforce the named Analyze action without replacing its visible label.
     kind: icon
     path: assets/icons/analyze.svg
     source:
@@ -439,7 +450,11 @@ assets:
     alternative:
       kind: short-text
       content: Analyze
+    failureBehavior:
+      strategy: text-alternative
+      behavior: Keep the visible Analyze label and remove the failed icon from layout.
   - id: workspace-illustration
+    purpose: Explain the evidence-to-result workflow in product education and review material.
     kind: illustration
     path: assets/illustrations/workspace.png
     source:
@@ -463,6 +478,9 @@ assets:
     alternative:
       kind: short-text
       content: Analyst comparing source evidence with a structured result panel
+    failureBehavior:
+      strategy: text-alternative
+      behavior: Replace the image region with its concise workflow description.
 iconSystem:
   name: Example Product Icons
   grid: 24
@@ -537,6 +555,18 @@ accessibility:
       background: color.semantic.action-primary
       usage: normal-text
       mode: dark
+    - { id: secondary-state-on-subtle, foreground: color.semantic.text-secondary, background: color.semantic.surface-subtle, usage: non-text }
+    - { id: dark-secondary-state-on-subtle, foreground: color.semantic.text-secondary, background: color.semantic.surface-subtle, usage: non-text, mode: dark }
+    - { id: success-state-on-surface, foreground: color.semantic.status-success, background: color.semantic.surface, usage: non-text }
+    - { id: dark-success-state-on-surface, foreground: color.semantic.status-success, background: color.semantic.surface, usage: non-text, mode: dark }
+    - { id: warning-state-on-surface, foreground: color.semantic.status-warning, background: color.semantic.surface, usage: non-text }
+    - { id: dark-warning-state-on-surface, foreground: color.semantic.status-warning, background: color.semantic.surface, usage: non-text, mode: dark }
+    - { id: error-state-on-surface, foreground: color.semantic.status-error, background: color.semantic.surface, usage: non-text }
+    - { id: dark-error-state-on-surface, foreground: color.semantic.status-error, background: color.semantic.surface, usage: non-text, mode: dark }
+    - { id: warning-state-on-subtle, foreground: color.semantic.status-warning, background: color.semantic.surface-subtle, usage: non-text }
+    - { id: dark-warning-state-on-subtle, foreground: color.semantic.status-warning, background: color.semantic.surface-subtle, usage: non-text, mode: dark }
+    - { id: selected-border-on-surface, foreground: color.semantic.surface-selected, background: color.semantic.border-selected, usage: non-text }
+    - { id: dark-selected-border-on-surface, foreground: color.semantic.surface-selected, background: color.semantic.border-selected, usage: non-text, mode: dark }
   nonColorCues:
     - meaning: Validation error
       cues: [color, text, icon]

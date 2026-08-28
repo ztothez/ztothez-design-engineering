@@ -18,6 +18,8 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   const advancedHtml = await readFile(join(fixtureDirectory, "advanced.html"), "utf8");
   const blobDownloadHtml = await readFile(join(fixtureDirectory, "blob-download.html"), "utf8");
   const v2BadHtml = await readFile(join(fixtureDirectory, "v2-bad.html"), "utf8");
+  const visualCompositionGoodHtml = await readFile(join(fixtureDirectory, "visual-composition-good.html"), "utf8");
+  const visualCompositionBadHtml = await readFile(join(fixtureDirectory, "visual-composition-bad.html"), "utf8");
   const v2StatesHtml = await readFile(
     resolve(process.cwd(), "ci", "fixtures", "v2-quality-states.html"),
     "utf8",
@@ -64,6 +66,16 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
     if (request.url === "/v2-bad") {
       response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
       response.end(v2BadHtml);
+      return;
+    }
+    if (request.url === "/visual-composition-good") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(visualCompositionGoodHtml);
+      return;
+    }
+    if (request.url === "/visual-composition-bad") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(visualCompositionBadHtml);
       return;
     }
     if (request.url === "/api/failure") {
@@ -363,7 +375,7 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   assert.equal(v2States.screenshots.length, 9);
   assert.ok(v2States.screenshots.every((entry) => /^[a-f0-9]{64}$/.test(entry.sha256)));
   assert.ok(v2States.screenshots.every((entry) => entry.dynamicSelectors.includes("#dynamic-clock")));
-  assert.equal(v2States.evidenceBoundary.verifierLimitations.length, 3);
+  assert.equal(v2States.evidenceBoundary.verifierLimitations.length, 4);
   assert.equal(v2States.evidenceBoundary.humanReviewRequired.length, 2);
 
   const v2Bad = await verifyUiRuntime({
@@ -376,6 +388,29 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   const v2BadCheckIds = new Set(v2Bad.findings.map((finding) => finding.checkId));
   assert.ok(v2BadCheckIds.has("ZTDE-RUNTIME-017"));
   assert.ok(v2BadCheckIds.has("ZTDE-RUNTIME-018"));
+
+  const visualCompositionGood = await verifyUiRuntime({
+    url: `${origin}/visual-composition-good`,
+    outputDirectory: join(outputRoot, "visual-composition-good"),
+    colorSchemes: ["light", "dark"],
+    settleMs: 20,
+  });
+  assert.equal(visualCompositionGood.passed, true, JSON.stringify(visualCompositionGood.findings, null, 2));
+  assert.equal(visualCompositionGood.screenshots.length, 8);
+  assert.deepEqual(visualCompositionGood.colorSchemes, ["light", "dark"]);
+
+  const visualCompositionBad = await verifyUiRuntime({
+    url: `${origin}/visual-composition-bad`,
+    outputDirectory: join(outputRoot, "visual-composition-bad"),
+    viewports: viewport,
+    colorSchemes: ["light", "dark"],
+    settleMs: 20,
+  });
+  assert.equal(visualCompositionBad.passed, false);
+  const visualCompositionBadChecks = new Set(visualCompositionBad.findings.map((finding) => finding.checkId));
+  for (const checkId of ["ZTDE-RUNTIME-020", "ZTDE-RUNTIME-021", "ZTDE-RUNTIME-022"]) {
+    assert.ok(visualCompositionBadChecks.has(checkId), `${checkId} missing`);
+  }
 
   const screenshotBaselinePath = join(outputRoot, "screenshot-baseline.json");
   const baselineCreated = await verifyUiRuntime({

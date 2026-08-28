@@ -133,7 +133,28 @@ Completion criteria:
 
 ### 4. Visual Composition And Asset Pipeline
 
-Status: **Not started**
+Status: **Done**
+
+Implemented evidence: the version 2.1 design-deliverable contract now requires every asset to
+declare purpose and explicit failure behavior in addition to source, rights, and alternatives.
+Rule `ZTDE-DI-310` rejects missing or semantically contradictory asset fallback declarations.
+Declared contrast coverage now binds typography, focus, interaction-state, and chart-series tokens
+to their rendered surfaces in the default mode and every declared color mode; the maintained
+template passes 20 contrast pairs and mutation fixtures exercise missing state and chart coverage.
+
+Runtime checks `ZTDE-RUNTIME-020` through `ZTDE-RUNTIME-022` enforce opt-in decision order,
+reachable next action, action and region density limits, purposeful status, evidence-backed visual
+claims, rendered focus, state and chart contrast, and asset metadata. `verify-ui` and
+`verify_ui_runtime` accept explicit light and dark color schemes. The active CI lane captures and
+retains eight screenshots plus the report for the passing composition fixture at 375, 768, 1024,
+and 1440 CSS pixels; a negative fixture proves each new runtime rule fails closed.
+
+The version 1.1.0 React adapter emits the composition semantics, keeps context, primary outcome,
+and next action ahead of detailed provenance and supporting information, preserves a compact source
+disclosure beside the action, and passes generated typecheck, reducer tests, production build, 200
+percent text resize, responsive, light, and dark browser verification. It emits no unapproved
+assets and does not invoke an external asset service. Asset creation remains an optional specialized
+stage governed by the maintained provenance contract.
 
 Turn visual direction into enforceable composition, typography, density, chart, icon, image, and
 responsive decisions. Asset generation remains a specialized optional stage with provenance,
@@ -210,6 +231,9 @@ Completion criteria:
 Status: **Not started**
 
 Qualify the end-to-end workflow in CI and an offline package while keeping private evidence local.
+The planned public application and release website is `ztothez-design-engineering-website`. Keep
+that site separate from the engine package and do not present it as operational or release-ready
+until this item passes.
 
 Completion criteria:
 
@@ -227,5 +251,5 @@ Item 9 only after every prior completion criterion has retained evidence.
 
 ## Current Status
 
-Items 1 through 3 are Done. Items 4 through 9 are not started. The next target is Item 4: Visual
-Composition And Asset Pipeline.
+Items 1 through 4 are Done. Items 5 through 9 are not started. The next target is Item 5:
+Closed-Loop Verification And Repair.

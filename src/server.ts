@@ -1421,11 +1421,12 @@ server.registerTool(
   {
     title: "Verify UI runtime",
     description:
-      "Launches headless Chromium against an already-running UI, captures checksummed base and post-journey responsive screenshots, and checks overflow, clipping, collisions, contrast, touch targets, focus visibility and occlusion, keyboard traps and ordering, 200% reflow and text resizing, reduced motion, media, console and network failures, opt-in interface trust, chart alternatives, plus optional declarative product journeys. Completed journey state is rechecked at every configured viewport. It does not start applications or execute repository commands.",
+      "Launches headless Chromium against an already-running UI, captures checksummed base and post-journey responsive screenshots, and checks overflow, clipping, collisions, text and opt-in visual contrast, touch targets, focus visibility and occlusion, keyboard traps and ordering, 200% reflow and text resizing, reduced motion, media, console and network failures, interface trust, chart alternatives, decision hierarchy, clutter, visual claims, and asset metadata. Optional light and dark modes and declarative journeys are rechecked at every configured viewport. It does not start applications or execute repository commands.",
     inputSchema: {
       url: z.string().trim().min(1).max(4_096),
       reportName: z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/i).optional(),
       viewports: z.array(runtimeViewportSchema).min(1).max(8).optional(),
+      colorSchemes: z.array(z.enum(["light", "dark"])).min(1).max(2).optional(),
       journeys: z.array(runtimeJourneySchema).max(10).optional(),
       expectedNetwork: z.array(runtimeExpectedNetworkSchema).max(20).optional(),
       settleMs: z.number().int().min(0).max(30_000).optional(),
@@ -1439,7 +1440,7 @@ server.registerTool(
       openWorldHint: true,
     },
   },
-  async ({ url, reportName, viewports, journeys, expectedNetwork, settleMs, dynamicSelectors }) => {
+  async ({ url, reportName, viewports, colorSchemes, journeys, expectedNetwork, settleMs, dynamicSelectors }) => {
     try {
       if (!isAllowedRuntimeUrl(url)) {
         throw new Error(
@@ -1451,6 +1452,7 @@ server.registerTool(
         url,
         outputDirectory,
         ...(viewports ? { viewports } : {}),
+        ...(colorSchemes ? { colorSchemes } : {}),
         ...(journeys ? { journeys } : {}),
         ...(expectedNetwork ? { expectedNetwork } : {}),
         ...(settleMs === undefined ? {} : { settleMs }),

@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import { loadRuntimeJourneySelection } from "../src/contracts/journeys.js";
 import { formatRuntimeReport } from "../src/runtime/report.js";
 import type {
+  RuntimeColorScheme,
   RuntimeSeverity,
   RuntimeViewport,
 } from "../src/runtime/types.js";
@@ -16,6 +17,7 @@ type CliOptions = {
   journeysFile?: string;
   journeyProfile?: string;
   viewports?: RuntimeViewport[];
+  colorSchemes?: RuntimeColorScheme[];
   settleMs?: number;
   chromiumPath?: string;
   dynamicSelectors: string[];
@@ -34,6 +36,7 @@ function usage(): string {
     "  --journeys PATH               JSON file containing declarative journeys",
     "  --profile ID                  Profile ID when --journeys contains a journey suite",
     "  --viewports 375x812,768x1024  Override default viewport matrix",
+    "  --color-schemes light,dark      Verify one or both rendered themes",
     "  --settle-ms NUMBER             Wait after navigation before inspection",
     "  --chromium PATH                Chromium executable",
     "  --dynamic-selector SELECTOR    Mask one dynamic region; repeat as needed",
@@ -63,6 +66,7 @@ function parseArguments(argumentsList: string[]): CliOptions {
   let journeysFile: string | undefined;
   let journeyProfile: string | undefined;
   let viewports: RuntimeViewport[] | undefined;
+  let colorSchemes: RuntimeColorScheme[] | undefined;
   let settleMs: number | undefined;
   let chromiumPath: string | undefined;
   const dynamicSelectors: string[] = [];
@@ -88,6 +92,13 @@ function parseArguments(argumentsList: string[]): CliOptions {
       index += 1;
     } else if (argument === "--viewports" && next) {
       viewports = parseViewports(next);
+      index += 1;
+    } else if (argument === "--color-schemes" && next) {
+      const entries = next.split(",").map((entry) => entry.trim());
+      if (entries.length === 0 || entries.some((entry) => entry !== "light" && entry !== "dark")) {
+        throw new Error("--color-schemes must contain light, dark, or light,dark");
+      }
+      colorSchemes = entries as RuntimeColorScheme[];
       index += 1;
     } else if (argument === "--settle-ms" && next) {
       settleMs = Number(next);
@@ -134,6 +145,7 @@ function parseArguments(argumentsList: string[]): CliOptions {
     ...(journeysFile ? { journeysFile } : {}),
     ...(journeyProfile ? { journeyProfile } : {}),
     ...(viewports ? { viewports } : {}),
+    ...(colorSchemes ? { colorSchemes } : {}),
     ...(settleMs === undefined ? {} : { settleMs }),
     ...(chromiumPath ? { chromiumPath } : {}),
     dynamicSelectors,
@@ -161,6 +173,7 @@ async function main(): Promise<void> {
     journeys: selection.journeys,
     expectedNetwork: selection.expectedNetwork,
     ...(options.viewports ? { viewports: options.viewports } : {}),
+    ...(options.colorSchemes ? { colorSchemes: options.colorSchemes } : {}),
     ...(options.settleMs === undefined ? {} : { settleMs: options.settleMs }),
     ...(options.chromiumPath ? { chromiumPath: options.chromiumPath } : {}),
     dynamicSelectors: options.dynamicSelectors,

@@ -400,6 +400,7 @@ const chartContractSchema = z
       })
       .strict(),
     tokenRefs: z.array(tokenNameSchema).min(2).max(30),
+    backgroundToken: tokenNameSchema.optional(),
     nonColorCues: z
       .array(z.enum(["color", "text", "icon", "shape", "pattern", "position", "value", "line-style"]))
       .min(2)
@@ -611,6 +612,7 @@ const figmaSchema = z
 const assetSchema = z
   .object({
     id: idSchema,
+    purpose: boundedText(1_024).optional(),
     kind: z.enum([
       "logo",
       "icon",
@@ -691,6 +693,13 @@ const assetSchema = z
         content: boundedText(4_096).optional(),
       })
       .strict(),
+    failureBehavior: z
+      .object({
+        strategy: z.enum(["hide-decorative", "text-alternative", "placeholder", "retry", "block"]),
+        behavior: boundedText(1_024),
+      })
+      .strict()
+      .optional(),
   })
   .strict();
 

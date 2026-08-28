@@ -16,6 +16,7 @@ export function formatRuntimeReport(report: RuntimeReport): string {
     `- Result: ${report.passed ? "PASS" : "FAIL"}`,
     `- Findings: ${report.summary.errors} errors, ${report.summary.warnings} warnings, ${report.summary.info} info`,
     `- Screenshots: ${report.screenshots.length}`,
+    `- Color schemes: ${(report.colorSchemes ?? ["light"]).join(", ")}`,
     `- Screenshot regression: ${report.screenshotRegression.status}`,
     `- Journeys: ${report.journeys.filter((journey) => journey.passed).length}/${report.journeys.length} passed`,
     `- Expected network policies: ${report.expectedNetwork.filter((policy) => policy.satisfied).length}/${report.expectedNetwork.length} satisfied`,

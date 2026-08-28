@@ -1,5 +1,7 @@
 # React And TypeScript Generation Adapter
 
+Current adapter version: `1.1.0`.
+
 Use this adapter only after a product design brief compiles to a design plan with `status: ready`
 and `implementationReady: true`. It creates a new independent React, TypeScript, and Vite fixture.
 It does not merge into an existing application, repair a product, prove visual quality, or authorize
@@ -27,6 +29,9 @@ The initial `react-typescript-vite` adapter generates:
   borrowing demonstration values.
 - Primitive and semantic CSS tokens, responsive composition, visible focus, minimum target
   geometry, non-color status labels, and reduced-motion behavior.
+- Opt-in composition markers for context, primary outcome, next action, density limits, status
+  purpose, state cues, and evidence-backed visual claims. The primary action precedes supporting
+  telemetry in semantic order.
 - Unit tests, build and typecheck scripts, a traceable plan summary, and a checksummed deterministic
   generation manifest.
 
@@ -54,7 +59,8 @@ Create the generation root before running the command. The output directory must
 - Static audit and generated unit tests prove only the implemented source rules and reducer paths.
 - Live connectivity remains unimplemented until a real target adapter receives authenticated
   runtime evidence. Imported and cached modes remain unavailable until valid records exist.
-- Browser, accessibility, interaction, visual composition, security, integration, and attributable
-  human review remain later gates.
+- The adapter emits composition semantics but does not claim they passed. Run browser verification
+  at 375, 768, 1024, and 1440 CSS pixels in every implemented color scheme. Security, integration,
+  usability, and attributable human review remain later gates.
 - Existing-repository adaptation is outside version 1.0. Use the independent fixture path until a
   separate convention-aware merge adapter has its own containment and regression evidence.

@@ -81,6 +81,12 @@ test("React TypeScript generation is deterministic, traceable, and architecture-
   assert.match(taskState, /selectedRecord/);
   assert.match(sourcePanel, /data-ztothez-design-data-mode/);
   assert.match(workspace, /Use disclosed demo fallback/);
+  assert.match(workspace, /data-ztothez-design-composition="1\.0"/);
+  assert.match(workspace, /data-ztothez-design-priority="context"/);
+  assert.match(workspace, /data-ztothez-design-priority="primary-outcome"/);
+  assert.match(workspace, /data-ztothez-design-priority="next-action"/);
+  assert.match(workspace, /data-ztothez-design-claim-basis="synthetic"/);
+  assert.match(sourcePanel, /data-ztothez-design-status-purpose="data-origin"/);
   assert.doesNotMatch(packageManifest, /ui.?ux.pro.max|lovable|external design/i);
   assert.equal(manifest.plan.sourceDigest, plan.sourceBrief.digest);
   assert.equal(manifest.outputMode, "new-independent-fixture");

@@ -143,6 +143,15 @@ allOf:
         version:
           enum: ["2.0", "2.1"]
       required: [productTask, interfaceTrust, informationHierarchy, metricContracts, generationWorkflow, visualDirection, typography, composition, densityProfile, interactionStates, motion, chartContracts, renderedEvidence, humanVisualReview]
+  - if:
+      properties:
+        version:
+          const: "2.1"
+    then:
+      properties:
+        assets:
+          items:
+            required: [purpose, failureBehavior]
 $defs:
   id:
     type: string
@@ -672,6 +681,8 @@ $defs:
         minItems: 2
         maxItems: 30
         items: { $ref: "#/$defs/tokenName" }
+      backgroundToken:
+        $ref: "#/$defs/tokenName"
       nonColorCues:
         type: array
         minItems: 2
@@ -897,6 +908,8 @@ $defs:
     properties:
       id:
         $ref: "#/$defs/id"
+      purpose:
+        $ref: "#/$defs/text"
       kind:
         enum: [logo, icon, illustration, photo, texture, chart, screenshot, video, audio, font]
       path:
@@ -928,6 +941,15 @@ $defs:
             type: string
             minLength: 1
             maxLength: 4096
+      failureBehavior:
+        type: object
+        additionalProperties: false
+        required: [strategy, behavior]
+        properties:
+          strategy:
+            enum: [hide-decorative, text-alternative, placeholder, retry, block]
+          behavior:
+            $ref: "#/$defs/text"
   rights:
     type: object
     additionalProperties: false

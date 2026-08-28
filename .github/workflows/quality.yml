@@ -183,6 +183,15 @@ jobs:
             --output .ztothez-design-runtime/ci-v2/verified \
             --fail-on error
 
+      - name: Run V4 visual composition and theme gate
+        run: |
+          npm run verify-ui -- \
+            --url "http://${ZTOTHEZ_DESIGN_FIXTURE_HOST}:${ZTOTHEZ_DESIGN_FIXTURE_PORT}/visual-composition" \
+            --viewports 375x812,768x1024,1024x768,1440x900 \
+            --color-schemes light,dark \
+            --output .ztothez-design-runtime/ci-v4-composition \
+            --fail-on error
+
       - name: Stop deterministic fixture
         if: always()
         run: |
@@ -252,6 +261,16 @@ jobs:
         with:
           name: ztothez-design-v2-runtime-gate
           path: .ztothez-design-runtime/ci-v2
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload V4 visual composition evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-v4-visual-composition
+          path: .ztothez-design-runtime/ci-v4-composition
           if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true

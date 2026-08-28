@@ -13,7 +13,7 @@ import {
 } from "./schema.js";
 import { tokenStyles } from "./templates/tokens.js";
 
-export const REACT_TYPESCRIPT_ADAPTER_VERSION = "1.0.0";
+export const REACT_TYPESCRIPT_ADAPTER_VERSION = "1.1.0";
 
 export type GenerateReactTypescriptOptions = GenerationTargetOptions;
 
@@ -68,8 +68,8 @@ function generatedFiles(plan: DesignPlan): Map<string, string> {
       "@types/react-dom": "19.1.7",
       "@vitejs/plugin-react": "5.0.4",
       typescript: "5.9.3",
-      vite: "7.1.7",
-      vitest: "3.2.4",
+      vite: "7.3.6",
+      vitest: "3.2.7",
     },
   })}\n`);
   files.set("index.html", `<!doctype html>
@@ -78,6 +78,7 @@ function generatedFiles(plan: DesignPlan): Map<string, string> {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
     <title>${plan.product.replace(/[<>&"]/g, "")}</title>
   </head>
   <body>
@@ -263,13 +264,13 @@ const modes: DataMode[] = ["demo", "imported", "cached", "live"];
 export function SourceBoundaryPanel({ mode, onChange }: { mode: DataMode; onChange: (mode: DataMode) => void }) {
   const source = sourceBoundaries[mode];
   return (
-    <section className="source-panel" aria-labelledby="source-heading" data-ztothez-design-data-mode={mode}>
+    <section className="source-panel" aria-labelledby="source-heading" data-ztothez-design-data-mode={mode} data-ztothez-design-region="source-boundary">
       <div className="section-heading">
         <div>
           <p className="eyebrow">Data boundary</p>
           <h2 id="source-heading">{source.label}</h2>
         </div>
-        <span className={\`status status--\${mode}\`}>{mode}</span>
+        <span className={\`status status--\${mode}\`} data-ztothez-design-status data-ztothez-design-status-purpose="data-origin" data-ztothez-design-state-visual data-ztothez-design-non-color-cue="visible-text">{mode}</span>
       </div>
       <div className="mode-control" aria-label="Inspect data modes">
         {modes.map((entry) => (
@@ -305,8 +306,8 @@ export function TaskWorkspace() {
   }
 
   return (
-    <main className="workspace">
-      <header className="product-header">
+    <main className="workspace" data-ztothez-design-composition="1.0" data-ztothez-design-max-primary-actions="1" data-ztothez-design-max-visible-regions="4">
+      <header className="product-header" data-ztothez-design-priority="context">
         <div>
           <p className="eyebrow">Operational decision workspace</p>
           <h1>{generatedPlan.product}</h1>
@@ -315,36 +316,35 @@ export function TaskWorkspace() {
         <span className="route-label">Route {generatedPlan.task.route}</span>
       </header>
 
-      <SourceBoundaryPanel mode={state.mode} onChange={(mode) => dispatch({ type: "select-mode", mode })} />
-
       <section className="decision-layout" aria-labelledby="decision-heading">
-        <div className="primary-flow">
+        <div className="primary-flow" data-ztothez-design-region="primary-decision">
           <div className="section-heading">
             <div>
               <p className="eyebrow">Primary task</p>
               <h2 id="decision-heading">Review and record the bounded decision</h2>
             </div>
-            <span className={\`status status--\${state.phase}\`}>{state.phase}</span>
+            <span className={\`status status--\${state.phase}\`} data-ztothez-design-status data-ztothez-design-status-purpose="task-phase" data-ztothez-design-state-visual data-ztothez-design-non-color-cue="visible-text">{state.phase}</span>
           </div>
-          <div className="finding">
+          <div className="finding" data-ztothez-design-priority="primary-outcome" data-ztothez-design-visual-claim="selected-record" data-ztothez-design-claim-basis="synthetic" data-ztothez-design-evidence-ref="local-fixture-priority-record-01">
             <p className="finding-label">Selected record</p>
             <h3>{state.selectedRecord}</h3>
             <p>This synthetic record demonstrates the planned decision order without claiming production evidence.</p>
+          </div>
+          <div className="action-row" data-ztothez-design-priority="next-action">
+            <p className="action-boundary"><strong>{source.label}</strong> · {source.origin}</p>
+            <button className="primary-action" type="button" data-ztothez-design-primary-action onClick={runTask} disabled={!source.canRunTask || state.phase === "running" || state.phase === "success"}>
+              {state.phase === "running" ? "Recording decision" : state.phase === "success" ? "Decision recorded" : "Record decision"}
+            </button>
+            <button type="button" onClick={() => dispatch({ type: "return-to-review" })}>Return to review</button>
           </div>
           <ol className="answer-flow">
             {generatedPlan.informationFlow.map((entry) => (
               <li key={entry.id}><span>{entry.order}</span><div><strong>{entry.label}</strong><p>{entry.purpose}</p></div></li>
             ))}
           </ol>
-          <div className="action-row">
-            <button className="primary-action" type="button" onClick={runTask} disabled={!source.canRunTask || state.phase === "running" || state.phase === "success"}>
-              {state.phase === "running" ? "Recording decision" : state.phase === "success" ? "Decision recorded" : "Record decision"}
-            </button>
-            <button type="button" onClick={() => dispatch({ type: "return-to-review" })}>Return to review</button>
-          </div>
         </div>
 
-        <aside className="recovery" aria-labelledby="recovery-heading">
+        <aside className="recovery" aria-labelledby="recovery-heading" data-ztothez-design-region="recovery">
           <p className="eyebrow">Recovery path</p>
           <h2 id="recovery-heading">Preserve context when a source is unavailable</h2>
           <p aria-live="polite" className="task-message">{state.message}</p>
@@ -357,6 +357,8 @@ export function TaskWorkspace() {
           <p className="evidence-boundary">This fixture validates generated structure and state behavior. It does not prove live connectivity, rendered accessibility, product usability, or release readiness.</p>
         </aside>
       </section>
+
+      <SourceBoundaryPanel mode={state.mode} onChange={(mode) => dispatch({ type: "select-mode", mode })} />
     </main>
   );
 }
@@ -410,6 +412,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
 .answer-flow li > span { display: grid; place-items: center; width: var(--size-step); height: var(--size-step); border-radius: 50%; background: var(--color-surface-raised); font-weight: 800; }
 .answer-flow p { margin: var(--space-1) 0 0; color: var(--color-text-muted); }
 .action-row { justify-content: flex-start; flex-wrap: wrap; margin-top: var(--space-5); }
+.action-boundary { flex-basis: 100%; margin: 0; color: var(--color-text-muted); }
 .primary-action { background: var(--color-action); border-color: var(--color-action); color: var(--color-action-text); }
 .primary-action:hover:not(:disabled) { background: var(--color-action-hover); }
 .recovery-actions { display: grid; gap: var(--space-2); margin-top: var(--space-4); }
@@ -422,6 +425,8 @@ h3 { margin-bottom: var(--space-2); font-size: var(--font-size-item-title); }
   .decision-layout, .source-facts { grid-template-columns: 1fr; }
   .product-header { display: block; }
   .route-label { display: inline-block; margin-top: var(--space-2); white-space: normal; }
+  .section-heading { flex-wrap: wrap; }
+  .status { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -491,6 +496,7 @@ export async function generateReactTypescriptFixture(
         "The target was absent, contained by the authorized generation root, and separate from every validated portfolio root.",
         "The generated task uses explicit reducer-owned domain state and semantic CSS tokens.",
         "Demonstration, imported, cached, and live source modes retain separate origin, freshness, connection, and limitation disclosures.",
+        "The generated task exposes measurable context, outcome, next-action, status-purpose, density, and evidence-basis composition semantics.",
       ],
       limitations: [
         "This adapter creates a new independent fixture and does not merge into an existing repository.",
@@ -520,6 +526,7 @@ export async function generateReactTypescriptFixture(
         "One complete local demonstration task with success and disconnected-source recovery paths.",
         "Semantic token layers and reducer-owned domain state.",
         "Truthful source-mode disclosure for demo, imported, cached, and live contexts.",
+        "Opt-in rendered composition semantics for responsive, theme, claim, state, and clutter verification.",
       ],
       limitations: manifest.limitations,
     });

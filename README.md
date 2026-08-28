@@ -235,6 +235,17 @@ npm run validate-design -- \
   --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
 ```
 
+Verify an instrumented interface across the maintained responsive matrix and both implemented
+themes:
+
+```bash
+npm run verify-ui -- --url http://127.0.0.1:4173 --color-schemes light,dark
+```
+
+Composition verification is opt-in through `data-ztothez-design-composition="1.0"`. It checks
+decision order, action and region limits, status meaning, evidence-backed visual claims, rendered
+focus, state and chart contrast, and asset metadata without prescribing a universal style.
+
 Validate interface trust and data provenance:
 
 ```bash
@@ -407,4 +418,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 3 implement evidence-gated product briefs, deterministic design-plan compilation, and contained React and TypeScript fixture generation. The remaining generation-quality program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 4 implement evidence-gated product briefs, deterministic design-plan compilation, contained React and TypeScript fixture generation, and rendered visual-composition and asset enforcement. The remaining closed-loop delivery program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).

@@ -18,7 +18,8 @@ For an interface system, use this order and record every stage in `design-delive
 9. When the recompiled plan is implementation-ready and a new independent React fixture is
    appropriate, read `generation-adapter.md` and run only the contained CLI adapter.
 10. Implement the smallest coherent task path manually when no qualified adapter applies.
-11. Attach deterministic automated verification evidence.
+11. Attach deterministic automated verification evidence, including every maintained viewport and
+    implemented color scheme for instrumented composition.
 12. Request attributable human visual review of rendered output.
 
 Before this sequence, inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested. During it, route to the smallest relevant modules, record rights evidence for every distributable asset, and keep unresolved assets out of production output. A declaration validator cannot prove pixels, runtime behavior, legal clearance, usability, or human validation.

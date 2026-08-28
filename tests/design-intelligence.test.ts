@@ -39,6 +39,7 @@ type VisualCollection =
   | "tokens"
   | "motionEquivalents"
   | "charts"
+  | "assets"
   | "captures"
   | "contrastPairs"
   | "humanReview";
@@ -85,6 +86,7 @@ function visualTarget(manifest: Record<string, any>, collection: VisualCollectio
     tokens: manifest.tokenSystem.tokens,
     motionEquivalents: manifest.motion.reducedMotion.equivalents,
     charts: manifest.chartContracts,
+    assets: manifest.assets,
     captures: manifest.renderedEvidence.captures,
     contrastPairs: manifest.accessibility.contrastPairs,
     humanReview: [manifest.humanVisualReview],
@@ -100,6 +102,7 @@ function visualTarget(manifest: Record<string, any>, collection: VisualCollectio
     tokens: "name",
     motionEquivalents: "motionRef",
     charts: "id",
+    assets: "id",
     captures: "viewport",
     contrastPairs: "id",
     humanReview: "human-review",
@@ -131,10 +134,10 @@ test("maintained design-deliverable template passes all deterministic checks", a
 
   assert.equal(report.passed, true);
   assert.deepEqual(report.summary, { errors: 0, warnings: 0, info: 0 });
-  assert.equal(report.coverage.tokens, 92);
+  assert.equal(report.coverage.tokens, 93);
   assert.equal(report.coverage.assets, 3);
   assert.ok(report.contrastResults.every((result) => result.passed));
-  assert.equal(report.contrastResults.length, 8);
+  assert.equal(report.contrastResults.length, 20);
   assert.equal(report.contrastResults.find((result) => result.id === "primary-text-on-surface")?.ratio, 19.22);
   assert.equal(report.coverage.typographyRoles, 8);
   assert.equal(report.coverage.interactionStates, 9);
@@ -268,7 +271,7 @@ test("portable schema exposes the versioned design contract", async () => {
   assert.equal(portableSchema.$schema, "https://json-schema.org/draft/2020-12/schema");
   assert.deepEqual(portableSchema.properties?.version?.enum, ["1.0", "2.0", "2.1"]);
   assert.ok(portableSchema.required?.includes("accessibility"));
-  assert.equal(portableSchema.allOf?.length, 1);
+  assert.equal(portableSchema.allOf?.length, 2);
   assert.ok(portableSchema.$defs?.productTask);
   assert.ok(portableSchema.$defs?.interfaceTrust);
   assert.ok(portableSchema.$defs?.informationHierarchy);

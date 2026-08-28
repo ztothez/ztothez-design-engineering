@@ -5,6 +5,11 @@ import { basename, dirname, join, resolve } from "node:path";
 import { chromium, type Page } from "playwright-core";
 
 import {
+  checkRenderedAssets,
+  checkRenderedVisualContrast,
+  checkVisualComposition,
+} from "./composition-checks.js";
+import {
   checkReducedMotion,
   checkReflowAndTextResize,
   checkTextContrast,
@@ -19,6 +24,7 @@ import {
 } from "./interface-checks.js";
 import {
   DEFAULT_NAVIGATION_TIMEOUT_MS,
+  DEFAULT_RUNTIME_COLOR_SCHEMES,
   DEFAULT_RUNTIME_VIEWPORTS,
   DEFAULT_SETTLE_MS,
   MAX_JOURNEY_STEPS,
@@ -26,6 +32,7 @@ import {
   resolveChromiumCdpUrl,
   resolveChromiumPath,
   validateRuntimeUrl,
+  validateColorSchemes,
   validateViewports,
 } from "./policy.js";
 import { formatRuntimeReport } from "./report.js";
@@ -1072,6 +1079,9 @@ async function checkRenderedPage(
   await checkMedia(page, viewport, findings);
   await checkInterfaceTrust(page, viewport, findings, interfaceCoverage);
   await checkChartContracts(page, viewport, findings);
+  await checkVisualComposition(page, viewport, findings);
+  await checkRenderedVisualContrast(page, viewport, findings);
+  await checkRenderedAssets(page, viewport, findings);
   if (journey) {
     for (let index = findingStart; index < findings.length; index += 1) {
       findings[index]!.journey ??= journey;
@@ -1357,6 +1367,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
   const targetUrl = validateRuntimeUrl(options.url);
   const outputDirectory = resolve(options.outputDirectory);
   const viewports = [...(options.viewports ?? DEFAULT_RUNTIME_VIEWPORTS)];
+  const colorSchemes = [...(options.colorSchemes ?? DEFAULT_RUNTIME_COLOR_SCHEMES)];
   const journeys = options.journeys ?? [];
   const timeoutMs = options.navigationTimeoutMs ?? DEFAULT_NAVIGATION_TIMEOUT_MS;
   const settleMs = options.settleMs ?? DEFAULT_SETTLE_MS;
@@ -1372,6 +1383,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     throw new Error("updateScreenshotBaseline requires screenshotBaselinePath");
   }
   validateViewports(viewports);
+  validateColorSchemes(colorSchemes);
   if (journeys.length > MAX_RUNTIME_JOURNEYS) {
     throw new Error(`Provide no more than ${MAX_RUNTIME_JOURNEYS} journeys`);
   }
@@ -1398,7 +1410,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
 
   try {
     for (const viewport of viewports) {
-      const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1, reducedMotion: "reduce", acceptDownloads: true });
+      const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1, reducedMotion: "reduce", colorScheme: colorSchemes[0], acceptDownloads: true });
       const page = await context.newPage();
       attachDiagnostics(page, findings, { viewport: viewport.name }, expectedNetworkTrackers);
       try {
@@ -1408,8 +1420,15 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
           addFinding(findings, "ZTDE-RUNTIME-001", "warning", "Navigation completed without an HTTP response object.", [targetUrl.toString()], { viewport: viewport.name });
         }
         await page.waitForTimeout(settleMs);
-        await checkRenderedPage(page, viewport, findings, interfaceCoverage);
-        await captureScreenshot(page, outputDirectory, viewport.name, viewport, screenshots, dynamicSelectors);
+        for (const colorScheme of colorSchemes) {
+          await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
+          await page.waitForTimeout(settleMs);
+          const themedViewport = colorSchemes.length === 1 && colorScheme === "light"
+            ? viewport
+            : { ...viewport, name: `${viewport.name}-${colorScheme}` };
+          await checkRenderedPage(page, themedViewport, findings, interfaceCoverage);
+          await captureScreenshot(page, outputDirectory, themedViewport.name, themedViewport, screenshots, dynamicSelectors);
+        }
       } catch (error) {
         addFinding(findings, "ZTDE-RUNTIME-001", "error", "Viewport verification could not complete.", [error instanceof Error ? error.message : String(error)], { viewport: viewport.name });
       } finally {
@@ -1420,7 +1439,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     if (journeys.length > 0) {
       const viewport = viewports[viewports.length - 1]!;
       for (const journey of journeys) {
-        const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1, reducedMotion: "reduce", acceptDownloads: true });
+        const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1, reducedMotion: "reduce", colorScheme: colorSchemes[0], acceptDownloads: true });
         const page = await context.newPage();
         await installBlobDownloadCapture(page);
         attachDiagnostics(page, findings, { journey: journey.name }, expectedNetworkTrackers);
@@ -1438,31 +1457,37 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
             findings,
           );
           for (const journeyViewport of viewports) {
-            try {
-              await page.setViewportSize({
-                width: journeyViewport.width,
-                height: journeyViewport.height,
-              });
-              await page.waitForTimeout(settleMs);
-              await checkRenderedPage(page, journeyViewport, findings, interfaceCoverage, journey.name);
-              const screenshot = await captureScreenshot(
-                page,
-                outputDirectory,
-                `journey-${journey.name}-${journeyViewport.name}`,
-                journeyViewport,
-                screenshots,
-                dynamicSelectors,
-              );
-              result.screenshot ??= screenshot;
-            } catch (error) {
-              addFinding(
-                findings,
-                "ZTDE-RUNTIME-001",
-                "warning",
-                `Could not verify journey ${journey.name} at ${journeyViewport.name}.`,
-                [error instanceof Error ? error.message : String(error)],
-                { viewport: journeyViewport.name, journey: journey.name },
-              );
+            for (const colorScheme of colorSchemes) {
+              const themedViewport = colorSchemes.length === 1 && colorScheme === "light"
+                ? journeyViewport
+                : { ...journeyViewport, name: `${journeyViewport.name}-${colorScheme}` };
+              try {
+                await page.setViewportSize({
+                  width: journeyViewport.width,
+                  height: journeyViewport.height,
+                });
+                await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
+                await page.waitForTimeout(settleMs);
+                await checkRenderedPage(page, themedViewport, findings, interfaceCoverage, journey.name);
+                const screenshot = await captureScreenshot(
+                  page,
+                  outputDirectory,
+                  `journey-${journey.name}-${themedViewport.name}`,
+                  themedViewport,
+                  screenshots,
+                  dynamicSelectors,
+                );
+                result.screenshot ??= screenshot;
+              } catch (error) {
+                addFinding(
+                  findings,
+                  "ZTDE-RUNTIME-001",
+                  "warning",
+                  `Could not verify journey ${journey.name} at ${themedViewport.name}.`,
+                  [error instanceof Error ? error.message : String(error)],
+                  { viewport: themedViewport.name, journey: journey.name },
+                );
+              }
             }
           }
           journeyResults.push(result);
@@ -1522,6 +1547,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     browser: `Chromium ${browser.version()}`,
     outputDirectory,
     viewports,
+    colorSchemes,
     screenshots,
     screenshotRegression,
     journeys: journeyResults,
@@ -1532,6 +1558,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
     evidenceBoundary: {
       verifierLimitations: [
         "Solid-color contrast sampling cannot establish contrast over gradients, images, video, canvas, or transparency without separate evidence.",
+        "Composition and rendered-asset checks apply only to explicitly instrumented roots. DOM metadata cannot establish source truth, legal clearance, or whether an unmarked visual should have been declared.",
         "Static DOM and browser checks cannot establish metric correctness, backend availability beyond observed requests, legal clearance, or representative-user comprehension.",
         "Screenshot hashes detect rendered change only; they do not prove visual quality or improvement.",
       ],

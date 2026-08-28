@@ -782,6 +782,9 @@ export function validateDesignDeliverable(
     addDuplicates(manifest.chartContracts.map((entry) => entry.id), "chartContracts", "chart contract", findings);
     for (const [index, chart] of manifest.chartContracts.entries()) {
       checkVisualTokenRefs(chart.tokenRefs, `chartContracts[${index}].tokenRefs`, "ZTDE-DI-801");
+      if (chart.backgroundToken) {
+        checkVisualTokenRefs([chart.backgroundToken], `chartContracts[${index}].backgroundToken`, "ZTDE-DI-801", "color");
+      }
       if (!chart.titleVisible || !chart.valuesVisible) {
         findings.push({
           ruleId: "ZTDE-DI-801",
@@ -1000,6 +1003,40 @@ export function validateDesignDeliverable(
   }
 
   for (const [index, asset] of manifest.assets.entries()) {
+    if (manifest.version === "2.1" && (!asset.purpose || !asset.failureBehavior)) {
+      findings.push({
+        ruleId: "ZTDE-DI-310",
+        severity: "error",
+        path: `assets[${index}]`,
+        message: `Version 2.1 asset ${asset.id} lacks a purpose or explicit failure behavior.`,
+        remediation: "Declare why the asset supports the product task and what users receive when it cannot render.",
+      });
+    }
+    if (
+      asset.failureBehavior?.strategy === "hide-decorative" &&
+      asset.alternative.kind !== "decorative"
+    ) {
+      findings.push({
+        ruleId: "ZTDE-DI-310",
+        severity: "error",
+        path: `assets[${index}].failureBehavior.strategy`,
+        message: `Informative asset ${asset.id} cannot disappear as decorative failure behavior.`,
+        remediation: "Provide a text alternative, placeholder, retry, or blocking state that preserves the asset's meaning.",
+      });
+    }
+    if (
+      asset.alternative.kind === "decorative" &&
+      asset.failureBehavior &&
+      asset.failureBehavior.strategy !== "hide-decorative"
+    ) {
+      findings.push({
+        ruleId: "ZTDE-DI-310",
+        severity: "error",
+        path: `assets[${index}].failureBehavior.strategy`,
+        message: `Decorative asset ${asset.id} declares a failure treatment that adds unsupported meaning.`,
+        remediation: "Hide failed decorative assets without introducing a placeholder, retry, or blocking state.",
+      });
+    }
     if (asset.rights.status !== "approved") {
       findings.push({
         ruleId: "ZTDE-DI-301",
@@ -1257,6 +1294,65 @@ export function validateDesignDeliverable(
               remediation: "Add and pass an explicit focus contrast pair for every declared interface mode.",
             });
           }
+        }
+      }
+    }
+
+    const colorTokenNames = new Set(
+      manifest.tokenSystem.tokens.filter((token) => token.type === "color").map((token) => token.name),
+    );
+    const hasContrastPair = (
+      foreground: string,
+      background: string,
+      mode: string | undefined,
+    ): boolean => manifest.accessibility.contrastPairs.some(
+      (pair) =>
+        pair.foreground === foreground &&
+        pair.background === background &&
+        pair.usage === "non-text" &&
+        pair.mode === mode,
+    );
+
+    for (const [stateIndex, state] of manifest.interactionStates?.states.entries() ?? []) {
+      const colors = state.tokenRefs.filter((reference) => colorTokenNames.has(reference));
+      const foreground = colors[0];
+      const background = colors[1];
+      if (!foreground || !background) continue;
+      for (const mode of requiredModes) {
+        if (!hasContrastPair(foreground, background, mode)) {
+          findings.push({
+            ruleId: "ZTDE-DI-606",
+            severity: "error",
+            path: `interactionStates.states[${stateIndex}].tokenRefs`,
+            message: `State ${state.state} lacks declared non-text contrast for ${foreground} on ${background}${mode ? ` in ${mode} mode` : " in the default mode"}.`,
+            remediation: "Add and pass a non-text contrast pair for the state foreground and adjacent surface in every declared mode.",
+          });
+        }
+      }
+    }
+
+    for (const [chartIndex, chart] of manifest.chartContracts?.entries() ?? []) {
+      const foreground = chart.tokenRefs.find((reference) => colorTokenNames.has(reference));
+      const background = chart.backgroundToken;
+      if (!foreground || !background) {
+        findings.push({
+          ruleId: "ZTDE-DI-606",
+          severity: "error",
+          path: `chartContracts[${chartIndex}]`,
+          message: `Chart ${chart.id} lacks a series color or background token for contrast verification.`,
+          remediation: "Declare the chart background token and at least one semantic series color token.",
+        });
+        continue;
+      }
+      for (const mode of requiredModes) {
+        if (!hasContrastPair(foreground, background, mode)) {
+          findings.push({
+            ruleId: "ZTDE-DI-606",
+            severity: "error",
+            path: `chartContracts[${chartIndex}].tokenRefs`,
+            message: `Chart ${chart.id} lacks declared series contrast on ${background}${mode ? ` in ${mode} mode` : " in the default mode"}.`,
+            remediation: "Add and pass a non-text contrast pair for the chart series and its rendered surface in every declared mode.",
+          });
         }
       }
     }

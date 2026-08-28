@@ -58,6 +58,19 @@ cases:
     target: { collection: charts, id: validation-outcome-trend }
     changes: { nonColorCues: [color, color] }
     expectedRules: [ZTDE-DI-801]
+  - id: chart-without-background-contrast
+    target: { collection: charts, id: validation-outcome-trend }
+    changes: { backgroundToken: null }
+    expectedRules: [ZTDE-DI-606]
+  - id: asset-without-purpose-or-fallback
+    target: { collection: assets, id: workspace-illustration }
+    changes: { purpose: null, failureBehavior: null }
+    expectedRules: [ZTDE-DI-310]
+  - id: informative-asset-hidden-as-decoration
+    target: { collection: assets, id: workspace-illustration }
+    changes:
+      failureBehavior: { strategy: hide-decorative, behavior: Hide the image. }
+    expectedRules: [ZTDE-DI-310]
   - id: missing-mobile-capture
     target: { collection: captures, id: "375" }
     changes: { viewport: 768 }
@@ -70,3 +83,7 @@ cases:
     target: { collection: contrastPairs, id: dark-secondary-text-on-surface }
     changes: { foreground: color.semantic.text-primary }
     expectedRules: [ZTDE-DI-605]
+  - id: missing-dark-state-contrast-coverage
+    target: { collection: contrastPairs, id: dark-warning-state-on-surface }
+    changes: { foreground: color.semantic.text-primary }
+    expectedRules: [ZTDE-DI-606]

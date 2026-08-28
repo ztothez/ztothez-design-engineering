@@ -126,12 +126,26 @@ Create one stable fixture or product journey and capture 375, 768, 1024, and 144
 - SHA-256 checksum of the screenshot.
 - Exact viewport.
 
-Use `planned` before capture, `captured` when files exist but have not been reviewed against the report, and `verified` only after evidence integrity and expected composition are checked. Browser verification must still inspect clipping, overlap, contrast, focus, target size, keyboard behavior, reflow, text resize, and reduced motion.
+Use `planned` before capture, `captured` when files exist but have not been reviewed against the report, and `verified` only after evidence integrity and expected composition are checked. Browser verification must still inspect clipping, overlap, text and non-text contrast, focus, target size, keyboard behavior, reflow, text resize, reduced motion, decision order, visual claims, and rendered asset metadata.
 
 For version `2.1`, declare normal-text contrast pairs for every typography foreground against the
 canvas in the default mode and every declared token mode. Declare focus non-text contrast in the
-same modes. A passing light mode does not establish dark-mode readability, and a passing dark mode
+same modes. Declare every state foreground against its adjacent surface and every chart series
+against its chart background in those modes. A passing light mode does not establish dark-mode readability, and a passing dark mode
 does not establish that a bright light canvas is comfortable in the intended viewing context.
+
+Instrument interfaces that claim automated composition verification with
+`data-ztothez-design-composition="1.0"`. Mark exactly one visible `context`, `primary-outcome`, and
+`next-action` priority in semantic DOM order. Declare primary-action and visible-region limits,
+status purpose, visual-claim basis and evidence, state non-color cues, chart series visuals, and
+asset purpose, source, approved rights, alternative class, and failure strategy. These markers make
+declared decisions measurable; they do not prescribe a visual style or establish human preference.
+
+Run both maintained color schemes when both are implemented:
+
+```bash
+npm run verify-ui -- --url URL --color-schemes light,dark
+```
 
 ## Step 10: Require Attributable Human Review
 
