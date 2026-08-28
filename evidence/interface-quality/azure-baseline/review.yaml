@@ -1,0 +1,856 @@
+version: "1.0"
+id: azure-optimizer-anonymous-baseline-v1
+methodologyId: operational-interface-comparison-v1
+preparedAt: 2026-08-26T15:00:56.279Z
+preparedBy:
+  type: agent
+  name: ZtotheZ Design Engineering
+candidates: &a1
+  - anonymous-a
+  - anonymous-b
+  - anonymous-c
+  - anonymous-d
+artifacts:
+  - id: anonymous-a-build
+    candidate: anonymous-a
+    stage: build
+    kind: build-report
+    path: anonymous-a/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:55.491Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 207563dceb0025fde368abc60f7e15d24a7875a4156be1b9b0450a413f3471a8
+  - id: anonymous-a-typecheck
+    candidate: anonymous-a
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-a/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:55.491Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 207563dceb0025fde368abc60f7e15d24a7875a4156be1b9b0450a413f3471a8
+  - id: anonymous-a-architecture-audit
+    candidate: anonymous-a
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-a/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:55.491Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 207563dceb0025fde368abc60f7e15d24a7875a4156be1b9b0450a413f3471a8
+  - id: anonymous-a-browser-runtime
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-a/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+    sha256: 43e47216cb94c6213844c63dcf0ad3245bf4cabcbce85c665444cfada2fc9f20
+  - id: anonymous-a-analysis-journey
+    candidate: anonymous-a
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-a/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:57:55.266Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    sha256: 9921f1fc8b1cafa96894db61c75ca351e3684cac849af6edeaf02c580363443a
+  - id: anonymous-a-mobile-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+    sha256: 9dcf886df27ee84d961fe427169f146d00e5587171f099f8273969b6d3872c18
+  - id: anonymous-a-tablet-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+    sha256: fcafc8fab537f973cbf113e771119e253c9e43f519c911689205ab639741f6e8
+  - id: anonymous-a-desktop-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+    sha256: 76e28e2b43c63d631c725421663f5510c8220fe6f145fce20e011d3cb7e6015a
+  - id: anonymous-a-wide-initial
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:00.697Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+    sha256: c6e18dcaa3f5869a427840ed697dc68420f4910e02e5bb5a6cc6761a52c962bf
+  - id: anonymous-a-wide-result
+    candidate: anonymous-a
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-a-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:57:55.266Z
+    sourceRevision: 4ad45bb90293998287dde42ddf10752902c0e52c
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+    sha256: bcd8054c0d3f0590f9382fc5c72e9cf3743d81b0c621593becd9386a2b7f4118
+  - id: anonymous-b-build
+    candidate: anonymous-b
+    stage: build
+    kind: build-report
+    path: anonymous-b/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:56.279Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 57a9b1b0c9dc37ed9696894c8ff0717d3f701441b71e8bf0e51cd4d911e3d667
+  - id: anonymous-b-typecheck
+    candidate: anonymous-b
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-b/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:56.279Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 57a9b1b0c9dc37ed9696894c8ff0717d3f701441b71e8bf0e51cd4d911e3d667
+  - id: anonymous-b-architecture-audit
+    candidate: anonymous-b
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-b/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:56.279Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 57a9b1b0c9dc37ed9696894c8ff0717d3f701441b71e8bf0e51cd4d911e3d667
+  - id: anonymous-b-browser-runtime
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-b/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+    sha256: 48828f67552076379a7f9283931668fa6c85d6b03e268181bffc00ec2d8346cc
+  - id: anonymous-b-analysis-journey
+    candidate: anonymous-b
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-b/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:56:30.880Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    sha256: 67a1db0b50343f76349201d2c9066f4a00a45c14ac529a311d861feb92024db2
+  - id: anonymous-b-mobile-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+    sha256: beccb8a658758d138e7222c0f51acf78941910cfc79498d00282fa4b2da89acb
+  - id: anonymous-b-tablet-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+    sha256: b2ff3e22ce95874285da048e7d1e4ca703e434fd8a136f6a96117aaf9495dd29
+  - id: anonymous-b-desktop-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+    sha256: 984f7b8e4b218921332a2f132286ca0cc95c8417de28aaf836f23319c7ccfb2f
+  - id: anonymous-b-wide-initial
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:55:14.007Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+    sha256: 4a656d2d607eceff94076a6f4284d0fca404cb2ac98f4db696f05447af17af7c
+  - id: anonymous-b-wide-result
+    candidate: anonymous-b
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-b-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:56:30.880Z
+    sourceRevision: fc805608f040e78de31fd5bb0b0d4d94e00590fe
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+    sha256: bf12c1beb08687bccbf7856b0d7fba9636cc485f871933f77057d9708e2f28d9
+  - id: anonymous-c-build
+    candidate: anonymous-c
+    stage: build
+    kind: build-report
+    path: anonymous-c/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.823Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 9f40fed9595f88802223872fb2ca7395d44df04aca2a463f1920d4e2c073a602
+  - id: anonymous-c-typecheck
+    candidate: anonymous-c
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-c/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.823Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 9f40fed9595f88802223872fb2ca7395d44df04aca2a463f1920d4e2c073a602
+  - id: anonymous-c-architecture-audit
+    candidate: anonymous-c
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-c/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.823Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 9f40fed9595f88802223872fb2ca7395d44df04aca2a463f1920d4e2c073a602
+  - id: anonymous-c-browser-runtime
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-c/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+    sha256: 3b6780806d646ef6e1ec85dec765f9af4951ac39cedd0f22ae6a354da0c8f754
+  - id: anonymous-c-analysis-journey
+    candidate: anonymous-c
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-c/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:58:18.494Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    sha256: 7689ec9e494e8bebc2ad47e873ec1a1f1855d2becd49c803f7638b1a97222dff
+  - id: anonymous-c-mobile-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+    sha256: db759da194cbc30503430af3aa148849b33dc9e27a7f6f0ecc2026b99d4f51cd
+  - id: anonymous-c-tablet-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+    sha256: 81cc1907f93e8be39209aa505d8351edfc331c9ff6cf33c0096032d2553d97b7
+  - id: anonymous-c-desktop-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+    sha256: 2b014e7367faf938935822b1a7fec0c75e2b563b9699f136c7d08a946b913f8e
+  - id: anonymous-c-wide-initial
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:39.076Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+    sha256: d73473c27a17216a3eb07d7b1261aebfd79c8f7adc681212161354cc74175eda
+  - id: anonymous-c-wide-result
+    candidate: anonymous-c
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-c-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:18.494Z
+    sourceRevision: 3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+    sha256: d73473c27a17216a3eb07d7b1261aebfd79c8f7adc681212161354cc74175eda
+  - id: anonymous-d-build
+    candidate: anonymous-d
+    stage: build
+    kind: build-report
+    path: anonymous-d/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for build at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.595Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: e9d3bcfd0eac5b968ba735b81189080e60ee5feb181083e61d02d67ddb770bd0
+  - id: anonymous-d-typecheck
+    candidate: anonymous-d
+    stage: typecheck
+    kind: typecheck-report
+    path: anonymous-d/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for typecheck at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.595Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: e9d3bcfd0eac5b968ba735b81189080e60ee5feb181083e61d02d67ddb770bd0
+  - id: anonymous-d-architecture-audit
+    candidate: anonymous-d
+    stage: architecture-audit
+    kind: static-audit
+    path: anonymous-d/engineering-evidence.json
+    producer: automation
+    retained: true
+    scope: Exact command output and exit status for architecture-audit at the recorded candidate source revision
+    recordedAt: 2026-08-26T15:00:54.595Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: e9d3bcfd0eac5b968ba735b81189080e60ee5feb181083e61d02d67ddb770bd0
+  - id: anonymous-d-browser-runtime
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: runtime-report
+    path: anonymous-d/overview/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Automated browser checks and overview task at all four declared viewports
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    accessibility:
+      standard: WCAG
+      version: "2.2"
+      level: AA
+      coverage: sampled-states
+    sha256: bf9e5bfe05604bb167f67ec686e58d671dd2d39995ed776eca442f5567a93856
+  - id: anonymous-d-analysis-journey
+    candidate: anonymous-d
+    stage: product-journeys
+    kind: journey-report
+    path: anonymous-d/analysis/runtime-report.json
+    producer: automation
+    retained: true
+    scope: Candidate-specific Azure analysis journey at the declared wide viewport
+    recordedAt: 2026-08-26T14:58:19.517Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    sha256: a2801c65560ffd4e58314eea5af6f8caa05e286ddf1681759507feb8650f1fe2
+  - id: anonymous-d-mobile-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-mobile.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 375x812
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    capture:
+      viewport: mobile
+      state: initial
+      width: 375
+      height: 812
+    sha256: 74f4504b7e7ff74b4a2f2652f53ad6bc2d059851056673bd3ac505d303f6c22f
+  - id: anonymous-d-tablet-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-tablet.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 768x1024
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    capture:
+      viewport: tablet
+      state: initial
+      width: 768
+      height: 1024
+    sha256: 657795afb19ed41e5b58470ee245a795b3bf28abf8cfdb833a6f0ea44cf21517
+  - id: anonymous-d-desktop-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-desktop.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1024x768
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    capture:
+      viewport: desktop
+      state: initial
+      width: 1024
+      height: 768
+    sha256: f5742f8938753b6fcfe053763f6302960b3c2baccee0ce87cd373dc419871010
+  - id: anonymous-d-wide-initial
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-overview-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page initial overview capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:29.722Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    capture:
+      viewport: wide
+      state: initial
+      width: 1440
+      height: 1000
+    sha256: 568655030cde12cc8e1d1b2cae7a9a8c34047824019bc6b82b27e69ae6a86135
+  - id: anonymous-d-wide-result
+    candidate: anonymous-d
+    stage: browser-verification
+    kind: screenshot
+    path: reviewer-packet/screenshots/candidate-d-analysis-wide.png
+    producer: automation
+    retained: true
+    scope: Full-page analysis-result capture at 1440x1000
+    recordedAt: 2026-08-26T14:58:19.517Z
+    sourceRevision: 48c9f8846ce36f1cbced7ae18e790b44ca70191b
+    capture:
+      viewport: wide
+      state: result
+      width: 1440
+      height: 1000
+    sha256: d3370688dc1078ec4539e319cd62a3ece5493e9790c33d7af9dbfe23b5be2a1e
+stages:
+  - id: build
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs:
+      - anonymous-a-build
+  - id: typecheck
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs:
+      - anonymous-a-typecheck
+  - id: architecture-audit
+    candidate: anonymous-a
+    status: fail
+    evidenceRefs:
+      - anonymous-a-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-a
+    status: fail
+    evidenceRefs:
+      - anonymous-a-browser-runtime
+      - anonymous-a-mobile-initial
+      - anonymous-a-tablet-initial
+      - anonymous-a-desktop-initial
+      - anonymous-a-wide-initial
+      - anonymous-a-wide-result
+  - id: product-journeys
+    candidate: anonymous-a
+    status: pass
+    evidenceRefs:
+      - anonymous-a-analysis-journey
+  - id: build
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-build
+  - id: typecheck
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-typecheck
+  - id: architecture-audit
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-b
+    status: fail
+    evidenceRefs:
+      - anonymous-b-browser-runtime
+      - anonymous-b-mobile-initial
+      - anonymous-b-tablet-initial
+      - anonymous-b-desktop-initial
+      - anonymous-b-wide-initial
+      - anonymous-b-wide-result
+  - id: product-journeys
+    candidate: anonymous-b
+    status: pass
+    evidenceRefs:
+      - anonymous-b-analysis-journey
+  - id: build
+    candidate: anonymous-c
+    status: pass
+    evidenceRefs:
+      - anonymous-c-build
+  - id: typecheck
+    candidate: anonymous-c
+    status: pass
+    evidenceRefs:
+      - anonymous-c-typecheck
+  - id: architecture-audit
+    candidate: anonymous-c
+    status: fail
+    evidenceRefs:
+      - anonymous-c-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-c
+    status: fail
+    evidenceRefs:
+      - anonymous-c-browser-runtime
+      - anonymous-c-mobile-initial
+      - anonymous-c-tablet-initial
+      - anonymous-c-desktop-initial
+      - anonymous-c-wide-initial
+      - anonymous-c-wide-result
+  - id: product-journeys
+    candidate: anonymous-c
+    status: fail
+    evidenceRefs:
+      - anonymous-c-analysis-journey
+  - id: build
+    candidate: anonymous-d
+    status: pass
+    evidenceRefs:
+      - anonymous-d-build
+  - id: typecheck
+    candidate: anonymous-d
+    status: pass
+    evidenceRefs:
+      - anonymous-d-typecheck
+  - id: architecture-audit
+    candidate: anonymous-d
+    status: pass
+    evidenceRefs:
+      - anonymous-d-architecture-audit
+  - id: browser-verification
+    candidate: anonymous-d
+    status: fail
+    evidenceRefs:
+      - anonymous-d-browser-runtime
+      - anonymous-d-mobile-initial
+      - anonymous-d-tablet-initial
+      - anonymous-d-desktop-initial
+      - anonymous-d-wide-initial
+      - anonymous-d-wide-result
+  - id: product-journeys
+    candidate: anonymous-d
+    status: fail
+    evidenceRefs:
+      - anonymous-d-analysis-journey
+  - id: human-review
+    candidate: comparison
+    status: not-run
+    evidenceRefs: []
+sessions:
+  - id: baseline-agent-inspection
+    level: ai-assisted-expert
+    origin: agent-generated
+    contributor: ZtotheZ Design Engineering
+    recordedAt: 2026-08-26T15:00:56.279Z
+    candidateOrder: *a1
+    taskResults: []
+    ratings: []
+claims:
+  - id: anonymous-a-automated-baseline
+    candidate: anonymous-a
+    kind: implementation-fact
+    statement: A production build, independent typecheck, static audit, multi-viewport browser run, and candidate-specific
+      analysis journey were executed and retained.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-a-build
+      - anonymous-a-typecheck
+      - anonymous-a-architecture-audit
+      - anonymous-a-browser-runtime
+      - anonymous-a-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison implementation at the recorded source-tree revision
+    status: verified
+    outcome: partial
+    limitations:
+      - A verified execution record does not imply that every stage passed.
+      - Human-expert and representative-user comparison evidence has not been supplied.
+  - id: anonymous-a-agent-visual-inspection
+    candidate: anonymous-a
+    kind: design-quality
+    statement: The retained anonymous viewport matrix is ready for attributable visual, disclosure, and information-design review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-a-mobile-initial
+      - anonymous-a-tablet-initial
+      - anonymous-a-desktop-initial
+      - anonymous-a-wide-initial
+      - anonymous-a-wide-result
+    sessionRefs:
+      - baseline-agent-inspection
+    scope: Artifact completeness and reviewer readiness only; no human-quality score or winner is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Agent inspection cannot substitute for human-expert or representative-user evidence.
+  - id: anonymous-b-automated-baseline
+    candidate: anonymous-b
+    kind: implementation-fact
+    statement: A production build, independent typecheck, static audit, multi-viewport browser run, and candidate-specific
+      analysis journey were executed and retained.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-b-build
+      - anonymous-b-typecheck
+      - anonymous-b-architecture-audit
+      - anonymous-b-browser-runtime
+      - anonymous-b-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison implementation at the recorded source-tree revision
+    status: verified
+    outcome: partial
+    limitations:
+      - A verified execution record does not imply that every stage passed.
+      - Human-expert and representative-user comparison evidence has not been supplied.
+  - id: anonymous-b-agent-visual-inspection
+    candidate: anonymous-b
+    kind: design-quality
+    statement: The retained anonymous viewport matrix is ready for attributable visual, disclosure, and information-design review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-b-mobile-initial
+      - anonymous-b-tablet-initial
+      - anonymous-b-desktop-initial
+      - anonymous-b-wide-initial
+      - anonymous-b-wide-result
+    sessionRefs:
+      - baseline-agent-inspection
+    scope: Artifact completeness and reviewer readiness only; no human-quality score or winner is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Agent inspection cannot substitute for human-expert or representative-user evidence.
+  - id: anonymous-c-automated-baseline
+    candidate: anonymous-c
+    kind: implementation-fact
+    statement: A production build, independent typecheck, static audit, multi-viewport browser run, and candidate-specific
+      analysis journey were executed and retained.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-c-build
+      - anonymous-c-typecheck
+      - anonymous-c-architecture-audit
+      - anonymous-c-browser-runtime
+      - anonymous-c-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison implementation at the recorded source-tree revision
+    status: verified
+    outcome: partial
+    limitations:
+      - A verified execution record does not imply that every stage passed.
+      - Human-expert and representative-user comparison evidence has not been supplied.
+  - id: anonymous-c-agent-visual-inspection
+    candidate: anonymous-c
+    kind: design-quality
+    statement: The retained anonymous viewport matrix is ready for attributable visual, disclosure, and information-design review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-c-mobile-initial
+      - anonymous-c-tablet-initial
+      - anonymous-c-desktop-initial
+      - anonymous-c-wide-initial
+      - anonymous-c-wide-result
+    sessionRefs:
+      - baseline-agent-inspection
+    scope: Artifact completeness and reviewer readiness only; no human-quality score or winner is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Agent inspection cannot substitute for human-expert or representative-user evidence.
+  - id: anonymous-d-automated-baseline
+    candidate: anonymous-d
+    kind: implementation-fact
+    statement: A production build, independent typecheck, static audit, multi-viewport browser run, and candidate-specific
+      analysis journey were executed and retained.
+    evidenceType: automated
+    evidenceRefs:
+      - anonymous-d-build
+      - anonymous-d-typecheck
+      - anonymous-d-architecture-audit
+      - anonymous-d-browser-runtime
+      - anonymous-d-analysis-journey
+    sessionRefs: []
+    scope: Fixed local Azure comparison implementation at the recorded source-tree revision
+    status: verified
+    outcome: partial
+    limitations:
+      - A verified execution record does not imply that every stage passed.
+      - Human-expert and representative-user comparison evidence has not been supplied.
+  - id: anonymous-d-agent-visual-inspection
+    candidate: anonymous-d
+    kind: design-quality
+    statement: The retained anonymous viewport matrix is ready for attributable visual, disclosure, and information-design review.
+    evidenceType: ai-assisted-expert
+    evidenceRefs:
+      - anonymous-d-mobile-initial
+      - anonymous-d-tablet-initial
+      - anonymous-d-desktop-initial
+      - anonymous-d-wide-initial
+      - anonymous-d-wide-result
+    sessionRefs:
+      - baseline-agent-inspection
+    scope: Artifact completeness and reviewer readiness only; no human-quality score or winner is asserted.
+    status: partial
+    outcome: not-evaluated
+    limitations:
+      - Agent inspection cannot substitute for human-expert or representative-user evidence.

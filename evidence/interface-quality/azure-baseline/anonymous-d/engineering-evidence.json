@@ -1,0 +1,232 @@
+{
+  "version": "1.0",
+  "candidate": "anonymous-d",
+  "recordedAt": "2026-08-26T15:00:54.595Z",
+  "sourceRevision": "48c9f8846ce36f1cbced7ae18e790b44ca70191b",
+  "stages": {
+    "build": {
+      "status": "pass",
+      "command": "npm run build",
+      "cwd": "/home/ztothez/Studio/experiments/redesign-azure/uix-design-skill",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> azure-optimizer-frontend@0.1.0 build\n> next build\n\n▲ Next.js 16.3.3 (Turbopack)\n✓ Running next.config.ts took 28ms\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n\n  Creating an optimized production build ...\n✓ Compiled successfully in 1044ms\n  Running TypeScript ...\n  Finished TypeScript in 2.3s ...\n  Collecting page data using 5 workers ...\n  Generating static pages using 5 workers (0/4) ...\n  Generating static pages using 5 workers (1/4) \r\n  Generating static pages using 5 workers (2/4) \r\n  Generating static pages using 5 workers (3/4) \r\n✓ Generating static pages using 5 workers (4/4) in 668ms\n  Finalizing page optimization ...\n\nRoute (app)\n┌ ○ /\n├ ○ /_not-found\n└ ○ /icon.svg\n\n\n○  (Static)  prerendered as static content\n\n",
+      "stderr": ""
+    },
+    "typecheck": {
+      "status": "pass",
+      "command": "/home/ztothez/Studio/experiments/redesign-azure/uix-design-skill/node_modules/.bin/tsc --noEmit",
+      "cwd": "/home/ztothez/Studio/experiments/redesign-azure/uix-design-skill",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    "architectureAudit": {
+      "status": "pass",
+      "command": "/usr/bin/node /home/ztothez/Studio/experiments/UIX-Design-Skill/dist/cli/audit.js --repo /home/ztothez/Studio/experiments/redesign-azure/uix-design-skill --json --fail-on none",
+      "cwd": "/home/ztothez/Studio/experiments/UIX-Design-Skill",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "{\n  \"version\": \"1.0.0\",\n  \"target\": \"/home/ztothez/Studio/experiments/redesign-azure/uix-design-skill\",\n  \"generatedAt\": \"2026-08-26T15:01:03.849Z\",\n  \"filesScanned\": 16,\n  \"bytesScanned\": 84104,\n  \"skippedFiles\": [],\n  \"findings\": [\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"page.azure-polished.tsx\",\n      \"line\": 148,\n      \"message\": \"15 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #111827.\",\n        \"Raw value: #00D4FF.\",\n        \"Raw value: #8B5CF6.\",\n        \"Raw value: rgba(148,163,184,.12).\",\n        \"Raw value: rgba(0,212,255,.10).\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-ARCH-002\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"page.azure-polished.tsx\",\n      \"line\": 212,\n      \"column\": 1,\n      \"message\": \"AzureOptimizerDashboard combines a large rendering surface with direct side-effect orchestration.\",\n      \"evidence\": [\n        \"Component span: 223 lines.\",\n        \"Detected: network requests, download orchestration.\"\n      ],\n      \"remediation\": \"Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/app/globals.css\",\n      \"line\": 115,\n      \"message\": \"5 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: rgba(56, 189, 248, 0.04).\",\n        \"Raw value: rgba(56, 189, 248, 0.04).\",\n        \"Raw value: rgba(56, 189, 248, 0.45).\",\n        \"Raw value: rgba(56, 189, 248, 0.12).\",\n        \"Raw value: rgba(255, 255, 255, 0.05).\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/AnalysisView.tsx\",\n      \"line\": 26,\n      \"message\": \"5 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0F172A.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-ARCH-002\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/AnalysisView.tsx\",\n      \"line\": 38,\n      \"column\": 1,\n      \"message\": \"AnalysisView combines a large rendering surface with direct side-effect orchestration.\",\n      \"evidence\": [\n        \"Component span: 272 lines.\",\n        \"Detected: network requests.\"\n      ],\n      \"remediation\": \"Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/data.ts\",\n      \"line\": 65,\n      \"message\": \"4 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #F87171.\",\n        \"Raw value: #FB923C.\",\n        \"Raw value: #FACC15.\",\n        \"Raw value: #4ADE80.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/Header.tsx\",\n      \"line\": 19,\n      \"message\": \"3 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0F172A.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/OverviewView.tsx\",\n      \"line\": 28,\n      \"message\": \"16 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: rgba(255,255,255,.08).\",\n        \"Raw value: #38bdf8.\",\n        \"Raw value: #38bdf8.\",\n        \"Raw value: rgba(255,255,255,.06).\",\n        \"Raw value: #38bdf8.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/RecommendationsView.tsx\",\n      \"line\": 31,\n      \"message\": \"6 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/ReportsView.tsx\",\n      \"line\": 59,\n      \"message\": \"3 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0B1120.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/ResourcesView.tsx\",\n      \"line\": 24,\n      \"message\": \"4 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0F172A.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/components/SettingsView.tsx\",\n      \"line\": 15,\n      \"message\": \"4 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #0F172A.\",\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0B1120.\",\n        \"Raw value: #0B1120.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    }\n  ],\n  \"summary\": {\n    \"errors\": 0,\n    \"warnings\": 12,\n    \"info\": 0\n  },\n  \"passed\": true\n}\n",
+      "stderr": "",
+      "report": {
+        "version": "1.0.0",
+        "target": "/home/ztothez/Studio/experiments/redesign-azure/uix-design-skill",
+        "generatedAt": "2026-08-26T15:01:03.849Z",
+        "filesScanned": 16,
+        "bytesScanned": 84104,
+        "skippedFiles": [],
+        "findings": [
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "page.azure-polished.tsx",
+            "line": 148,
+            "message": "15 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #111827.",
+              "Raw value: #00D4FF.",
+              "Raw value: #8B5CF6.",
+              "Raw value: rgba(148,163,184,.12).",
+              "Raw value: rgba(0,212,255,.10)."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-ARCH-002",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "page.azure-polished.tsx",
+            "line": 212,
+            "column": 1,
+            "message": "AzureOptimizerDashboard combines a large rendering surface with direct side-effect orchestration.",
+            "evidence": [
+              "Component span: 223 lines.",
+              "Detected: network requests, download orchestration."
+            ],
+            "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/app/globals.css",
+            "line": 115,
+            "message": "5 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: rgba(56, 189, 248, 0.04).",
+              "Raw value: rgba(56, 189, 248, 0.04).",
+              "Raw value: rgba(56, 189, 248, 0.45).",
+              "Raw value: rgba(56, 189, 248, 0.12).",
+              "Raw value: rgba(255, 255, 255, 0.05)."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/AnalysisView.tsx",
+            "line": 26,
+            "message": "5 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A.",
+              "Raw value: #0B1120.",
+              "Raw value: #0F172A."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-ARCH-002",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/AnalysisView.tsx",
+            "line": 38,
+            "column": 1,
+            "message": "AnalysisView combines a large rendering surface with direct side-effect orchestration.",
+            "evidence": [
+              "Component span: 272 lines.",
+              "Detected: network requests."
+            ],
+            "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/data.ts",
+            "line": 65,
+            "message": "4 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #F87171.",
+              "Raw value: #FB923C.",
+              "Raw value: #FACC15.",
+              "Raw value: #4ADE80."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/Header.tsx",
+            "line": 19,
+            "message": "3 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #0B1120.",
+              "Raw value: #0B1120.",
+              "Raw value: #0F172A."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/OverviewView.tsx",
+            "line": 28,
+            "message": "16 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: rgba(255,255,255,.08).",
+              "Raw value: #38bdf8.",
+              "Raw value: #38bdf8.",
+              "Raw value: rgba(255,255,255,.06).",
+              "Raw value: #38bdf8."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/RecommendationsView.tsx",
+            "line": 31,
+            "message": "6 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #0F172A.",
+              "Raw value: #0B1120.",
+              "Raw value: #0B1120.",
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/ReportsView.tsx",
+            "line": 59,
+            "message": "3 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A.",
+              "Raw value: #0B1120."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/ResourcesView.tsx",
+            "line": 24,
+            "message": "4 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A.",
+              "Raw value: #0F172A."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/components/SettingsView.tsx",
+            "line": 15,
+            "message": "4 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #0F172A.",
+              "Raw value: #0B1120.",
+              "Raw value: #0B1120.",
+              "Raw value: #0B1120."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          }
+        ],
+        "summary": {
+          "errors": 0,
+          "warnings": 12,
+          "info": 0
+        },
+        "passed": true
+      }
+    }
+  }
+}

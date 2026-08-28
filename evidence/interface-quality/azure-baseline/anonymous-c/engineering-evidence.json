@@ -1,0 +1,164 @@
+{
+  "version": "1.0",
+  "candidate": "anonymous-c",
+  "recordedAt": "2026-08-26T15:00:54.823Z",
+  "sourceRevision": "3af1ebc5a4f2ab6fe8c0b2de72fb0b093949ca01",
+  "stages": {
+    "build": {
+      "status": "pass",
+      "command": "npm run build",
+      "cwd": "/home/ztothez/Studio/experiments/redesign-azure/ui-ux-max-pro",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "\n> azure-optimizer-frontend@0.1.0 build\n> next build\n\n▲ Next.js 16.3.3 (Turbopack)\n✓ Running next.config.ts took 32ms\nAttention: Next.js now collects completely anonymous telemetry regarding usage.\nThis information is used to shape Next.js' roadmap and prioritize features.\nYou can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:\nhttps://nextjs.org/telemetry\n\n\n  Creating an optimized production build ...\n✓ Compiled successfully in 552ms\n  Running TypeScript ...\n  Finished TypeScript in 2.3s ...\n  Collecting page data using 4 workers ...\n  Generating static pages using 4 workers (0/3) ...\n✓ Generating static pages using 4 workers (3/3) in 687ms\n  Finalizing page optimization ...\n\nRoute (app)\n┌ ○ /\n└ ○ /_not-found\n\n\n○  (Static)  prerendered as static content\n\n",
+      "stderr": ""
+    },
+    "typecheck": {
+      "status": "pass",
+      "command": "/home/ztothez/Studio/experiments/redesign-azure/ui-ux-max-pro/node_modules/.bin/tsc --noEmit",
+      "cwd": "/home/ztothez/Studio/experiments/redesign-azure/ui-ux-max-pro",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "",
+      "stderr": ""
+    },
+    "architectureAudit": {
+      "status": "fail",
+      "command": "/usr/bin/node /home/ztothez/Studio/experiments/UIX-Design-Skill/dist/cli/audit.js --repo /home/ztothez/Studio/experiments/redesign-azure/ui-ux-max-pro --json --fail-on none",
+      "cwd": "/home/ztothez/Studio/experiments/UIX-Design-Skill",
+      "exitCode": 0,
+      "signal": null,
+      "stdout": "{\n  \"version\": \"1.0.0\",\n  \"target\": \"/home/ztothez/Studio/experiments/redesign-azure/ui-ux-max-pro\",\n  \"generatedAt\": \"2026-08-26T15:01:03.348Z\",\n  \"filesScanned\": 7,\n  \"bytesScanned\": 99641,\n  \"skippedFiles\": [],\n  \"findings\": [\n    {\n      \"ruleId\": \"ZTDE-SLOP-001\",\n      \"severity\": \"error\",\n      \"confidence\": \"high\",\n      \"file\": \"src/app/page.tsx\",\n      \"line\": 427,\n      \"message\": \"A mock or simulated behavior path is present in production source.\",\n      \"evidence\": [\n        \"Matched production-source text: \\\"setMockReport\\\".\"\n      ],\n      \"remediation\": \"Remove the mock path, isolate it behind an explicit demo fixture, or label the resulting data and behavior as simulated in the interface.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-REPO-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"high\",\n      \"file\": \"package.json\",\n      \"message\": \"Repository is missing required verification scripts: test.\",\n      \"evidence\": [\n        \"Missing npm script: test.\"\n      ],\n      \"remediation\": \"Add commands that exercise the repository's actual build, static checks, and automated tests, or configure the audit policy for a non-JavaScript project.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"page.azure-polished.tsx\",\n      \"line\": 148,\n      \"message\": \"15 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #111827.\",\n        \"Raw value: #00D4FF.\",\n        \"Raw value: #8B5CF6.\",\n        \"Raw value: rgba(148,163,184,.12).\",\n        \"Raw value: rgba(0,212,255,.10).\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-ARCH-002\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"page.azure-polished.tsx\",\n      \"line\": 212,\n      \"column\": 1,\n      \"message\": \"AzureOptimizerDashboard combines a large rendering surface with direct side-effect orchestration.\",\n      \"evidence\": [\n        \"Component span: 223 lines.\",\n        \"Detected: network requests, download orchestration.\"\n      ],\n      \"remediation\": \"Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/app/globals.css\",\n      \"line\": 32,\n      \"message\": \"20 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #030712.\",\n        \"Raw value: #F8FAFC.\",\n        \"Raw value: #060B19.\",\n        \"Raw value: #1E293B.\",\n        \"Raw value: rgba(0, 212, 255, 0.1).\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-DESIGN-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/app/page.tsx\",\n      \"line\": 59,\n      \"message\": \"29 raw color values appear outside an identifiable token definition file.\",\n      \"evidence\": [\n        \"Raw value: #F43F5E.\",\n        \"Raw value: #F97316.\",\n        \"Raw value: #F59E0B.\",\n        \"Raw value: #10B981.\",\n        \"Raw value: #0B132B.\"\n      ],\n      \"remediation\": \"Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-ARCH-001\",\n      \"severity\": \"warning\",\n      \"confidence\": \"high\",\n      \"file\": \"src/app/page.tsx\",\n      \"line\": 374,\n      \"column\": 1,\n      \"message\": \"AzureOptimizerDashboard spans 1058 lines, exceeding the 400-line review threshold.\",\n      \"evidence\": [\n        \"The measured function contains JSX.\",\n        \"Component span: 1058 lines.\"\n      ],\n      \"remediation\": \"Review responsibility boundaries and extract cohesive domain, orchestration, or presentation units. Do not split solely to satisfy the threshold.\"\n    },\n    {\n      \"ruleId\": \"ZTDE-ARCH-002\",\n      \"severity\": \"warning\",\n      \"confidence\": \"medium\",\n      \"file\": \"src/app/page.tsx\",\n      \"line\": 374,\n      \"column\": 1,\n      \"message\": \"AzureOptimizerDashboard combines a large rendering surface with direct side-effect orchestration.\",\n      \"evidence\": [\n        \"Component span: 1058 lines.\",\n        \"Detected: network requests, download orchestration.\"\n      ],\n      \"remediation\": \"Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature.\"\n    }\n  ],\n  \"summary\": {\n    \"errors\": 1,\n    \"warnings\": 7,\n    \"info\": 0\n  },\n  \"passed\": false\n}\n",
+      "stderr": "",
+      "report": {
+        "version": "1.0.0",
+        "target": "/home/ztothez/Studio/experiments/redesign-azure/ui-ux-max-pro",
+        "generatedAt": "2026-08-26T15:01:03.348Z",
+        "filesScanned": 7,
+        "bytesScanned": 99641,
+        "skippedFiles": [],
+        "findings": [
+          {
+            "ruleId": "ZTDE-SLOP-001",
+            "severity": "error",
+            "confidence": "high",
+            "file": "src/app/page.tsx",
+            "line": 427,
+            "message": "A mock or simulated behavior path is present in production source.",
+            "evidence": [
+              "Matched production-source text: \"setMockReport\"."
+            ],
+            "remediation": "Remove the mock path, isolate it behind an explicit demo fixture, or label the resulting data and behavior as simulated in the interface."
+          },
+          {
+            "ruleId": "ZTDE-REPO-001",
+            "severity": "warning",
+            "confidence": "high",
+            "file": "package.json",
+            "message": "Repository is missing required verification scripts: test.",
+            "evidence": [
+              "Missing npm script: test."
+            ],
+            "remediation": "Add commands that exercise the repository's actual build, static checks, and automated tests, or configure the audit policy for a non-JavaScript project."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "page.azure-polished.tsx",
+            "line": 148,
+            "message": "15 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #111827.",
+              "Raw value: #00D4FF.",
+              "Raw value: #8B5CF6.",
+              "Raw value: rgba(148,163,184,.12).",
+              "Raw value: rgba(0,212,255,.10)."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-ARCH-002",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "page.azure-polished.tsx",
+            "line": 212,
+            "column": 1,
+            "message": "AzureOptimizerDashboard combines a large rendering surface with direct side-effect orchestration.",
+            "evidence": [
+              "Component span: 223 lines.",
+              "Detected: network requests, download orchestration."
+            ],
+            "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/app/globals.css",
+            "line": 32,
+            "message": "20 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #030712.",
+              "Raw value: #F8FAFC.",
+              "Raw value: #060B19.",
+              "Raw value: #1E293B.",
+              "Raw value: rgba(0, 212, 255, 0.1)."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-DESIGN-001",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/app/page.tsx",
+            "line": 59,
+            "message": "29 raw color values appear outside an identifiable token definition file.",
+            "evidence": [
+              "Raw value: #F43F5E.",
+              "Raw value: #F97316.",
+              "Raw value: #F59E0B.",
+              "Raw value: #10B981.",
+              "Raw value: #0B132B."
+            ],
+            "remediation": "Move recurring interface colors into semantic tokens. Keep genuinely data-driven canvas, chart, or generated-media colors local and document that exception."
+          },
+          {
+            "ruleId": "ZTDE-ARCH-001",
+            "severity": "warning",
+            "confidence": "high",
+            "file": "src/app/page.tsx",
+            "line": 374,
+            "column": 1,
+            "message": "AzureOptimizerDashboard spans 1058 lines, exceeding the 400-line review threshold.",
+            "evidence": [
+              "The measured function contains JSX.",
+              "Component span: 1058 lines."
+            ],
+            "remediation": "Review responsibility boundaries and extract cohesive domain, orchestration, or presentation units. Do not split solely to satisfy the threshold."
+          },
+          {
+            "ruleId": "ZTDE-ARCH-002",
+            "severity": "warning",
+            "confidence": "medium",
+            "file": "src/app/page.tsx",
+            "line": 374,
+            "column": 1,
+            "message": "AzureOptimizerDashboard combines a large rendering surface with direct side-effect orchestration.",
+            "evidence": [
+              "Component span: 1058 lines.",
+              "Detected: network requests, download orchestration."
+            ],
+            "remediation": "Move network, persistence, and export policy behind focused hooks or services while keeping user-visible state in the owning feature."
+          }
+        ],
+        "summary": {
+          "errors": 1,
+          "warnings": 7,
+          "info": 0
+        },
+        "passed": false
+      }
+    }
+  }
+}

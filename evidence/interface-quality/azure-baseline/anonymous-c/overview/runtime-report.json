@@ -1,0 +1,1386 @@
+{
+  "version": "1.0.0",
+  "url": "http://localhost:3103/",
+  "generatedAt": "2026-08-26T14:58:39.076Z",
+  "browser": "Chromium 151.0.7922.108",
+  "outputDirectory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview",
+  "viewports": [
+    {
+      "name": "custom-375x812",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "name": "custom-768x1024",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "custom-1024x768",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "custom-1440x1000",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "custom-375x812",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/custom-375x812.png",
+      "width": 375,
+      "height": 812,
+      "fullPage": true
+    },
+    {
+      "name": "custom-768x1024",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/custom-768x1024.png",
+      "width": 768,
+      "height": 1024,
+      "fullPage": true
+    },
+    {
+      "name": "custom-1024x768",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/custom-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "fullPage": true
+    },
+    {
+      "name": "custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-375x812",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/journey-overview-integrity-custom-375x812.png",
+      "width": 375,
+      "height": 812,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-768x1024",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/journey-overview-integrity-custom-768x1024.png",
+      "width": 768,
+      "height": 1024,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-1024x768",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/journey-overview-integrity-custom-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/journey-overview-integrity-custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    }
+  ],
+  "journeys": [
+    {
+      "name": "overview-integrity",
+      "passed": false,
+      "stepsCompleted": 1,
+      "totalSteps": 3,
+      "evidence": [],
+      "screenshot": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-c/overview/journey-overview-integrity-custom-375x812.png"
+    }
+  ],
+  "expectedNetwork": [],
+  "findings": [
+    {
+      "checkId": "ZTDE-RUNTIME-002",
+      "severity": "error",
+      "message": "Browser console error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "evidence": [
+        "Source: http://localhost:3103/favicon.ico:0."
+      ],
+      "viewport": "custom-375x812"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.flex > span: left 309px, right 374px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 288px to 343px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.grid > div.panel-glass > div.flex > span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.mt-4 > span.text-4xl: left 309px, right 371px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 288px to 343px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.grid > div.panel-glass > div.mt-4 > span.text-4xl"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "select"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span.h-2"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.space-y-8"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.panel-glass"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.relative"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.absolute"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "circle.transition-all"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "html.dark"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "select"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 75.6px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 88px by 32px; content requires 187px by 32px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.font-mono"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 88px by 33px; content requires 245px by 33px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.text-slate-400"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span.h-2"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.space-y-8"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.panel-glass"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.relative"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.absolute"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "circle.transition-all"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "html.dark"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.mt-4 > span.text-xs: left 614px, right 657px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 469px to 630px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.grid > div.panel-glass > div.mt-4 > span.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.mt-4 > span.inline-flex: left 932px, right 1026px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 831px to 992px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.grid > div.panel-glass > div.mt-4 > span.inline-flex"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "select"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 72px by 32px; content requires 187px by 32px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.font-mono"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 72px by 33px; content requires 245px by 33px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.text-slate-400"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span.h-2"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.space-y-8"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.panel-glass"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.relative"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.absolute"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "circle.transition-all"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "html.dark"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "select"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 162px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "select"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 153px by 32px; content requires 187px by 32px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.font-mono"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 153px by 33px; content requires 245px by 33px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.text-slate-400"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span.h-2"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.space-y-8"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.panel-glass"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.relative"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.absolute"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "circle.transition-all"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "html.dark"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-008",
+      "severity": "error",
+      "message": "Journey failed at step 2 (expectText).",
+      "evidence": [
+        "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('body').filter({ hasText: 'Potential Savings' }) to be visible\u001b[22m\n"
+      ],
+      "journey": "overview-integrity",
+      "selector": "body"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.flex > span: left 309px, right 374px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 288px to 343px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.grid > div.panel-glass > div.flex > span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.mt-4 > span.text-4xl: left 309px, right 371px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 288px to 343px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.grid > div.panel-glass > div.mt-4 > span.text-4xl",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span.h-2",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.space-y-8",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.panel-glass",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.relative",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.absolute",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "circle.transition-all",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "html.dark",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 75.6px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 88px by 32px; content requires 187px by 32px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.font-mono",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 88px by 33px; content requires 245px by 33px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.text-slate-400",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span.h-2",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.space-y-8",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.panel-glass",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.relative",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.absolute",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "circle.transition-all",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "html.dark",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.mt-4 > span.text-xs: left 614px, right 657px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 469px to 630px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.grid > div.panel-glass > div.mt-4 > span.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Visible semantic content is clipped by an overflow-hidden ancestor.",
+      "evidence": [
+        "div.grid > div.panel-glass > div.mt-4 > span.inline-flex: left 932px, right 1026px.",
+        "div.p-8 > div.space-y-8 > div.grid > div.panel-glass: clipping bounds 831px to 992px.",
+        "Add data-ztothez-design-allow-clipping only when clipping this content is intentional and verified."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.grid > div.panel-glass > div.mt-4 > span.inline-flex",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 72px by 32px; content requires 187px by 32px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.font-mono",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 72px by 33px; content requires 245px by 33px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.text-slate-400",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span.h-2",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.space-y-8",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.panel-glass",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.relative",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.absolute",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "circle.transition-all",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "html.dark",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 215px by 36px."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 42px."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 162px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "select",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 153px by 32px; content requires 187px by 32px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.font-mono",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 153px by 33px; content requires 245px by 33px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.text-slate-400",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 2000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span.h-2",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.space-y-8",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.panel-glass",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.relative",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "error",
+      "message": "Transform or positional animation remains active with reduced motion enabled.",
+      "evidence": [
+        "Animation duration is 1000ms and properties include offset, transform.",
+        "Disable or substantially reduce nonessential motion under prefers-reduced-motion. Mark only essential, reviewed motion with data-ztothez-design-essential-motion."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.absolute",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "circle.transition-all",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "html.dark",
+      "journey": "overview-integrity"
+    }
+  ],
+  "summary": {
+    "errors": 57,
+    "warnings": 56,
+    "info": 0
+  },
+  "passed": false
+}

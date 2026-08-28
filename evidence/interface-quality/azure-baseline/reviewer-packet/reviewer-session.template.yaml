@@ -1,0 +1,28 @@
+version: "1.0"
+session:
+  id: replace-with-stable-session-id
+  level: human-expert-or-representative-user
+  origin: reviewer-supplied
+  contributor: replace-with-reviewer-name-or-approved-pseudonym
+  participantId: required-for-representative-user
+  recordedAt: replace-with-iso-8601-timestamp
+  candidateOrder:
+    - anonymous-a
+    - anonymous-b
+    - anonymous-c
+    - anonymous-d
+  taskResults:
+    - task: identify-data-origin
+      candidate: anonymous-a
+      outcome: completed-partial-failed-or-not-run
+      durationSeconds: 0
+      navigationErrors: 0
+      recoveryAttempts: 0
+      comprehensionCorrect: false
+      confidence: 1
+      notes: Record the observed answer and evidence location.
+  ratings:
+    - candidate: anonymous-a
+      criterion: visual-rhythm
+      score: 0
+      rationale: Record concrete visual evidence for the score.

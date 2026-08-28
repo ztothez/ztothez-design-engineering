@@ -1,0 +1,1235 @@
+{
+  "version": "1.0.0",
+  "url": "http://localhost:3101/",
+  "generatedAt": "2026-08-26T14:58:00.697Z",
+  "browser": "Chromium 151.0.7922.108",
+  "outputDirectory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview",
+  "viewports": [
+    {
+      "name": "custom-375x812",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "name": "custom-768x1024",
+      "width": 768,
+      "height": 1024
+    },
+    {
+      "name": "custom-1024x768",
+      "width": 1024,
+      "height": 768
+    },
+    {
+      "name": "custom-1440x1000",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "custom-375x812",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/custom-375x812.png",
+      "width": 375,
+      "height": 812,
+      "fullPage": true
+    },
+    {
+      "name": "custom-768x1024",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/custom-768x1024.png",
+      "width": 768,
+      "height": 1024,
+      "fullPage": true
+    },
+    {
+      "name": "custom-1024x768",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/custom-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "fullPage": true
+    },
+    {
+      "name": "custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-375x812",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/journey-overview-integrity-custom-375x812.png",
+      "width": 375,
+      "height": 812,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-768x1024",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/journey-overview-integrity-custom-768x1024.png",
+      "width": 768,
+      "height": 1024,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-1024x768",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/journey-overview-integrity-custom-1024x768.png",
+      "width": 1024,
+      "height": 768,
+      "fullPage": true
+    },
+    {
+      "name": "journey-overview-integrity-custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/journey-overview-integrity-custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    }
+  ],
+  "journeys": [
+    {
+      "name": "overview-integrity",
+      "passed": true,
+      "stepsCompleted": 3,
+      "totalSteps": 3,
+      "evidence": [],
+      "screenshot": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-a/overview/journey-overview-integrity-custom-375x812.png"
+    }
+  ],
+  "expectedNetwork": [],
+  "findings": [
+    {
+      "checkId": "ZTDE-RUNTIME-002",
+      "severity": "error",
+      "message": "Browser console error: Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "evidence": [
+        "Source: http://localhost:3101/favicon.ico:0."
+      ],
+      "viewport": "custom-375x812"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Page overflows horizontally by 196px at 375px.",
+      "evidence": [
+        "Document width: 571px; viewport width: 375px.",
+        "div.flex > main.flex-1: left 256px, right 420px, width 164px.",
+        "div.flex > main.flex-1 > header.mb-8: left 288px, right 388px, width 100px.",
+        "div.flex > main.flex-1 > header.mb-8 > h1.text-2xl: left 288px, right 388px, width 100px.",
+        "div.flex > main.flex-1 > div.space-y-6: left 288px, right 388px, width 100px.",
+        "div.flex > main.flex-1 > div.space-y-6 > div.grid: left 288px, right 388px, width 100px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "div.grid > div.rounded-xl > div.text-3xl > span.text-base: left 406px, right 436px, width 30px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "div.grid > div.rounded-xl > div.flex > div.text-3xl: left 309px, right 381px, width 72px.",
+        "div.rounded-xl > div.flex > div.text-3xl > span.text-base: left 347px, right 381px, width 34px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.flex > main.flex-1"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span.text-base"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Text-only resizing to 200% creates page-level horizontal overflow.",
+      "evidence": [
+        "Document exceeds the viewport by 323px after text resizing.",
+        "First non-scroll-contained offender: span.",
+        "Root 698px/375px; body 698px/375px.",
+        "Furthest rendered edge: span.text-xs at 543px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button.flex"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.space-y-6"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "circle.drop-shadow-md"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "html"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span.text-base"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 59.3px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Page requires horizontal scrolling at 200% zoom.",
+      "evidence": [
+        "At an effective 384px layout width, the document overflows by 187px.",
+        "Reflow content into one dimension or keep only intentionally scrollable data regions horizontal."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "main.flex-1"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Text-only resizing to 200% creates page-level horizontal overflow.",
+      "evidence": [
+        "Document exceeds the viewport by 23px after text resizing.",
+        "First non-scroll-contained offender: div.text-sm.",
+        "Root 791px/768px; body 791px/768px.",
+        "Furthest rendered edge: span.text-base at 791px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.text-sm"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button.flex"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.space-y-6"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "circle.drop-shadow-md"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "html"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span.text-base"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 59.3px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Page requires horizontal scrolling at 200% zoom.",
+      "evidence": [
+        "At an effective 512px layout width, the document overflows by 59px.",
+        "Reflow content into one dimension or keep only intentionally scrollable data regions horizontal."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.space-y-3"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Text-only resizing to 200% creates page-level horizontal overflow.",
+      "evidence": [
+        "Document exceeds the viewport by 75px after text resizing.",
+        "First non-scroll-contained offender: span.",
+        "Root 1099px/1024px; body 1099px/1024px.",
+        "Furthest rendered edge: main.flex-1 at 1099px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button.flex"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.space-y-6"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "circle.drop-shadow-md"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "html"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span.text-base"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span.text-xs"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 59.3px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button.flex"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.space-y-6"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "circle.drop-shadow-md"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "html"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-004",
+      "severity": "error",
+      "message": "Page overflows horizontally by 196px at 375px.",
+      "evidence": [
+        "Document width: 571px; viewport width: 375px.",
+        "div.flex > main.flex-1: left 256px, right 420px, width 164px.",
+        "div.flex > main.flex-1 > header.mb-8: left 288px, right 388px, width 100px.",
+        "div.flex > main.flex-1 > header.mb-8 > h1.text-2xl: left 288px, right 388px, width 100px.",
+        "div.flex > main.flex-1 > div.space-y-6: left 288px, right 388px, width 100px.",
+        "div.flex > main.flex-1 > div.space-y-6 > div.grid: left 288px, right 388px, width 100px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "div.grid > div.rounded-xl > div.text-3xl > span.text-base: left 406px, right 436px, width 30px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "main.flex-1 > div.space-y-6 > div.grid > div.rounded-xl: left 288px, right 388px, width 100px.",
+        "div.grid > div.rounded-xl > div.flex > div.text-3xl: left 309px, right 381px, width 72px.",
+        "div.rounded-xl > div.flex > div.text-3xl > span.text-base: left 347px, right 381px, width 34px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.flex > main.flex-1",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span.text-base",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Text-only resizing to 200% creates page-level horizontal overflow.",
+      "evidence": [
+        "Document exceeds the viewport by 323px after text resizing.",
+        "First non-scroll-contained offender: span.",
+        "Root 698px/375px; body 698px/375px.",
+        "Furthest rendered edge: span.text-xs at 694px."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "button.flex",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "div.space-y-6",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "circle.drop-shadow-md",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-375x812",
+      "selector": "html",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span.text-base",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 59.3px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-013",
+      "severity": "error",
+      "message": "Keyboard focus is hidden or centered beneath fixed or sticky content.",
+      "evidence": [
+        "Focused control center is outside the visible viewport.",
+        "Reserve scroll padding, adjust sticky geometry, or move focus so the focused control and indicator remain visible."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Page requires horizontal scrolling at 200% zoom.",
+      "evidence": [
+        "At an effective 384px layout width, the document overflows by 187px.",
+        "Reflow content into one dimension or keep only intentionally scrollable data regions horizontal."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "main.flex-1",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Text-only resizing to 200% creates page-level horizontal overflow.",
+      "evidence": [
+        "Document exceeds the viewport by 23px after text resizing.",
+        "First non-scroll-contained offender: div.text-sm.",
+        "Root 791px/768px; body 791px/768px.",
+        "Furthest rendered edge: span.text-base at 791px."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.text-sm",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "button.flex",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "div.space-y-6",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "circle.drop-shadow-md",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-768x1024",
+      "selector": "html",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span.text-base",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 59.3px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Page requires horizontal scrolling at 200% zoom.",
+      "evidence": [
+        "At an effective 512px layout width, the document overflows by 59px.",
+        "Reflow content into one dimension or keep only intentionally scrollable data regions horizontal."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.space-y-3",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Text-only resizing to 200% creates page-level horizontal overflow.",
+      "evidence": [
+        "Document exceeds the viewport by 75px after text resizing.",
+        "First non-scroll-contained offender: span.",
+        "Root 1099px/1024px; body 1099px/1024px.",
+        "Furthest rendered edge: main.flex-1 at 1099px."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "button.flex",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "div.space-y-6",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "circle.drop-shadow-md",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1024x768",
+      "selector": "html",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span.text-base",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span.text-xs",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-011",
+      "severity": "error",
+      "message": "Rendered text does not meet the minimum contrast ratio.",
+      "evidence": [
+        "Measured 3.75:1; required 4.5:1 for normal text.",
+        "Computed foreground lab(48.0876 -2.03595 -16.5814); effective background rgb(15, 23, 42).",
+        "Use data-ztothez-design-allow-contrast only when a separate verified method covers a background this sampler cannot model."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "span",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "warning",
+      "message": "Button-like target meets the 24px minimum but is smaller than the 44px touch recommendation.",
+      "evidence": [
+        "Effective target size is 223px by 40px."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-012",
+      "severity": "error",
+      "message": "Interactive target is smaller than 24 by 24 CSS pixels.",
+      "evidence": [
+        "Effective target size is 59.3px by 16px, including an associated label when present.",
+        "Increase the target or label hit area. Use data-ztothez-design-allow-small-target only for a documented standards exception."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-015",
+      "severity": "error",
+      "message": "Content is clipped when text is resized to 200%.",
+      "evidence": [
+        "Rendered box 223px by 60px; content requires 264px by 60px.",
+        "Allow the container to grow or wrap without losing text or controls."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "button.flex",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "div.space-y-6",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "A long motion-capable transition remains configured with reduced motion enabled.",
+      "evidence": [
+        "Computed transition property all exceeds 200ms.",
+        "Use a reduced-motion media query to remove transform and positional transitions."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "circle.drop-shadow-md",
+      "journey": "overview-integrity"
+    },
+    {
+      "checkId": "ZTDE-RUNTIME-016",
+      "severity": "warning",
+      "message": "Smooth scrolling remains enabled with reduced motion enabled.",
+      "evidence": [
+        "Set scroll-behavior to auto in prefers-reduced-motion contexts."
+      ],
+      "viewport": "custom-1440x1000",
+      "selector": "html",
+      "journey": "overview-integrity"
+    }
+  ],
+  "summary": {
+    "errors": 62,
+    "warnings": 32,
+    "info": 0
+  },
+  "passed": false
+}

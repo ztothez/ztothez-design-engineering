@@ -1,0 +1,365 @@
+{
+  "version": "1.0",
+  "screenshots": [
+    {
+      "name": "custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "387ff47e6d5aa30b454c125b068d54a908d7a4df05e582f494999d7db5fe8bc1",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "415b3db5bcae0d39a5c677c91712ce4d901c8d6b9b25f019e8e5b179c41e0c0b",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "8f6e1f42a84673efca00c677886249f2fff3c803cc688c9411cb70accceadd72",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "c8559bebc6699a98bccbb67e282988e57ec5113da27d8102c3dbed4dca4726cc",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-demo-success-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "80ac83cef24c323b42c6e1b5600a2a4b80da34226a82c2df947f84a2bc3150e8",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-demo-success-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "a0c1a67f3b09fe60e1d5b0fab20aec1d4583be6da4608a63c7d1edf73e589677",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-demo-success-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "cb16a5f2fa7884d05e4fe99657371d879f8d8b92a6ba0d13817b46e0b604698c",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-demo-success-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "64275e778abaf55e1bcfc18c9327a1e910fe0ea63d27a58c55e711711772ac44",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-live-connected-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "7e4cf6b04d4ed09818839113519cdd4fab56f0faa3c8c0baf4ac93d3a9121a2c",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-live-connected-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "e77f92b0fef6b22ef184589145218fa5395c37281a5d784b2a421495b8154f1e",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-live-connected-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "e4caae2316f1a798169b689eefd32d6c86d16f0a64439dd41ea7586c5bfc6a0d",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-live-connected-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "177980a524fb8d43f464051ae9872b3f96414d75d9c3e208f789d44a3ff80aca",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-slow-analysis-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "6d70c374e6c5e40705a19db9c52993d2510e4a7dabb73e83de7edc95e4c2acbe",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-slow-analysis-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "e9b4559f6a923d7209e9e57e139c557632ac555d6681f4711e2da1bd1851838f",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-slow-analysis-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "55e8d80f245bff310928d1448d07455a831a65ec27abdd80df343dec71d318bf",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-slow-analysis-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "a6abd80b807b1175eae88eaf17ca76eaace56cb855c2238c48d82031eb5e0d04",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-backend-failure-fallback-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "459207be0996483f1761f3d6844e41eb24edeb91b699065551d4699a4fce33b4",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-backend-failure-fallback-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "70c9c79fde2c5922130b55da4c6671e9d6c0bef75c2d3f91849102139152772b",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-backend-failure-fallback-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "8d0507f3507beaf0ecdde825b9de50635c9e86d49aae7237ea5cb81c7d31161d",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-backend-failure-fallback-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "8412111286ef56f1ebdb2a9d51052d1730d704ea4ff4e83697cd3df705fdbb4d",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-disconnected-recovery-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "3167fd5a78827f8a0ebe60d3eaa47c99c5e8ba99a675cc7d365ca9403c6648f3",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-disconnected-recovery-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "f77d5fd46c3239ddb30ec6b4b4cb0e9a2ddce31aa7c8595844dcceb67aa1f3f1",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-disconnected-recovery-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "30addb7e17206f3b084629dcd0ea7577df4ca1c2a92b54f6449b0b469bfb1818",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-disconnected-recovery-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "6095122e5eb54f83a17015d225add053afc791cd8b1c39967c670bfc3194e9b8",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-partial-result-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "d49cb7d800a27772d358c0267092908727d1a0b5c7844e327ba6a8aab0b04509",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-partial-result-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "fa4fa2cbe31ca960669b1cae9e73db3bc4bd0ecd591daacd5f017c94a4e15e81",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-partial-result-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "012dce138d7c749be4686f923d66123f6607a386253e3f68f871ba5517b89adc",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-partial-result-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "5b4e2e205c2084a6f7846709b07c19c0347e857631b89c2457e18e0c0bc92b2f",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-stale-result-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "294af54248ea67d4b40560cfe34decf8bfd7443eaf3d1f2a7e203e97e010d991",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-stale-result-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "93c9f838dc5d4a58a190bc1950b75c3a83b325ec5f46f1ee1c164f8849d24138",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-stale-result-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "00c4a65dfa9e076a0228ca96f5f9f07b9fb839db4bbffb0ad7ea1d3eb4ebe3e9",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-stale-result-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "ee32040c00c6bd9461303dc45a6b01c8a330f755aeb815941e6c604ced3463cc",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-finding-detail-history-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "8cc2d1507e2999debd3341306d74a19e4cdf6a811698b68c2eff7c332bdeb777",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-finding-detail-history-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "1e8d71b1be8f33990882efa3daaffe8b886424986b19bee687cbe5d295cfc731",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-finding-detail-history-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "5c2b22e26472d1bd5aa7f8ab5195aab2d7a37fc023789cbcb64c02aed9af557b",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-finding-detail-history-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "06a5e29eb705f7e795cfb737c769ebddb4d1e9dc9f5c33bd91a0ab6b9553c3a9",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-export-provenance-custom-375x812",
+      "width": 375,
+      "height": 812,
+      "sha256": "9477bcbf4fcbfaefed38d855629223d4afdebd6c12f77374aefae9f5906cb813",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-export-provenance-custom-768x1024",
+      "width": 768,
+      "height": 1024,
+      "sha256": "eed7ca0f125a61b021fa448065267b08985185afa6751934327efb489a926a7e",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-export-provenance-custom-1024x768",
+      "width": 1024,
+      "height": 768,
+      "sha256": "e5545e18e0b017cdcabf8b9af556541df0f6303bafa1d1885fde09c639694c58",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    },
+    {
+      "name": "journey-export-provenance-custom-1440x1000",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "cc69bc9589621a4fd1b29bdfcce24a700b3ef6d6d55ffb3f3eba1ce4b3fe4bc6",
+      "dynamicSelectors": [
+        ".dynamic-value"
+      ]
+    }
+  ]
+}

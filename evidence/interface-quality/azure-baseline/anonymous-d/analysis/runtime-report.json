@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "url": "http://localhost:3104/",
+  "generatedAt": "2026-08-26T14:58:19.517Z",
+  "browser": "Chromium 151.0.7922.108",
+  "outputDirectory": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/analysis",
+  "viewports": [
+    {
+      "name": "custom-1440x1000",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/analysis/custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    },
+    {
+      "name": "journey-run-ztothez-analysis-custom-1440x1000",
+      "path": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/analysis/journey-run-ztothez-analysis-custom-1440x1000.png",
+      "width": 1440,
+      "height": 1000,
+      "fullPage": true
+    }
+  ],
+  "journeys": [
+    {
+      "name": "run-ztothez-analysis",
+      "passed": false,
+      "stepsCompleted": 2,
+      "totalSteps": 3,
+      "evidence": [],
+      "screenshot": "/home/ztothez/Studio/experiments/UIX-Design-Skill/evidence/interface-quality/azure-baseline/anonymous-d/analysis/journey-run-ztothez-analysis-custom-1440x1000.png"
+    }
+  ],
+  "expectedNetwork": [],
+  "findings": [
+    {
+      "checkId": "ZTDE-RUNTIME-008",
+      "severity": "error",
+      "message": "Journey failed at step 3 (expectText).",
+      "evidence": [
+        "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('body').filter({ hasText: 'Operating in verified local demonstration mode' }) to be visible\u001b[22m\n"
+      ],
+      "journey": "run-ztothez-analysis",
+      "selector": "body"
+    }
+  ],
+  "summary": {
+    "errors": 1,
+    "warnings": 0,
+    "info": 0
+  },
+  "passed": false
+}
