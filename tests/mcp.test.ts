@@ -58,6 +58,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_product_design_brief"));
+    assert.ok(tools.tools.some((tool) => tool.name === "compile_design_plan"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
     assert.ok(tools.tools.some((tool) => tool.name === "list_portfolio_projects"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_portfolio_benchmark_report"));
@@ -256,6 +257,19 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(productBriefReport?.sourcePath, "product-design-brief.template.yaml");
     assert.equal(productBriefReport?.coverage?.tasks, 1);
     assert.equal(productBriefReport?.coverage?.states, 7);
+
+    const designPlan = await client.callTool({
+      name: "compile_design_plan",
+      arguments: { briefFile: "product-design-brief.template.yaml" },
+    });
+    const designPlanReport = designPlan.structuredContent as
+      | { status?: unknown; planningReady?: unknown; implementationReady?: unknown; routes?: unknown[] }
+      | undefined;
+    assert.equal(designPlan.isError, undefined);
+    assert.equal(designPlanReport?.status, "provisional");
+    assert.equal(designPlanReport?.planningReady, true);
+    assert.equal(designPlanReport?.implementationReady, false);
+    assert.equal(designPlanReport?.routes?.length, 1);
 
     const deniedProductBrief = await client.callTool({
       name: "validate_product_design_brief",

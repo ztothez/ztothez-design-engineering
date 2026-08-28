@@ -83,6 +83,14 @@ jobs:
           npm run validate-brief -- \
             --brief knowledge-base/design-intelligence/product-design-brief.template.yaml
 
+      - name: Compile deterministic design plan
+        run: |
+          node dist/cli/compile-plan.js \
+            --brief knowledge-base/design-intelligence/product-design-brief.template.yaml \
+            --project-root . \
+            --json > .ztothez-design-plan.json
+          node -e 'const plan = require("./.ztothez-design-plan.json"); if (plan.status !== "provisional" || !plan.planningReady || plan.implementationReady) process.exit(1)'
+
       - name: Validate design intelligence template
         run: |
           npm run validate-design -- \

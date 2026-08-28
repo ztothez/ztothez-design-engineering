@@ -49,6 +49,13 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/design-intelligence/product-design-brief.md
     maxRank: 1
+  - id: deterministic-design-plan-compiler
+    query: deterministic design plan compiler traceability route component state ownership downstream contracts implementation readiness
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/design-plan.md
+    maxRank: 1
   - id: operational-information-decisions
     query: metric formula source freshness baseline finding evidence impact next action verification decorative chart large collection
     categories:

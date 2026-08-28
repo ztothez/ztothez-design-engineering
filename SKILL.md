@@ -90,6 +90,24 @@ primary task path. Read `knowledge-base/design-intelligence/product-design-brief
    planning only when `generationReady` is true. Continue to require downstream architecture,
    trust, information, design, implementation, browser, and release evidence.
 
+## Design Plan Compilation Workflow
+
+Use this workflow after brief validation and before generating production UI. Read
+`knowledge-base/design-intelligence/design-plan.md`.
+
+1. Run `compile_design_plan` or `zz-design compile-plan --brief PATH --project-root ROOT --json`.
+2. Inspect every decision, route, boundary, state owner, contract result, token role, responsive
+   rule, asset requirement, stage, verification obligation, and trace reference.
+3. Treat `blocked` as a stop. Treat `provisional` as permission to author or confirm the named
+   downstream contracts, not as permission to invent them. Target-route mapping remains an adapter
+   responsibility in the implementation stage.
+4. Require declared existing product-task, interface-trust, information-design, and
+   design-deliverable contracts to pass their maintained validators inside the allowed root.
+5. Recompile after evidence changes. The same brief and compiler version must produce the same
+   artifact. Do not edit generated decisions to hide blockers; change the source evidence instead.
+6. Begin implementation only when `implementationReady` is true. Planning readiness and a valid
+   schema do not prove rendered, runtime, usability, human-review, or release readiness.
+
 ## Interface Trust Workflow
 
 Use this workflow before implementing any interface that shows external data, operational status, generated analysis, cached or imported results, environment labels, history, or exports. Read `knowledge-base/design-intelligence/interface-trust.md` and start from `interface-trust.template.yaml` when a formal contract is needed.

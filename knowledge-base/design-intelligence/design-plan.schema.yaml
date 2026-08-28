@@ -1,0 +1,621 @@
+$schema: http://json-schema.org/draft-07/schema#
+type: object
+properties:
+  version:
+    type: string
+    const: "1.0"
+  compilerVersion:
+    type: string
+    pattern: ^\d+\.\d+\.\d+$
+  id:
+    type: string
+    pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+  product:
+    type: string
+    minLength: 1
+    maxLength: 2048
+  sourceBrief:
+    type: object
+    properties:
+      id:
+        type: string
+        pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      version:
+        type: string
+        const: "1.0"
+      file:
+        type: string
+        minLength: 1
+        maxLength: 2048
+      digest:
+        type: string
+        pattern: ^[a-f0-9]{64}$
+      generationReady:
+        type: boolean
+    required:
+      - id
+      - version
+      - file
+      - digest
+      - generationReady
+    additionalProperties: false
+  status:
+    type: string
+    enum:
+      - blocked
+      - provisional
+      - ready
+  planningReady:
+    type: boolean
+  implementationReady:
+    type: boolean
+  traces:
+    minItems: 1
+    maxItems: 10000
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        kind:
+          type: string
+          enum:
+            - brief
+            - standard
+            - assumption
+        reference:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        description:
+          type: string
+          minLength: 1
+          maxLength: 2048
+      required:
+        - id
+        - kind
+        - reference
+        - description
+      additionalProperties: false
+  decisions:
+    minItems: 1
+    maxItems: 10000
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        status:
+          type: string
+          enum:
+            - confirmed
+            - provisional
+            - blocked
+        statement:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        rationale:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - status
+        - statement
+        - rationale
+        - traceRefs
+      additionalProperties: false
+  informationArchitecture:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        order:
+          type: integer
+          minimum: 1
+          maximum: 9007199254740991
+        label:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        purpose:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        contentRefs:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - order
+        - label
+        - purpose
+        - contentRefs
+        - traceRefs
+      additionalProperties: false
+  routes:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        path:
+          type: string
+          pattern: ^\/[a-z0-9/-]*$
+        taskRef:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        status:
+          type: string
+          enum:
+            - confirmed
+            - provisional
+            - blocked
+        purpose:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - path
+        - taskRef
+        - status
+        - purpose
+        - traceRefs
+      additionalProperties: false
+  components:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        taskRef:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        boundary:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        responsibility:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        ownsState:
+          maxItems: 20
+          type: array
+          items:
+            type: string
+        inputs:
+          maxItems: 30
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        outputs:
+          maxItems: 30
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - taskRef
+        - boundary
+        - responsibility
+        - ownsState
+        - inputs
+        - outputs
+        - traceRefs
+      additionalProperties: false
+  stateOwnership:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        state:
+          type: string
+        taskRefs:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        ownerComponentRef:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        behavior:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        recovery:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        disclosure:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - state
+        - taskRefs
+        - ownerComponentRef
+        - behavior
+        - recovery
+        - disclosure
+        - traceRefs
+      additionalProperties: false
+  contracts:
+    minItems: 4
+    maxItems: 4
+    type: array
+    items:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum:
+            - product-task
+            - interface-trust
+            - information-design
+            - design-deliverable
+        declaration:
+          type: string
+          enum:
+            - planned
+            - exists
+            - not-applicable
+        validation:
+          type: string
+          enum:
+            - planned
+            - validated
+            - invalid
+            - not-applicable
+        source:
+          type: string
+          maxLength: 1024
+        passed:
+          type: boolean
+        findings:
+          type: integer
+          minimum: 0
+          maximum: 9007199254740991
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - kind
+        - declaration
+        - validation
+        - passed
+        - findings
+        - reason
+        - traceRefs
+      additionalProperties: false
+  tokenRequirements:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        category:
+          type: string
+          enum:
+            - color
+            - typography
+            - spacing
+            - shape
+            - motion
+            - data-visualization
+        roles:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        rule:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - category
+        - roles
+        - rule
+        - traceRefs
+      additionalProperties: false
+  responsiveBehavior:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        platformRef:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        viewports:
+          minItems: 1
+          type: array
+          items:
+            type: integer
+            minimum: 240
+            maximum: 9007199254740991
+        inputModes:
+          minItems: 1
+          type: array
+          items:
+            type: string
+        rules:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - platformRef
+        - viewports
+        - inputModes
+        - rules
+        - traceRefs
+      additionalProperties: false
+  assets:
+    type: object
+    properties:
+      status:
+        type: string
+        enum:
+          - confirmed
+          - provisional
+          - blocked
+      requirements:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+            purpose:
+              type: string
+              minLength: 1
+              maxLength: 2048
+            rightsRequired:
+              type: boolean
+            alternativesRequired:
+              type: boolean
+            traceRefs:
+              minItems: 1
+              maxItems: 100
+              type: array
+              items:
+                type: string
+                pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+          required:
+            - id
+            - purpose
+            - rightsRequired
+            - alternativesRequired
+            - traceRefs
+          additionalProperties: false
+      rule:
+        type: string
+        minLength: 1
+        maxLength: 2048
+      traceRefs:
+        minItems: 1
+        maxItems: 100
+        type: array
+        items:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+    required:
+      - status
+      - requirements
+      - rule
+      - traceRefs
+    additionalProperties: false
+  implementationStages:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        order:
+          type: integer
+          minimum: 1
+          maximum: 9007199254740991
+        name:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        exitCondition:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        status:
+          type: string
+          enum:
+            - confirmed
+            - provisional
+            - blocked
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - order
+        - name
+        - exitCondition
+        - status
+        - traceRefs
+      additionalProperties: false
+  verificationObligations:
+    minItems: 1
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        acceptanceCriterionRef:
+          type: string
+          pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        taskRefs:
+          minItems: 1
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+        method:
+          type: string
+        blocking:
+          type: boolean
+        expectedEvidence:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        traceRefs:
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z0-9][a-z0-9-]{0,127}$
+      required:
+        - id
+        - acceptanceCriterionRef
+        - taskRefs
+        - method
+        - blocking
+        - expectedEvidence
+        - traceRefs
+      additionalProperties: false
+  blockers:
+    type: array
+    items:
+      type: string
+      minLength: 1
+      maxLength: 2048
+  limitations:
+    minItems: 1
+    type: array
+    items:
+      type: string
+      minLength: 1
+      maxLength: 2048
+required:
+  - version
+  - compilerVersion
+  - id
+  - product
+  - sourceBrief
+  - status
+  - planningReady
+  - implementationReady
+  - traces
+  - decisions
+  - informationArchitecture
+  - routes
+  - components
+  - stateOwnership
+  - contracts
+  - tokenRequirements
+  - responsiveBehavior
+  - assets
+  - implementationStages
+  - verificationObligations
+  - blockers
+  - limitations
+additionalProperties: false

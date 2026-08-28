@@ -12,7 +12,7 @@ Work in `/home/ztothez/Studio/experiments/UIX-Design-Skill`.
 
 ## Current Roadmap State
 
-V1, V2, and V3 are Done. V4 Item 1 is the active implementation slice. The passing local V3
+V1, V2, and V3 are Done. V4 Items 1 and 2 are Done; Item 3 is the next implementation slice. The passing local V3
 qualification is retained under the ignored V3 evidence root and can be regenerated with
 `npm run v3:evidence`.
 

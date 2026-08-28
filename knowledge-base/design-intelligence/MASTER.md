@@ -7,15 +7,17 @@ Use this maintained module set when a request needs product intake, interface tr
 For an interface system, use this order and record every stage in `design-deliverable.yaml`:
 
 1. Validate the product evidence and generation boundary from `product-design-brief.template.yaml`.
-2. Validate the product task and product contract.
-3. Create and validate the truth and data-source contract from `interface-trust.template.yaml`.
-4. Create and validate the information architecture from `information-design.template.yaml`.
-5. Declare the interaction and state model.
-6. Declare the visual direction using `visual-polish.md`.
-7. Build primitive, semantic, and component token layers.
-8. Implement the smallest coherent task path.
-9. Attach deterministic automated verification evidence.
-10. Request attributable human visual review of rendered output.
+2. Compile the brief with `compile_design_plan`, then resolve provisional contract decisions and
+   preserve route mapping for the target adapter.
+3. Validate the product task and product contract.
+4. Create and validate the truth and data-source contract from `interface-trust.template.yaml`.
+5. Create and validate the information architecture from `information-design.template.yaml`.
+6. Declare the interaction and state model.
+7. Declare the visual direction using `visual-polish.md`.
+8. Build primitive, semantic, and component token layers.
+9. Implement the smallest coherent task path.
+10. Attach deterministic automated verification evidence.
+11. Request attributable human visual review of rendered output.
 
 Before this sequence, inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested. During it, route to the smallest relevant modules, record rights evidence for every distributable asset, and keep unresolved assets out of production output. A declaration validator cannot prove pixels, runtime behavior, legal clearance, usability, or human validation.
 
@@ -24,6 +26,7 @@ Before this sequence, inspect the existing brand, tokens, components, assets, ri
 | Deliverable | Read |
 |---|---|
 | New product, consequential redesign, audience, task, data, assumptions, or generation readiness | `product-design-brief.md` |
+| Deterministic planning, route proposals, component and state ownership, contract readiness, or verification obligations | `design-plan.md` |
 | Operational state, external data, generated results, fallback, history, or export provenance | `interface-trust.md` |
 | Operational metrics, findings, charts, hierarchy, long labels, or large collections | `information-design.md` |
 | Visual direction, typography, composition, density, states, motion, charts, or rendered visual review | `visual-polish.md` |

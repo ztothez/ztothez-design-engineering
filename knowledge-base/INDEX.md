@@ -233,6 +233,19 @@ npm run validate-brief -- --brief PATH_TO_PRODUCT_DESIGN_BRIEF
 
 The brief validator checks evidence-backed problems and primary audiences, measurable outcomes, task recovery, data and fallback truth, applicable states, platforms, unresolved assumptions, requirements, and acceptance coverage. Generation readiness authorizes planning only.
 
+Compile a generation-ready brief through MCP with `compile_design_plan`, or through CLI:
+
+```bash
+npm run compile-plan -- --brief PATH_TO_PRODUCT_DESIGN_BRIEF --project-root . --json
+```
+
+Read `design-intelligence/design-plan.md` and validate machine output against
+`design-intelligence/design-plan.schema.yaml`. The compiler produces stable information
+architecture, route proposals, component and state boundaries, downstream contract results,
+semantic token requirements, responsive rules, asset policy, implementation stages, verification
+obligations, and source traces. Planned contracts stay provisional; target-router integration is
+verified by the later generation adapter.
+
 For operational claims, generated results, fallback, stale or disconnected behavior, history, or exports, start from `design-intelligence/interface-trust.template.yaml` and use `design-intelligence/interface-trust.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/interface-trust.md`, then validate through MCP with `validate_interface_trust`, or through CLI:
 
 ```bash

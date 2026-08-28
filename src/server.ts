@@ -37,6 +37,9 @@ import { loadDesignDeliverable } from "./design-intelligence/loader.js";
 import { formatDesignDeliverableReport } from "./design-intelligence/report.js";
 import { designDeliverableReportSchema } from "./design-intelligence/schema.js";
 import { validateDesignDeliverable } from "./design-intelligence/validator.js";
+import { compileDesignPlan } from "./design-plan/compiler.js";
+import { formatDesignPlan } from "./design-plan/report.js";
+import { designPlanSchema } from "./design-plan/schema.js";
 import { formatQualityGateReport } from "./quality-gate/report.js";
 import { runQualityGate } from "./quality-gate/runner.js";
 import { qualityGateReportSchema } from "./quality-gate/schema.js";
@@ -1020,6 +1023,54 @@ server.registerTool(
     } catch (error) {
       const message = errorMessage(error);
       console.error(`[validate_product_design_brief] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "compile_design_plan",
+  {
+    title: "Compile design plan",
+    description:
+      "Compiles a version 1.0 product design brief into a deterministic and fully traceable information architecture, route proposal, component and state boundaries, downstream contract status, semantic token requirements, responsive behavior, asset policy, implementation stages, and verification obligations. Planned or invalid evidence remains provisional or blocked.",
+    inputSchema: {
+      briefFile: z
+        .string()
+        .trim()
+        .min(1)
+        .max(4_096)
+        .describe(
+          "Absolute path or configured-root-relative brief. The brief and existing downstream contracts must remain within a root listed in ZTOTHEZ_DESIGN_BRIEF_ROOTS.",
+        ),
+    },
+    outputSchema: designPlanSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ briefFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedProductDesignBrief(briefFile);
+      const roots = await configuredProductBriefRoots();
+      const projectRoot = roots.find((root) => isPathContained(root, resolvedFile));
+      if (!projectRoot) throw new Error("The product design brief has no configured compilation root");
+      const brief = await loadProductDesignBrief(resolvedFile);
+      const plan = await compileDesignPlan(brief, { briefSourcePath: resolvedFile, projectRoot });
+      return {
+        content: [{ type: "text" as const, text: formatDesignPlan(plan) }],
+        structuredContent: plan,
+        ...(plan.status === "blocked" ? { isError: true } : {}),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[compile_design_plan] ${message}`);
       return {
         isError: true,
         content: [{ type: "text" as const, text: message }],

@@ -108,6 +108,7 @@ The release archive is checked against an explicit distribution allowlist and in
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
 | `get_design_intelligence` | List or read maintained brand, asset, icon, presentation, licensing, and visual-accessibility modules. |
 | `validate_product_design_brief` | Validate evidence-backed product intent, primary audiences, outcomes, tasks, data, states, assumptions, requirements, and generation readiness. |
+| `compile_design_plan` | Deterministically compile a valid brief into traceable architecture, contract, token, responsive, asset, stage, and verification decisions. |
 | `validate_design_deliverable` | Validate visual polish, semantic tokens, responsive composition, states, motion, charts, evidence readiness, contrast, provenance, icons, and presentations. |
 | `validate_interface_trust` | Validate operational claims, source traceability, fallback and stale states, disconnected recovery, and history or export provenance. |
 | `validate_information_design` | Validate metrics, findings, chart decisions, value states, large collections, operational hierarchy, and answer-flow tasks. |
@@ -197,6 +198,18 @@ npm run validate-brief -- \
 ```
 
 The installed CLI provides the same report with `zz-design validate-brief --brief PATH`.
+
+Compile the validated brief into a deterministic, traceable design plan:
+
+```bash
+npm run compile-plan -- \
+  --brief knowledge-base/design-intelligence/product-design-brief.template.yaml \
+  --project-root . \
+  --json
+```
+
+The installed CLI equivalent is `zz-design compile-plan`. Planned downstream contracts remain
+provisional rather than being reported as implementation-ready.
 
 Validate a design-intelligence deliverable:
 
@@ -377,4 +390,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. The active generation-quality program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 and 2 implement evidence-gated product briefs and deterministic design-plan compilation. The remaining generation-quality program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).

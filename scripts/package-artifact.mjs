@@ -74,6 +74,7 @@ export async function expectedKnowledgePaths() {
     "knowledge-base/retrieval-scope.yaml",
     "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
     "knowledge-base/design-intelligence/design-deliverable.template.yaml",
+    "knowledge-base/design-intelligence/design-plan.schema.yaml",
     "knowledge-base/design-intelligence/interface-trust.schema.yaml",
     "knowledge-base/design-intelligence/interface-trust.template.yaml",
     "knowledge-base/design-intelligence/information-design.schema.yaml",

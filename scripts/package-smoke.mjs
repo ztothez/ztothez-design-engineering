@@ -76,6 +76,20 @@ try {
     ]),
   );
   assert.equal(briefCli.generationReady, true);
+  const compiledPlan = JSON.parse(
+    runNode([
+      cliPath,
+      "compile-plan",
+      "--brief",
+      join(installedRoot, "knowledge-base", "design-intelligence", "product-design-brief.template.yaml"),
+      "--project-root",
+      installedRoot,
+      "--json",
+    ]),
+  );
+  assert.equal(compiledPlan.status, "provisional");
+  assert.equal(compiledPlan.planningReady, true);
+  assert.equal(compiledPlan.implementationReady, false);
 
   const client = new Client({ name: "packed-install-smoke", version: "1.0.0" });
   const transport = new StdioClientTransport({
@@ -122,6 +136,7 @@ try {
     for (const [file, heading] of [
       ["interface-trust.md", /Interface Trust And Data Provenance/],
       ["information-design.md", /Operational Information Design/],
+      ["design-plan.md", /Deterministic Design Plan Compiler/],
       ["product-design-brief.md", /Product Design Brief Contract/],
       ["visual-polish.md", /Visual Polish System/],
     ]) {
@@ -217,6 +232,17 @@ try {
     assert.equal(brief.structuredContent?.passed, true);
     assert.equal(brief.structuredContent?.generationReady, true);
     assert.equal(brief.structuredContent?.coverage?.tasks, 1);
+
+    const designPlan = await client.callTool({
+      name: "compile_design_plan",
+      arguments: {
+        briefFile: "knowledge-base/design-intelligence/product-design-brief.template.yaml",
+      },
+    });
+    assert.equal(designPlan.isError, undefined);
+    assert.equal(designPlan.structuredContent?.status, "provisional");
+    assert.equal(designPlan.structuredContent?.planningReady, true);
+    assert.equal(designPlan.structuredContent?.implementationReady, false);
   } catch (error) {
     const detail = serverDiagnostics.trim();
     throw new Error(

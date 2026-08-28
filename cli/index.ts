@@ -23,6 +23,11 @@ async function main(): Promise<void> {
     process.exitCode = await runValidateBriefCli(argumentsList.slice(1));
     return;
   }
+  if (argumentsList[0] === "compile-plan") {
+    const { runCompilePlanCli } = await import("./compile-plan.js");
+    process.exitCode = await runCompilePlanCli(argumentsList.slice(1));
+    return;
+  }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
     writeHelp();
     return;

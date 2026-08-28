@@ -65,7 +65,23 @@ Completion criteria:
 
 ### 2. Design Plan Compiler
 
-Status: **Not started**
+Status: **Done**
+
+Implemented evidence: `src/design-plan/` compiles a generation-ready brief into a version 1.0
+plan with canonical source digest, compiler version, six-level information architecture,
+task-oriented routes, component and state ownership, downstream contract results, semantic token
+roles, responsive behavior, asset policy, staged implementation, verification obligations, and
+brief, standard, or assumption traces. The output has no compilation timestamp or absolute path,
+and repeated compilation of the same brief and compiler version is byte-structure deterministic.
+
+`zz-design compile-plan`, `npm run compile-plan`, and read-only MCP tool `compile_design_plan`
+produce the same plan. MCP brief paths use configured-root realpath containment; downstream paths
+must be project-relative and reject traversal and symlink escapes. Draft briefs and invalid existing contracts
+block planning or implementation; planned contracts remain provisional; implementation readiness
+requires all four applicable existing contract validators to pass. The portable schema, maintained
+guide, BM25 retrieval case, provenance, package allowlist, installed-package CLI and MCP smoke, CI
+compilation assertion, and deterministic, mutation, containment, and readiness tests retain the
+completion evidence.
 
 Compile a validated brief into an inspectable plan containing information architecture, decision
 hierarchy, routes, component boundaries, state ownership, trust and information contracts, token
@@ -191,4 +207,5 @@ Item 9 only after every prior completion criterion has retained evidence.
 
 ## Current Status
 
-Item 1 is Done. Items 2 through 9 are not started. The next target is Item 2: Design Plan Compiler.
+Items 1 and 2 are Done. Items 3 through 9 are not started. The next target is Item 3: Production UI
+Generation Adapters.

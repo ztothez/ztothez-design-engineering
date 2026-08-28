@@ -58,6 +58,8 @@ artifactSets:
       - knowledge-base/design-intelligence/brand-systems.md
       - knowledge-base/design-intelligence/design-deliverable.schema.yaml
       - knowledge-base/design-intelligence/design-deliverable.template.yaml
+      - knowledge-base/design-intelligence/design-plan.md
+      - knowledge-base/design-intelligence/design-plan.schema.yaml
       - knowledge-base/design-intelligence/figma-production.md
       - knowledge-base/design-intelligence/iconography.md
       - knowledge-base/design-intelligence/information-design.md
