@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
 import test from "node:test";
@@ -78,6 +78,87 @@ test("semantic CSS variables and media-query conditions are not raw design value
     );
     const report = await auditRepository(directory);
     assert.ok(report.findings.every((finding) => finding.ruleId !== "ZTDE-DESIGN-001"));
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("custom navigation components abstain while native clickable containers remain detectable", async () => {
+  const directory = await mkdtemp(resolve(tmpdir(), "ztde-interactive-boundary-"));
+  try {
+    await writeFile(
+      resolve(directory, "Navigation.tsx"),
+      [
+        'declare function NavigationLink(props: { to: string; onClick: () => void; children: string }): JSX.Element;',
+        "export function Navigation() {",
+        "  return (",
+        "    <>",
+        '      <NavigationLink to="/community" onClick={() => undefined}>Community</NavigationLink>',
+        "      <div onClick={() => undefined}>Open panel</div>",
+        "    </>",
+        "  );",
+        "}",
+      ].join("\n"),
+    );
+
+    const report = await auditRepository(directory, {
+      requiredPackageScripts: [],
+      requiredPackageScriptGroups: [],
+    });
+    const interactiveFindings = report.findings.filter(
+      (finding) => finding.ruleId === "ZTDE-SLOP-003",
+    );
+    assert.equal(interactiveFindings.length, 1);
+    assert.match(interactiveFindings[0]?.evidence[0] ?? "", /div declares/);
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("library selectors, fallback documents, and bounded accessibility geometry abstain", async () => {
+  const directory = await mkdtemp(resolve(tmpdir(), "ztde-design-boundary-"));
+  const sourceDirectory = resolve(directory, "src");
+  try {
+    await mkdir(sourceDirectory);
+    await writeFile(
+      resolve(sourceDirectory, "ChartAdapter.tsx"),
+      'export const chartClasses = "[&_.grid_[stroke=\'#ccc\']]:stroke-border [&_.label_[fill=\'#fff\']]:fill-foreground";\n',
+    );
+    await writeFile(
+      resolve(sourceDirectory, "Fallback.ts"),
+      'export const fallback = `<!doctype html><style>body { background: #fafafa; color: #111; padding: 24px; }</style>`;\n',
+    );
+    await writeFile(
+      resolve(sourceDirectory, "layout.css"),
+      [
+        "html { scroll-padding-top: 5rem; }",
+        "body { min-width: 320px; }",
+        "button { min-width: 44px; min-height: 44px; box-shadow: 0 0 0 2px var(--focus-ring); }",
+      ].join("\n"),
+    );
+
+    const report = await auditRepository(directory, {
+      requiredPackageScripts: [],
+      requiredPackageScriptGroups: [],
+    });
+    assert.ok(report.findings.every((finding) => finding.ruleId !== "ZTDE-DESIGN-001"));
+  } finally {
+    await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("ordinary authored raw styling remains detectable", async () => {
+  const directory = await mkdtemp(resolve(tmpdir(), "ztde-design-detection-"));
+  try {
+    await writeFile(
+      resolve(directory, "Panel.tsx"),
+      "export const panelStyle = { color: '#123456', padding: '24px', gap: '12px' };\n",
+    );
+    const report = await auditRepository(directory, {
+      requiredPackageScripts: [],
+      requiredPackageScriptGroups: [],
+    });
+    assert.ok(report.findings.some((finding) => finding.ruleId === "ZTDE-DESIGN-001"));
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

@@ -2,9 +2,9 @@ import type { AuditRule } from "../types.js";
 import { isTestOrStory, lineNumberForOffset } from "./helpers.js";
 
 const rawColorPattern = /#[0-9a-fA-F]{3,8}\b|\brgba?\([^)]*\)|\bhsla?\([^)]*\)/g;
-const rawDimensionPattern = /\b(?:margin|padding|gap|inset|top|right|bottom|left|width|height|minWidth|minHeight|maxWidth|maxHeight|min-width|min-height|max-width|max-height|borderRadius|border-radius|fontSize|font-size|lineHeight|line-height)\b\s*[:=]\s*["']?(-?\d+(?:[.]\d+)?(?:px|rem|em|ch|vh|vw))\b/gi;
+const rawDimensionPattern = /(?<![-\w])(?:margin|padding|gap|inset|top|right|bottom|left|width|height|minWidth|minHeight|maxWidth|maxHeight|min-width|min-height|max-width|max-height|borderRadius|border-radius|fontSize|font-size|lineHeight|line-height)\b\s*[:=]\s*["']?(-?\d+(?:[.]\d+)?(?:px|rem|em|ch|vh|vw))\b/gi;
 const rawDurationPattern = /\b(?:transitionDuration|animationDuration|transition-duration|animation-duration|duration)\b\s*[:=]\s*["']?(\d+(?:[.]\d+)?(?:ms|s))\b/gi;
-const rawShadowPattern = /\b(?:boxShadow|box-shadow)\b\s*[:=]\s*["']?([^;\n}]+)/gi;
+const rawShadowPattern = /\b(?:boxShadow|box-shadow)\b\s*[:=]\s*["']?([^;"'\n}]+)/gi;
 const rawFontPattern = /\b(?:fontFamily|font-family)\b\s*[:=]\s*["']([^"'\n]+)["']/gi;
 
 function isTokenFile(relativePath: string): boolean {
@@ -15,6 +15,28 @@ function isGeneratedMediaSource(content: string): boolean {
   return /CanvasRenderingContext|\bctx\.(?:fillStyle|strokeStyle)|\.getContext\(["']2d["']\)|create(?:Linear|Radial)Gradient/.test(
     content,
   );
+}
+
+function isStandaloneFallbackDocument(content: string): boolean {
+  return /<!doctype\s+html/i.test(content) && /<style(?:\s|>)/i.test(content);
+}
+
+function isWithinLibraryOutputSelector(content: string, index: number): boolean {
+  const lineStart = content.lastIndexOf("\n", index) + 1;
+  const selectorStart = content.lastIndexOf("[&", index);
+  if (selectorStart < lineStart) return false;
+
+  let depth = 0;
+  for (let offset = selectorStart; offset < index; offset += 1) {
+    if (content[offset] === "[") depth += 1;
+    if (content[offset] === "]") depth -= 1;
+  }
+  return depth > 0;
+}
+
+function isIntrinsicAccessibilityGeometry(rawValue: string): boolean {
+  const normalized = rawValue.toLowerCase().replace(/[\s"']/g, "");
+  return /^(?:min-width|min-height):(44|48)px$/.test(normalized) || normalized === "min-width:320px";
 }
 
 function cssCommentRanges(content: string): Array<{ start: number; end: number }> {
@@ -30,7 +52,8 @@ export const rawDesignValuesRule: AuditRule = {
     if (
       isTokenFile(file.relativePath) ||
       isTestOrStory(file.relativePath) ||
-      isGeneratedMediaSource(file.content)
+      isGeneratedMediaSource(file.content) ||
+      isStandaloneFallbackDocument(file.content)
     ) {
       return [];
     }
@@ -54,6 +77,12 @@ export const rawDesignValuesRule: AuditRule = {
       ) {
         return false;
       }
+      if (
+        isWithinLibraryOutputSelector(file.content, match.index) ||
+        isIntrinsicAccessibilityGeometry(match[0])
+      ) {
+        return false;
+      }
       if (file.extension !== ".css") {
         return true;
       }
@@ -64,7 +93,7 @@ export const rawDesignValuesRule: AuditRule = {
       if (/^--[a-zA-Z0-9_-]+\s*:/.test(line) || /^@media\b/.test(line)) {
         return false;
       }
-      return !/\b(?:box-shadow|font-family)\s*:\s*var\(/i.test(match[0]);
+      return !/\b(?:box-shadow|font-family)\s*:\s*[^;\n}]*var\(/i.test(match[0]);
     });
 
     if (matches.length < policy.rawColorWarningCount) {

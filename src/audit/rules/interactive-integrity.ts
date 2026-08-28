@@ -98,7 +98,19 @@ export const interactiveIntegrityRule: AuditRule = {
           remediation:
             "Use a native button. If a custom control is unavoidable, provide click, Enter or Space keyboard behavior, and tabIndex=0.",
         });
-      } else if (role !== "button" && hasClick && !hasKeyboard) {
+        return;
+      }
+
+      // A custom JSX component may render an accessible link or control internally. Without an
+      // explicit role, static inspection cannot safely infer its resulting DOM semantics.
+      const isIntrinsicElement = /^[a-z][a-z0-9]*$/.test(tag);
+      if (!isIntrinsicElement) return;
+
+      const nativeInteractiveTags = new Set(["input", "option", "select", "summary", "textarea"]);
+      const isAnchorWithHref = tag === "a" && hasAnyAttribute(attributes, ["href"]);
+      if (nativeInteractiveTags.has(tag) || isAnchorWithHref) return;
+
+      if (role !== "button" && hasClick && !hasKeyboard) {
         findings.push({
           ruleId: this.id,
           severity: "warning",
