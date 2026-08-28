@@ -211,6 +211,23 @@ npm run compile-plan -- \
 The installed CLI equivalent is `zz-design compile-plan`. Planned downstream contracts remain
 provisional rather than being reported as implementation-ready.
 
+Generate a new independent React and TypeScript fixture from a ready plan:
+
+```bash
+mkdir -p .ztothez-design-generated
+zz-design generate-react \
+  --plan path/to/ready-design-plan.json \
+  --generation-root .ztothez-design-generated \
+  --output .ztothez-design-generated/example-app \
+  --portfolio-registry .ztothez-design-local/portfolio-registry.yaml \
+  --json
+```
+
+The output directory must not exist. Generation fails when the plan is not implementation-ready,
+the registry is invalid, a path is symlinked or escaping, or the target overlaps a read-only
+portfolio root. Version 1.0 creates a new independent fixture only; it does not patch an existing
+repository. See `knowledge-base/design-intelligence/generation-adapter.md`.
+
 Validate a design-intelligence deliverable:
 
 ```bash

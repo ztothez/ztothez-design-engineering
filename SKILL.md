@@ -108,6 +108,31 @@ Use this workflow after brief validation and before generating production UI. Re
 6. Begin implementation only when `implementationReady` is true. Planning readiness and a valid
    schema do not prove rendered, runtime, usability, human-review, or release readiness.
 
+## Contained React Generation Workflow
+
+Use this workflow only for a new independent React and TypeScript fixture after design-plan
+compilation. Read `knowledge-base/design-intelligence/generation-adapter.md`.
+
+1. Require a plan with `status: ready` and `implementationReady: true`. Never change readiness
+   fields manually or generate from a blocked or provisional plan.
+2. Use only `zz-design generate-react`. Provide a pre-existing generation root, an absent child
+   output path, and the local portfolio registry. Do not invoke the adapter through MCP; MCP
+   portfolio operations remain read-only.
+3. Stop when the output exists, its parent is symlinked, its resolved path escapes the generation
+   root, the registry is invalid, or either generation path overlaps a portfolio root. Do not retry
+   by weakening the policy or by writing directly to an original product repository.
+4. Preserve the generated manifest and file checksums. The same plan and adapter version must
+   produce the same file records.
+5. Keep reducer-owned domain state separate from rendering. Use the generated semantic token layer
+   and preserve the complete primary task, success state, failure context, and bounded recovery.
+6. Keep demo, imported, cached, and live source modes distinct in state and rendered disclosure.
+   Missing sources stay unavailable. Never let demo values appear as imported, cached, or live.
+7. Treat the initial adapter as a new-fixture generator only. Existing-repository adaptation needs a
+   separate convention-aware adapter and its own regression evidence.
+8. Run generated build, typecheck, unit, architecture, browser, accessibility, and product-contract
+   checks before integration. Generation and static audit do not authorize release or satisfy human
+   review.
+
 ## Interface Trust Workflow
 
 Use this workflow before implementing any interface that shows external data, operational status, generated analysis, cached or imported results, environment labels, history, or exports. Read `knowledge-base/design-intelligence/interface-trust.md` and start from `interface-trust.template.yaml` when a formal contract is needed.

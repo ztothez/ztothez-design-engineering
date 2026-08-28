@@ -15,9 +15,11 @@ For an interface system, use this order and record every stage in `design-delive
 6. Declare the interaction and state model.
 7. Declare the visual direction using `visual-polish.md`.
 8. Build primitive, semantic, and component token layers.
-9. Implement the smallest coherent task path.
-10. Attach deterministic automated verification evidence.
-11. Request attributable human visual review of rendered output.
+9. When the recompiled plan is implementation-ready and a new independent React fixture is
+   appropriate, read `generation-adapter.md` and run only the contained CLI adapter.
+10. Implement the smallest coherent task path manually when no qualified adapter applies.
+11. Attach deterministic automated verification evidence.
+12. Request attributable human visual review of rendered output.
 
 Before this sequence, inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested. During it, route to the smallest relevant modules, record rights evidence for every distributable asset, and keep unresolved assets out of production output. A declaration validator cannot prove pixels, runtime behavior, legal clearance, usability, or human validation.
 
@@ -27,6 +29,7 @@ Before this sequence, inspect the existing brand, tokens, components, assets, ri
 |---|---|
 | New product, consequential redesign, audience, task, data, assumptions, or generation readiness | `product-design-brief.md` |
 | Deterministic planning, route proposals, component and state ownership, contract readiness, or verification obligations | `design-plan.md` |
+| Contained generation of a new independent React and TypeScript fixture from an implementation-ready plan | `generation-adapter.md` |
 | Operational state, external data, generated results, fallback, history, or export provenance | `interface-trust.md` |
 | Operational metrics, findings, charts, hierarchy, long labels, or large collections | `information-design.md` |
 | Visual direction, typography, composition, density, states, motion, charts, or rendered visual review | `visual-polish.md` |

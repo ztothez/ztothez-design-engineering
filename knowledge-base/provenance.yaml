@@ -61,6 +61,8 @@ artifactSets:
       - knowledge-base/design-intelligence/design-plan.md
       - knowledge-base/design-intelligence/design-plan.schema.yaml
       - knowledge-base/design-intelligence/figma-production.md
+      - knowledge-base/design-intelligence/generation-adapter.md
+      - knowledge-base/design-intelligence/generation-adapter.schema.yaml
       - knowledge-base/design-intelligence/iconography.md
       - knowledge-base/design-intelligence/information-design.md
       - knowledge-base/design-intelligence/information-design.schema.yaml

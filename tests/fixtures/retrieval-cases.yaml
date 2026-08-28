@@ -56,6 +56,13 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/design-intelligence/design-plan.md
     maxRank: 1
+  - id: contained-react-generation-adapter
+    query: implementation ready design plan contained React TypeScript generation portfolio root demo imported cached live recovery
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/generation-adapter.md
+    maxRank: 1
   - id: operational-information-decisions
     query: metric formula source freshness baseline finding evidence impact next action verification decorative chart large collection
     categories:

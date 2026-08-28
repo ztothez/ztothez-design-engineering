@@ -28,6 +28,11 @@ async function main(): Promise<void> {
     process.exitCode = await runCompilePlanCli(argumentsList.slice(1));
     return;
   }
+  if (argumentsList[0] === "generate-react") {
+    const { runGenerateReactCli } = await import("./generate-react.js");
+    process.exitCode = await runGenerateReactCli(argumentsList.slice(1));
+    return;
+  }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
     writeHelp();
     return;

@@ -97,7 +97,27 @@ Completion criteria:
 
 ### 3. Production UI Generation Adapters
 
-Status: **Not started**
+Status: **Done**
+
+Implemented a project-owned `react-typescript-vite` adapter and the installed
+`zz-design generate-react` command. The adapter accepts only a validated design plan with
+`implementationReady: true`, creates one absent child directory under an explicit generation root,
+requires a passing portfolio registry, rejects symlinked or escaping targets, and rejects overlap
+with every read-only portfolio root. Writes use an atomic temporary directory and deterministic
+file checksums; rejected runs do not overwrite or partially populate a target.
+
+The generated fixture implements one reducer-owned local demonstration task, a preserved-context
+disconnected-source recovery path, semantic CSS tokens, responsive structure, generated unit
+tests, and separate demo, imported, cached, and live disclosures. Unavailable imported, cached, and
+live sources never borrow demonstration values or claim runtime evidence. The portable generation
+manifest and maintained adapter guide define traceability, guarantees, and explicit evidence limits.
+
+Qualification covers deterministic generation, implementation-readiness denial, existing-target
+preservation, traversal and symlink containment, portfolio-root denial, absolute-path exclusion,
+zero-warning architecture audit, installed CLI generation, generated dependency installation,
+TypeScript checking, reducer tests, and a production Vite build. MCP remains read-only and exposes
+no generation tool. This item creates independent fixtures only; convention-aware merging into an
+existing repository remains outside adapter version 1.0.
 
 Implement project-owned generation adapters for an initial React and TypeScript delivery path.
 Adapters must follow an existing target repository's conventions or create a minimal independent
@@ -207,5 +227,5 @@ Item 9 only after every prior completion criterion has retained evidence.
 
 ## Current Status
 
-Items 1 and 2 are Done. Items 3 through 9 are not started. The next target is Item 3: Production UI
-Generation Adapters.
+Items 1 through 3 are Done. Items 4 through 9 are not started. The next target is Item 4: Visual
+Composition And Asset Pipeline.

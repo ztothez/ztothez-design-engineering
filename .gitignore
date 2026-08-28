@@ -20,6 +20,7 @@ coverage/
 .ztothez-design-corpus/
 .ztothez-design-local/
 .ztothez-design-benchmarks/
+.ztothez-design-generated/
 .uix-runtime/
 .uix-quality-gate/
 playwright-report/

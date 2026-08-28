@@ -225,6 +225,12 @@ For Lovable, keep this repository synchronized with the connected Git provider s
 
 Start with `design-intelligence/MASTER.md` when the task includes brand identity, Figma production, generated or sourced assets, iconography, presentation design, licensing, or visual accessibility. Load only the matching focused modules.
 
+For a new independent React and TypeScript fixture, validate the brief, compile an
+implementation-ready plan, then follow `design-intelligence/generation-adapter.md`. Its CLI adapter
+requires a separate generation root and a passing local portfolio registry, and it refuses existing,
+symlinked, escaping, or portfolio-overlapping targets. The generated manifest follows
+`design-intelligence/generation-adapter.schema.yaml`.
+
 For a new product or consequential redesign, start from `design-intelligence/product-design-brief.template.yaml` and use `design-intelligence/product-design-brief.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/product-design-brief.md`, then validate through MCP with `validate_product_design_brief`, or through CLI:
 
 ```bash

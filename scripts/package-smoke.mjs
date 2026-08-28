@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { lstat, mkdtemp, readFile, rm } from "node:fs/promises";
+import { lstat, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import YAML from "yaml";
 
 import { createPackageArchive, runNpm, validatePackageArchive } from "./package-artifact.mjs";
 
@@ -91,6 +92,84 @@ try {
   assert.equal(compiledPlan.planningReady, true);
   assert.equal(compiledPlan.implementationReady, false);
 
+  const readyBrief = YAML.parse(
+    await readFile(
+      join(installedRoot, "knowledge-base", "design-intelligence", "product-design-brief.template.yaml"),
+      "utf8",
+    ),
+  );
+  readyBrief.downstreamContracts = [
+    { kind: "product-task", status: "exists", path: "knowledge-base/benchmarks/aegisops/product-contract.yaml" },
+    { kind: "interface-trust", status: "exists", path: "knowledge-base/design-intelligence/interface-trust.template.yaml" },
+    { kind: "information-design", status: "exists", path: "knowledge-base/design-intelligence/information-design.template.yaml" },
+    { kind: "design-deliverable", status: "exists", path: "knowledge-base/design-intelligence/design-deliverable.template.yaml" },
+  ];
+  const readyBriefPath = join(temporaryDirectory, "ready-brief.yaml");
+  const readyPlanPath = join(temporaryDirectory, "ready-plan.json");
+  await writeFile(readyBriefPath, YAML.stringify(readyBrief), "utf8");
+  const readyPlanText = runNode([
+    cliPath,
+    "compile-plan",
+    "--brief",
+    readyBriefPath,
+    "--project-root",
+    installedRoot,
+    "--json",
+  ]);
+  const readyPlan = JSON.parse(readyPlanText);
+  assert.equal(readyPlan.status, "ready");
+  assert.equal(readyPlan.implementationReady, true);
+  await writeFile(readyPlanPath, readyPlanText, "utf8");
+
+  const generationRoot = join(temporaryDirectory, "generated");
+  const protectedRoot = join(temporaryDirectory, "protected-portfolio");
+  await Promise.all([mkdir(generationRoot), mkdir(protectedRoot)]);
+  const registryPath = join(temporaryDirectory, "portfolio-registry.json");
+  await writeFile(registryPath, JSON.stringify({
+    version: "1.0",
+    id: "package-smoke-registry",
+    description: "Synthetic protected root for installed generation smoke.",
+    roots: [{ id: "protected", class: "studio-portfolio", path: protectedRoot }],
+    projects: [],
+  }), "utf8");
+  const generation = JSON.parse(runNode([
+    cliPath,
+    "generate-react",
+    "--plan",
+    readyPlanPath,
+    "--generation-root",
+    generationRoot,
+    "--output",
+    join(generationRoot, "installed-fixture"),
+    "--portfolio-registry",
+    registryPath,
+    "--json",
+  ]));
+  assert.equal(generation.status, "generated");
+  assert.equal(generation.target, "installed-fixture");
+  assert.equal(JSON.stringify(generation).includes(temporaryDirectory), false);
+  const generatedManifest = JSON.parse(
+    await readFile(join(generationRoot, "installed-fixture", "ztothez-design-generation.json"), "utf8"),
+  );
+  assert.equal(generatedManifest.adapter, "react-typescript-vite");
+  const generatedAudit = JSON.parse(runNode([
+    join(installedRoot, "dist", "cli", "audit.js"),
+    "--repo",
+    join(generationRoot, "installed-fixture"),
+    "--json",
+    "--fail-on",
+    "warning",
+  ]));
+  assert.equal(generatedAudit.passed, true);
+  const generatedRoot = join(generationRoot, "installed-fixture");
+  runNpm(
+    ["install", "--ignore-scripts", "--no-audit", "--no-fund"],
+    { cwd: generatedRoot, cacheDirectory },
+  );
+  runNpm(["run", "typecheck"], { cwd: generatedRoot, cacheDirectory });
+  runNpm(["test"], { cwd: generatedRoot, cacheDirectory });
+  runNpm(["run", "build"], { cwd: generatedRoot, cacheDirectory });
+
   const client = new Client({ name: "packed-install-smoke", version: "1.0.0" });
   const transport = new StdioClientTransport({
     command: process.execPath,
@@ -110,6 +189,7 @@ try {
       version: installedPackage.version,
     });
     const tools = await client.listTools();
+    assert.equal(tools.tools.some((tool) => tool.name === "generate_react"), false);
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
