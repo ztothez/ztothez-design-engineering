@@ -38,7 +38,7 @@ test("portfolio MCP summaries require opt-in and omit local source roots", async
   const reports = join(temporary, "reports");
   await mkdir(join(reports, "run-1"), { recursive: true });
   await writeFile(join(reports, "run-1", "report.json"), JSON.stringify({
-    version: "1.0.0", toolVersion: "2.0.0", runId: "run-1", mode: "cohort", registryId: "private-registry",
+    version: "1.0.0", toolVersion: "2.0.2", runId: "run-1", mode: "cohort", registryId: "private-registry",
     registryDigest: "a", projectIds: ["private-project"], startedAt: "2026-01-01T00:00:00Z", completedAt: "2026-01-01T00:00:01Z",
     projects: [{ projectId: "private-project", cohort: "development", environmentPolicy: { network: "denied", lifecycleScripts: false, environmentVariables: [] }, commands: [], startedAt: "2026-01-01T00:00:00Z", completedAt: "2026-01-01T00:00:01Z", stages: [], artifacts: [], status: "passed" }],
     summary: { passed: 1, findings: 0, limitations: 0, unsafeConfiguration: 0, sourceMutation: 0 }, resultFingerprint: "b", passed: true,
