@@ -89,7 +89,7 @@ await generateReactTypescriptFixture(plan, {
 });
 
 await writeFile(contractPath, stringify({
-  version: "1.0",
+  version: "1.2",
   id: "ci-repair-fixture",
   name: "CI bounded repair fixture",
   status: "benchmark",
@@ -214,7 +214,7 @@ await writeFile(contractPath, stringify({
     interface: "browser",
     qualityDimensions: [
       { id: "truthful-disclosure", status: "required", reason: "The fixture must retain its visible demonstration boundary." },
-      { id: "information-design", status: "not-applicable", reason: "The fixture contains one bounded decision rather than an operational metric surface." },
+      { id: "information-design", status: "required", reason: "The fixture contains one bounded decision rather than an operational metric surface." },
       { id: "visual-system", status: "required", reason: "The generated semantic composition is checked at every declared viewport." },
       { id: "accessibility", status: "required", reason: "The primary and recovery actions remain browser-operable." },
       { id: "responsive-structure", status: "required", reason: "The fixture is checked from mobile through wide desktop." },
