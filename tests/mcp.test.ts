@@ -5,6 +5,8 @@ import test from "node:test";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 
+import { VERSION } from "../src/product.js";
+
 test("MCP exposes the repository auditor with structured output", async () => {
   delete process.env.ZTOTHEZ_DESIGN_PORTFOLIO_MCP;
   process.env.ZTOTHEZ_DESIGN_AUDIT_ROOTS = [resolve(process.cwd(), "tests", "fixtures")].join(delimiter);
@@ -41,7 +43,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
   try {
     assert.deepEqual(client.getServerVersion(), {
       name: "ztothez-design-engineering",
-      version: "2.0.1",
+      version: VERSION,
     });
     const tools = await client.listTools();
     assert.ok(tools.tools.some((tool) => tool.name === "audit_repository_architecture"));

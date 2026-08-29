@@ -3,7 +3,7 @@ export const PRODUCT_SHORT_NAME = "ZtotheZ Design Engineering";
 export const PRODUCT_ID = "ztothez-design-engineering";
 export const PACKAGE_NAME = "@ztothez/design-engineering";
 export const CLI_COMMANDS = ["ztothez-design", "zz-design"] as const;
-export const VERSION = "2.0.1";
+export const VERSION = "2.0.2";
 
 export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
   return [
