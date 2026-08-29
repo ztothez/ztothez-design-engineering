@@ -56,6 +56,7 @@ artifactSets:
       - knowledge-base/design-intelligence/MASTER.md
       - knowledge-base/design-intelligence/asset-generation.md
       - knowledge-base/design-intelligence/brand-systems.md
+      - knowledge-base/design-intelligence/closed-loop-repair.md
       - knowledge-base/design-intelligence/design-deliverable.schema.yaml
       - knowledge-base/design-intelligence/design-deliverable.template.yaml
       - knowledge-base/design-intelligence/design-plan.md
@@ -75,6 +76,8 @@ artifactSets:
       - knowledge-base/design-intelligence/product-design-brief.md
       - knowledge-base/design-intelligence/product-design-brief.schema.yaml
       - knowledge-base/design-intelligence/product-design-brief.template.yaml
+      - knowledge-base/design-intelligence/repair-request.schema.yaml
+      - knowledge-base/design-intelligence/repair-request.template.yaml
       - knowledge-base/design-intelligence/visual-accessibility.md
       - knowledge-base/design-intelligence/visual-polish.md
       - knowledge-base/maintained/architecture/MASTER.md

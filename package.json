@@ -65,6 +65,7 @@
     "compile-comparison": "npm run build --silent && node dist/cli/compile-comparison-review.js",
     "compile-plan": "npm run build --silent && node dist/cli/compile-plan.js",
     "generate-react": "npm run build --silent && node dist/cli/generate-react.js",
+    "repair-react": "npm run build --silent && node dist/cli/repair-react.js",
     "generate-comparison-packet": "node scripts/generate-comparison-review-packet.mjs",
     "aggregate-gates": "npm run build --silent && node dist/cli/aggregate-gates.js",
     "build": "tsc",

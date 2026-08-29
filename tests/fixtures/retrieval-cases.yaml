@@ -63,6 +63,13 @@ cases:
     expectedStatus: matches
     expectedPath: knowledge-base/design-intelligence/generation-adapter.md
     maxRank: 1
+  - id: bounded-closed-loop-repair
+    query: bounded repair finding acceptance criterion exact precondition repeated fingerprint restore before after screenshot checksum
+    categories:
+      - design-intelligence
+    expectedStatus: matches
+    expectedPath: knowledge-base/design-intelligence/closed-loop-repair.md
+    maxRank: 1
   - id: operational-information-decisions
     query: metric formula source freshness baseline finding evidence impact next action verification decorative chart large collection
     categories:

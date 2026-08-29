@@ -117,7 +117,7 @@ preservation, traversal and symlink containment, portfolio-root denial, absolute
 zero-warning architecture audit, installed CLI generation, generated dependency installation,
 TypeScript checking, reducer tests, and a production Vite build. MCP remains read-only and exposes
 no generation tool. This item creates independent fixtures only; convention-aware merging into an
-existing repository remains outside adapter version 1.0.
+existing repository remains outside adapter version 1.2.0.
 
 Implement project-owned generation adapters for an initial React and TypeScript delivery path.
 Adapters must follow an existing target repository's conventions or create a minimal independent
@@ -149,7 +149,7 @@ claims, rendered focus, state and chart contrast, and asset metadata. `verify-ui
 retains eight screenshots plus the report for the passing composition fixture at 375, 768, 1024,
 and 1440 CSS pixels; a negative fixture proves each new runtime rule fails closed.
 
-The version 1.1.0 React adapter emits the composition semantics, keeps context, primary outcome,
+The version 1.2.0 React adapter emits the composition semantics, keeps context, primary outcome,
 and next action ahead of detailed provenance and supporting information, preserves a compact source
 disclosure beside the action, and passes generated typecheck, reducer tests, production build, 200
 percent text resize, responsive, light, and dark browser verification. It emits no unapproved
@@ -170,7 +170,35 @@ Completion criteria:
 
 ### 5. Closed-Loop Verification And Repair
 
-Status: **Not started**
+Status: **Done**
+
+Implemented evidence: `knowledge-base/design-intelligence/closed-loop-repair.md`, the portable
+version 1.0 request schema and maintained template define a finding-bound repair protocol for
+manifest-owned `react-typescript-vite` fixtures. Every finding must resolve uniquely from fresh
+architecture or runtime evidence, bind to an acceptance criterion in the selected profile, declare
+the complete contract, static, browser, and screenshot evidence set, and receive at least one exact
+digest and occurrence-count preconditioned operation. One to three attempts must be declared before
+execution; repair remains CLI-only and MCP remains read-only.
+
+`src/repair/` authorizes only real generated targets contained by an explicit generation root and
+separate from every validated portfolio root. It rejects traversal, source or manifest symlinks,
+non-manifest files, remote verification URLs, evidence redirected into the target, stale or
+ambiguous findings, undeclared files, and failed exact preconditions. The runner snapshots regular
+project files, requires the loopback server plan ID to equal the generation manifest before every
+gate, applies only exact replacements, reruns the complete profile quality gate, verifies unchanged
+target plan, route, profile, journeys, viewports, browser and tool versions, checks every screenshot
+digest, and reports whether unrelated files retained their hashes.
+
+Repeated finding fingerprints and verification failures stop immediately with an unresolved report
+and byte-for-byte restoration of every operation file. A successful run requires every referenced
+finding to be absent and the full gate to pass. Regression cases cover success with eight before and
+eight after screenshots, repeated-fingerprint rollback, precondition denial without writing,
+attempt bounds, traversal, remote hosts, symlinked evidence redirection, and rejection of invented
+human-attestation fields. A mismatched runtime plan ID is rejected before source mutation. The
+active CI lane compiles a ready synthetic plan, generates, builds, and serves a fresh fixture through
+the production adapter, verifies it against a dedicated synthetic contract, repairs one injected
+static finding, and uploads the complete portable evidence directory. Automated repair always
+reports `humanEvidence: not-generated` and does not authorize release.
 
 Connect generation to contract validation, static audit, browser verification, screenshot evidence,
 and bounded remediation. Repairs must target supported findings and preserve unrelated behavior.
@@ -251,5 +279,5 @@ Item 9 only after every prior completion criterion has retained evidence.
 
 ## Current Status
 
-Items 1 through 4 are Done. Items 5 through 9 are not started. The next target is Item 5:
-Closed-Loop Verification And Repair.
+Items 1 through 5 are Done. Items 6 through 9 are not started. The next target is Item 6:
+Interaction And Recovery Verification.

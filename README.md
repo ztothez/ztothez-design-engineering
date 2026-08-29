@@ -228,6 +228,27 @@ the registry is invalid, a path is symlinked or escaping, or the target overlaps
 portfolio root. Version 1.0 creates a new independent fixture only; it does not patch an existing
 repository. See `knowledge-base/design-intelligence/generation-adapter.md`.
 
+Repair one supported finding in a generated fixture with retained before and after evidence:
+
+```bash
+zz-design repair-react \
+  --request path/to/repair-request.yaml \
+  --generation-root .ztothez-design-generated \
+  --target .ztothez-design-generated/example-app \
+  --portfolio-registry .ztothez-design-local/portfolio-registry.yaml \
+  --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
+  --project-root . \
+  --url http://127.0.0.1:4173 \
+  --profile responsive-overview \
+  --output .ztothez-design-repair/example \
+  --fail-on warning
+```
+
+The URL must be loopback and already running. Repairs are limited to exact, digest-bound
+replacements in generation-manifest-owned files. Repeated or failed verification restores the
+original target and produces an unresolved report. See
+`knowledge-base/design-intelligence/closed-loop-repair.md`.
+
 Validate a design-intelligence deliverable:
 
 ```bash
@@ -397,6 +418,7 @@ Historical research is outside the supported workflow. It is not a runtime depen
 | `src/corpus/` | Versioned corpus loading, deterministic case evaluation, scoring, and reporting. |
 | `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
 | `src/quality-gate/` | Consolidated profile quality gate. |
+| `src/repair/` | Finding-bound generated-fixture repair, rollback, and before/after evidence. |
 | `src/aggregate/` | Multi-profile release aggregation. |
 | `cli/` | Stdio server and command-line entrypoints. |
 | `knowledge-base/` | Approved maintained guidance, schemas, benchmarks, provenance, and dependency records. |
@@ -418,4 +440,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 4 implement evidence-gated product briefs, deterministic design-plan compilation, contained React and TypeScript fixture generation, and rendered visual-composition and asset enforcement. The remaining closed-loop delivery program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 5 implement evidence-gated product briefs, deterministic design-plan compilation, contained React and TypeScript fixture generation, rendered visual-composition and asset enforcement, and bounded finding-driven repair with rollback. The remaining closed-loop delivery program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).

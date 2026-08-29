@@ -21,6 +21,8 @@ coverage/
 .ztothez-design-local/
 .ztothez-design-benchmarks/
 .ztothez-design-generated/
+.ztothez-design-repair/
+.ztothez-design-repair-fixture*/
 .uix-runtime/
 .uix-quality-gate/
 playwright-report/

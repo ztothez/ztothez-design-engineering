@@ -161,6 +161,58 @@ jobs:
             --output .ztothez-design-quality-gate/ci-responsive-overview \
             --fail-on error
 
+      - name: Prepare V4 bounded repair fixture
+        run: |
+          node ci/prepare-repair-fixture.mjs \
+            --brief knowledge-base/design-intelligence/product-design-brief.template.yaml \
+            --project-root . \
+            --root .ztothez-design-repair-fixture
+
+      - name: Build V4 bounded repair target
+        run: |
+          npm --prefix .ztothez-design-repair-fixture/generated/fixture install --ignore-scripts --no-audit --no-fund
+          npm --prefix .ztothez-design-repair-fixture/generated/fixture run build
+
+      - name: Start V4 bounded repair target
+        run: |
+          npm --prefix .ztothez-design-repair-fixture/generated/fixture run preview -- \
+            --host 127.0.0.1 \
+            --port 4273 \
+            > /tmp/ztothez-design-repair-target.log 2>&1 &
+          echo "$!" > /tmp/ztothez-design-repair-target.pid
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent "http://127.0.0.1:4273/" >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/ztothez-design-repair-target.log
+          exit 1
+
+      - name: Run V4 bounded repair gate
+        run: |
+          mkdir -p .ztothez-design-repair
+          npm run repair-react -- \
+            --request .ztothez-design-repair-fixture/repair-request.yaml \
+            --generation-root .ztothez-design-repair-fixture/generated \
+            --target .ztothez-design-repair-fixture/generated/fixture \
+            --portfolio-registry .ztothez-design-repair-fixture/portfolio-registry.json \
+            --contract .ztothez-design-repair-fixture/repair-product-contract.yaml \
+            --project-root . \
+            --url "http://127.0.0.1:4273" \
+            --profile generated-responsive \
+            --output .ztothez-design-repair/ci-v4-repair \
+            --fail-on warning \
+            --json
+
+      - name: Stop V4 bounded repair target
+        if: always()
+        run: |
+          if [[ -f /tmp/ztothez-design-repair-target.pid ]]; then
+            kill "$(cat /tmp/ztothez-design-repair-target.pid)" 2>/dev/null || true
+          fi
+          cat /tmp/ztothez-design-repair-target.log 2>/dev/null || true
+
       - name: Run V2 state and screenshot regression gate
         run: |
           npm run verify-ui -- \
@@ -271,6 +323,16 @@ jobs:
         with:
           name: ztothez-design-v4-visual-composition
           path: .ztothez-design-runtime/ci-v4-composition
+          if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload V4 bounded repair evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-v4-bounded-repair
+          path: .ztothez-design-repair/ci-v4-repair
           if-no-files-found: warn
           retention-days: 14
           include-hidden-files: true

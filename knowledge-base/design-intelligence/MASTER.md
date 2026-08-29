@@ -20,7 +20,10 @@ For an interface system, use this order and record every stage in `design-delive
 10. Implement the smallest coherent task path manually when no qualified adapter applies.
 11. Attach deterministic automated verification evidence, including every maintained viewport and
     implemented color scheme for instrumented composition.
-12. Request attributable human visual review of rendered output.
+12. When a generated fixture has a supported architecture or runtime finding, read
+    `closed-loop-repair.md` and use the bounded CLI workflow. Stop and restore on repeated failure.
+13. Request attributable human visual review of rendered output. Automated repair evidence cannot
+    satisfy a human obligation.
 
 Before this sequence, inspect the existing brand, tokens, components, assets, rights records, and implementation stack. Preserve coherent systems unless redesign is requested. During it, route to the smallest relevant modules, record rights evidence for every distributable asset, and keep unresolved assets out of production output. A declaration validator cannot prove pixels, runtime behavior, legal clearance, usability, or human validation.
 
@@ -31,6 +34,7 @@ Before this sequence, inspect the existing brand, tokens, components, assets, ri
 | New product, consequential redesign, audience, task, data, assumptions, or generation readiness | `product-design-brief.md` |
 | Deterministic planning, route proposals, component and state ownership, contract readiness, or verification obligations | `design-plan.md` |
 | Contained generation of a new independent React and TypeScript fixture from an implementation-ready plan | `generation-adapter.md` |
+| Finding-bound repair of a generated React fixture with before and after evidence | `closed-loop-repair.md` |
 | Operational state, external data, generated results, fallback, history, or export provenance | `interface-trust.md` |
 | Operational metrics, findings, charts, hierarchy, long labels, or large collections | `information-design.md` |
 | Visual direction, typography, composition, density, states, motion, charts, or rendered visual review | `visual-polish.md` |

@@ -10,6 +10,16 @@ evidence, chart alternative and contrast, and rendered asset metadata at 375, 76
 CSS pixels in light and dark modes. The eight screenshots and runtime report are retained as a
 separate artifact. This proves deterministic enforcement, not aesthetic preference or human review.
 
+The V4 bounded-repair lane compiles its own implementation-ready synthetic plan, generates a fresh
+React fixture through the production adapter, builds and serves that exact fixture, introduces one
+declared raw-value finding, and runs `repair-react` against a dedicated synthetic contract and
+journey. The generated server must return the same plan ID as its generation manifest. The retained
+artifact contains the failed before gate, successful after gate, exact request, report and
+screenshot checksums, and the portable repair report. The lane proves target identity, finding
+binding, exact preconditions, equivalent evidence, and unrelated-file preservation. Regression
+tests separately prove wrong-target rejection, repeated-fingerprint rollback, and precondition
+denial. Neither path generates human evidence or authorizes release.
+
 These deterministic fixtures prove that the quality-gate engine and responsive browser checks can produce complete passing reports. They are not evidence that AegisOPS or another product passes its own journeys.
 
 The Azure V2 product lane runs ESLint, TypeScript, the Next production build, a zero-warning static audit, and `knowledge-base/benchmarks/azure-optimizer/v2-journeys.json` against the versioned 40-capture baseline. It covers demo, live local-API, slow, fallback, disconnected, partial, stale, finding-history, and provenance-export behavior. Its artifact remains automated evidence and does not satisfy the Item 8 human-review gate.

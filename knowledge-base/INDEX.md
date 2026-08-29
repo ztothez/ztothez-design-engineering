@@ -25,7 +25,7 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 |---|---|---|
 | `maintained/architecture/` | Independently authored quality-attribute, architecture-evaluation, component-boundary, and product-platform guidance | Evaluating architecture, coupling, cohesion, trade-offs, and shared product variation |
 | `maintained/product-patterns/` | Independently authored AI-workspace and operational-dashboard contracts | Designing task-centered workspaces and operational tools without importing a template catalog |
-| `design-intelligence/` | Maintained interface trust, operational information design, visual polish, brand, Figma production, asset generation, iconography, presentation, licensing, accessibility, and integrated manifest-validation modules | Running the bounded product-task through human-review workflow or creating visual-system deliverables with structured provenance, tokens, accessibility, and handoff evidence |
+| `design-intelligence/` | Maintained product intake, planning, contained generation and repair, interface trust, operational information design, visual polish, brand, Figma production, asset generation, iconography, presentation, licensing, accessibility, and integrated validation modules | Running the bounded product-task through generated implementation, finding-bound repair, and human-review workflow or creating visual-system deliverables with structured provenance, tokens, accessibility, and handoff evidence |
 | `benchmarks/` | Executable product contracts, journey profiles, acceptance criteria, and anti-pattern corpora | Evaluating whether generated UI is behaviorally coherent, evidence-backed, and production-ready for a specific product domain |
 | `usability-evaluation/` | Maintained heuristic-evaluation workflow, portable schema, and review template | Conducting a UX audit, defining human-review evidence, separating automated findings from user-testing claims, or turning usability risks into acceptance criteria |
 | `retrieval-scope.yaml` | Explicit allowlist for the distributable BM25 index | Auditing or changing which knowledge files can appear in ranked retrieval |
@@ -230,6 +230,14 @@ implementation-ready plan, then follow `design-intelligence/generation-adapter.m
 requires a separate generation root and a passing local portfolio registry, and it refuses existing,
 symlinked, escaping, or portfolio-overlapping targets. The generated manifest follows
 `design-intelligence/generation-adapter.schema.yaml`.
+
+For a fresh architecture or runtime finding in a generated fixture, read
+`design-intelligence/closed-loop-repair.md` and validate the request shape with
+`design-intelligence/repair-request.schema.yaml`. Run `zz-design repair-react` only against the
+manifest-owned generated target and an already-running loopback URL. The command retains equivalent
+before and after quality-gate evidence, rejects stale or ambiguous findings, and restores original
+bytes on repeated or failed verification. It is intentionally CLI-only because MCP remains
+read-only. Automated repair output never supplies human evidence.
 
 For a new product or consequential redesign, start from `design-intelligence/product-design-brief.template.yaml` and use `design-intelligence/product-design-brief.schema.yaml` as the portable version 1.0 contract. Read `design-intelligence/product-design-brief.md`, then validate through MCP with `validate_product_design_brief`, or through CLI:
 

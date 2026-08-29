@@ -133,6 +133,34 @@ compilation. Read `knowledge-base/design-intelligence/generation-adapter.md`.
    checks before integration. Generation and static audit do not authorize release or satisfy human
    review.
 
+## Bounded Repair Workflow
+
+Use this workflow only for a manifest-owned file in an independent fixture created by the React
+adapter. Read `knowledge-base/design-intelligence/closed-loop-repair.md` and author a request that
+validates against `repair-request.schema.yaml`.
+
+1. Run the complete product-profile quality gate before proposing a repair. Bind every repair to
+   one fresh architecture or runtime finding, one acceptance criterion in the selected profile,
+   the complete expected evidence set, and an explicit stopping condition.
+2. Use only `zz-design repair-react`. Provide the original generation root, generated target,
+   portfolio registry, contract, loopback URL, profile, and an absent evidence output outside the
+   target. Never expose repair through MCP or run it against an original portfolio project.
+3. Declare one to three attempts in advance. Each operation must identify one generation-manifest
+   file, its complete current SHA-256 digest, exact source text, exact replacement text, and exact
+   occurrence count. Do not use search-and-rewrite, generated patches, or undeclared files.
+4. Require fresh evidence to resolve every referenced finding uniquely before writing. Stop on a
+   stale or ambiguous finding, digest mismatch, traversal, symlink, portfolio overlap, remote URL,
+   or evidence output that resolves inside the target.
+5. After each attempt, rerun the same contract, route, profile, journeys, viewports, browser, tool
+   versions, static audit, acceptance evaluation, and screenshots. Preserve report and screenshot
+   checksums for both sides.
+6. Succeed only when all referenced findings are absent, evidence identity remains comparable,
+   unrelated files retain their digests, and the complete gate passes at the declared threshold.
+7. Stop immediately when a targeted fingerprint repeats or verification fails. Restore every
+   operation file to its original bytes and emit an unresolved report instead of rewriting again.
+8. Never create, copy, update, or infer a human attestation. Automated repair evidence does not
+   satisfy expert or representative-user obligations and does not authorize release.
+
 ## Interface Trust Workflow
 
 Use this workflow before implementing any interface that shows external data, operational status, generated analysis, cached or imported results, environment labels, history, or exports. Read `knowledge-base/design-intelligence/interface-trust.md` and start from `interface-trust.template.yaml` when a formal contract is needed.

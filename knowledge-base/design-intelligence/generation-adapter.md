@@ -1,11 +1,12 @@
 # React And TypeScript Generation Adapter
 
-Current adapter version: `1.1.0`.
+Current adapter version: `1.2.0`.
 
 Use this adapter only after a product design brief compiles to a design plan with `status: ready`
 and `implementationReady: true`. It creates a new independent React, TypeScript, and Vite fixture.
-It does not merge into an existing application, repair a product, prove visual quality, or authorize
-release.
+It does not merge into an existing application, repair an original product, prove visual quality,
+or authorize release. A separate bounded workflow in `closed-loop-repair.md` can repair an exact
+finding in a manifest-owned generated fixture only.
 
 ## Input Gate
 
@@ -34,6 +35,7 @@ The initial `react-typescript-vite` adapter generates:
   telemetry in semantic order.
 - Unit tests, build and typecheck scripts, a traceable plan summary, and a checksummed deterministic
   generation manifest.
+- A development and preview response header that identifies the generation plan to bounded repair.
 
 The adapter interpolates only validated plan data into a generated constant. It never treats plan
 text as executable source and never imports implementation from an external design product.
@@ -64,3 +66,7 @@ Create the generation root before running the command. The output directory must
   usability, and attributable human review remain later gates.
 - Existing-repository adaptation is outside version 1.0. Use the independent fixture path until a
   separate convention-aware merge adapter has its own containment and regression evidence.
+- Finding-bound remediation of this generated output must use `zz-design repair-react`. Never use
+  that command as an existing-repository merge or product migration mechanism.
+- Bounded repair must reject runtime evidence when `X-ZtotheZ-Design-Plan` is missing or does not
+  equal the plan ID in the generated manifest.

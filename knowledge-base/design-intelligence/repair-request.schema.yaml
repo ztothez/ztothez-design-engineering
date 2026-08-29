@@ -1,0 +1,95 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://ztothez.dev/schemas/repair-request-1.0.schema.json
+title: ZtotheZ Bounded Repair Request
+type: object
+additionalProperties: false
+required: [version, id, target, findings, attempts, stopping]
+properties:
+  version: { const: "1.0" }
+  id: { $ref: "#/$defs/id" }
+  target:
+    type: object
+    additionalProperties: false
+    required: [adapter, manifest]
+    properties:
+      adapter: { const: react-typescript-vite }
+      manifest: { $ref: "#/$defs/relativePath" }
+  findings:
+    type: array
+    minItems: 1
+    maxItems: 20
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, source, checkId, acceptanceCriterion, expectedEvidence]
+      properties:
+        id: { $ref: "#/$defs/id" }
+        source: { enum: [architecture, runtime] }
+        checkId: { type: string, minLength: 1, maxLength: 128 }
+        file: { $ref: "#/$defs/relativePath" }
+        messageIncludes: { type: string, minLength: 1, maxLength: 512 }
+        viewport: { type: string, minLength: 1, maxLength: 128 }
+        journey: { type: string, minLength: 1, maxLength: 128 }
+        selector: { type: string, minLength: 1, maxLength: 1024 }
+        acceptanceCriterion: { $ref: "#/$defs/id" }
+        expectedEvidence:
+          type: array
+          minItems: 1
+          maxItems: 4
+          uniqueItems: true
+          items:
+            enum: [contract-validation, static-audit, browser-runtime, responsive-screenshots]
+      allOf:
+        - if:
+            properties: { source: { const: architecture } }
+          then:
+            required: [file]
+  attempts:
+    type: array
+    minItems: 1
+    maxItems: 3
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, operations]
+      properties:
+        id: { $ref: "#/$defs/id" }
+        operations:
+          type: array
+          minItems: 1
+          maxItems: 20
+          items:
+            type: object
+            additionalProperties: false
+            required: [id, findingRef, kind, file, expectedFileDigest, before, after, expectedOccurrences]
+            properties:
+              id: { $ref: "#/$defs/id" }
+              findingRef: { $ref: "#/$defs/id" }
+              kind: { const: replace-exact }
+              file: { $ref: "#/$defs/relativePath" }
+              expectedFileDigest: { $ref: "#/$defs/digest" }
+              before: { type: string, minLength: 1, maxLength: 100000 }
+              after: { type: string, maxLength: 100000 }
+              expectedOccurrences: { type: integer, minimum: 1, maximum: 20 }
+  stopping:
+    type: object
+    additionalProperties: false
+    required: [maxAttempts, resolved, repeatedFinding, preconditionFailure, verificationFailure]
+    properties:
+      maxAttempts: { type: integer, minimum: 1, maximum: 3 }
+      resolved: { const: all-referenced-findings-absent-and-quality-gate-passed }
+      repeatedFinding: { const: stop-unresolved-and-restore }
+      preconditionFailure: { const: stop-without-write }
+      verificationFailure: { const: stop-unresolved-and-restore }
+$defs:
+  id:
+    type: string
+    pattern: "^[a-z0-9][a-z0-9-]{0,63}$"
+  digest:
+    type: string
+    pattern: "^[a-f0-9]{64}$"
+  relativePath:
+    type: string
+    minLength: 1
+    maxLength: 1024
+    pattern: "^(?!/)(?!.*(?:^|/)[.][.](?:/|$)).+$"

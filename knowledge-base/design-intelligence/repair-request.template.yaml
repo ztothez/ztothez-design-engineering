@@ -1,0 +1,39 @@
+version: "1.0"
+id: responsive-token-repair
+target:
+  adapter: react-typescript-vite
+  manifest: ztothez-design-generation.json
+findings:
+  - id: raw-responsive-values
+    source: architecture
+    checkId: ZTDE-DESIGN-001
+    file: src/styles/app.css
+    messageIncludes: raw visual values
+    acceptanceCriterion: responsive-integrity
+    expectedEvidence:
+      - contract-validation
+      - static-audit
+      - browser-runtime
+      - responsive-screenshots
+attempts:
+  - id: replace-with-semantic-tokens
+    operations:
+      - id: remove-raw-responsive-values
+        findingRef: raw-responsive-values
+        kind: replace-exact
+        file: src/styles/app.css
+        expectedFileDigest: "0000000000000000000000000000000000000000000000000000000000000000"
+        before: |-
+          .example-unsafe-rule {
+            color: #111111;
+            background: #eeeeee;
+            border-color: #777777;
+          }
+        after: ""
+        expectedOccurrences: 1
+stopping:
+  maxAttempts: 1
+  resolved: all-referenced-findings-absent-and-quality-gate-passed
+  repeatedFinding: stop-unresolved-and-restore
+  preconditionFailure: stop-without-write
+  verificationFailure: stop-unresolved-and-restore

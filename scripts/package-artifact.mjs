@@ -82,6 +82,8 @@ export async function expectedKnowledgePaths() {
     "knowledge-base/design-intelligence/information-design.template.yaml",
     "knowledge-base/design-intelligence/product-design-brief.schema.yaml",
     "knowledge-base/design-intelligence/product-design-brief.template.yaml",
+    "knowledge-base/design-intelligence/repair-request.schema.yaml",
+    "knowledge-base/design-intelligence/repair-request.template.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
     "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
     ...scopedKnowledgePaths,

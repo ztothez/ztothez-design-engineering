@@ -13,7 +13,7 @@ import {
 } from "./schema.js";
 import { tokenStyles } from "./templates/tokens.js";
 
-export const REACT_TYPESCRIPT_ADAPTER_VERSION = "1.1.0";
+export const REACT_TYPESCRIPT_ADAPTER_VERSION = "1.2.0";
 
 export type GenerateReactTypescriptOptions = GenerationTargetOptions;
 
@@ -122,10 +122,30 @@ function generatedFiles(plan: DesignPlan): Map<string, string> {
     },
     include: ["vite.config.ts"],
   })}\n`);
-  files.set("vite.config.ts", `import { defineConfig } from "vite";
+  files.set("vite.config.ts", `import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({ plugins: [react()] });
+const planId = ${JSON.stringify(plan.id)};
+
+function targetIdentity(): Plugin {
+  return {
+    name: "ztothez-design-target-identity",
+    configureServer(server) {
+      server.middlewares.use((_request, response, next) => {
+        response.setHeader("X-ZtotheZ-Design-Plan", planId);
+        next();
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use((_request, response, next) => {
+        response.setHeader("X-ZtotheZ-Design-Plan", planId);
+        next();
+      });
+    },
+  };
+}
+
+export default defineConfig({ plugins: [targetIdentity(), react()] });
 `);
   files.set("src/generated/plan.ts", planSource(plan));
   files.set("src/domain/source-mode.ts", `export type DataMode = "demo" | "imported" | "cached" | "live";
@@ -497,6 +517,7 @@ export async function generateReactTypescriptFixture(
         "The generated task uses explicit reducer-owned domain state and semantic CSS tokens.",
         "Demonstration, imported, cached, and live source modes retain separate origin, freshness, connection, and limitation disclosures.",
         "The generated task exposes measurable context, outcome, next-action, status-purpose, density, and evidence-basis composition semantics.",
+        "Development and preview responses expose the generation plan identifier for repair-target verification.",
       ],
       limitations: [
         "This adapter creates a new independent fixture and does not merge into an existing repository.",
@@ -527,6 +548,7 @@ export async function generateReactTypescriptFixture(
         "Semantic token layers and reducer-owned domain state.",
         "Truthful source-mode disclosure for demo, imported, cached, and live contexts.",
         "Opt-in rendered composition semantics for responsive, theme, claim, state, and clutter verification.",
+        "A runtime plan-identity response header that binds bounded repair evidence to this generated fixture.",
       ],
       limitations: manifest.limitations,
     });

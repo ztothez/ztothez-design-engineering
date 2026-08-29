@@ -13,6 +13,7 @@ export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
     `       ${command} validate-brief --brief PATH [--json]`,
     `       ${command} compile-plan --brief PATH [--project-root PATH] [--json]`,
     `       ${command} generate-react --plan PATH --generation-root PATH --output PATH --portfolio-registry PATH [--json]`,
+    `       ${command} repair-react --request PATH --generation-root PATH --target PATH --portfolio-registry PATH --contract PATH --url URL --profile ID --output PATH [--json]`,
     `       ${command} portfolio validate-registry|inventory|capabilities|run-stage|snapshot|baseline|benchmark|verify-unchanged|report [options]`,
     "",
     `Without arguments, starts the ${PRODUCT_ID} MCP server over stdio.`,
@@ -20,6 +21,7 @@ export function formatCliHelp(command: string = CLI_COMMANDS[0]): string {
     `Use ${command} validate-brief --help for product intake validation.`,
     `Use ${command} compile-plan --help for deterministic design planning.`,
     `Use ${command} generate-react --help for contained React and TypeScript fixture generation.`,
+    `Use ${command} repair-react --help for finding-bound closed-loop remediation.`,
     `Use ${command} portfolio --help for local read-only benchmark commands.`,
     "",
   ].join("\n");
