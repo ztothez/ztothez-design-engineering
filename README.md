@@ -1,6 +1,7 @@
 # ZtotheZ Design Engineering System
 
 [![Quality](https://github.com/ztothez/ztothez-design-engineering/actions/workflows/quality.yml/badge.svg)](https://github.com/ztothez/ztothez-design-engineering/actions/workflows/quality.yml)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20My%20Work-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/ztothez)
 
 ZtotheZ Design Engineering is a local-first Agent Skill, MCP server, and deterministic quality gate for building production UI and UX systems. It combines product semantics, software architecture, usability evaluation, browser verification, and evidence-backed acceptance criteria.
 

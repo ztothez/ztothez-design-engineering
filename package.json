@@ -110,6 +110,7 @@
   "bugs": {
     "url": "https://github.com/ztothez/ztothez-design-engineering/issues"
   },
+  "funding": "https://buymeacoffee.com/ztothez",
   "engines": {
     "node": ">=22"
   },
