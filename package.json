@@ -1,6 +1,6 @@
 {
   "name": "@ztothez/design-engineering",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "ZtotheZ Design Engineering System: MCP-backed product design architecture, knowledge, verification, and quality gates.",
   "main": "dist/src/server.js",
   "types": "dist/src/server.d.ts",
