@@ -41,7 +41,7 @@ test("MCP exposes the repository auditor with structured output", async () => {
   try {
     assert.deepEqual(client.getServerVersion(), {
       name: "ztothez-design-engineering",
-      version: "2.0.0",
+      version: "2.0.1",
     });
     const tools = await client.listTools();
     assert.ok(tools.tools.some((tool) => tool.name === "audit_repository_architecture"));
