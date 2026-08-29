@@ -161,6 +161,26 @@ validates against `repair-request.schema.yaml`.
 8. Never create, copy, update, or infer a human attestation. Automated repair evidence does not
    satisfy expert or representative-user obligations and does not authorize release.
 
+## Interaction And Recovery Verification Workflow
+
+Use this workflow after an executable browser task and its data behavior are declared. Read
+`knowledge-base/design-intelligence/interaction-recovery-verification.md` before adding lifecycle
+journeys or changing verification evidence.
+
+1. Keep existing version `1.0` journey suites as historical compatibility artifacts. Use version
+   `1.1` only for newly qualified interaction coverage, and bind it to a version `1.2` product
+   contract when task-level enforcement is required.
+2. Declare the task identifier, primary or recovery phases, and only the states that the current
+   task and data model make applicable. A primary phase needs observed start and success; required
+   recovery needs observed failure and preserved state.
+3. Place each checkpoint directly after its browser observation. A checkpoint records evidence; it
+   cannot create a state transition or upgrade an unsupported claim into a pass.
+4. Use real keyboard input before keyboard checks, retained download evidence before export checks,
+   and explicit offline emulation before offline checks. Keep disconnected UI state distinct from
+   a demonstrated offline browser condition.
+5. Record unsupported automation as a verifier limitation and leave the corresponding product
+   evidence unverified. Runtime evidence never replaces human or representative-user evidence.
+
 ## Interface Trust Workflow
 
 Use this workflow before implementing any interface that shows external data, operational status, generated analysis, cached or imported results, environment labels, history, or exports. Read `knowledge-base/design-intelligence/interface-trust.md` and start from `interface-trust.template.yaml` when a formal contract is needed.

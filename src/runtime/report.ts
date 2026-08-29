@@ -61,6 +61,18 @@ export function formatRuntimeReport(report: RuntimeReport): string {
     }
   }
 
+  if (report.journeys.some((journey) => (journey.checkpoints?.length ?? 0) > 0)) {
+    lines.push("", "## Interaction Checkpoints");
+    for (const journey of report.journeys) {
+      for (const checkpoint of journey.checkpoints ?? []) {
+        lines.push(
+          "",
+          `- ${journey.name}: ${checkpoint.checkpoint} at step ${checkpoint.step} (evidence step ${checkpoint.evidenceStep}) — ${checkpoint.description}`,
+        );
+      }
+    }
+  }
+
   if (report.findings.length === 0) {
     lines.push("", "No runtime findings were detected by the configured checks.");
     return lines.join("\n");

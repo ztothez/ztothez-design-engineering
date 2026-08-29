@@ -322,9 +322,18 @@ const benchmarkProductContractSchema = z
   })
   .strict();
 
+const interactionProductContractSchema = z
+  .object({
+    version: z.literal("1.2"),
+    ...baseProductContractFields,
+    benchmark: productTaskProfileSchema,
+  })
+  .strict();
+
 export const productContractSchema = z.discriminatedUnion("version", [
   legacyProductContractSchema,
   benchmarkProductContractSchema,
+  interactionProductContractSchema,
 ]);
 
 export const journeyProfileSchema = z
@@ -344,12 +353,35 @@ export const journeyProfileSchema = z
   });
 
 export const journeySuiteSchema = z
-  .object({
-    version: z.literal("1.0"),
-    contract: idSchema,
-    profiles: z.array(journeyProfileSchema).min(1),
-  })
-  .strict();
+  .discriminatedUnion("version", [
+    z
+      .object({
+        version: z.literal("1.0"),
+        contract: idSchema,
+        profiles: z.array(journeyProfileSchema).min(1),
+      })
+      .strict(),
+    z
+      .object({
+        version: z.literal("1.1"),
+        contract: idSchema,
+        profiles: z.array(journeyProfileSchema).min(1),
+      })
+      .strict()
+      .superRefine((suite, context) => {
+        for (const [profileIndex, profile] of suite.profiles.entries()) {
+          for (const [journeyIndex, journey] of profile.journeys.entries()) {
+            if (!journey.interaction) {
+              context.addIssue({
+                code: "custom",
+                path: ["profiles", profileIndex, "journeys", journeyIndex, "interaction"],
+                message: "V1.1 journey suites require interaction coverage for every journey",
+              });
+            }
+          }
+        }
+      }),
+  ]);
 
 export const contractIssueSchema = z
   .object({

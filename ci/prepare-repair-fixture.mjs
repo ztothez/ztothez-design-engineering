@@ -60,7 +60,7 @@ await Promise.all([
   mkdir(protectedRoot, { recursive: true }),
 ]);
 await writeFile(registry, `${JSON.stringify({
-  version: "1.0",
+  version: "1.2",
   id: "ci-v4-repair-registry",
   description: "Public synthetic protected root for the V4 bounded repair fixture.",
   roots: [{ id: "protected", class: "studio-portfolio", path: protectedRoot }],
@@ -209,9 +209,42 @@ await writeFile(contractPath, stringify({
       },
     ],
   },
+  benchmark: {
+    archetype: "utility",
+    interface: "browser",
+    qualityDimensions: [
+      { id: "truthful-disclosure", status: "required", reason: "The fixture must retain its visible demonstration boundary." },
+      { id: "information-design", status: "not-applicable", reason: "The fixture contains one bounded decision rather than an operational metric surface." },
+      { id: "visual-system", status: "required", reason: "The generated semantic composition is checked at every declared viewport." },
+      { id: "accessibility", status: "required", reason: "The primary and recovery actions remain browser-operable." },
+      { id: "responsive-structure", status: "required", reason: "The fixture is checked from mobile through wide desktop." },
+      { id: "state-integrity", status: "required", reason: "The task and unavailable-source recovery states are reducer-owned and visible." },
+      { id: "maintainability", status: "required", reason: "The repair gate preserves the manifest-owned generation boundary." },
+    ],
+    tasks: [
+      {
+        id: "record-generated-decision",
+        primary: true,
+        actor: "operator",
+        mode: "demo",
+        intent: "Record the disclosed synthetic decision and recover without losing the selected record when a source is unavailable.",
+        start: { stateMachine: "decision", state: "review", observable: "The selected record and bounded action are visible." },
+        success: { stateMachine: "decision", state: "recorded", observable: "The fixture confirms the recorded decision.", evidence: ["contract", "runtime"] },
+        recovery: {
+          required: true,
+          failure: { stateMachine: "decision", state: "unavailable", observable: "The unavailable source remains visible with a recovery path." },
+          observable: "The selected record remains visible while the operator can retry or choose the disclosed fallback.",
+        },
+        journey: { profile: "generated-responsive", journey: "generated-overview" },
+        browser: { route: "/", narrowViewport: "mobile-375" },
+      },
+    ],
+    evidencePolicy: { missingEvidence: "unverified", failedBehavior: "failed", unsupportedCapability: "limitation" },
+    comparison: { taskContractId: "ci-generated-decision", crossContractRanking: false },
+  },
 }), "utf8");
 await writeFile(journeyPath, `${JSON.stringify({
-  version: "1.0",
+  version: "1.1",
   contract: "ci-repair-fixture",
   profiles: [
     {
@@ -222,13 +255,30 @@ await writeFile(journeyPath, `${JSON.stringify({
         {
           id: "generated-overview",
           name: "generated-overview",
+          interaction: {
+            task: "record-generated-decision",
+            phases: ["primary", "recovery"],
+            applicableStates: ["disconnected", "error"],
+          },
           steps: [
             { action: "expectVisible", selector: "main[data-ztothez-design-composition=\"1.0\"]" },
+            { action: "checkpoint", checkpoint: "start" },
             { action: "expectText", selector: "body", value: plan.product },
             { action: "expectText", selector: "body", value: "Demonstration data" },
             { action: "expectVisible", selector: "button[data-ztothez-design-primary-action]" },
             { action: "click", selector: "button[data-ztothez-design-primary-action]" },
             { action: "expectText", selector: "body", value: "Decision recorded" },
+            { action: "checkpoint", checkpoint: "success" },
+            { action: "click", selector: "button:has-text(\"live\")" },
+            { action: "click", selector: "button:has-text(\"Retry source\")" },
+            { action: "expectText", selector: ".task-message", value: "Connection remains unavailable" },
+            { action: "checkpoint", checkpoint: "failure" },
+            { action: "expectText", selector: ".finding", value: "priority-record-01" },
+            { action: "checkpoint", checkpoint: "preserved-state" },
+            { action: "expectText", selector: ".status", value: "error" },
+            { action: "checkpoint", checkpoint: "error" },
+            { action: "expectText", selector: ".source-facts", value: "unavailable" },
+            { action: "checkpoint", checkpoint: "disconnected" },
           ],
         },
       ],

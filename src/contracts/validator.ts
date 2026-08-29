@@ -170,7 +170,7 @@ function validateContractReferences(contract: ProductContract, suite: JourneySui
     }
   }
 
-  if (contract.version === "1.1") {
+  if (contract.version !== "1.0") {
     const benchmark = contract.benchmark;
     issues.push(...validateArchetypeActivation(benchmark));
 
@@ -220,6 +220,52 @@ function validateContractReferences(contract: ProductContract, suite: JourneySui
           issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.journey.profile`, `Unknown journey profile: ${task.journey.profile}`));
         } else if (!journey) {
           issues.push(issue("CONTRACT-UNKNOWN-REFERENCE", `${path}.journey.journey`, `Unknown journey: ${task.journey.journey}`));
+        } else if (contract.version === "1.2") {
+          if (suite.version !== "1.1") {
+            issues.push(
+              issue(
+                "CONTRACT-INTERACTION-SUITE",
+                `${path}.journey`,
+                "V1.2 product contracts require a V1.1 interaction journey suite.",
+              ),
+            );
+          } else if (!journey.interaction) {
+            issues.push(
+              issue(
+                "CONTRACT-INTERACTION-COVERAGE",
+                `${path}.journey`,
+                "The bound journey must declare interaction coverage.",
+              ),
+            );
+          } else {
+            if (journey.interaction.task !== task.id) {
+              issues.push(
+                issue(
+                  "CONTRACT-INTERACTION-TASK",
+                  `${path}.journey`,
+                  `Journey interaction task ${journey.interaction.task} must match product task ${task.id}.`,
+                ),
+              );
+            }
+            if (task.primary && !journey.interaction.phases.includes("primary")) {
+              issues.push(
+                issue(
+                  "CONTRACT-INTERACTION-COVERAGE",
+                  `${path}.journey`,
+                  "Primary product tasks require primary journey checkpoints.",
+                ),
+              );
+            }
+            if (task.recovery.required && !journey.interaction.phases.includes("recovery")) {
+              issues.push(
+                issue(
+                  "CONTRACT-INTERACTION-COVERAGE",
+                  `${path}.journey`,
+                  "Tasks with required recovery require failure and preserved-state checkpoints.",
+                ),
+              );
+            }
+          }
         }
         const binding = contract.verification.bindings.find(
           (entry) =>

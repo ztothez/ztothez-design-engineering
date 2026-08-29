@@ -68,6 +68,7 @@ artifactSets:
       - knowledge-base/design-intelligence/information-design.md
       - knowledge-base/design-intelligence/information-design.schema.yaml
       - knowledge-base/design-intelligence/information-design.template.yaml
+      - knowledge-base/design-intelligence/interaction-recovery-verification.md
       - knowledge-base/design-intelligence/interface-trust.md
       - knowledge-base/design-intelligence/interface-trust.schema.yaml
       - knowledge-base/design-intelligence/interface-trust.template.yaml

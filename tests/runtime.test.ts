@@ -17,6 +17,7 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   const overlapHtml = await readFile(join(fixtureDirectory, "overlap.html"), "utf8");
   const advancedHtml = await readFile(join(fixtureDirectory, "advanced.html"), "utf8");
   const blobDownloadHtml = await readFile(join(fixtureDirectory, "blob-download.html"), "utf8");
+  const interactionHtml = await readFile(join(fixtureDirectory, "interaction.html"), "utf8");
   const v2BadHtml = await readFile(join(fixtureDirectory, "v2-bad.html"), "utf8");
   const visualCompositionGoodHtml = await readFile(join(fixtureDirectory, "visual-composition-good.html"), "utf8");
   const visualCompositionBadHtml = await readFile(join(fixtureDirectory, "visual-composition-bad.html"), "utf8");
@@ -56,6 +57,11 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
         "content-security-policy": "default-src 'self'; script-src 'unsafe-inline'; connect-src 'self'",
       });
       response.end(blobDownloadHtml);
+      return;
+    }
+    if (request.url === "/interaction") {
+      response.writeHead(200, { "content-type": "text/html; charset=utf-8" });
+      response.end(interactionHtml);
       return;
     }
     if (request.url?.startsWith("/v2-quality-states")) {
@@ -178,6 +184,72 @@ test("runtime verifier captures evidence, journeys, and rendered failures", asyn
   assert.ok(blobEvidence?.path);
   assert.match(blobEvidence.description, /via (browser download|captured Blob)/);
   assert.equal(await readFile(blobEvidence.path, "utf8"), "captured offline export\n");
+
+  const interaction = await verifyUiRuntime({
+    url: `${origin}/interaction`,
+    outputDirectory: join(outputRoot, "interaction"),
+    viewports: viewport,
+    settleMs: 20,
+    journeys: [
+      {
+        name: "record-and-recover",
+        interaction: {
+          task: "record-decision",
+          phases: ["primary", "recovery"],
+          applicableStates: ["disconnected", "error"],
+          keyboard: true,
+          export: true,
+          offline: true,
+        },
+        steps: [
+          { action: "expectText", selector: "#state", value: "Ready to record" },
+          { action: "checkpoint", checkpoint: "start" },
+          { action: "click", selector: "#primary" },
+          { action: "expectText", selector: "#state", value: "Decision recorded" },
+          { action: "checkpoint", checkpoint: "success" },
+          { action: "press", selector: "#keyboard", value: "Enter" },
+          { action: "expectText", selector: "#state", value: "Keyboard command completed" },
+          { action: "checkpoint", checkpoint: "keyboard" },
+          { action: "expectDownload", selector: "#export", filenameIncludes: "report.json" },
+          { action: "checkpoint", checkpoint: "export" },
+          { action: "setNetwork", state: "offline" },
+          { action: "click", selector: "#retry" },
+          { action: "expectText", selector: "#state", value: "Source unavailable" },
+          { action: "checkpoint", checkpoint: "failure" },
+          { action: "expectValue", selector: "#draft", value: "priority-record-01" },
+          { action: "checkpoint", checkpoint: "preserved-state" },
+          { action: "expectAttribute", selector: "#state", name: "data-phase", value: "error" },
+          { action: "checkpoint", checkpoint: "error" },
+          { action: "expectAttribute", selector: "#state", name: "data-connection", value: "disconnected" },
+          { action: "checkpoint", checkpoint: "disconnected" },
+          { action: "expectText", selector: "#state", value: "retry later" },
+          { action: "checkpoint", checkpoint: "offline" },
+        ],
+      },
+    ],
+  });
+  assert.equal(interaction.passed, true, JSON.stringify(interaction.findings, null, 2));
+  assert.deepEqual(
+    interaction.journeys[0]?.checkpoints?.map((checkpoint) => checkpoint.checkpoint),
+    ["start", "success", "keyboard", "export", "failure", "preserved-state", "error", "disconnected", "offline"],
+  );
+  assert.match(await readFile(join(interaction.outputDirectory, "runtime-report.md"), "utf8"), /Interaction Checkpoints/);
+
+  await assert.rejects(
+    verifyUiRuntime({
+      url: `${origin}/interaction`,
+      outputDirectory: join(outputRoot, "missing-interaction-checkpoint"),
+      viewports: viewport,
+      journeys: [
+        {
+          name: "missing-recovery",
+          interaction: { task: "record-decision", phases: ["recovery"] },
+          steps: [{ action: "expectVisible", selector: "#state" }, { action: "checkpoint", checkpoint: "failure" }],
+        },
+      ],
+    }),
+    /preserved-state checkpoint/,
+  );
 
   const bad = await verifyUiRuntime({
     url: `${origin}/bad`,

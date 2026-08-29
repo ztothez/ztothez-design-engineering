@@ -219,6 +219,7 @@ try {
       ["information-design.md", /Operational Information Design/],
       ["design-plan.md", /Deterministic Design Plan Compiler/],
       ["product-design-brief.md", /Product Design Brief Contract/],
+      ["interaction-recovery-verification.md", /Interaction And Recovery Verification/],
       ["visual-polish.md", /Visual Polish System/],
     ]) {
       const exactRead = await client.callTool({

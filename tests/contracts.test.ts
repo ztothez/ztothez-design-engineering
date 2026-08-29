@@ -86,3 +86,52 @@ test("product contract validator rejects missing files and broken references", a
     ),
   );
 });
+
+test("V1.2 contracts require task-bound interaction checkpoints", async (context) => {
+  const directory = await mkdtemp(join(tmpdir(), "ztothez-design-interaction-contract-"));
+  context.after(() => rm(directory, { recursive: true, force: true }));
+  const contract = parse(
+    await readFile(join(benchmarkDirectory, "product-contract.yaml"), "utf8"),
+  ) as Record<string, any>;
+  const suite = JSON.parse(
+    await readFile(join(benchmarkDirectory, "journeys.json"), "utf8"),
+  ) as Record<string, any>;
+  contract.version = "1.2";
+  contract.authority.precedence = [
+    { path: "product-contract.yaml", role: "Synthetic interaction contract", authority: "primary" },
+  ];
+  suite.version = "1.1";
+  for (const profile of suite.profiles) {
+    for (const journey of profile.journeys) {
+      journey.interaction = {
+        task: "generate-detection-package",
+        phases: ["primary", "recovery"],
+      };
+      journey.steps.push(
+        { action: "expectVisible", selector: "body" },
+        { action: "checkpoint", checkpoint: "start" },
+        { action: "expectVisible", selector: "body" },
+        { action: "checkpoint", checkpoint: "success" },
+        { action: "expectVisible", selector: "body" },
+        { action: "checkpoint", checkpoint: "failure" },
+        { action: "expectVisible", selector: "body" },
+        { action: "checkpoint", checkpoint: "preserved-state" },
+      );
+    }
+  }
+  await writeFile(join(directory, "product-contract.yaml"), stringify(contract), "utf8");
+  await writeFile(join(directory, "journeys.json"), `${JSON.stringify(suite, null, 2)}\n`, "utf8");
+
+  const passing = await validateProductContract(join(directory, "product-contract.yaml"), {
+    projectRoot: directory,
+  });
+  assert.equal(passing.passed, true, JSON.stringify(passing.issues, null, 2));
+
+  suite.profiles[0].journeys[0].interaction.task = "wrong-task";
+  await writeFile(join(directory, "journeys.json"), `${JSON.stringify(suite, null, 2)}\n`, "utf8");
+  const mismatched = await validateProductContract(join(directory, "product-contract.yaml"), {
+    projectRoot: directory,
+  });
+  assert.equal(mismatched.passed, false);
+  assert.ok(mismatched.issues.some((entry) => entry.code === "CONTRACT-INTERACTION-TASK"));
+});

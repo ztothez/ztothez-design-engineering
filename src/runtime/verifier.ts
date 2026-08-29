@@ -36,7 +36,11 @@ import {
   validateViewports,
 } from "./policy.js";
 import { formatRuntimeReport } from "./report.js";
-import { runtimeExpectedNetworkSchema, runtimeScreenshotBaselineSchema } from "./schema.js";
+import {
+  runtimeExpectedNetworkSchema,
+  runtimeJourneySchema,
+  runtimeScreenshotBaselineSchema,
+} from "./schema.js";
 import type {
   RuntimeExpectedNetwork,
   RuntimeExpectedNetworkObservation,
@@ -1181,7 +1185,9 @@ async function runJourney(
     stepsCompleted: 0,
     totalSteps: journey.steps.length,
     evidence: [],
+    checkpoints: [],
   };
+  const observations = new Map<number, string>();
 
   for (const [index, step] of journey.steps.entries()) {
     try {
@@ -1196,6 +1202,9 @@ async function runJourney(
           await page.waitForTimeout(settleMs);
           break;
         }
+        case "setNetwork":
+          await page.context().setOffline(step.state === "offline");
+          break;
         case "click":
           await page.locator(step.selector).click({ timeout: timeoutMs });
           break;
@@ -1214,6 +1223,7 @@ async function runJourney(
           break;
         case "expectVisible":
           await page.locator(step.selector).waitFor({ state: "visible", timeout: timeoutMs });
+          observations.set(index + 1, `${step.selector} is visible`);
           break;
         case "expectValue": {
           const locator = page.locator(step.selector);
@@ -1222,6 +1232,7 @@ async function runJourney(
           if (value !== step.value) {
             throw new Error(`Expected value ${JSON.stringify(step.value)}, received ${JSON.stringify(value)}`);
           }
+          observations.set(index + 1, `${step.selector} value matched ${JSON.stringify(value)}`);
           break;
         }
         case "expectAttribute": {
@@ -1238,6 +1249,7 @@ async function runJourney(
             step: index + 1,
             description: `${step.selector} has ${step.name}=${JSON.stringify(value)}`,
           });
+          observations.set(index + 1, `${step.selector} has ${step.name}=${JSON.stringify(value)}`);
           break;
         }
         case "expectJson": {
@@ -1255,6 +1267,10 @@ async function runJourney(
             step: index + 1,
             description: `${step.selector} JSON path ${step.path} matched ${JSON.stringify(step.value)}`,
           });
+          observations.set(
+            index + 1,
+            `${step.selector} JSON path ${step.path} matched ${JSON.stringify(step.value)}`,
+          );
           break;
         }
         case "expectDownload": {
@@ -1307,6 +1323,7 @@ async function runJourney(
             description: `Downloaded ${suggestedFilename} via ${evidenceMethod}`,
             path: downloadPath,
           });
+          observations.set(index + 1, `Downloaded ${suggestedFilename} via ${evidenceMethod}`);
           break;
         }
         case "expectResponse": {
@@ -1325,6 +1342,10 @@ async function runJourney(
             step: index + 1,
             description: `${response.request().method()} ${response.url()} returned ${response.status()}`,
           });
+          observations.set(
+            index + 1,
+            `${response.request().method()} ${response.url()} returned ${response.status()}`,
+          );
           break;
         }
         case "expectText": {
@@ -1332,6 +1353,26 @@ async function runJourney(
           await locator.waitFor({ state: "visible", timeout: timeoutMs });
           const text = (await locator.textContent()) ?? "";
           if (!text.includes(step.value)) throw new Error(`Expected text ${JSON.stringify(step.value)}`);
+          observations.set(index + 1, `${step.selector} contains ${JSON.stringify(step.value)}`);
+          break;
+        }
+        case "checkpoint": {
+          const evidenceStep = index;
+          const description = observations.get(evidenceStep);
+          if (!description) {
+            throw new Error("Checkpoint must immediately follow a successful observable expectation");
+          }
+          result.checkpoints?.push({
+            checkpoint: step.checkpoint,
+            step: index + 1,
+            evidenceStep,
+            description,
+          });
+          result.evidence?.push({
+            kind: "checkpoint",
+            step: index + 1,
+            description: `${step.checkpoint} checkpoint: ${description}`,
+          });
           break;
         }
       }
@@ -1368,7 +1409,7 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
   const outputDirectory = resolve(options.outputDirectory);
   const viewports = [...(options.viewports ?? DEFAULT_RUNTIME_VIEWPORTS)];
   const colorSchemes = [...(options.colorSchemes ?? DEFAULT_RUNTIME_COLOR_SCHEMES)];
-  const journeys = options.journeys ?? [];
+  const journeys = runtimeJourneySchema.array().max(MAX_RUNTIME_JOURNEYS).parse(options.journeys ?? []);
   const timeoutMs = options.navigationTimeoutMs ?? DEFAULT_NAVIGATION_TIMEOUT_MS;
   const settleMs = options.settleMs ?? DEFAULT_SETTLE_MS;
   const expectedNetworkTrackers = createExpectedNetworkTrackers(options.expectedNetwork ?? []);
@@ -1384,9 +1425,6 @@ export async function verifyUiRuntime(options: RuntimeVerificationOptions): Prom
   }
   validateViewports(viewports);
   validateColorSchemes(colorSchemes);
-  if (journeys.length > MAX_RUNTIME_JOURNEYS) {
-    throw new Error(`Provide no more than ${MAX_RUNTIME_JOURNEYS} journeys`);
-  }
   for (const journey of journeys) {
     if (journey.steps.length > MAX_JOURNEY_STEPS) {
       throw new Error(`Journey ${journey.name} exceeds the ${MAX_JOURNEY_STEPS}-step limit`);

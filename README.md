@@ -249,6 +249,11 @@ replacements in generation-manifest-owned files. Repeated or failed verification
 original target and produces an unresolved report. See
 `knowledge-base/design-intelligence/closed-loop-repair.md`.
 
+For a versioned browser task contract, `knowledge-base/design-intelligence/interaction-recovery-verification.md`
+adds retained start, success, failure, preserved-state, keyboard, export, and offline checkpoints.
+Only states declared applicable by the task and data model are verified; unsupported automation remains
+an explicit limitation.
+
 Validate a design-intelligence deliverable:
 
 ```bash
@@ -440,4 +445,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 5 implement evidence-gated product briefs, deterministic design-plan compilation, contained React and TypeScript fixture generation, rendered visual-composition and asset enforcement, and bounded finding-driven repair with rollback. The remaining closed-loop delivery program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 5 implement evidence-gated product briefs, deterministic design-plan compilation, contained React and TypeScript fixture generation, rendered visual-composition and asset enforcement, and bounded finding-driven repair with rollback. Item 6 adds versioned executable interaction and recovery checkpoints while preserving the boundary between runtime, human-review, and representative-user evidence. The remaining closed-loop delivery program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).

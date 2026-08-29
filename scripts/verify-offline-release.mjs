@@ -39,6 +39,7 @@ const requiredV2Modules = [
   "knowledge-base/design-intelligence/interface-trust.md",
   "knowledge-base/design-intelligence/information-design.md",
   "knowledge-base/design-intelligence/visual-polish.md",
+  "knowledge-base/design-intelligence/interaction-recovery-verification.md",
 ];
 for (const path of requiredV2Modules) {
   assert.ok(index.documents.some((document) => document.path === path), `V2 document missing from offline index: ${path}`);

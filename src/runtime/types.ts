@@ -1,5 +1,20 @@
 export type RuntimeSeverity = "error" | "warning" | "info";
 export type RuntimeColorScheme = "light" | "dark";
+export type InteractionCheckpoint =
+  | "start"
+  | "success"
+  | "failure"
+  | "preserved-state"
+  | "keyboard"
+  | "export"
+  | "offline"
+  | "disconnected"
+  | "loading"
+  | "empty"
+  | "partial"
+  | "stale"
+  | "unauthorized"
+  | "error";
 
 export type RuntimeViewport = {
   name: string;
@@ -40,7 +55,7 @@ export type RuntimeEvidenceBoundary = {
 };
 
 export type RuntimeJourneyEvidence = {
-  kind: "download" | "response" | "json" | "attribute";
+  kind: "download" | "response" | "json" | "attribute" | "checkpoint";
   step: number;
   description: string;
   path?: string;
@@ -50,6 +65,7 @@ export type JourneyJsonValue = string | number | boolean | null;
 
 export type JourneyStep =
   | { action: "navigate"; value: string }
+  | { action: "setNetwork"; state: "online" | "offline" }
   | { action: "click"; selector: string }
   | { action: "fill"; selector: string; value: string }
   | { action: "press"; selector?: string; value: string }
@@ -66,11 +82,31 @@ export type JourneyStep =
       status: number;
       method?: string;
     }
-  | { action: "expectText"; selector: string; value: string };
+  | { action: "expectText"; selector: string; value: string }
+  | { action: "checkpoint"; checkpoint: InteractionCheckpoint };
+
+export type RuntimeJourneyInteraction = {
+  task: string;
+  phases: Array<"primary" | "recovery">;
+  applicableStates?: Array<
+    "loading" | "empty" | "partial" | "stale" | "disconnected" | "unauthorized" | "error"
+  >;
+  keyboard?: boolean;
+  export?: boolean;
+  offline?: boolean;
+};
 
 export type RuntimeJourney = {
   name: string;
+  interaction?: RuntimeJourneyInteraction;
   steps: JourneyStep[];
+};
+
+export type RuntimeJourneyCheckpoint = {
+  checkpoint: InteractionCheckpoint;
+  step: number;
+  evidenceStep: number;
+  description: string;
 };
 
 export type RuntimeJourneyResult = {
@@ -80,6 +116,7 @@ export type RuntimeJourneyResult = {
   totalSteps: number;
   screenshot?: string;
   evidence?: RuntimeJourneyEvidence[];
+  checkpoints?: RuntimeJourneyCheckpoint[];
 };
 
 export type RuntimeExpectedNetwork = {
