@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interaction recovery fixture</title>
+    <style>
+      :root { color-scheme: dark; --bg: #071018; --fg: #f8fafc; --accent: #2dd4bf; --surface: #12202e; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui; }
+      main { width: min(100% - 32px, 680px); margin: 48px auto; }
+      label, input, button, output, a { display: block; width: 100%; max-width: 100%; }
+      button, input, a { min-height: 44px; margin-block: 8px; }
+      button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+      output { margin-top: 16px; padding: 12px; background: var(--surface); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Interaction recovery fixture</h1>
+      <label for="draft">Draft decision</label>
+      <input id="draft" value="priority-record-01" />
+      <button id="primary" type="button">Record decision</button>
+      <button id="keyboard" type="button">Run keyboard command</button>
+      <a id="export" download="decision.json" href="/download/report.json">Export decision</a>
+      <button id="retry" type="button">Retry unavailable source</button>
+      <output id="state" data-phase="review" data-connection="online">Ready to record a decision.</output>
+    </main>
+    <script>
+      const state = document.querySelector('#state');
+      document.querySelector('#primary').addEventListener('click', () => {
+        state.dataset.phase = 'success';
+        state.textContent = 'Decision recorded.';
+      });
+      document.querySelector('#keyboard').addEventListener('click', () => {
+        state.dataset.phase = 'keyboard';
+        state.textContent = 'Keyboard command completed.';
+      });
+      document.querySelector('#retry').addEventListener('click', () => {
+        state.dataset.phase = 'error';
+        state.dataset.connection = 'disconnected';
+        state.textContent = 'Source unavailable. Draft is preserved; retry later or use a disclosed fallback.';
+      });
+    </script>
+  </body>
+</html>
