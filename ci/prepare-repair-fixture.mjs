@@ -60,7 +60,7 @@ await Promise.all([
   mkdir(protectedRoot, { recursive: true }),
 ]);
 await writeFile(registry, `${JSON.stringify({
-  version: "1.2",
+  version: "1.0",
   id: "ci-v4-repair-registry",
   description: "Public synthetic protected root for the V4 bounded repair fixture.",
   roots: [{ id: "protected", class: "studio-portfolio", path: protectedRoot }],
