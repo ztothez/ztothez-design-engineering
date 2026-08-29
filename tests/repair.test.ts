@@ -57,7 +57,7 @@ async function createRepairTarget(root: string, name: string): Promise<{
   const manifest = generationManifestSchema.parse({
     version: "1.0",
     adapter: "react-typescript-vite",
-    adapterVersion: "1.2.0",
+    adapterVersion: "1.2.1",
     plan: {
       id: "repair-fixture-plan",
       sourceDigest: "a".repeat(64),

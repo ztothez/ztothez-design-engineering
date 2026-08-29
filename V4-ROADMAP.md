@@ -117,7 +117,7 @@ preservation, traversal and symlink containment, portfolio-root denial, absolute
 zero-warning architecture audit, installed CLI generation, generated dependency installation,
 TypeScript checking, reducer tests, and a production Vite build. MCP remains read-only and exposes
 no generation tool. This item creates independent fixtures only; convention-aware merging into an
-existing repository remains outside adapter version 1.2.0.
+existing repository remains outside adapter version 1.2.1.
 
 Implement project-owned generation adapters for an initial React and TypeScript delivery path.
 Adapters must follow an existing target repository's conventions or create a minimal independent
@@ -149,7 +149,7 @@ claims, rendered focus, state and chart contrast, and asset metadata. `verify-ui
 retains eight screenshots plus the report for the passing composition fixture at 375, 768, 1024,
 and 1440 CSS pixels; a negative fixture proves each new runtime rule fails closed.
 
-The version 1.2.0 React adapter emits the composition semantics, keeps context, primary outcome,
+The version 1.2.1 React adapter emits the composition semantics, keeps context, primary outcome,
 and next action ahead of detailed provenance and supporting information, preserves a compact source
 disclosure beside the action, and passes generated typecheck, reducer tests, production build, 200
 percent text resize, responsive, light, and dark browser verification. It emits no unapproved

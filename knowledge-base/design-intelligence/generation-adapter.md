@@ -1,6 +1,6 @@
 # React And TypeScript Generation Adapter
 
-Current adapter version: `1.2.0`.
+Current adapter version: `1.2.1`.
 
 Use this adapter only after a product design brief compiles to a design plan with `status: ready`
 and `implementationReady: true`. It creates a new independent React, TypeScript, and Vite fixture.

@@ -73,6 +73,7 @@ test("React TypeScript generation is deterministic, traceable, and architecture-
   const sourcePanel = await readFile(join(output, "src/components/SourceBoundaryPanel.tsx"), "utf8");
   const packageManifest = await readFile(join(output, "package.json"), "utf8");
   const viteConfig = await readFile(join(output, "vite.config.ts"), "utf8");
+  const appStyles = await readFile(join(output, "src/styles/app.css"), "utf8");
   const manifest = generationManifestSchema.parse(JSON.parse(
     await readFile(join(output, "ztothez-design-generation.json"), "utf8"),
   ));
@@ -91,7 +92,9 @@ test("React TypeScript generation is deterministic, traceable, and architecture-
   assert.doesNotMatch(packageManifest, /ui.?ux.pro.max|lovable|external design/i);
   assert.match(viteConfig, /X-ZtotheZ-Design-Plan/);
   assert.match(viteConfig, new RegExp(plan.id));
-  assert.equal(manifest.adapterVersion, "1.2.0");
+  assert.match(appStyles, /\.product-header[^\n]*flex-wrap: wrap/);
+  assert.match(appStyles, /\.route-label, \.status[^\n]*white-space: normal[^\n]*overflow-wrap: anywhere/);
+  assert.equal(manifest.adapterVersion, "1.2.1");
   assert.equal(manifest.plan.sourceDigest, plan.sourceBrief.digest);
   assert.equal(manifest.outputMode, "new-independent-fixture");
 
