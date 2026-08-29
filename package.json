@@ -116,7 +116,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "ISC",
+  "license": "GPL-3.0",
   "type": "module",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
