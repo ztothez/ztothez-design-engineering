@@ -197,6 +197,12 @@ jobs:
             cat "/tmp/ztde-${product}.log" 2>/dev/null || true
           done
 
+      - name: Retain V4 qualification evidence
+        run: |
+          npm run v4:qualification -- \
+            --pilot-evidence-root .ztothez-design-runtime/ci-v4-pilots \
+            --output .ztothez-design-runtime/v4-qualification
+
       - name: Validate product design brief
         run: |
           npm run validate-brief -- \
@@ -415,12 +421,6 @@ jobs:
             kill "$(cat /tmp/ztothez-design-azure-v2.pid)" 2>/dev/null || true
           fi
           cat /tmp/ztothez-design-azure-v2.log 2>/dev/null || true
-
-      - name: Retain V4 qualification evidence
-        run: |
-          npm run v4:qualification -- \
-            --pilot-evidence-root .ztothez-design-runtime/ci-v4-pilots \
-            --output .ztothez-design-runtime/v4-qualification
 
       - name: Upload fixture evidence
         if: always()

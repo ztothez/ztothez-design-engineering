@@ -127,6 +127,7 @@ const prerequisiteFailure = [
   holdout.result,
 ].find((result) => !result.passed);
 if (prerequisiteFailure) {
+  process.stderr.write(prerequisiteFailure.stdout);
   process.stderr.write(prerequisiteFailure.stderr);
   throw new Error(`V4 qualification prerequisite failed: ${prerequisiteFailure.command.join(" ")}`);
 }
