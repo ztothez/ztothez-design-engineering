@@ -1,0 +1,218 @@
+version: "1.0"
+id: scenestart-brief
+product: SceneStart Local-First Demoscene Learning Studio
+status: validated
+preparedAt: 2026-08-30T12:00:00+03:00
+preparedBy:
+  type: mixed
+  name: ZtotheZ and design agent
+evidenceSources:
+  - id: product-contract
+    kind: technical-source
+    description: SceneStart product contract outlining roles, outputs, modes, and constraints.
+    location: knowledge-base/benchmarks/scenestart/product-contract.yaml
+    owner: Product owner
+  - id: journeys-json
+    kind: technical-source
+    description: Verification journeys defining exact user flows and expectations.
+    location: knowledge-base/benchmarks/scenestart/journeys.json
+    owner: Engineering
+problem:
+  statement: Beginners and independent makers need to compose, preview, save, and export a demoscene production completely offline, without encountering specialists setup barriers or cloud dependencies.
+  currentOutcome: Users may encounter high friction in specialized tools or get stuck relying on online services that don't allow purely local exports.
+  desiredOutcome: A local-first demo studio where users can compose, save, and export productions, complete guided workshops, and document releases offline.
+  evidenceRefs: [product-contract]
+scope:
+  included:
+    - Offline Demo Studio for production editing and exporting
+    - Guided Workshop with six-step progression
+    - Local learning paths and progress tracking
+    - Release documentation and provenance export
+  excluded:
+    - Cloud storage or cloud project accounts
+    - Legal or rights certification
+    - External asset generation
+audiences:
+  - id: beginner-maker
+    role: Beginner demoscene maker
+    priority: primary
+    goals:
+      - See a meaningful visual result before specialist setup becomes a barrier.
+      - Finish and keep a working production that can be replayed offline.
+    contexts:
+      - Browser-based experimentation without external tools.
+    constraints:
+      - Must preserve downloaded project and production files on their own device.
+    accessibilityNeeds:
+      - Keyboard-complete operation and visible focus.
+    expertise: novice
+    evidenceRefs: [product-contract]
+  - id: independent-producer
+    role: Independent producer
+    priority: secondary
+    goals:
+      - Compose, preview, save, reopen, and export a multi-scene production.
+    contexts:
+      - Offline creation and iteration.
+    constraints:
+      - Resolve external-asset rights and required credits before release.
+    accessibilityNeeds:
+      - Keyboard-complete operation and visible focus.
+    expertise: expert
+    evidenceRefs: [product-contract]
+outcomes:
+  - id: offline-composition-export
+    kind: user
+    statement: The user can compose, save, and export an offline HTML demoscene production without relying on network endpoints.
+    measure:
+      signal: The project is successfully downloaded and the offline HTML is exported.
+      baseline:
+        status: not-applicable
+        reason: New baseline.
+      target: Journey 'compose-save-export' passes successfully.
+    evidenceRefs: [product-contract, journeys-json]
+dataSources:
+  - id: local-project-state
+    name: Local Project and Progress State
+    mode: user-input
+    latency: immediate
+    classification: public
+    sourceEvidenceRef: product-contract
+    freshness: Real-time browser storage and in-memory state.
+    limitations:
+      - Does not synchronize across devices.
+    fallback:
+      kind: none
+      disclosure: Notify users if local storage is unavailable.
+      preservesOrigin: true
+tasks:
+  - id: export-offline-production
+    title: Compose, save and export a production
+    audienceRefs: [independent-producer, beginner-maker]
+    outcomeRefs: [offline-composition-export]
+    dataRefs: [local-project-state]
+    trigger: User accesses the /studio route to start editing.
+    goal: Enter a handle, title, concept, save project locally, and export offline HTML.
+    frequency: weekly
+    criticality: high
+    consequential: true
+    inputs:
+      - Handle
+      - Concept
+      - Title
+    successSignal: User downloads scenestart-production.json and my-production.html.
+    failureImpact: User loses their work if not saved.
+    recovery: Invalid projects explain the error and preserve the current project.
+    evidenceRefs: [product-contract, journeys-json]
+  - id: workshop-to-studio
+    title: Complete guided first production
+    audienceRefs: [beginner-maker]
+    outcomeRefs: [offline-composition-export]
+    dataRefs: [local-project-state]
+    trigger: User accesses the /workshop route.
+    goal: Complete 6 steps and export the production, then continue to Demo Studio.
+    frequency: daily
+    criticality: high
+    consequential: true
+    inputs:
+      - Handle
+    successSignal: User finishes workshop, exports HTML, and continues in studio.
+    failureImpact: User cannot progress if storage fails.
+    recovery: If storage fails, disclose failure without claiming progress is saved, allowing retry.
+    evidenceRefs: [product-contract, journeys-json]
+states:
+  - state: empty
+    taskRefs: [export-offline-production]
+    behavior: Show empty studio ready for input.
+    recovery: User can start entering data.
+    disclosure: Explain what to do.
+  - state: success
+    taskRefs: [export-offline-production, workshop-to-studio]
+    behavior: Show successful export and save notifications.
+    recovery: User can continue editing.
+    disclosure: Show downloaded file names.
+  - state: error
+    taskRefs: [export-offline-production, workshop-to-studio]
+    behavior: Invalid project load shows error. Storage failure shows error.
+    recovery: Preserve state, allow retry.
+    disclosure: Show clear error messages (e.g. Invalid project, Storage unavailable).
+  - state: disconnected
+    taskRefs: [workshop-to-studio]
+    behavior: Same as error if storage fails while offline.
+    recovery: Allow retry.
+    disclosure: Notify user.
+platforms:
+  - id: responsive-browser
+    kind: responsive-web
+    priority: primary
+    viewports: [320, 375, 390, 768, 1024, 1440]
+    inputModes: [keyboard, pointer, touch, assistive-technology]
+    constraints:
+      - Must operate offline and fit in mobile widths.
+constraints:
+  - Local-first architecture (no backend storage).
+  - No claims of certification.
+requirements:
+  - id: requirement-export-offline
+    category: functional
+    priority: must
+    statement: The studio must support saving the project and exporting an offline HTML file.
+    rationale: Core demoscene capability.
+    taskRefs: [export-offline-production]
+    evidenceRefs: [product-contract]
+  - id: requirement-accessibility
+    category: accessibility
+    priority: must
+    statement: The primary task supports keyboard, visible focus, non-color status cues, text resize, reflow, and maintained contrast.
+    rationale: The task must remain operable across declared access needs and viewports.
+    taskRefs: [export-offline-production, workshop-to-studio]
+    evidenceRefs: [product-contract]
+  - id: requirement-guided-workshop
+    category: functional
+    priority: must
+    statement: The workshop must guide users and handle storage failures gracefully.
+    rationale: Beginner onboarding.
+    taskRefs: [workshop-to-studio]
+    evidenceRefs: [product-contract]
+assumptions:
+  - id: assumption-local-storage
+    statement: Users have local storage enabled.
+    risk: low
+    status: validated
+    evidenceRefs: [product-contract]
+    validationMethod: Runtime journeys test storage failure.
+acceptanceCriteria:
+  - id: acceptance-studio-export
+    statement: The user can navigate to /studio, enter details, save project, and export HTML.
+    requirementRefs: [requirement-export-offline]
+    taskRefs: [export-offline-production]
+    method: browser-test
+    expectedEvidence: Passing journey tests.
+    blocking: true
+  - id: acceptance-accessibility
+    statement: The primary journey passes keyboard, focus, contrast, target, text-resize, reflow, and reduced-motion checks.
+    requirementRefs: [requirement-accessibility]
+    taskRefs: [export-offline-production, workshop-to-studio]
+    method: browser-test
+    expectedEvidence: Browser report with applicable accessibility checks passing.
+    blocking: true
+  - id: acceptance-workshop-flow
+    statement: The user can complete the workshop, handle storage failure, and transition to studio.
+    requirementRefs: [requirement-guided-workshop]
+    taskRefs: [workshop-to-studio]
+    method: browser-test
+    expectedEvidence: Passing journey tests.
+    blocking: true
+downstreamContracts:
+  - kind: product-task
+    status: exists
+    path: knowledge-base/benchmarks/scenestart/product-contract.yaml
+  - kind: interface-trust
+    status: not-applicable
+    reason: Not required for pilot fixtures
+  - kind: information-design
+    status: not-applicable
+    reason: Not required for pilot fixtures
+  - kind: design-deliverable
+    status: not-applicable
+    reason: Not required for pilot fixtures

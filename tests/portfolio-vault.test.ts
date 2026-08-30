@@ -133,7 +133,7 @@ test("deleteProjectEvidence removes local project artifacts while preserving rep
   const reportPath = join(runRoot, runId, "report.json");
   const validReport = {
     version: "1.2.0",
-    toolVersion: "2.0.2",
+    toolVersion: "2.0.3",
     runId,
     mode: "cohort",
     registryId: "reg-1",

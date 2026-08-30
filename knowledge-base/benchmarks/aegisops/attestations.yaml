@@ -81,9 +81,9 @@ attestations:
       STATUS: ✓ PASS
     evidence:
       - ".uix-quality-gate/aegis-demo-evidence/runtime/journey-single-technique-success.png"
-      - "/home/ztothez/Studio/portfolio/AegisOPS/demo_output.py"
-      - "/home/ztothez/Studio/portfolio/AegisOPS/server.py"
-      - "/home/ztothez/Studio/portfolio/AegisOPS/frontend/src/app/page.tsx"
+      - "owner-source:AegisOPS/demo_output.py"
+      - "owner-source:AegisOPS/server.py"
+      - "owner-source:AegisOPS/frontend/src/app/page.tsx"
 
   - criterion: authorized-scope
     status: pass
@@ -112,4 +112,4 @@ attestations:
     evidence:
       - ".uix-quality-gate/aegis-demo-evidence/runtime/journey-single-technique-success-step-9-sigma_T1059.001.yml"
       - "knowledge-base/benchmarks/aegisops/product-contract.yaml"
-      - "/home/ztothez/Studio/portfolio/AegisOPS/demo_output.py"
+      - "owner-source:AegisOPS/demo_output.py"

@@ -100,6 +100,11 @@ artifactSets:
       - knowledge-base/benchmarks/interface-quality/review.schema.yaml
       - knowledge-base/benchmarks/interface-quality/review-session.schema.yaml
       - knowledge-base/benchmarks/interface-quality/review.template.yaml
+      - knowledge-base/benchmarks/delivery-pilots.yaml
+      - knowledge-base/benchmarks/v4-evaluation.yaml
+      - knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-positive.json
+      - knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-negative.json
+      - knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-abstention.json
       - knowledge-base/benchmarks/portfolio-corpus/ADAPTERS.md
       - knowledge-base/benchmarks/portfolio-corpus/PORTFOLIO-RUNNER.md
       - knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md
@@ -136,6 +141,10 @@ artifactSets:
       - knowledge-base/benchmarks/aegisops/attestations.template.yaml
       - knowledge-base/benchmarks/aegisops/attestations.yaml
       - knowledge-base/benchmarks/aegisops/journeys.json
+      - knowledge-base/benchmarks/aegisops/interaction-journeys.json
+      - knowledge-base/benchmarks/aegisops/interaction-product-contract.yaml
+      - knowledge-base/benchmarks/aegisops/design-plan.json
+      - knowledge-base/benchmarks/aegisops/product-design-brief.yaml
       - knowledge-base/benchmarks/aegisops/product-contract.yaml
   - id: azure-optimizer-benchmark
     source: azure-optimizer-owner-evidence
@@ -149,6 +158,10 @@ artifactSets:
       - knowledge-base/benchmarks/azure-optimizer/acceptance-criteria.md
       - knowledge-base/benchmarks/azure-optimizer/anti-patterns.md
       - knowledge-base/benchmarks/azure-optimizer/journeys.json
+      - knowledge-base/benchmarks/azure-optimizer/interaction-journeys.json
+      - knowledge-base/benchmarks/azure-optimizer/interaction-product-contract.yaml
+      - knowledge-base/benchmarks/azure-optimizer/design-plan.json
+      - knowledge-base/benchmarks/azure-optimizer/product-design-brief.yaml
       - knowledge-base/benchmarks/azure-optimizer/product-contract.yaml
       - knowledge-base/benchmarks/azure-optimizer/v2-journeys.json
       - knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml
@@ -169,6 +182,10 @@ artifactSets:
       - knowledge-base/benchmarks/scenestart/human-review.md
       - knowledge-base/benchmarks/scenestart/human-review.template.md
       - knowledge-base/benchmarks/scenestart/journeys.json
+      - knowledge-base/benchmarks/scenestart/interaction-journeys.json
+      - knowledge-base/benchmarks/scenestart/interaction-product-contract.yaml
+      - knowledge-base/benchmarks/scenestart/design-plan.json
+      - knowledge-base/benchmarks/scenestart/product-design-brief.yaml
       - knowledge-base/benchmarks/scenestart/product-contract.yaml
   - id: corpus-benchmark
     source: ztothez-corpus

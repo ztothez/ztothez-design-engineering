@@ -26,26 +26,35 @@ The final Item 9 implementation is in:
 
 ## Verified Local Baseline
 
-- Development report: `v3-development-20260828-r6`
-- Holdout report: `v3-holdout-20260828-r4`
-- Registry digest: `b0cc9a19e94220f88a71d1731ccc50ec4330aec6eed5d738647ff4adfd81428e`
-- Coverage: 12 projects, 12 domains, 8 declared stacks, 5 archetypes, and 3 locked holdouts.
+- Development report: `v3-development-20260830-r9`
+- Holdout report: `v3-holdout-20260830-r6`
+- Registry digest: `d6e8305e1f8a3139a647b7a947cedaefde451f1ffc531188316a870411d67667`
+- Coverage: 12 projects, 12 domains, 9 declared stacks, 5 archetypes, and 3 locked holdouts.
 - Both cohort reports have exact coverage, zero unsafe configurations, zero source mutations, and
   passing `verify-unchanged` results.
 - Execution paths: authorized local source-only coverage plus public synthetic browser-only and
   Node plus Python full-stack fixtures executed in disposable snapshots.
 - Promoted candidates: `semantic-token-boundary`, `interactive-control-integrity`, and
   `component-review-threshold`.
-- Final report: `.ztothez-design-benchmarks/evidence/v3-final/qualification-report.json` with all
+- Final report: `.ztothez-design-benchmarks/evidence/v3-current/qualification-report.json` with all
   14 criteria passing. The directory is private, ignored, and excluded from package output.
 
 ## Regeneration
 
+Current workspace note, 2026-08-30: the owner-authorized 12-project registry, development cohort,
+and locked holdout cohort have been regenerated. The current private qualification passes all 14
+criteria. The registry and retained evidence remain ignored local state; preserve them when moving
+or cleaning the workspace. Do not treat the public synthetic CI lane as a replacement for this
+private qualification.
+
+After regenerating both cohorts through `zz-design portfolio benchmark` and verifying both source
+sets unchanged, capture the current evidence with:
+
 ```bash
 npm run v3:evidence -- \
-  --dev-run v3-development-20260828-r6 \
-  --holdout-run v3-holdout-20260828-r4 \
-  --output .ztothez-design-benchmarks/evidence/v3-final
+  --dev-run v3-development-20260830-r9 \
+  --holdout-run v3-holdout-20260830-r6 \
+  --output .ztothez-design-benchmarks/evidence/v3-current
 ```
 
 The command captures exact command reports and checksummed logs, evaluates all three candidates,

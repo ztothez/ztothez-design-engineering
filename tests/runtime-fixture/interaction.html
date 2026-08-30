@@ -20,6 +20,9 @@
       <h1>Interaction recovery fixture</h1>
       <label for="draft">Draft decision</label>
       <input id="draft" value="priority-record-01" />
+      <label for="project-file">Project file</label>
+      <input id="project-file" type="file" accept="application/json" />
+      <button id="save-storage" type="button">Save local draft</button>
       <button id="primary" type="button">Record decision</button>
       <button id="keyboard" type="button">Run keyboard command</button>
       <a id="export" download="decision.json" href="/download/report.json">Export decision</a>
@@ -28,6 +31,17 @@
     </main>
     <script>
       const state = document.querySelector('#state');
+      document.querySelector('#project-file').addEventListener('change', (event) => {
+        state.textContent = `Selected ${event.target.files[0]?.name || 'no file'}.`;
+      });
+      document.querySelector('#save-storage').addEventListener('click', () => {
+        try {
+          localStorage.setItem('fixture-draft', document.querySelector('#draft').value);
+          state.textContent = 'Local draft saved.';
+        } catch {
+          state.textContent = 'Local storage unavailable. Draft remains in memory.';
+        }
+      });
       document.querySelector('#primary').addEventListener('click', () => {
         state.dataset.phase = 'success';
         state.textContent = 'Decision recorded.';

@@ -12,9 +12,13 @@ Work in `/home/ztothez/Studio/experiments/UIX-Design-Skill`.
 
 ## Current Roadmap State
 
-V1, V2, and V3 are Done. V4 Items 1 and 2 are Done; Item 3 is the next implementation slice. The passing local V3
-qualification is retained under the ignored V3 evidence root and can be regenerated with
-`npm run v3:evidence`.
+V1, V2, and V3 are historically Done. V4 Items 1 through 9 are Done. Publication, tagging, package
+release, or website activation requires a separate explicit request after retained evidence review.
+
+The passing V3 baseline is documented in `V3-HANDOFF.md`. The current ignored registry contains 12
+owner-authorized projects, and `npm run v3:evidence` has produced a passing private qualification
+report. Keep the registry, cohort reports, and retained evidence private and excluded from Git and
+package output.
 
 Any new benchmark capability requires a new roadmap item or an explicit change request. Preserve
 the completed V3 evidence boundaries when extending the system.

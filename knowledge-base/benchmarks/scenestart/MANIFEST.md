@@ -44,10 +44,12 @@ Run one profile against an already-running SceneStart application:
 ```bash
 npm run quality-gate -- \
   --contract knowledge-base/benchmarks/scenestart/product-contract.yaml \
-  --repo /home/ztothez/Studio/portfolio/scenestart \
+  --repo "$SCENESTART_ROOT" \
   --url http://127.0.0.1:3000 \
   --profile studio-export \
   --output .ztothez-design-quality-gate/scenestart-studio
 ```
+
+Set `SCENESTART_ROOT` to the owner-authorized local checkout before running the command.
 
 Use `attestations.template.yaml` only as an empty structure. Reviewer observations belong in `human-review.template.md` first and may be converted to an attestation only after the named reviewer approves the final wording and evidence.

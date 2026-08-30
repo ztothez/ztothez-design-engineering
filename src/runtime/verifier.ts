@@ -1205,12 +1205,39 @@ async function runJourney(
         case "setNetwork":
           await page.context().setOffline(step.state === "offline");
           break;
+        case "setStorage":
+          await page.evaluate((state) => {
+            const scope = window as typeof window & {
+              __ztdeStorageSetItem?: Storage["setItem"];
+            };
+            if (state === "unavailable") {
+              scope.__ztdeStorageSetItem ??= Storage.prototype.setItem;
+              Storage.prototype.setItem = function unavailableStorage(): never {
+                throw new DOMException("Storage unavailable", "QuotaExceededError");
+              };
+            } else if (scope.__ztdeStorageSetItem) {
+              Storage.prototype.setItem = scope.__ztdeStorageSetItem;
+              delete scope.__ztdeStorageSetItem;
+            }
+          }, step.state);
+          break;
         case "click":
           await page.locator(step.selector).click({ timeout: timeoutMs });
           break;
-        case "fill":
-          await page.locator(step.selector).fill(step.value, { timeout: timeoutMs });
+        case "fill": {
+          const locator = page.locator(step.selector);
+          const type = await locator.getAttribute("type").catch(() => null);
+          if (type === "file") {
+            await locator.setInputFiles({
+              name: step.value,
+              mimeType: 'application/json',
+              buffer: Buffer.from(''),
+            }, { timeout: timeoutMs });
+          } else {
+            await locator.fill(step.value, { timeout: timeoutMs });
+          }
           break;
+        }
         case "press":
           if (step.selector) {
             await page.locator(step.selector).press(step.value, { timeout: timeoutMs });

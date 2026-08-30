@@ -93,7 +93,7 @@ function cohortReport(
   const findings = runs.filter((run) => run.status === "findings").length;
   return {
     version: "1.2.0",
-    toolVersion: "2.0.2",
+    toolVersion: "2.0.3",
     runId: `${cohort}-run`,
     mode: "cohort",
     registryId: "root1",

@@ -16,7 +16,7 @@ jobs:
   quality:
     name: Build, test, and fixture gate
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     env:
       CI: true
@@ -72,11 +72,130 @@ jobs:
             --contract knowledge-base/benchmarks/aegisops/product-contract.yaml \
             --project-root .
           npm run validate-contract -- \
+            --contract knowledge-base/benchmarks/aegisops/interaction-product-contract.yaml \
+            --project-root .
+          npm run validate-contract -- \
             --contract knowledge-base/benchmarks/scenestart/product-contract.yaml \
+            --project-root .
+          npm run validate-contract -- \
+            --contract knowledge-base/benchmarks/scenestart/interaction-product-contract.yaml \
             --project-root .
           npm run validate-contract -- \
             --contract knowledge-base/benchmarks/azure-optimizer/product-contract.yaml \
             --project-root .
+          npm run validate-contract -- \
+            --contract knowledge-base/benchmarks/azure-optimizer/interaction-product-contract.yaml \
+            --project-root .
+
+      - name: Install V4 delivery pilot dependencies
+        run: |
+          npm ci --prefix tests/fixtures/pilots/aegisops-fixture
+          npm ci --prefix tests/fixtures/pilots/scenestart-fixture
+          npm ci --prefix tests/fixtures/pilots/azure-optimizer-fixture
+
+      - name: Build and statically verify V4 delivery pilots
+        run: |
+          mkdir -p .ztothez-design-runtime/ci-v4-pilots/static
+          for product in aegisops scenestart azure-optimizer; do
+            fixture="tests/fixtures/pilots/${product}-fixture"
+            npm --prefix "$fixture" run typecheck
+            npm --prefix "$fixture" test
+            npm --prefix "$fixture" run build
+            node dist/cli/audit.js \
+              --repo "$fixture" \
+              --json \
+              --fail-on warning \
+              > ".ztothez-design-runtime/ci-v4-pilots/static/${product}.json"
+          done
+
+      - name: Start V4 delivery pilots
+        run: |
+          npm --prefix tests/fixtures/pilots/aegisops-fixture run preview -- --host 127.0.0.1 --port 4301 > /tmp/ztde-aegisops.log 2>&1 &
+          echo "$!" > /tmp/ztde-aegisops.pid
+          npm --prefix tests/fixtures/pilots/scenestart-fixture run preview -- --host 127.0.0.1 --port 4302 > /tmp/ztde-scenestart.log 2>&1 &
+          echo "$!" > /tmp/ztde-scenestart.pid
+          npm --prefix tests/fixtures/pilots/azure-optimizer-fixture run preview -- --host 127.0.0.1 --port 4303 > /tmp/ztde-azure-optimizer.log 2>&1 &
+          echo "$!" > /tmp/ztde-azure-optimizer.pid
+          for port in 4301 4302 4303; do
+            for attempt in $(seq 1 30); do
+              if curl --fail --silent "http://127.0.0.1:${port}/" >/dev/null; then
+                break
+              fi
+              if [[ "$attempt" == 30 ]]; then
+                cat /tmp/ztde-*.log
+                exit 1
+              fi
+              sleep 1
+            done
+          done
+
+      - name: Run V4 multi-product browser profiles
+        run: |
+          run_profile() {
+            product="$1"
+            port="$2"
+            profile="$3"
+            journeys="${4:-knowledge-base/benchmarks/${product}/journeys.json}"
+            node dist/cli/verify-ui.js \
+              --url "http://127.0.0.1:${port}" \
+              --journeys "$journeys" \
+              --profile "$profile" \
+              --viewports 375x812,768x1024,1024x768,1440x1000 \
+              --output ".ztothez-design-runtime/ci-v4-pilots/${product}/${profile}" \
+              --fail-on warning
+          }
+          (
+            for profile in demo-success offline-recovery responsive-overview; do
+              run_profile aegisops 4301 "$profile"
+            done
+            run_profile aegisops 4301 interaction-qualification knowledge-base/benchmarks/aegisops/interaction-journeys.json
+          ) & aegisops_pid=$!
+          (
+            for profile in studio-export guided-workshop learning-persistence release-provenance; do
+              run_profile scenestart 4302 "$profile"
+            done
+            run_profile scenestart 4302 workshop-interaction-qualification knowledge-base/benchmarks/scenestart/interaction-journeys.json
+            run_profile scenestart 4302 studio-interaction-qualification knowledge-base/benchmarks/scenestart/interaction-journeys.json
+          ) & scenestart_pid=$!
+          (
+            for profile in overview-baseline ztothez-analysis; do
+              run_profile azure-optimizer 4303 "$profile"
+            done
+            run_profile azure-optimizer 4303 holdout-interaction-qualification knowledge-base/benchmarks/azure-optimizer/interaction-journeys.json
+          ) & azure_pid=$!
+          status=0
+          wait "$aegisops_pid" || status=1
+          wait "$scenestart_pid" || status=1
+          wait "$azure_pid" || status=1
+          exit "$status"
+
+      - name: Qualify V4 multi-product delivery pilots
+        run: |
+          node dist/cli/qualify-pilots.js \
+            --config knowledge-base/benchmarks/delivery-pilots.yaml \
+            --project-root . \
+            --evidence-root .ztothez-design-runtime/ci-v4-pilots \
+            --json \
+            > .ztothez-design-runtime/ci-v4-pilots/qualification-report.json
+
+      - name: Evaluate V4 before-and-after and locked holdout
+        run: |
+          node dist/cli/evaluate-v4.js \
+            --config knowledge-base/benchmarks/v4-evaluation.yaml \
+            --project-root . \
+            --evidence-root .ztothez-design-runtime/ci-v4-pilots \
+            --json \
+            > .ztothez-design-runtime/ci-v4-pilots/evaluation-report.json
+
+      - name: Stop V4 delivery pilots
+        if: always()
+        run: |
+          for product in aegisops scenestart azure-optimizer; do
+            if [[ -f "/tmp/ztde-${product}.pid" ]]; then
+              kill "$(cat "/tmp/ztde-${product}.pid")" 2>/dev/null || true
+            fi
+            cat "/tmp/ztde-${product}.log" 2>/dev/null || true
+          done
 
       - name: Validate product design brief
         run: |
@@ -297,6 +416,12 @@ jobs:
           fi
           cat /tmp/ztothez-design-azure-v2.log 2>/dev/null || true
 
+      - name: Retain V4 qualification evidence
+        run: |
+          npm run v4:qualification -- \
+            --pilot-evidence-root .ztothez-design-runtime/ci-v4-pilots \
+            --output .ztothez-design-runtime/v4-qualification
+
       - name: Upload fixture evidence
         if: always()
         uses: actions/upload-artifact@v7
@@ -334,6 +459,26 @@ jobs:
           name: ztothez-design-v4-bounded-repair
           path: .ztothez-design-repair/ci-v4-repair
           if-no-files-found: warn
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload V4 multi-product pilot evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-v4-multi-product-pilots
+          path: .ztothez-design-runtime/ci-v4-pilots
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true
+
+      - name: Upload V4 qualification evidence
+        if: success()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ztothez-design-v4-qualification
+          path: .ztothez-design-runtime/v4-qualification
+          if-no-files-found: error
           retention-days: 14
           include-hidden-files: true
 

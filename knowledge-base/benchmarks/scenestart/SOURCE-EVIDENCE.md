@@ -2,7 +2,7 @@
 
 ## Snapshot
 
-- Source workspace: `/home/ztothez/Studio/portfolio/scenestart`
+- Source workspace reference: `portfolio:scenestart`
 - Observed: 2026-08-26
 - Ownership context: user-owned portfolio project
 - Runtime dependency: none; these paths are provenance references only

@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "adapter": "react-typescript-vite",
+  "adapterVersion": "1.2.1",
+  "plan": {
+    "id": "aegisops-operations-brief-design-plan",
+    "sourceDigest": "3a884f27847a329778dbdd3ec8c2eb541b4518a489a29b3b0f407ea6828ce593",
+    "compilerVersion": "1.0.0"
+  },
+  "outputMode": "new-independent-fixture",
+  "files": [
+    {
+      "path": "index.html",
+      "digest": "2dd02be2f9286401f59ca467ba563e27f9029b59ca71a00e2aace8410862ae62",
+      "bytes": 416
+    },
+    {
+      "path": "package.json",
+      "digest": "b3356142d158a65dd2cd5ba1efb8000587f5be36f377baf2ef45f05d9c8388b4",
+      "bytes": 571
+    },
+    {
+      "path": "README.md",
+      "digest": "0f3ea2e7e3937c7df63f8f8cc253b651fa8428fcd501e71a35a776fd8614fc23",
+      "bytes": 642
+    },
+    {
+      "path": "src/App.tsx",
+      "digest": "fbd080ee49ea3a687a12e57a17869ecdbd2a52ac54b69dfdad2639fdd40e2d80",
+      "bytes": 123
+    },
+    {
+      "path": "src/components/SourceBoundaryPanel.tsx",
+      "digest": "e5f24a841f86a5b2fd752607d35e3d3ff9a2c55675d0bd0007efbe2510340af8",
+      "bytes": 1530
+    },
+    {
+      "path": "src/components/TaskWorkspace.tsx",
+      "digest": "c8302af81e5ba7423297c674e15a86fe85aaf556efaf30af924b109c9578abfe",
+      "bytes": 4246
+    },
+    {
+      "path": "src/domain/source-mode.ts",
+      "digest": "ee216d62b1299d52274e5ad72c9d341566ca28f1dcef9afcf9a770bbed8e83e7",
+      "bytes": 1473
+    },
+    {
+      "path": "src/domain/task-state.test.ts",
+      "digest": "9b85bd2e2076f22f14176807c518e640f934931b701ec7fca13fc5ff490d335e",
+      "bytes": 907
+    },
+    {
+      "path": "src/domain/task-state.ts",
+      "digest": "bc3aea5b0a9270419fbf5d1f06dbc0c2c89727f6e977d5a23d662bccea71cfd1",
+      "bytes": 2114
+    },
+    {
+      "path": "src/generated/plan.ts",
+      "digest": "7327c1fb7a2415a1e0fbb7acb065c940fe7f28e9dfa4e95b32ac11559b355408",
+      "bytes": 6381
+    },
+    {
+      "path": "src/main.tsx",
+      "digest": "a5d4758afc4ed63b02993281e03af98beb056bec40ea796517acb029fbeacbac",
+      "bytes": 254
+    },
+    {
+      "path": "src/styles/app.css",
+      "digest": "05d02155b988dd5971b36a6f6ea7f5127767a1286e920c810c57642f7b15b84e",
+      "bytes": 4949
+    },
+    {
+      "path": "src/styles/tokens.css",
+      "digest": "af9195454abb3b4d85301fdf7a76aff66554e54cead6fdaceebb10ca5bfb19c4",
+      "bytes": 1494
+    },
+    {
+      "path": "tsconfig.app.json",
+      "digest": "bc8bc439ad769c6f59c7b8e566276bcb252e7f02c45376120395f49ddeb03aa2",
+      "bytes": 577
+    },
+    {
+      "path": "tsconfig.json",
+      "digest": "3a11d1d758b82ceae1687b3b3b673d98febb16b81305239be576b6aa30148fed",
+      "bytes": 139
+    },
+    {
+      "path": "tsconfig.node.json",
+      "digest": "9e6d76053783906744ac6a2aa171802266a4ddb1b5a2c7590c1af596dc2d8d51",
+      "bytes": 199
+    },
+    {
+      "path": "vite.config.ts",
+      "digest": "89c43eb98c88b794782a570f8a9db4769aebed2767a68ec32f969681aec6aa2f",
+      "bytes": 697
+    }
+  ],
+  "guarantees": [
+    "The target was absent, contained by the authorized generation root, and separate from every validated portfolio root.",
+    "The generated task uses explicit reducer-owned domain state and semantic CSS tokens.",
+    "Demonstration, imported, cached, and live source modes retain separate origin, freshness, connection, and limitation disclosures.",
+    "The generated task exposes measurable context, outcome, next-action, status-purpose, density, and evidence-basis composition semantics.",
+    "Development and preview responses expose the generation plan identifier for repair-target verification."
+  ],
+  "limitations": [
+    "This adapter creates a new independent fixture and does not merge into an existing repository.",
+    "Generated source and unit tests do not prove rendered accessibility, live integration, usability, or release readiness."
+  ]
+}

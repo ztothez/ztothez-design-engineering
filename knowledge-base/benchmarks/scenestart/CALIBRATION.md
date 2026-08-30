@@ -3,7 +3,7 @@
 ## Calibration Context
 
 - Date: 2026-08-27
-- Application: `/home/ztothez/Studio/portfolio/scenestart`
+- Application reference: `portfolio:scenestart`
 - Runtime: local TanStack Start development server at `http://127.0.0.1:4173`
 - Browser: Chromium 151 connected through a loopback CDP endpoint
 - Contract viewports: 320, 390, 768, 1024, and 1440 CSS pixels

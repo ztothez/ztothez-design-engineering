@@ -212,21 +212,40 @@ Completion criteria:
 
 ### 6. Interaction And Recovery Verification
 
-Status: **Not started**
+Status: **Done**
 
-Expand executable journeys from rendered correctness into task progress, failure recovery, keyboard
-operation, state continuity, export behavior, and offline or disconnected behavior where applicable.
+Implemented evidence: AegisOPS and SceneStart retain their original version `1.0` journey suites as
+historical compatibility artifacts. Dedicated `interaction-journeys.json` suites use version `1.1`
+and bind to separate version `1.2` interaction product contracts. Each benchmark task uses one
+combined journey with observable start, failure, preserved-state, recovery, success, and export
+evidence where applicable.
 
-Completion criteria:
+The verifier now supports controlled local-storage availability independently from browser network
+state. SceneStart demonstrates an actual `localStorage.setItem` failure, keeps the project handle in
+memory, restores storage, persists the handle, completes Workshop, exports HTML, and enters Studio
+with the handle intact. Its Studio journey rejects a real file-input upload before completing both
+exports. AegisOPS demonstrates a controlled pipeline failure, preserves the ATT&CK input, retries in
+disclosed demo mode, succeeds, and exports the SIGMA artifact.
 
-- Primary and recovery journeys have observable start, success, failure, and preserved-state checks.
-- Loading, empty, partial, stale, disconnected, unauthorized, and error states are verified only
-  when applicable to the declared brief and data model.
-- Unsupported automation remains a verifier limitation and cannot become a product pass.
+Contract and mutation tests preserve the version boundary and reject missing task interaction.
+Runtime tests cover file input and storage controls. The multi-product qualifier and CI validate
+both interaction contracts and retain all three interaction reports at four required viewports.
 
 ### 7. Multi-Product Delivery Pilots
 
-Status: **Not started**
+Status: **Done**
+
+Implemented evidence: `knowledge-base/benchmarks/delivery-pilots.yaml` declares three independent
+product domains and their repository-owned fixtures. Each product has a generation-ready brief, a
+deterministically recompiled ready plan, a matching generation identity, product-specific
+manifest-owned adaptations, and browser evidence at 375x812, 768x1024, 1024x768, and 1440x1000.
+
+`zz-design qualify-pilots` fails closed on stale plans, missing manifest-owned files, missing or
+invalid profile reports, failed journeys, and incomplete viewport coverage. Its report separates
+system defects, product findings, verifier limitations, source-policy restrictions, and adapted
+manifest files. It always reports `humanEvidence: not-generated`. SceneStart passes six profiles,
+AegisOPS passes four, and Azure Optimizer passes three. CI rebuilds all fixtures, executes the thirteen
+profiles, runs qualification, and retains the browser and qualification reports.
 
 Exercise the V4 workflow on independent, disposable product fixtures derived from owner-authorized
 requirements. Azure Optimizer, SceneStart, and AegisOPS may provide task contracts and baselines,
@@ -241,7 +260,7 @@ Completion criteria:
 
 ### 8. Before-And-After And Holdout Evaluation
 
-Status: **Not started**
+Status: **Done**
 
 Measure whether V4 changes improve task completeness, hierarchy, accessibility, responsiveness,
 truthful disclosure, and maintainability without regressing locked products.
@@ -254,9 +273,18 @@ Completion criteria:
 - Candidate rules pass deterministic fixtures and locked holdout evaluation before promotion.
 - Reports preserve disagreement and avoid a single unsupported vanity score.
 
+Implemented with `knowledge-base/benchmarks/v4-evaluation.yaml`, maintained positive, negative,
+and abstention rule fixtures, and `zz-design evaluate-v4`. The retained local report compares the
+same task semantics, state contracts, routes, and four viewports across historical and interaction
+contracts for AegisOPS, SceneStart, and the locked Azure Optimizer holdout. All development and
+holdout evidence passes. The evaluator retains the existing two-session V2 human calibration and
+its seven warnings without rescoring it, reports dimensions separately, and does not generate human
+evidence or a composite score. Only `task-bound-interaction-evidence` is promoted;
+`storage-failure-control` remains withheld because the holdout has no browser-storage task.
+
 ### 9. V4 Qualification And Release
 
-Status: **Not started**
+Status: **Done**
 
 Qualify the end-to-end workflow in CI and an offline package while keeping private evidence local.
 The planned public application and release website is `ztothez-design-engineering-website`. Keep
@@ -271,6 +299,18 @@ Completion criteria:
 - Package, offline archive, clean-room independence, and installed MCP smoke checks pass.
 - A retained qualification report states only claims supported by executable and human evidence.
 
+Implemented with the integrity-bound `zz-design qualify-v4` evaluator and
+`npm run v4:qualification` evidence capture. The active workflow covers brief validation and
+rejection regression tests, deterministic plan traceability, contained generation, bounded repair
+stopping behavior, browser journeys, pilot qualification, locked holdout evaluation, package and
+private-evidence boundaries, offline release, and archive-removal independence. Installation covers
+the CLI and MCP clients, version `2.0.3` migration, rollback, and troubleshooting. The retained local
+qualification passes every criterion while limiting human claims to existing V2 calibration and
+explicitly excluding representative-user validation, universal quality, and external V4 release
+approval. Current private V3 requalification is separately supported by its ignored local evidence.
+This completion does not itself push, tag, or
+publish any artifact or activate the separate release website.
+
 ## Execution Order
 
 Implement Item 1 before compilation or generation. Implement Item 2 before Items 3 and 4. Build
@@ -279,5 +319,5 @@ Item 9 only after every prior completion criterion has retained evidence.
 
 ## Current Status
 
-Items 1 through 5 are Done. Items 6 through 9 are not started. The next target is Item 6:
-Interaction And Recovery Verification.
+Items 1 through 9 are Done. V4 is complete. Any publication, repository push, package release, or
+website activation remains a separate explicit action after reviewing retained local evidence.

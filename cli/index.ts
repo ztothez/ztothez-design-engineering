@@ -38,6 +38,21 @@ async function main(): Promise<void> {
     process.exitCode = await runRepairReactCli(argumentsList.slice(1));
     return;
   }
+  if (argumentsList[0] === "qualify-pilots") {
+    const { runQualifyPilotsCli } = await import("./qualify-pilots.js");
+    process.exitCode = await runQualifyPilotsCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "evaluate-v4") {
+    const { runEvaluateV4Cli } = await import("./evaluate-v4.js");
+    process.exitCode = await runEvaluateV4Cli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "qualify-v4") {
+    const { runQualifyV4Cli } = await import("./qualify-v4.js");
+    process.exitCode = await runQualifyV4Cli(argumentsList.slice(1));
+    return;
+  }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
     writeHelp();
     return;

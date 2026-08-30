@@ -1,0 +1,45 @@
+{
+  "version": "1.1",
+  "contract": "azure-optimizer",
+  "profiles": [
+    {
+      "id": "holdout-interaction-qualification",
+      "name": "Recover disconnected analysis through a disclosed local fallback",
+      "environment": [
+        "The locked repository-owned Azure Optimizer fixture is running",
+        "No production Azure connector is configured",
+        "The local demonstration dataset remains available as an explicit fallback"
+      ],
+      "journeys": [
+        {
+          "id": "recover-disconnected-analysis",
+          "name": "recover-disconnected-analysis",
+          "interaction": {
+            "task": "prioritize-cloud-savings",
+            "phases": ["primary", "recovery"],
+            "applicableStates": ["disconnected"]
+          },
+          "steps": [
+            { "action": "expectText", "selector": "h2", "value": "Potential Savings" },
+            { "action": "checkpoint", "checkpoint": "start" },
+            { "action": "click", "selector": ".mode-control button:has-text(\"live\")" },
+            { "action": "expectText", "selector": ".limitation", "value": "Live actions remain unavailable" },
+            { "action": "click", "selector": "button:has-text(\"Retry source\")" },
+            { "action": "expectText", "selector": ".task-message", "value": "Connection remains unavailable" },
+            { "action": "checkpoint", "checkpoint": "disconnected" },
+            { "action": "expectVisible", "selector": "button:has-text(\"Use disclosed demo fallback\")" },
+            { "action": "checkpoint", "checkpoint": "failure" },
+            { "action": "expectText", "selector": "h3", "value": "vm-prod-17" },
+            { "action": "checkpoint", "checkpoint": "preserved-state" },
+            { "action": "click", "selector": "button:has-text(\"Use disclosed demo fallback\")" },
+            { "action": "expectText", "selector": ".task-message", "value": "Demonstration fallback selected" },
+            { "action": "click", "selector": "button:has-text(\"Analysis\")" },
+            { "action": "click", "selector": "button:has-text(\"Run AI Audit\")" },
+            { "action": "expectText", "selector": ".task-message", "value": "Operating in verified local demonstration mode" },
+            { "action": "checkpoint", "checkpoint": "success" }
+          ]
+        }
+      ]
+    }
+  ]
+}

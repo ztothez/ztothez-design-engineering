@@ -30,7 +30,7 @@ npm run release:check
 The release command creates a versioned npm package, a self-contained `offline-runtime/`, `knowledge-index.json`, `OFFLINE-MANIFEST.json`, and `SHA256SUMS` under `.ztothez-design-release/`. The release check verifies their integrity and launches the offline CLI from outside the source tree. Install the generated npm archive globally:
 
 ```bash
-npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.0.tgz
+npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.3.tgz
 zz-design --version
 ztothez-design --help
 ```
@@ -60,10 +60,11 @@ Portfolio inventory and snapshot creation work without Bubblewrap. An executable
 unless the host provides the supported isolation boundary; it never falls back to running inside an
 original project directory.
 
-The npm registry command below becomes available only after version `2.0.0` is published. Do not use it as the current local installation path:
+Install the current registry release directly when network access is available:
 
 ```bash
-npx -y @ztothez/design-engineering@2.0.0
+npm install -g @ztothez/design-engineering@2.0.3
+zz-design --version
 ```
 
 ## Install From Source
@@ -291,7 +292,7 @@ Approve the first connection request. Local stdio servers require Lovable Deskto
 
 ## Verify The Connection
 
-After installation, every supported client should report server version `2.0.0` and expose `search_design_knowledge`. Run this first retrieval request:
+After installation, every supported client should report server version `2.0.3` and expose `search_design_knowledge`. Run this first retrieval request:
 
 ```text
 Search the skill and Figma categories for semantic design tokens and component states. Return at most three results.
@@ -303,6 +304,28 @@ Expected behavior:
 - `SKILL.md` is identified as the authority path.
 - Every result path is listed in `knowledge-base/retrieval-scope.yaml`.
 - No legacy or raw-research path is returned.
+
+## Migration
+
+When upgrading from `2.0.0`, `2.0.1`, or `2.0.2`, install `2.0.3`, restart every connected MCP client, and
+confirm `zz-design --version` before removing the older package. Existing stdio configuration can
+keep the same `ztothez-design-engineering` server name and `zz-design` executable.
+
+Version `2.0.3` adds the V4 delivery-pilot, interaction, holdout, and qualification commands. It
+does not migrate private portfolio registries or evidence. Keep `.ztothez-design-local/`,
+`.ztothez-design-benchmarks/`, and `.ztothez-design-runtime/` outside package installation paths,
+then regenerate evidence with the new executable. Validate a source checkout with:
+
+```bash
+npm ci
+npm run build
+npm test
+npm run package:smoke
+```
+
+Do not copy `node_modules` or `dist` from an older installation over the new package. For rollback,
+reinstall the prior pinned package version and restart the MCP client; private local evidence remains
+unchanged because installation never imports or rewrites it.
 
 ## Troubleshooting
 

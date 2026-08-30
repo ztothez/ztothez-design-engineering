@@ -166,7 +166,11 @@ const candidates = [
     category: "product-integrity",
     dimension: "product-task",
     reportCode: "ZTDE-SLOP-003",
-    justification: { type: "cohort-recurrence", rationale: "Action affordances without complete interaction contracts recur across independently owned development products and domains." },
+    justification: {
+      type: "standards-backed-safety",
+      rationale: "Interactive controls require valid semantics and complete role, name, state, and operation contracts even after previously affected products are repaired.",
+      safetyStandard: "HTML interactive content model and WCAG 2.2 Success Criterion 4.1.2 Name, Role, Value",
+    },
     authoredIndependently: true,
     positiveFixturePath: "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-positive.json",
     negativeFixturePath: "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-negative.json",

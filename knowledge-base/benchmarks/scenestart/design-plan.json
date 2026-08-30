@@ -1,0 +1,930 @@
+{
+  "version": "1.0",
+  "compilerVersion": "1.0.0",
+  "id": "scenestart-brief-design-plan",
+  "product": "SceneStart Local-First Demoscene Learning Studio",
+  "sourceBrief": {
+    "id": "scenestart-brief",
+    "version": "1.0",
+    "file": "product-design-brief.yaml",
+    "digest": "d4f22d943d3f8d6e75edeef1268674df776b908ff0a554c9ab55af9641dac932",
+    "generationReady": true
+  },
+  "status": "ready",
+  "planningReady": true,
+  "implementationReady": true,
+  "traces": [
+    {
+      "id": "trace-assumption-assumptions-assumption-local-storage",
+      "kind": "assumption",
+      "reference": "assumptions.assumption-local-storage",
+      "description": "validated low-risk assumption: Users have local storage enabled."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-accessibility",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-accessibility",
+      "description": "The primary journey passes keyboard, focus, contrast, target, text-resize, reflow, and reduced-motion checks."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-studio-export",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-studio-export",
+      "description": "The user can navigate to /studio, enter details, save project, and export HTML."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-workshop-flow",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-workshop-flow",
+      "description": "The user can complete the workshop, handle storage failure, and transition to studio."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-design-deliverable",
+      "kind": "brief",
+      "reference": "downstreamContracts.design-deliverable",
+      "description": "Brief decision for the design-deliverable contract."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-information-design",
+      "kind": "brief",
+      "reference": "downstreamContracts.information-design",
+      "description": "Brief decision for the information-design contract."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-interface-trust",
+      "kind": "brief",
+      "reference": "downstreamContracts.interface-trust",
+      "description": "Brief decision for the interface-trust contract."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-product-task",
+      "kind": "brief",
+      "reference": "downstreamContracts.product-task",
+      "description": "Brief decision for the product-task contract."
+    },
+    {
+      "id": "trace-brief-platforms-responsive-browser",
+      "kind": "brief",
+      "reference": "platforms.responsive-browser",
+      "description": "Declared platform, viewport, input, and constraint boundary for responsive-browser."
+    },
+    {
+      "id": "trace-brief-problem",
+      "kind": "brief",
+      "reference": "problem",
+      "description": "Evidence-backed current problem and desired outcome."
+    },
+    {
+      "id": "trace-brief-requirements-requirement-accessibility",
+      "kind": "brief",
+      "reference": "requirements.requirement-accessibility",
+      "description": "The primary task supports keyboard, visible focus, non-color status cues, text resize, reflow, and maintained contrast."
+    },
+    {
+      "id": "trace-brief-states-disconnected",
+      "kind": "brief",
+      "reference": "states.disconnected",
+      "description": "Declared disconnected behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-empty",
+      "kind": "brief",
+      "reference": "states.empty",
+      "description": "Declared empty behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-error",
+      "kind": "brief",
+      "reference": "states.error",
+      "description": "Declared error behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-success",
+      "kind": "brief",
+      "reference": "states.success",
+      "description": "Declared success behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-tasks-export-offline-production",
+      "kind": "brief",
+      "reference": "tasks.export-offline-production",
+      "description": "Task export-offline-production requires a reachable route."
+    },
+    {
+      "id": "trace-brief-tasks-workshop-to-studio",
+      "kind": "brief",
+      "reference": "tasks.workshop-to-studio",
+      "description": "Task workshop-to-studio requires a reachable route."
+    },
+    {
+      "id": "trace-standard-asset-provenance",
+      "kind": "standard",
+      "reference": "asset-provenance",
+      "description": "Assets are optional specialized deliverables and require purpose, rights, alternatives, contrast, and fallback evidence."
+    },
+    {
+      "id": "trace-standard-component-boundaries",
+      "kind": "standard",
+      "reference": "component-boundaries",
+      "description": "Separate orchestration, state ownership, evidence presentation, actions, and recovery behind explicit inputs and outputs."
+    },
+    {
+      "id": "trace-standard-decision-hierarchy",
+      "kind": "standard",
+      "reference": "decision-hierarchy",
+      "description": "Operational interfaces answer context, priority, impact, evidence, action, and verification in that order."
+    },
+    {
+      "id": "trace-standard-delivery-sequence",
+      "kind": "standard",
+      "reference": "delivery-sequence",
+      "description": "Validate intent and contracts before architecture, tokens, implementation, automated verification, and attributable human review."
+    },
+    {
+      "id": "trace-standard-responsive-verification",
+      "kind": "standard",
+      "reference": "responsive-verification",
+      "description": "Verify maintained responsive widths, text resize, reflow, focus, touch targets, and reduced motion in a browser."
+    },
+    {
+      "id": "trace-standard-route-convention",
+      "kind": "standard",
+      "reference": "route-convention",
+      "description": "Use stable task-oriented route identifiers in the design plan; the generation adapter must map them to an existing target router without collision."
+    },
+    {
+      "id": "trace-standard-semantic-token-architecture",
+      "kind": "standard",
+      "reference": "semantic-token-architecture",
+      "description": "Bind components to semantic roles backed by component and primitive token layers; do not emit raw visual values in the plan."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision-product-boundary",
+      "status": "confirmed",
+      "statement": "A local-first demo studio where users can compose, save, and export productions, complete guided workshops, and document releases offline.",
+      "rationale": "Beginners and independent makers need to compose, preview, save, and export a demoscene production completely offline, without encountering specialists setup barriers or cloud dependencies.",
+      "traceRefs": [
+        "trace-brief-problem"
+      ]
+    },
+    {
+      "id": "decision-route-boundary",
+      "status": "confirmed",
+      "statement": "Use one stable task-oriented design route per declared task.",
+      "rationale": "The plan establishes a deterministic route contract; the generation adapter remains responsible for collision-safe target-router integration.",
+      "traceRefs": [
+        "trace-standard-route-convention",
+        "trace-brief-tasks-export-offline-production",
+        "trace-brief-tasks-workshop-to-studio"
+      ]
+    },
+    {
+      "id": "decision-assets",
+      "status": "provisional",
+      "statement": "No brand or content asset is required by the brief. Do not invent decorative assets; record any later need before generation.",
+      "rationale": "Asset scope follows declared brand and content requirements rather than decorative defaults.",
+      "traceRefs": [
+        "trace-standard-asset-provenance"
+      ]
+    },
+    {
+      "id": "decision-assumption-local-storage",
+      "status": "confirmed",
+      "statement": "Users have local storage enabled.",
+      "rationale": "Runtime journeys test storage failure.",
+      "traceRefs": [
+        "trace-assumption-assumptions-assumption-local-storage"
+      ]
+    }
+  ],
+  "informationArchitecture": [
+    {
+      "id": "ia-export-offline-production-context",
+      "order": 1,
+      "label": "Context and provenance",
+      "purpose": "Establish trigger, scope, data origin, and freshness before Compose, save and export a production.",
+      "contentRefs": [
+        "User accesses the /studio route to start editing.",
+        "dataSources.local-project-state"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-decision-hierarchy"
+      ]
+    },
+    {
+      "id": "ia-export-offline-production-priority",
+      "order": 2,
+      "label": "Primary outcome and action",
+      "purpose": "Enter a handle, title, concept, save project locally, and export offline HTML.",
+      "contentRefs": [
+        "outcomes.offline-composition-export"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production"
+      ]
+    },
+    {
+      "id": "ia-export-offline-production-impact",
+      "order": 3,
+      "label": "Impact and exceptions",
+      "purpose": "User loses their work if not saved.",
+      "contentRefs": [
+        "tasks.export-offline-production.failureImpact"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production"
+      ]
+    },
+    {
+      "id": "ia-export-offline-production-evidence",
+      "order": 4,
+      "label": "Evidence and explanation",
+      "purpose": "Expose the evidence needed to verify the decision without promoting supporting telemetry above the task.",
+      "contentRefs": [
+        "dataSources.local-project-state"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production"
+      ]
+    },
+    {
+      "id": "ia-export-offline-production-action",
+      "order": 5,
+      "label": "Bounded next action",
+      "purpose": "User downloads scenestart-production.json and my-production.html.",
+      "contentRefs": [
+        "tasks.export-offline-production.successSignal"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production"
+      ]
+    },
+    {
+      "id": "ia-export-offline-production-verification",
+      "order": 6,
+      "label": "Recovery and verification",
+      "purpose": "Invalid projects explain the error and preserve the current project.",
+      "contentRefs": [
+        "tasks.export-offline-production.recovery"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production"
+      ]
+    },
+    {
+      "id": "ia-workshop-to-studio-context",
+      "order": 1,
+      "label": "Context and provenance",
+      "purpose": "Establish trigger, scope, data origin, and freshness before Complete guided first production.",
+      "contentRefs": [
+        "User accesses the /workshop route.",
+        "dataSources.local-project-state"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-decision-hierarchy"
+      ]
+    },
+    {
+      "id": "ia-workshop-to-studio-priority",
+      "order": 2,
+      "label": "Primary outcome and action",
+      "purpose": "Complete 6 steps and export the production, then continue to Demo Studio.",
+      "contentRefs": [
+        "outcomes.offline-composition-export"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio"
+      ]
+    },
+    {
+      "id": "ia-workshop-to-studio-impact",
+      "order": 3,
+      "label": "Impact and exceptions",
+      "purpose": "User cannot progress if storage fails.",
+      "contentRefs": [
+        "tasks.workshop-to-studio.failureImpact"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio"
+      ]
+    },
+    {
+      "id": "ia-workshop-to-studio-evidence",
+      "order": 4,
+      "label": "Evidence and explanation",
+      "purpose": "Expose the evidence needed to verify the decision without promoting supporting telemetry above the task.",
+      "contentRefs": [
+        "dataSources.local-project-state"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio"
+      ]
+    },
+    {
+      "id": "ia-workshop-to-studio-action",
+      "order": 5,
+      "label": "Bounded next action",
+      "purpose": "User finishes workshop, exports HTML, and continues in studio.",
+      "contentRefs": [
+        "tasks.workshop-to-studio.successSignal"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio"
+      ]
+    },
+    {
+      "id": "ia-workshop-to-studio-verification",
+      "order": 6,
+      "label": "Recovery and verification",
+      "purpose": "If storage fails, disclose failure without claiming progress is saved, allowing retry.",
+      "contentRefs": [
+        "tasks.workshop-to-studio.recovery"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-export-offline-production",
+      "path": "/tasks/export-offline-production",
+      "taskRef": "export-offline-production",
+      "status": "confirmed",
+      "purpose": "Enter a handle, title, concept, save project locally, and export offline HTML.",
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-route-convention"
+      ]
+    },
+    {
+      "id": "route-workshop-to-studio",
+      "path": "/tasks/workshop-to-studio",
+      "taskRef": "workshop-to-studio",
+      "status": "confirmed",
+      "purpose": "Complete 6 steps and export the production, then continue to Demo Studio.",
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-route-convention"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "component-export-offline-production-shell",
+      "taskRef": "export-offline-production",
+      "boundary": "task-shell",
+      "responsibility": "Own route context and compose the decision path without owning service behavior.",
+      "ownsState": [],
+      "inputs": [
+        "User accesses the /studio route to start editing."
+      ],
+      "outputs": [
+        "selected task context"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-export-offline-production-state",
+      "taskRef": "export-offline-production",
+      "boundary": "domain-state-controller",
+      "responsibility": "Own task, data-origin, progress, failure, and recovery state independently from rendering.",
+      "ownsState": [
+        "empty",
+        "success",
+        "error"
+      ],
+      "inputs": [
+        "local-project-state"
+      ],
+      "outputs": [
+        "typed task state",
+        "bounded actions"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-export-offline-production-decision",
+      "taskRef": "export-offline-production",
+      "boundary": "decision-summary",
+      "responsibility": "Present scope, priority, impact, and the primary next action in decision order.",
+      "ownsState": [],
+      "inputs": [
+        "offline-composition-export"
+      ],
+      "outputs": [
+        "selected decision"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-export-offline-production-evidence",
+      "taskRef": "export-offline-production",
+      "boundary": "evidence-detail",
+      "responsibility": "Present source, freshness, limitations, and supporting evidence without obscuring the primary task.",
+      "ownsState": [],
+      "inputs": [
+        "local-project-state"
+      ],
+      "outputs": [
+        "evidence selection"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-export-offline-production-action",
+      "taskRef": "export-offline-production",
+      "boundary": "bounded-action-and-recovery",
+      "responsibility": "Confirm consequential actions, preserve context on failure, and expose retry or return behavior.",
+      "ownsState": [],
+      "inputs": [
+        "Handle",
+        "Concept",
+        "Title"
+      ],
+      "outputs": [
+        "User downloads scenestart-production.json and my-production.html.",
+        "Invalid projects explain the error and preserve the current project."
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-export-offline-production",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-workshop-to-studio-shell",
+      "taskRef": "workshop-to-studio",
+      "boundary": "task-shell",
+      "responsibility": "Own route context and compose the decision path without owning service behavior.",
+      "ownsState": [],
+      "inputs": [
+        "User accesses the /workshop route."
+      ],
+      "outputs": [
+        "selected task context"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-workshop-to-studio-state",
+      "taskRef": "workshop-to-studio",
+      "boundary": "domain-state-controller",
+      "responsibility": "Own task, data-origin, progress, failure, and recovery state independently from rendering.",
+      "ownsState": [
+        "success",
+        "error",
+        "disconnected"
+      ],
+      "inputs": [
+        "local-project-state"
+      ],
+      "outputs": [
+        "typed task state",
+        "bounded actions"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-workshop-to-studio-decision",
+      "taskRef": "workshop-to-studio",
+      "boundary": "decision-summary",
+      "responsibility": "Present scope, priority, impact, and the primary next action in decision order.",
+      "ownsState": [],
+      "inputs": [
+        "offline-composition-export"
+      ],
+      "outputs": [
+        "selected decision"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-workshop-to-studio-evidence",
+      "taskRef": "workshop-to-studio",
+      "boundary": "evidence-detail",
+      "responsibility": "Present source, freshness, limitations, and supporting evidence without obscuring the primary task.",
+      "ownsState": [],
+      "inputs": [
+        "local-project-state"
+      ],
+      "outputs": [
+        "evidence selection"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-workshop-to-studio-action",
+      "taskRef": "workshop-to-studio",
+      "boundary": "bounded-action-and-recovery",
+      "responsibility": "Confirm consequential actions, preserve context on failure, and expose retry or return behavior.",
+      "ownsState": [],
+      "inputs": [
+        "Handle"
+      ],
+      "outputs": [
+        "User finishes workshop, exports HTML, and continues in studio.",
+        "If storage fails, disclose failure without claiming progress is saved, allowing retry."
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-workshop-to-studio",
+        "trace-standard-component-boundaries"
+      ]
+    }
+  ],
+  "stateOwnership": [
+    {
+      "state": "empty",
+      "taskRefs": [
+        "export-offline-production"
+      ],
+      "ownerComponentRef": "component-export-offline-production-state",
+      "behavior": "Show empty studio ready for input.",
+      "recovery": "User can start entering data.",
+      "disclosure": "Explain what to do.",
+      "traceRefs": [
+        "trace-brief-states-empty"
+      ]
+    },
+    {
+      "state": "success",
+      "taskRefs": [
+        "export-offline-production"
+      ],
+      "ownerComponentRef": "component-export-offline-production-state",
+      "behavior": "Show successful export and save notifications.",
+      "recovery": "User can continue editing.",
+      "disclosure": "Show downloaded file names.",
+      "traceRefs": [
+        "trace-brief-states-success"
+      ]
+    },
+    {
+      "state": "success",
+      "taskRefs": [
+        "workshop-to-studio"
+      ],
+      "ownerComponentRef": "component-workshop-to-studio-state",
+      "behavior": "Show successful export and save notifications.",
+      "recovery": "User can continue editing.",
+      "disclosure": "Show downloaded file names.",
+      "traceRefs": [
+        "trace-brief-states-success"
+      ]
+    },
+    {
+      "state": "error",
+      "taskRefs": [
+        "export-offline-production"
+      ],
+      "ownerComponentRef": "component-export-offline-production-state",
+      "behavior": "Invalid project load shows error. Storage failure shows error.",
+      "recovery": "Preserve state, allow retry.",
+      "disclosure": "Show clear error messages (e.g. Invalid project, Storage unavailable).",
+      "traceRefs": [
+        "trace-brief-states-error"
+      ]
+    },
+    {
+      "state": "error",
+      "taskRefs": [
+        "workshop-to-studio"
+      ],
+      "ownerComponentRef": "component-workshop-to-studio-state",
+      "behavior": "Invalid project load shows error. Storage failure shows error.",
+      "recovery": "Preserve state, allow retry.",
+      "disclosure": "Show clear error messages (e.g. Invalid project, Storage unavailable).",
+      "traceRefs": [
+        "trace-brief-states-error"
+      ]
+    },
+    {
+      "state": "disconnected",
+      "taskRefs": [
+        "workshop-to-studio"
+      ],
+      "ownerComponentRef": "component-workshop-to-studio-state",
+      "behavior": "Same as error if storage fails while offline.",
+      "recovery": "Allow retry.",
+      "disclosure": "Notify user.",
+      "traceRefs": [
+        "trace-brief-states-disconnected"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "kind": "product-task",
+      "declaration": "exists",
+      "validation": "validated",
+      "source": "knowledge-base/benchmarks/scenestart/product-contract.yaml",
+      "passed": true,
+      "findings": 0,
+      "reason": "The declared existing contract passed its maintained validator.",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-product-task"
+      ]
+    },
+    {
+      "kind": "interface-trust",
+      "declaration": "not-applicable",
+      "validation": "not-applicable",
+      "passed": true,
+      "findings": 0,
+      "reason": "Not required for pilot fixtures",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-interface-trust"
+      ]
+    },
+    {
+      "kind": "information-design",
+      "declaration": "not-applicable",
+      "validation": "not-applicable",
+      "passed": true,
+      "findings": 0,
+      "reason": "Not required for pilot fixtures",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-information-design"
+      ]
+    },
+    {
+      "kind": "design-deliverable",
+      "declaration": "not-applicable",
+      "validation": "not-applicable",
+      "passed": true,
+      "findings": 0,
+      "reason": "Not required for pilot fixtures",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-design-deliverable"
+      ]
+    }
+  ],
+  "tokenRequirements": [
+    {
+      "id": "tokens-color",
+      "category": "color",
+      "roles": [
+        "surface",
+        "text",
+        "border",
+        "focus",
+        "status",
+        "action"
+      ],
+      "rule": "Define theme-specific semantic roles with contrast and non-color state cues.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture",
+        "trace-brief-requirements-requirement-accessibility"
+      ]
+    },
+    {
+      "id": "tokens-typography",
+      "category": "typography",
+      "roles": [
+        "page-title",
+        "section-title",
+        "body",
+        "label",
+        "data",
+        "annotation"
+      ],
+      "rule": "Use stable readable roles with no viewport-width font scaling or negative letter spacing.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    },
+    {
+      "id": "tokens-spacing",
+      "category": "spacing",
+      "roles": [
+        "inline",
+        "stack",
+        "section",
+        "control",
+        "viewport-gutter"
+      ],
+      "rule": "Use a finite spacing scale that preserves grouping and responsive rhythm.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    },
+    {
+      "id": "tokens-shape",
+      "category": "shape",
+      "roles": [
+        "control-radius",
+        "panel-radius",
+        "border-width",
+        "focus-width"
+      ],
+      "rule": "Use restrained component geometry and a distinct focus treatment.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    },
+    {
+      "id": "tokens-motion",
+      "category": "motion",
+      "roles": [
+        "duration-fast",
+        "duration-standard",
+        "easing",
+        "reduced-motion"
+      ],
+      "rule": "Motion must communicate state and provide a reduced-motion equivalent.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture",
+        "trace-brief-requirements-requirement-accessibility"
+      ]
+    },
+    {
+      "id": "tokens-data-visualization",
+      "category": "data-visualization",
+      "roles": [
+        "series",
+        "threshold",
+        "selection",
+        "grid",
+        "annotation"
+      ],
+      "rule": "Chart roles must remain distinguishable without color and preserve source and freshness context.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    }
+  ],
+  "responsiveBehavior": [
+    {
+      "platformRef": "responsive-browser",
+      "viewports": [
+        320,
+        375,
+        390,
+        768,
+        1024,
+        1440
+      ],
+      "inputModes": [
+        "keyboard",
+        "pointer",
+        "touch",
+        "assistive-technology"
+      ],
+      "rules": [
+        "Preserve decision order and task state at every declared viewport.",
+        "Remove competing page-level scroll regions and prevent clipping or control overlap.",
+        "Keep the primary action reachable before secondary telemetry.",
+        "Must operate offline and fit in mobile widths."
+      ],
+      "traceRefs": [
+        "trace-brief-platforms-responsive-browser",
+        "trace-standard-responsive-verification"
+      ]
+    }
+  ],
+  "assets": {
+    "status": "provisional",
+    "requirements": [],
+    "rule": "No brand or content asset is required by the brief. Do not invent decorative assets; record any later need before generation.",
+    "traceRefs": [
+      "trace-standard-asset-provenance"
+    ]
+  },
+  "implementationStages": [
+    {
+      "id": "stage-contracts",
+      "order": 1,
+      "name": "Validate downstream contracts",
+      "exitCondition": "All applicable product-task, trust, information, and design contracts pass.",
+      "status": "confirmed",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-architecture",
+      "order": 2,
+      "name": "Confirm target architecture",
+      "exitCondition": "Routes, component boundaries, state owners, and target repository conventions are confirmed.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-tokens",
+      "order": 3,
+      "name": "Define semantic tokens",
+      "exitCondition": "Primitive, semantic, and component token layers cover every declared role and theme.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-task-path",
+      "order": 4,
+      "name": "Implement the primary task and recovery",
+      "exitCondition": "The smallest coherent task path covers success, failure, disclosure, and recovery.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-automated-verification",
+      "order": 5,
+      "name": "Run automated verification",
+      "exitCondition": "Static, contract, integration, and browser evidence satisfies every automated obligation.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-human-review",
+      "order": 6,
+      "name": "Complete attributable human review",
+      "exitCondition": "Only criteria explicitly requiring human evidence have attributable reviewer records.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    }
+  ],
+  "verificationObligations": [
+    {
+      "id": "verify-acceptance-studio-export",
+      "acceptanceCriterionRef": "acceptance-studio-export",
+      "taskRefs": [
+        "export-offline-production"
+      ],
+      "method": "browser-test",
+      "blocking": true,
+      "expectedEvidence": "Passing journey tests.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-studio-export"
+      ]
+    },
+    {
+      "id": "verify-acceptance-accessibility",
+      "acceptanceCriterionRef": "acceptance-accessibility",
+      "taskRefs": [
+        "export-offline-production",
+        "workshop-to-studio"
+      ],
+      "method": "browser-test",
+      "blocking": true,
+      "expectedEvidence": "Browser report with applicable accessibility checks passing.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-accessibility"
+      ]
+    },
+    {
+      "id": "verify-acceptance-workshop-flow",
+      "acceptanceCriterionRef": "acceptance-workshop-flow",
+      "taskRefs": [
+        "workshop-to-studio"
+      ],
+      "method": "browser-test",
+      "blocking": true,
+      "expectedEvidence": "Passing journey tests.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-workshop-flow"
+      ]
+    }
+  ],
+  "blockers": [],
+  "limitations": [
+    "A compiled plan proves deterministic transformation and declaration traceability, not product desirability, target-repository compatibility, rendered quality, or runtime correctness.",
+    "Provisional decisions require the stated downstream contract or target-architecture evidence before implementation begins.",
+    "Human-expert and representative-user obligations remain evidence requirements. Compilation does not create or satisfy human attestations."
+  ]
+}

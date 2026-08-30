@@ -41,6 +41,9 @@ test("CLI help identifies the product, server, and both commands", () => {
   assert.match(help, /compile-plan --brief PATH/);
   assert.match(help, /generate-react --plan PATH/);
   assert.match(help, /repair-react --request PATH/);
+  assert.match(help, /qualify-pilots --config PATH/);
+  assert.match(help, /evaluate-v4 --config PATH/);
+  assert.match(help, /qualify-v4 --evidence PATH/);
   assert.match(help, /portfolio validate-registry\|inventory\|capabilities\|run-stage\|snapshot\|baseline\|benchmark\|verify-unchanged\|report/);
   assert.match(portfolioUsage(CLI_COMMANDS[1]), /portfolio snapshot --project ID/);
   assert.match(portfolioUsage(CLI_COMMANDS[1]), /portfolio capabilities --project ID/);

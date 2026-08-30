@@ -1,0 +1,234 @@
+version: "1.0"
+id: azure-optimizer-brief
+product: Azure Optimizer Infrastructure Analysis Dashboard
+status: validated
+preparedAt: 2026-08-30T16:00:00+03:00
+preparedBy:
+  type: mixed
+  name: ZtotheZ and design agent
+evidenceSources:
+  - id: product-contract
+    kind: technical-source
+    description: Owner-authorized Azure Optimizer task, state, evidence, and comparison contract.
+    location: knowledge-base/benchmarks/azure-optimizer/product-contract.yaml
+    owner: Product owner
+  - id: ztothez-journey
+    kind: technical-source
+    description: ZtotheZ analysis and shared overview browser journeys for the maintained comparison task.
+    location: knowledge-base/benchmarks/azure-optimizer/journeys.json
+    owner: Engineering
+problem:
+  statement: Infrastructure operators need to identify the highest-priority supported optimization without mistaking demonstration analysis for live Azure evidence.
+  currentOutcome: Candidate implementations expose inconsistent context, processing disclosure, hierarchy, and action paths.
+  desiredOutcome: The operator can verify scope and origin, run the disclosed local analysis, inspect one prioritized finding, and identify its bounded validation action.
+  evidenceRefs: [product-contract, ztothez-journey]
+scope:
+  included:
+    - Shared Azure estate overview
+    - Disclosed local demonstration analysis
+    - Prioritized finding with evidence and validation action
+    - Disconnected recovery with preserved scope
+  excluded:
+    - Real Azure tenant connectivity
+    - Automatic production remediation
+    - Claims about current customer infrastructure
+audiences:
+  - id: infrastructure-operator
+    role: Infrastructure operator
+    priority: primary
+    goals:
+      - Identify the highest-priority supported saving opportunity.
+      - Inspect evidence before choosing a validation action.
+      - Distinguish demonstration results from live Azure evidence.
+    contexts:
+      - Desktop infrastructure and FinOps review.
+      - Narrow-viewport operational triage.
+    constraints:
+      - Must preserve environment, scope, and origin during failure and fallback.
+      - Must not imply production connectivity from local demonstration behavior.
+    accessibilityNeeds:
+      - Keyboard-complete operation with visible focus.
+      - Readable contrast, reflow, and non-color status cues.
+    expertise: mixed
+    evidenceRefs: [product-contract]
+outcomes:
+  - id: identify-supported-saving
+    kind: user
+    statement: The operator identifies one prioritized saving opportunity, its impact, evidence, and next validation action.
+    measure:
+      signal: The ZtotheZ analysis journey reaches the prioritized finding and validation action.
+      baseline:
+        status: unknown
+        reason: Candidate comparison evidence does not establish a shared task-completion baseline.
+      target: The overview and analysis journeys pass at every maintained viewport.
+    evidenceRefs: [product-contract, ztothez-journey]
+  - id: preserve-analysis-truth
+    kind: risk-reduction
+    statement: Local demonstration output remains distinguishable from live, cached, imported, stale, and disconnected results.
+    measure:
+      signal: Data mode, connection, freshness, scope, and limitations remain visible before and after analysis.
+      baseline:
+        status: not-applicable
+        reason: The pilot is a new independently generated fixture.
+      target: Runtime evidence contains no unsupported live or connected claim.
+    evidenceRefs: [product-contract]
+dataSources:
+  - id: optimization-analysis
+    name: Optimization analysis source
+    mode: hybrid
+    latency: async
+    classification: internal
+    sourceEvidenceRef: product-contract
+    freshness: Static local fixture until a verified connector provides a timestamp and timezone.
+    limitations:
+      - Demonstration estimates do not establish current Azure resources, savings, or service availability.
+      - No Azure credentials or tenant connection are configured.
+    fallback:
+      kind: demo
+      disclosure: Show Local demonstration next to scope, execution, findings, actions, and exports.
+      preservesOrigin: true
+tasks:
+  - id: prioritize-cloud-savings
+    title: Run analysis and prioritize a supported saving opportunity
+    audienceRefs: [infrastructure-operator]
+    outcomeRefs: [identify-supported-saving, preserve-analysis-truth]
+    dataRefs: [optimization-analysis]
+    trigger: The operator opens the maintained Azure overview with the local comparison dataset.
+    goal: Verify the data boundary, run the ZtotheZ analysis, inspect the highest-priority finding, and identify the validation action.
+    frequency: weekly
+    criticality: high
+    consequential: true
+    inputs:
+      - Declared environment
+      - Local comparison dataset
+    successSignal: A prioritized finding exposes scope, estimated impact, evidence, limitation, remediation owner, and validation method.
+    failureImpact: The operator may mistake demonstration output for current Azure evidence or act without validating the recommendation.
+    recovery: Preserve scope and selected finding, disclose unavailable processing, and offer retry or explicitly labeled local fallback.
+    evidenceRefs: [product-contract, ztothez-journey]
+states:
+  - state: loading
+    taskRefs: [prioritize-cloud-savings]
+    behavior: Preserve scope and disclose local processing while analysis is running.
+    recovery: Keep the current dataset available and allow a bounded retry after failure.
+    disclosure: Do not present findings as complete while processing is active.
+  - state: empty
+    taskRefs: [prioritize-cloud-savings]
+    behavior: State that the declared scope contains no supported findings without displaying zero as missing evidence.
+    recovery: Let the operator confirm scope or rerun the local analysis.
+    disclosure: Preserve environment, source mode, freshness, and dataset limitations.
+  - state: success
+    taskRefs: [prioritize-cloud-savings]
+    behavior: Show the prioritized finding, evidence, impact, and validation action together.
+    recovery: Allow another analysis without losing the current result context.
+    disclosure: Preserve local demonstration origin and limitations in the result.
+  - state: error
+    taskRefs: [prioritize-cloud-savings]
+    behavior: Explain the failed operation without discarding environment or scope.
+    recovery: Offer retry and a clearly labeled local fallback.
+    disclosure: Distinguish interface availability from processing failure.
+  - state: partial
+    taskRefs: [prioritize-cloud-savings]
+    behavior: Label unavailable evidence and prevent unsupported certainty.
+    recovery: Allow review of available evidence or retry the missing portion.
+    disclosure: State which metrics or findings are incomplete.
+  - state: stale
+    taskRefs: [prioritize-cloud-savings]
+    behavior: Retain the result with its timestamp and block assumptions of currency.
+    recovery: Refresh while preserving scope and selected finding.
+    disclosure: Show stale status, observed time, timezone, and origin.
+  - state: disconnected
+    taskRefs: [prioritize-cloud-savings]
+    behavior: Keep the overview readable while actions requiring a verified connector remain unavailable.
+    recovery: Retry connection or explicitly select the local demonstration fixture.
+    disclosure: Show disconnected state separately from local demonstration origin.
+platforms:
+  - id: responsive-browser
+    kind: responsive-web
+    priority: primary
+    viewports: [375, 768, 1024, 1440]
+    inputModes: [keyboard, pointer, touch, assistive-technology]
+    constraints:
+      - Keep context, primary outcome, and next action ahead of telemetry.
+      - Avoid competing scroll regions and clipped metrics on narrow viewports.
+constraints:
+  - React, TypeScript, Vite, and semantic design tokens.
+  - Local fixtures must not contact Azure or require credentials.
+  - Evidence must remain repository-relative and exclude private paths.
+requirements:
+  - id: requirement-decision-path
+    category: functional
+    priority: must
+    statement: Context, prioritized finding, impact, evidence, and validation action form one decision path.
+    rationale: The primary task depends on identifying and verifying the right opportunity.
+    taskRefs: [prioritize-cloud-savings]
+    evidenceRefs: [product-contract]
+  - id: requirement-truth
+    category: reliability
+    priority: must
+    statement: Demonstration, live, cached, imported, stale, partial, and disconnected behavior remain visibly distinct.
+    rationale: Unsupported certainty can produce unsafe infrastructure decisions.
+    taskRefs: [prioritize-cloud-savings]
+    evidenceRefs: [product-contract]
+  - id: requirement-accessibility
+    category: accessibility
+    priority: must
+    statement: The primary task supports keyboard use, visible focus, non-color cues, text resize, reflow, contrast, and touch targets.
+    rationale: The operational path must remain usable across declared inputs and viewports.
+    taskRefs: [prioritize-cloud-savings]
+    evidenceRefs: [product-contract]
+  - id: requirement-boundaries
+    category: maintainability
+    priority: should
+    statement: Analysis state, source disclosure, findings, and rendering remain independently testable.
+    rationale: Processing and provenance must not depend on one presentation component.
+    taskRefs: [prioritize-cloud-savings]
+    evidenceRefs: [product-contract]
+assumptions:
+  - id: assumption-local-dataset
+    statement: The maintained comparison dataset is sufficient to exercise the local demonstration task without Azure connectivity.
+    risk: low
+    status: validated
+    evidenceRefs: [product-contract, ztothez-journey]
+    validationMethod: Run the overview and ZtotheZ analysis journeys against the generated fixture.
+acceptanceCriteria:
+  - id: acceptance-decision-path
+    statement: At 375, 768, 1024, and 1440 CSS pixels, the operator can identify scope, priority, evidence, and the validation action without telemetry preceding them.
+    requirementRefs: [requirement-decision-path]
+    taskRefs: [prioritize-cloud-savings]
+    method: browser-test
+    expectedEvidence: Checksummed captures and journey assertions for overview-baseline and ztothez-analysis.
+    blocking: true
+  - id: acceptance-truth
+    statement: The local analysis discloses data mode, connection, freshness, scope, processing origin, and limitations before and after execution.
+    requirementRefs: [requirement-truth]
+    taskRefs: [prioritize-cloud-savings]
+    method: integration-test
+    expectedEvidence: Runtime assertions with no unsupported live or connected claim.
+    blocking: true
+  - id: acceptance-accessibility
+    statement: The primary journey passes keyboard, focus, contrast, target, text-resize, reflow, and reduced-motion checks.
+    requirementRefs: [requirement-accessibility]
+    taskRefs: [prioritize-cloud-savings]
+    method: browser-test
+    expectedEvidence: Browser report with applicable accessibility checks passing.
+    blocking: true
+  - id: acceptance-boundaries
+    statement: Static audit reports no domain-state ownership leak, incomplete interaction contract, or shared-component threshold violation.
+    requirementRefs: [requirement-boundaries]
+    taskRefs: [prioritize-cloud-savings]
+    method: static-analysis
+    expectedEvidence: Architecture report bound to the fixture source digest.
+    blocking: false
+downstreamContracts:
+  - kind: product-task
+    status: exists
+    path: knowledge-base/benchmarks/azure-optimizer/product-contract.yaml
+  - kind: interface-trust
+    status: not-applicable
+    reason: The maintained product task contract already defines the pilot source and fallback boundary.
+  - kind: information-design
+    status: not-applicable
+    reason: The maintained product task contract already defines metrics, findings, and decision order for this bounded pilot.
+  - kind: design-deliverable
+    status: not-applicable
+    reason: No brand, generated asset, icon, or presentation deliverable is required for this pilot.

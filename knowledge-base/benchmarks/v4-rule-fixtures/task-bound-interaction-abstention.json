@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "contract": "task-bound-interaction-abstention",
+  "profiles": [{
+    "id": "historical-compatibility",
+    "name": "Historical compatibility",
+    "environment": ["Deterministic repository fixture"],
+    "journeys": [{
+      "id": "historical-task",
+      "name": "historical-task",
+      "steps": [{ "action": "expectVisible", "selector": "main" }]
+    }]
+  }]
+}

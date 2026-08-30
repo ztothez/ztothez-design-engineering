@@ -1,0 +1,800 @@
+{
+  "version": "1.0",
+  "compilerVersion": "1.0.0",
+  "id": "aegisops-operations-brief-design-plan",
+  "product": "AegisOPS SOC Readiness Command Center",
+  "sourceBrief": {
+    "id": "aegisops-operations-brief",
+    "version": "1.0",
+    "file": "product-design-brief.yaml",
+    "digest": "3a884f27847a329778dbdd3ec8c2eb541b4518a489a29b3b0f407ea6828ce593",
+    "generationReady": true
+  },
+  "status": "ready",
+  "planningReady": true,
+  "implementationReady": true,
+  "traces": [
+    {
+      "id": "trace-assumption-assumptions-assumption-service-shape",
+      "kind": "assumption",
+      "reference": "assumptions.assumption-service-shape",
+      "description": "validated low-risk assumption: The declared service contract represents the initial fixture response shape."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-accessibility",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-accessibility",
+      "description": "The primary journey passes keyboard, focus, contrast, target, text-resize, reflow, and reduced-motion checks."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-boundaries",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-boundaries",
+      "description": "Static audit reports no domain-state ownership leak or shared component threshold violation in the primary task path."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-decision-path",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-decision-path",
+      "description": "At 375, 768, 1024, and 1440 CSS pixels, the operator can inspect scope, priority, evidence, and next action without telemetry preceding the action."
+    },
+    {
+      "id": "trace-brief-acceptancecriteria-acceptance-trust-states",
+      "kind": "brief",
+      "reference": "acceptanceCriteria.acceptance-trust-states",
+      "description": "Live, demonstration fallback, partial, stale, and disconnected fixtures preserve origin and limitations before and after the action."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-design-deliverable",
+      "kind": "brief",
+      "reference": "downstreamContracts.design-deliverable",
+      "description": "Brief decision for the design-deliverable contract."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-information-design",
+      "kind": "brief",
+      "reference": "downstreamContracts.information-design",
+      "description": "Brief decision for the information-design contract."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-interface-trust",
+      "kind": "brief",
+      "reference": "downstreamContracts.interface-trust",
+      "description": "Brief decision for the interface-trust contract."
+    },
+    {
+      "id": "trace-brief-downstreamcontracts-product-task",
+      "kind": "brief",
+      "reference": "downstreamContracts.product-task",
+      "description": "Brief decision for the product-task contract."
+    },
+    {
+      "id": "trace-brief-platforms-responsive-browser",
+      "kind": "brief",
+      "reference": "platforms.responsive-browser",
+      "description": "Declared platform, viewport, input, and constraint boundary for responsive-browser."
+    },
+    {
+      "id": "trace-brief-problem",
+      "kind": "brief",
+      "reference": "problem",
+      "description": "Evidence-backed current problem and desired outcome."
+    },
+    {
+      "id": "trace-brief-requirements-requirement-accessibility",
+      "kind": "brief",
+      "reference": "requirements.requirement-accessibility",
+      "description": "The primary task supports keyboard, visible focus, non-color status cues, text resize, reflow, and maintained contrast."
+    },
+    {
+      "id": "trace-brief-states-disconnected",
+      "kind": "brief",
+      "reference": "states.disconnected",
+      "description": "Declared disconnected behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-empty",
+      "kind": "brief",
+      "reference": "states.empty",
+      "description": "Declared empty behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-error",
+      "kind": "brief",
+      "reference": "states.error",
+      "description": "Declared error behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-loading",
+      "kind": "brief",
+      "reference": "states.loading",
+      "description": "Declared loading behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-partial",
+      "kind": "brief",
+      "reference": "states.partial",
+      "description": "Declared partial behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-stale",
+      "kind": "brief",
+      "reference": "states.stale",
+      "description": "Declared stale behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-states-success",
+      "kind": "brief",
+      "reference": "states.success",
+      "description": "Declared success behavior, recovery, and disclosure."
+    },
+    {
+      "id": "trace-brief-tasks-review-and-start-remediation",
+      "kind": "brief",
+      "reference": "tasks.review-and-start-remediation",
+      "description": "Task review-and-start-remediation requires a reachable route."
+    },
+    {
+      "id": "trace-standard-asset-provenance",
+      "kind": "standard",
+      "reference": "asset-provenance",
+      "description": "Assets are optional specialized deliverables and require purpose, rights, alternatives, contrast, and fallback evidence."
+    },
+    {
+      "id": "trace-standard-component-boundaries",
+      "kind": "standard",
+      "reference": "component-boundaries",
+      "description": "Separate orchestration, state ownership, evidence presentation, actions, and recovery behind explicit inputs and outputs."
+    },
+    {
+      "id": "trace-standard-decision-hierarchy",
+      "kind": "standard",
+      "reference": "decision-hierarchy",
+      "description": "Operational interfaces answer context, priority, impact, evidence, action, and verification in that order."
+    },
+    {
+      "id": "trace-standard-delivery-sequence",
+      "kind": "standard",
+      "reference": "delivery-sequence",
+      "description": "Validate intent and contracts before architecture, tokens, implementation, automated verification, and attributable human review."
+    },
+    {
+      "id": "trace-standard-responsive-verification",
+      "kind": "standard",
+      "reference": "responsive-verification",
+      "description": "Verify maintained responsive widths, text resize, reflow, focus, touch targets, and reduced motion in a browser."
+    },
+    {
+      "id": "trace-standard-route-convention",
+      "kind": "standard",
+      "reference": "route-convention",
+      "description": "Use stable task-oriented route identifiers in the design plan; the generation adapter must map them to an existing target router without collision."
+    },
+    {
+      "id": "trace-standard-semantic-token-architecture",
+      "kind": "standard",
+      "reference": "semantic-token-architecture",
+      "description": "Bind components to semantic roles backed by component and primitive token layers; do not emit raw visual values in the plan."
+    }
+  ],
+  "decisions": [
+    {
+      "id": "decision-product-boundary",
+      "status": "confirmed",
+      "statement": "An operator identifies scope, priority, evidence, and the next safe action from one coherent task path.",
+      "rationale": "Operators cannot reliably distinguish the highest-impact issue from supporting telemetry before taking action.",
+      "traceRefs": [
+        "trace-brief-problem"
+      ]
+    },
+    {
+      "id": "decision-route-boundary",
+      "status": "confirmed",
+      "statement": "Use one stable task-oriented design route per declared task.",
+      "rationale": "The plan establishes a deterministic route contract; the generation adapter remains responsible for collision-safe target-router integration.",
+      "traceRefs": [
+        "trace-standard-route-convention",
+        "trace-brief-tasks-review-and-start-remediation"
+      ]
+    },
+    {
+      "id": "decision-assets",
+      "status": "provisional",
+      "statement": "No brand or content asset is required by the brief. Do not invent decorative assets; record any later need before generation.",
+      "rationale": "Asset scope follows declared brand and content requirements rather than decorative defaults.",
+      "traceRefs": [
+        "trace-standard-asset-provenance"
+      ]
+    },
+    {
+      "id": "decision-assumption-service-shape",
+      "status": "confirmed",
+      "statement": "The declared service contract represents the initial fixture response shape.",
+      "rationale": "Validate fixtures against the service contract before browser verification.",
+      "traceRefs": [
+        "trace-assumption-assumptions-assumption-service-shape"
+      ]
+    }
+  ],
+  "informationArchitecture": [
+    {
+      "id": "ia-review-and-start-remediation-context",
+      "order": 1,
+      "label": "Context and provenance",
+      "purpose": "Establish trigger, scope, data origin, and freshness before Review the highest-impact finding and start remediation.",
+      "contentRefs": [
+        "A scheduled or manual analysis has findings available for the selected environment.",
+        "dataSources.findings-service"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-decision-hierarchy"
+      ]
+    },
+    {
+      "id": "ia-review-and-start-remediation-priority",
+      "order": 2,
+      "label": "Primary outcome and action",
+      "purpose": "Confirm scope and evidence, then start the bounded remediation for the highest-impact finding.",
+      "contentRefs": [
+        "outcomes.identify-next-action",
+        "outcomes.preserve-result-trust"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation"
+      ]
+    },
+    {
+      "id": "ia-review-and-start-remediation-impact",
+      "order": 3,
+      "label": "Impact and exceptions",
+      "purpose": "The operator may act on the wrong environment or mistake demonstration evidence for live service output.",
+      "contentRefs": [
+        "tasks.review-and-start-remediation.failureImpact"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation"
+      ]
+    },
+    {
+      "id": "ia-review-and-start-remediation-evidence",
+      "order": 4,
+      "label": "Evidence and explanation",
+      "purpose": "Expose the evidence needed to verify the decision without promoting supporting telemetry above the task.",
+      "contentRefs": [
+        "dataSources.findings-service"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation"
+      ]
+    },
+    {
+      "id": "ia-review-and-start-remediation-action",
+      "order": 5,
+      "label": "Bounded next action",
+      "purpose": "The selected finding enters a started state with scope, origin, evidence, and verification instructions preserved.",
+      "contentRefs": [
+        "tasks.review-and-start-remediation.successSignal"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation"
+      ]
+    },
+    {
+      "id": "ia-review-and-start-remediation-verification",
+      "order": 6,
+      "label": "Recovery and verification",
+      "purpose": "Preserve the selected scope and finding, explain the failure, and offer a bounded retry or return to review.",
+      "contentRefs": [
+        "tasks.review-and-start-remediation.recovery"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-review-and-start-remediation",
+      "path": "/tasks/review-and-start-remediation",
+      "taskRef": "review-and-start-remediation",
+      "status": "confirmed",
+      "purpose": "Confirm scope and evidence, then start the bounded remediation for the highest-impact finding.",
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-route-convention"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "component-review-and-start-remediation-shell",
+      "taskRef": "review-and-start-remediation",
+      "boundary": "task-shell",
+      "responsibility": "Own route context and compose the decision path without owning service behavior.",
+      "ownsState": [],
+      "inputs": [
+        "A scheduled or manual analysis has findings available for the selected environment."
+      ],
+      "outputs": [
+        "selected task context"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-review-and-start-remediation-state",
+      "taskRef": "review-and-start-remediation",
+      "boundary": "domain-state-controller",
+      "responsibility": "Own task, data-origin, progress, failure, and recovery state independently from rendering.",
+      "ownsState": [
+        "loading",
+        "empty",
+        "success",
+        "error",
+        "partial",
+        "stale",
+        "disconnected"
+      ],
+      "inputs": [
+        "findings-service"
+      ],
+      "outputs": [
+        "typed task state",
+        "bounded actions"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-review-and-start-remediation-decision",
+      "taskRef": "review-and-start-remediation",
+      "boundary": "decision-summary",
+      "responsibility": "Present scope, priority, impact, and the primary next action in decision order.",
+      "ownsState": [],
+      "inputs": [
+        "identify-next-action",
+        "preserve-result-trust"
+      ],
+      "outputs": [
+        "selected decision"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-review-and-start-remediation-evidence",
+      "taskRef": "review-and-start-remediation",
+      "boundary": "evidence-detail",
+      "responsibility": "Present source, freshness, limitations, and supporting evidence without obscuring the primary task.",
+      "ownsState": [],
+      "inputs": [
+        "findings-service"
+      ],
+      "outputs": [
+        "evidence selection"
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-component-boundaries"
+      ]
+    },
+    {
+      "id": "component-review-and-start-remediation-action",
+      "taskRef": "review-and-start-remediation",
+      "boundary": "bounded-action-and-recovery",
+      "responsibility": "Confirm consequential actions, preserve context on failure, and expose retry or return behavior.",
+      "ownsState": [],
+      "inputs": [
+        "Selected environment",
+        "Finding identifier"
+      ],
+      "outputs": [
+        "The selected finding enters a started state with scope, origin, evidence, and verification instructions preserved.",
+        "Preserve the selected scope and finding, explain the failure, and offer a bounded retry or return to review."
+      ],
+      "traceRefs": [
+        "trace-brief-tasks-review-and-start-remediation",
+        "trace-standard-component-boundaries"
+      ]
+    }
+  ],
+  "stateOwnership": [
+    {
+      "state": "loading",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "Preserve layout and selected scope while announcing bounded progress.",
+      "recovery": "Allow cancellation and retain the current finding selection.",
+      "disclosure": "Connection and result origin remain checking until runtime evidence resolves them.",
+      "traceRefs": [
+        "trace-brief-states-loading"
+      ]
+    },
+    {
+      "state": "empty",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "State that no findings exist for the selected scope and period.",
+      "recovery": "Let the operator change scope or rerun analysis.",
+      "disclosure": "Preserve data mode, scope, freshness, and limitations.",
+      "traceRefs": [
+        "trace-brief-states-empty"
+      ]
+    },
+    {
+      "state": "success",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "Show the started remediation, affected scope, evidence, and verification step.",
+      "recovery": "Provide a return path to the finding and history.",
+      "disclosure": "Preserve result origin and service state in the resulting record.",
+      "traceRefs": [
+        "trace-brief-states-success"
+      ]
+    },
+    {
+      "state": "error",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "Explain the failed operation without discarding the selected finding.",
+      "recovery": "Offer a bounded retry and a safe return to review.",
+      "disclosure": "Distinguish interface availability from service failure.",
+      "traceRefs": [
+        "trace-brief-states-error"
+      ]
+    },
+    {
+      "state": "partial",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "Label unavailable evidence and prevent unsupported certainty.",
+      "recovery": "Allow review of available evidence or retry missing portions.",
+      "disclosure": "State which findings or evidence are incomplete.",
+      "traceRefs": [
+        "trace-brief-states-partial"
+      ]
+    },
+    {
+      "state": "stale",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "Keep stale findings visible with timestamp and block unsafe assumptions of currency.",
+      "recovery": "Refresh while preserving scope and selection.",
+      "disclosure": "Show stale status, observed time, timezone, and source.",
+      "traceRefs": [
+        "trace-brief-states-stale"
+      ]
+    },
+    {
+      "state": "disconnected",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "ownerComponentRef": "component-review-and-start-remediation-state",
+      "behavior": "Keep the interface usable and disable actions that require a verified connection.",
+      "recovery": "Retry connection or enter explicitly disclosed demonstration mode.",
+      "disclosure": "Show disconnected state separately from demonstration result origin.",
+      "traceRefs": [
+        "trace-brief-states-disconnected"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "kind": "product-task",
+      "declaration": "exists",
+      "validation": "validated",
+      "source": "knowledge-base/benchmarks/aegisops/product-contract.yaml",
+      "passed": true,
+      "findings": 0,
+      "reason": "The declared existing contract passed its maintained validator.",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-product-task"
+      ]
+    },
+    {
+      "kind": "interface-trust",
+      "declaration": "not-applicable",
+      "validation": "not-applicable",
+      "passed": true,
+      "findings": 0,
+      "reason": "Not required for pilot fixtures",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-interface-trust"
+      ]
+    },
+    {
+      "kind": "information-design",
+      "declaration": "not-applicable",
+      "validation": "not-applicable",
+      "passed": true,
+      "findings": 0,
+      "reason": "Not required for pilot fixtures",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-information-design"
+      ]
+    },
+    {
+      "kind": "design-deliverable",
+      "declaration": "not-applicable",
+      "validation": "not-applicable",
+      "passed": true,
+      "findings": 0,
+      "reason": "Not required for pilot fixtures",
+      "traceRefs": [
+        "trace-brief-downstreamcontracts-design-deliverable"
+      ]
+    }
+  ],
+  "tokenRequirements": [
+    {
+      "id": "tokens-color",
+      "category": "color",
+      "roles": [
+        "surface",
+        "text",
+        "border",
+        "focus",
+        "status",
+        "action"
+      ],
+      "rule": "Define theme-specific semantic roles with contrast and non-color state cues.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture",
+        "trace-brief-requirements-requirement-accessibility"
+      ]
+    },
+    {
+      "id": "tokens-typography",
+      "category": "typography",
+      "roles": [
+        "page-title",
+        "section-title",
+        "body",
+        "label",
+        "data",
+        "annotation"
+      ],
+      "rule": "Use stable readable roles with no viewport-width font scaling or negative letter spacing.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    },
+    {
+      "id": "tokens-spacing",
+      "category": "spacing",
+      "roles": [
+        "inline",
+        "stack",
+        "section",
+        "control",
+        "viewport-gutter"
+      ],
+      "rule": "Use a finite spacing scale that preserves grouping and responsive rhythm.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    },
+    {
+      "id": "tokens-shape",
+      "category": "shape",
+      "roles": [
+        "control-radius",
+        "panel-radius",
+        "border-width",
+        "focus-width"
+      ],
+      "rule": "Use restrained component geometry and a distinct focus treatment.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    },
+    {
+      "id": "tokens-motion",
+      "category": "motion",
+      "roles": [
+        "duration-fast",
+        "duration-standard",
+        "easing",
+        "reduced-motion"
+      ],
+      "rule": "Motion must communicate state and provide a reduced-motion equivalent.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture",
+        "trace-brief-requirements-requirement-accessibility"
+      ]
+    },
+    {
+      "id": "tokens-data-visualization",
+      "category": "data-visualization",
+      "roles": [
+        "series",
+        "threshold",
+        "selection",
+        "grid",
+        "annotation"
+      ],
+      "rule": "Chart roles must remain distinguishable without color and preserve source and freshness context.",
+      "traceRefs": [
+        "trace-standard-semantic-token-architecture"
+      ]
+    }
+  ],
+  "responsiveBehavior": [
+    {
+      "platformRef": "responsive-browser",
+      "viewports": [
+        375,
+        768,
+        1024,
+        1440
+      ],
+      "inputModes": [
+        "keyboard",
+        "pointer",
+        "touch",
+        "assistive-technology"
+      ],
+      "rules": [
+        "Preserve decision order and task state at every declared viewport.",
+        "Remove competing page-level scroll regions and prevent clipping or control overlap.",
+        "Keep the primary action reachable before secondary telemetry.",
+        "Avoid competing scroll regions on narrow viewports.",
+        "Keep the next action visible before telemetry detail."
+      ],
+      "traceRefs": [
+        "trace-brief-platforms-responsive-browser",
+        "trace-standard-responsive-verification"
+      ]
+    }
+  ],
+  "assets": {
+    "status": "provisional",
+    "requirements": [],
+    "rule": "No brand or content asset is required by the brief. Do not invent decorative assets; record any later need before generation.",
+    "traceRefs": [
+      "trace-standard-asset-provenance"
+    ]
+  },
+  "implementationStages": [
+    {
+      "id": "stage-contracts",
+      "order": 1,
+      "name": "Validate downstream contracts",
+      "exitCondition": "All applicable product-task, trust, information, and design contracts pass.",
+      "status": "confirmed",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-architecture",
+      "order": 2,
+      "name": "Confirm target architecture",
+      "exitCondition": "Routes, component boundaries, state owners, and target repository conventions are confirmed.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-tokens",
+      "order": 3,
+      "name": "Define semantic tokens",
+      "exitCondition": "Primitive, semantic, and component token layers cover every declared role and theme.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-task-path",
+      "order": 4,
+      "name": "Implement the primary task and recovery",
+      "exitCondition": "The smallest coherent task path covers success, failure, disclosure, and recovery.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-automated-verification",
+      "order": 5,
+      "name": "Run automated verification",
+      "exitCondition": "Static, contract, integration, and browser evidence satisfies every automated obligation.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    },
+    {
+      "id": "stage-human-review",
+      "order": 6,
+      "name": "Complete attributable human review",
+      "exitCondition": "Only criteria explicitly requiring human evidence have attributable reviewer records.",
+      "status": "provisional",
+      "traceRefs": [
+        "trace-standard-delivery-sequence"
+      ]
+    }
+  ],
+  "verificationObligations": [
+    {
+      "id": "verify-acceptance-decision-path",
+      "acceptanceCriterionRef": "acceptance-decision-path",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "method": "browser-test",
+      "blocking": true,
+      "expectedEvidence": "Checksummed captures and journey assertions for all four viewports.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-decision-path"
+      ]
+    },
+    {
+      "id": "verify-acceptance-trust-states",
+      "acceptanceCriterionRef": "acceptance-trust-states",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "method": "integration-test",
+      "blocking": true,
+      "expectedEvidence": "State-specific contract and runtime assertions with no unsupported live claim.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-trust-states"
+      ]
+    },
+    {
+      "id": "verify-acceptance-accessibility",
+      "acceptanceCriterionRef": "acceptance-accessibility",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "method": "browser-test",
+      "blocking": true,
+      "expectedEvidence": "Browser report with applicable accessibility checks passing.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-accessibility"
+      ]
+    },
+    {
+      "id": "verify-acceptance-boundaries",
+      "acceptanceCriterionRef": "acceptance-boundaries",
+      "taskRefs": [
+        "review-and-start-remediation"
+      ],
+      "method": "static-analysis",
+      "blocking": false,
+      "expectedEvidence": "Architecture audit report bound to the source revision.",
+      "traceRefs": [
+        "trace-brief-acceptancecriteria-acceptance-boundaries"
+      ]
+    }
+  ],
+  "blockers": [],
+  "limitations": [
+    "A compiled plan proves deterministic transformation and declaration traceability, not product desirability, target-repository compatibility, rendered quality, or runtime correctness.",
+    "Provisional decisions require the stated downstream contract or target-architecture evidence before implementation begins.",
+    "Human-expert and representative-user obligations remain evidence requirements. Compilation does not create or satisfy human attestations."
+  ]
+}

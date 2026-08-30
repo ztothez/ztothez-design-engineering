@@ -1,0 +1,318 @@
+version: "1.2"
+id: aegisops
+name: AegisOPS SOC Readiness Command Center
+status: benchmark
+purpose: >-
+  Enable a senior SOC analyst or detection engineer to transform authorized MITRE ATT&CK
+  scenarios into inspectable detection, response, validation, and export artifacts while
+  preserving evidence, recovery paths, and the distinction between live and demo execution.
+
+authority:
+  behavior: Current AegisOPS behavior summarized in SOURCE-EVIDENCE.md overrides historical product and submission material.
+  visual: Normalized design evidence guides hierarchy and identity but never overrides task integrity, responsive usability, or accessibility.
+  precedence:
+    - path: SOURCE-EVIDENCE.md
+      role: Independently normalized product, design, provenance, and snapshot evidence.
+      authority: primary
+    - path: MANIFEST.md
+      role: Benchmark scope, authority order, and clean-room usage rules.
+      authority: supporting
+    - path: acceptance-criteria.md
+      role: Evidence interpretation and blocker acceptance boundaries.
+      authority: supporting
+    - path: ../../../SKILL.md
+      role: Authoritative implementation, provenance, local-first, and abstention requirements.
+      authority: supporting
+
+actors:
+  - id: detection-engineer
+    name: Detection engineer
+    goals:
+      - Convert known ATT&CK behavior into field-mapped detection logic and deployable artifacts.
+      - Inspect covered and missing observables before accepting a result.
+      - Export evidence for implementation, review, or handoff.
+    responsibilities:
+      - Select an authorized scenario and verify its scope.
+      - Review generated logic against source telemetry and local environment requirements.
+      - Treat generated artifacts as reviewable engineering output, not automatic production truth.
+  - id: soc-analyst
+    name: SOC analyst
+    goals:
+      - Understand detection conditions and prioritized response actions.
+      - Distinguish live endpoint evidence from labeled demo fallback data.
+      - Recover safely from unavailable inference or export services.
+    responsibilities:
+      - Validate response guidance against organizational procedures.
+      - Preserve case evidence and avoid destructive action without authorization.
+
+outputs:
+  - id: authorized-simulation
+    name: Authorized simulation evidence
+    sourceOfTruth: Threat agent output bounded to known ATT&CK behavior.
+    requiredEvidence:
+      - Technique or scenario identifier
+      - Observable commands, process behavior, or telemetry
+      - Explicit authorized-use scope
+  - id: sigma-detection
+    name: Sigma detection
+    sourceOfTruth: Detection agent output derived from simulation observables.
+    requiredEvidence:
+      - Field mappings
+      - Detection condition
+      - Observable linkage
+  - id: spl-hunt
+    name: SPL hunt
+    sourceOfTruth: Detection agent output derived from supported telemetry fields.
+    requiredEvidence:
+      - Query text
+      - Required data sources
+  - id: soc-playbook
+    name: SOC response playbook
+    sourceOfTruth: Response agent output tied to detected telemetry.
+    requiredEvidence:
+      - Triage actions
+      - Containment or escalation conditions
+  - id: vectr-export
+    name: VECTR coverage export
+    sourceOfTruth: Structured run result and validation scores.
+    requiredEvidence:
+      - Scenario identifier
+      - Coverage data
+  - id: validation-report
+    name: Validation report
+    sourceOfTruth: Validation agent evaluation of simulation and detection outputs.
+    requiredEvidence:
+      - Coverage score
+      - Covered observables
+      - Missing observables or explicit none-found result
+      - Safety verdict
+  - id: pdf-report
+    name: PDF handoff report
+    sourceOfTruth: Completed structured run and export service response.
+    requiredEvidence:
+      - Scenario identifier
+      - Generation success or actionable failure
+
+modes:
+  - id: single-technique
+    name: Single Technique
+    purpose: Run the complete pipeline for one ATT&CK technique.
+    input: ATT&CK technique identifier such as T1059.001.
+    outputs: [authorized-simulation, sigma-detection, spl-hunt, soc-playbook, vectr-export, validation-report, pdf-report]
+  - id: apt-group
+    name: APT Group
+    purpose: Evaluate a bounded set of techniques attributed to a named threat group.
+    input: Recognized APT group name or identifier.
+    outputs: [authorized-simulation, sigma-detection, spl-hunt, soc-playbook, vectr-export, validation-report, pdf-report]
+  - id: kill-chain
+    name: Kill Chain
+    purpose: Evaluate an ordered sequence of known ATT&CK techniques and their combined defensive coverage.
+    input: Starting technique or supported chain selection.
+    outputs: [authorized-simulation, sigma-detection, spl-hunt, soc-playbook, vectr-export, validation-report, pdf-report]
+  - id: topology-lab
+    name: Topology Lab
+    purpose: Map an authorized sandbox path to telemetry, detection conditions, response actions, and reaction timing.
+    input: Supported sandbox topology path or seed technique.
+    outputs: [authorized-simulation, sigma-detection, soc-playbook, validation-report]
+
+stateMachines:
+  - id: pipeline-run
+    initial: idle
+    states:
+      - id: idle
+        category: idle
+        userVisible: true
+        requirement: Input remains editable and the interface explains what is required to run.
+      - id: running
+        category: loading
+        userVisible: true
+        requirement: The active agent and accumulated progress are visible without clearing user input.
+      - id: success
+        category: success
+        userVisible: true
+        requirement: Results, evidence, readiness status, and supported exports are available together.
+      - id: error
+        category: error
+        userVisible: true
+        requirement: The failure cause, preserved input, retry action, and demo fallback guidance are visible.
+      - id: fallback
+        category: fallback
+        userVisible: true
+        requirement: Demo execution is explicitly labeled and cannot be mistaken for live endpoint evidence.
+    transitions:
+      - from: idle
+        to: running
+        trigger: Submit valid scenario
+      - from: running
+        to: success
+        trigger: Receive one complete validated run result
+      - from: running
+        to: error
+        trigger: Network, stream, validation, or export initialization failure
+      - from: error
+        to: running
+        trigger: Retry preserved scenario
+      - from: error
+        to: fallback
+        trigger: Enable labeled Demo mode
+      - from: fallback
+        to: running
+        trigger: Run preserved scenario using demo data
+      - from: success
+        to: running
+        trigger: Run another scenario
+
+metrics:
+  - id: coverage
+    name: Detection coverage
+    definition: Percentage of required observables represented by the generated detection and validation result.
+    sourceOfTruth: Validation agent structured score with covered and missing observable lists.
+    format: percentage
+    evidenceRequired: true
+    range: { min: 0, max: 100 }
+  - id: safety-verdict
+    name: Safety verdict
+    definition: Structured assessment that generated content remains within authorized known-ATT&CK defensive scope.
+    sourceOfTruth: Validation agent structured verdict and supporting explanation.
+    format: status
+    evidenceRequired: true
+  - id: endpoint-latency
+    name: Endpoint latency
+    definition: Measured duration of a successful endpoint health or inference request.
+    sourceOfTruth: Current request timing; never a static placeholder.
+    format: duration
+    evidenceRequired: true
+  - id: readiness
+    name: Product readiness
+    definition: Gate state derived from completed coverage, safety, validator, and artifact requirements.
+    sourceOfTruth: Explicit readiness-gate evaluation over the current run result.
+    format: status
+    evidenceRequired: true
+
+constraints:
+  outOfScope:
+    - Zero-day discovery or exploit generation.
+    - Unauthorized offensive operations or targeting real systems without permission.
+    - Automatic production deployment of generated detections without human review.
+  prohibitedClaims:
+    - Unsourced cost, time-savings, coverage, performance, or market-superiority claims.
+    - Live AMD, ROCm, model, endpoint, latency, or throughput claims without current captured evidence.
+    - Readiness or safety claims derived only from hard-coded presentation state.
+  mockData:
+    allowedEnvironments: [development, test, demo]
+    mustBeLabeled: true
+    prohibitedInProduction: true
+    fallbackDisclosure: Demo output must be visibly labeled, preserve the selected scenario, and distinguish bundled provenance from current live execution evidence.
+
+acceptanceCriteria:
+  - id: valid-input-contract
+    title: Input and mode remain coherent
+    severity: blocker
+    requirement: The submitted scenario is valid for the selected mode, remains visible during execution, and is preserved after failure.
+    evidence: [contract, runtime]
+    appliesToModes: [single-technique, apt-group, kill-chain, topology-lab]
+  - id: progressive-pipeline-state
+    title: Pipeline progress is inspectable
+    severity: blocker
+    requirement: Running state identifies the active agent or stage, prevents duplicate submission, and announces progress accessibly.
+    evidence: [runtime, accessibility]
+    appliesToModes: [single-technique, apt-group, kill-chain]
+  - id: evidence-backed-results
+    title: Results preserve evidence chains
+    severity: blocker
+    requirement: Detection, response, and validation outputs trace back to the selected scenario and inspectable observables.
+    evidence: [contract, runtime, manual-review]
+    appliesToModes: [single-technique, apt-group, kill-chain, topology-lab]
+  - id: evidence-backed-metrics
+    title: Metrics have current sources of truth
+    severity: blocker
+    requirement: Coverage, safety, readiness, and latency values are computed from current structured evidence or explicitly labeled demo data.
+    evidence: [contract, network, manual-review]
+    appliesToModes: [single-technique, apt-group, kill-chain, topology-lab]
+  - id: offline-recovery
+    title: Offline execution has a recovery path
+    severity: blocker
+    requirement: Endpoint failure shows an actionable error, preserves input, offers retry, and explains labeled Demo mode without exposing a raw stack trace.
+    evidence: [runtime, network, screenshot]
+    appliesToModes: [single-technique, apt-group, kill-chain]
+  - id: export-integrity
+    title: Exports match the visible run
+    severity: blocker
+    requirement: Every offered download is generated from the current completed run, has a meaningful filename, and reports export failure without losing results.
+    evidence: [runtime, export]
+    appliesToModes: [single-technique, apt-group, kill-chain]
+  - id: authorized-scope
+    title: Authorized defensive scope is explicit
+    severity: blocker
+    requirement: Generated simulation material is bounded to known ATT&CK defensive validation and does not present unauthorized or zero-day generation as supported.
+    evidence: [contract, manual-review]
+    appliesToModes: [single-technique, apt-group, kill-chain, topology-lab]
+  - id: responsive-integrity
+    title: Operational content remains readable at required widths
+    severity: blocker
+    requirement: Controls, status pills, readiness gates, logs, and results do not clip, overlap, or create competing page-level scroll regions.
+    evidence: [runtime, screenshot]
+    appliesToModes: [single-technique, apt-group, kill-chain, topology-lab]
+  - id: accessible-operation
+    title: Critical workflow is keyboard and assistive-technology operable
+    severity: blocker
+    requirement: Inputs and controls have names, progress and errors are announced, focus remains visible, and status is not encoded by color alone.
+    evidence: [runtime, accessibility]
+    appliesToModes: [single-technique, apt-group, kill-chain, topology-lab]
+
+verification:
+  journeyFile: interaction-journeys.json
+  viewports:
+    - { name: mobile-375, width: 375, height: 812 }
+    - { name: tablet-768, width: 768, height: 1024 }
+    - { name: desktop-1024, width: 1024, height: 768 }
+    - { name: wide-1440, width: 1440, height: 900 }
+  bindings:
+    - profile: interaction-qualification
+      journey: generate-recover-and-export
+      actor: detection-engineer
+      mode: single-technique
+      acceptanceCriteria: [valid-input-contract, progressive-pipeline-state, evidence-backed-results, evidence-backed-metrics, export-integrity, offline-recovery, authorized-scope, accessible-operation]
+
+benchmark:
+  archetype: operational-dashboard
+  interface: browser
+  qualityDimensions:
+    - { id: truthful-disclosure, status: required, reason: "Live and demo execution must remain distinguishable." }
+    - { id: information-design, status: required, reason: "Analysts must trace prioritized findings to evidence and action." }
+    - { id: visual-system, status: required, reason: "Dense security operations require consistent visual hierarchy." }
+    - { id: accessibility, status: required, reason: "Core analysis and export paths require keyboard and non-color operation." }
+    - { id: responsive-structure, status: required, reason: "The command center is verified from mobile through wide desktop." }
+    - { id: state-integrity, status: required, reason: "Pipeline progress, failure, fallback, and recovery must remain explicit." }
+    - { id: maintainability, status: required, reason: "Detection, response, validation, and export boundaries must remain separable." }
+  tasks:
+    - id: generate-detection-package
+      primary: true
+      actor: detection-engineer
+      mode: single-technique
+      intent: Generate and inspect evidence-linked detection, response, validation, and export artifacts for an authorized ATT&CK technique.
+      start:
+        stateMachine: pipeline-run
+        state: idle
+        observable: The authorized technique input is available and no pipeline run is active.
+      success:
+        stateMachine: pipeline-run
+        state: success
+        observable: Generated artifacts, source evidence, validation results, and export controls are inspectable.
+        evidence: [contract, runtime, network, export]
+      recovery:
+        required: true
+        failure:
+          stateMachine: pipeline-run
+          state: error
+          observable: The failed stage and preserved authorized input remain visible.
+        observable: The analyst can retry without losing the technique input or confusing fallback data with live output.
+      journey: { profile: interaction-qualification, journey: generate-recover-and-export }
+      browser: { route: /, narrowViewport: mobile-375 }
+  evidencePolicy:
+    missingEvidence: unverified
+    failedBehavior: failed
+    unsupportedCapability: limitation
+  comparison:
+    taskContractId: aegisops-detection-package
+    crossContractRanking: false

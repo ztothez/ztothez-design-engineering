@@ -161,6 +161,18 @@ export async function validatePackageArchive(report) {
   );
   assert.equal(prohibitedPath, undefined, `package contains prohibited file: ${prohibitedPath?.path}`);
 
+  const privateMarker = ["ta", "ys"].join("");
+  const privateMarkerPattern = new RegExp(`(^|[^A-Za-z0-9])${privateMarker}($|[^A-Za-z0-9])`, "i");
+  const privateReminderPattern = new RegExp(["muistutus", "[ _-]?", privateMarker].join(""), "i");
+  const prohibitedNamedFile = report.files.find((file) =>
+    privateMarkerPattern.test(file.path) || privateReminderPattern.test(file.path),
+  );
+  assert.equal(
+    prohibitedNamedFile,
+    undefined,
+    `package contains a private reminder file: ${prohibitedNamedFile?.path}`,
+  );
+
   const allowedKnowledgePaths = new Set(knowledgePaths);
   for (const file of report.files) {
     if (file.path.startsWith("knowledge-base/")) {
@@ -169,6 +181,26 @@ export async function validatePackageArchive(report) {
         `package contains knowledge outside the approved distribution boundary: ${file.path}`,
       );
     }
+  }
+
+  const prohibitedContentPatterns = [
+    { id: "private-reminder", pattern: privateReminderPattern },
+    { id: "private-marker", pattern: privateMarkerPattern },
+    { id: "unix-home-path", pattern: /(?:^|[\s"'`(])\/(?:home|Users)\/[^\s"'`)]+/m },
+    { id: "windows-user-path", pattern: /\b[A-Za-z]:\\Users\\[^\s"'`)]+/m },
+    { id: "private-key", pattern: /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/ },
+    { id: "aws-access-key", pattern: /\b(?:AKIA|ASIA)[A-Z0-9]{16}\b/ },
+  ];
+  for (const file of report.files) {
+    const content = await readFile(join(PROJECT_ROOT, file.path));
+    if (content.includes(0)) continue;
+    const text = content.toString("utf8");
+    const violation = prohibitedContentPatterns.find(({ pattern }) => pattern.test(text));
+    assert.equal(
+      violation,
+      undefined,
+      `package contains prohibited ${violation?.id ?? "content"}: ${file.path}`,
+    );
   }
 
   assert.equal(packageJson.name, "@ztothez/design-engineering");

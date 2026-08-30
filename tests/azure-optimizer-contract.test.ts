@@ -46,6 +46,12 @@ test("Azure Optimizer comparison contract is internally consistent", async () =>
 });
 
 test("Azure candidates use isolated journey profiles under one task contract", async () => {
+  const historical = JSON.parse(await readFile(journeyPath, "utf8")) as {
+    version: string;
+    profiles: Array<{ journeys: Array<{ interaction?: unknown }> }>;
+  };
+  assert.equal(historical.version, "1.0");
+  assert.ok(historical.profiles.every((profile) => profile.journeys.every((journey) => !journey.interaction)));
   const profiles = [
     "overview-baseline",
     "original-analysis",
@@ -62,6 +68,26 @@ test("Azure candidates use isolated journey profiles under one task contract", a
   const contract = parse(await readFile(contractPath, "utf8")) as ProductContract;
   assert.ok(contract.authority.precedence.every((entry) => !entry.path.startsWith("/")));
   assert.ok(contract.constraints.prohibitedClaims.some((claim) => claim.includes("Human approval")));
+});
+
+test("Azure locked holdout qualifies disconnected recovery without changing its historical suite", async () => {
+  const report = await validateProductContract(
+    join(benchmarkDirectory, "interaction-product-contract.yaml"),
+    { projectRoot: process.cwd() },
+  );
+  assert.equal(report.passed, true, JSON.stringify(report.issues, null, 2));
+  assert.equal(report.taskModel.status, "ready");
+  assert.equal(report.taskModel.primaryTasks, 1);
+  assert.equal(report.taskModel.recoveryTasks, 1);
+
+  const selection = await loadRuntimeJourneySelection(
+    join(benchmarkDirectory, "interaction-journeys.json"),
+    "holdout-interaction-qualification",
+  );
+  assert.deepEqual(
+    selection.journeys[0]?.steps.filter((step) => step.action === "checkpoint").map((step) => step.checkpoint),
+    ["start", "disconnected", "failure", "preserved-state", "success"],
+  );
 });
 
 test("Azure V2 state matrix retains the required product journeys and failure policy", async () => {

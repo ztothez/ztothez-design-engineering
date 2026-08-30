@@ -1,0 +1,104 @@
+{
+  "version": "1.1",
+  "contract": "scenestart",
+  "profiles": [
+    {
+      "id": "workshop-interaction-qualification",
+      "name": "Recover local storage and complete the guided production",
+      "environment": [
+        "The repository-owned SceneStart fixture is running with a fresh browser context",
+        "The verifier can make local storage unavailable and restore it",
+        "Downloads are enabled"
+      ],
+      "journeys": [
+        {
+          "id": "recover-storage-and-complete-workshop",
+          "name": "recover-storage-and-complete-workshop",
+          "interaction": {
+            "task": "workshop-to-studio",
+            "phases": ["primary", "recovery"],
+            "applicableStates": ["error"],
+            "export": true
+          },
+          "steps": [
+            { "action": "navigate", "value": "/workshop" },
+            { "action": "expectText", "selector": "h1", "value": "Build your first production" },
+            { "action": "checkpoint", "checkpoint": "start" },
+            { "action": "setStorage", "state": "unavailable" },
+            { "action": "fill", "selector": "label:has-text(\"YOUR HANDLE\") input", "value": "NOVA" },
+            { "action": "expectText", "selector": "[role=\"alert\"]", "value": "Storage unavailable. Project retained in memory." },
+            { "action": "checkpoint", "checkpoint": "error" },
+            { "action": "expectVisible", "selector": "button:has-text(\"RETRY STORAGE\")" },
+            { "action": "checkpoint", "checkpoint": "failure" },
+            { "action": "expectValue", "selector": "label:has-text(\"YOUR HANDLE\") input", "value": "NOVA" },
+            { "action": "checkpoint", "checkpoint": "preserved-state" },
+            { "action": "setStorage", "state": "available" },
+            { "action": "click", "selector": "button:has-text(\"RETRY STORAGE\")" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "Storage available. In-memory project saved locally." },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Create depth" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Build interference" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Aim for the ending" },
+            { "action": "click", "selector": "button:has-text(\"NEXT STEP\")" },
+            { "action": "expectText", "selector": "h2", "value": "Watch the whole arc" },
+            { "action": "click", "selector": "button:has-text(\"PLAY THE 20-SECOND PRODUCTION\")" },
+            { "action": "click", "selector": "button:has-text(\"PAUSE\")" },
+            { "action": "click", "selector": "button:has-text(\"FINISH WORKSHOP\")" },
+            { "action": "expectText", "selector": "body", "value": "You built a timed opening, escalation and ending." },
+            { "action": "expectDownload", "selector": "button:has-text(\"EXPORT OFFLINE HTML\")", "filenameIncludes": "my-production.html" },
+            { "action": "checkpoint", "checkpoint": "export" },
+            { "action": "click", "selector": "a:has-text(\"CONTINUE IN DEMO STUDIO\")" },
+            { "action": "expectText", "selector": "h1", "value": "Demo Studio" },
+            { "action": "expectValue", "selector": "label:has-text(\"HANDLE\") input", "value": "NOVA" },
+            { "action": "checkpoint", "checkpoint": "success" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "studio-interaction-qualification",
+      "name": "Reject an invalid import and export the intact production",
+      "environment": [
+        "The repository-owned SceneStart fixture is running with a fresh browser context",
+        "Downloads and local file input are enabled",
+        "No cloud project service is configured"
+      ],
+      "journeys": [
+        {
+          "id": "recover-import-and-export-production",
+          "name": "recover-import-and-export-production",
+          "interaction": {
+            "task": "export-offline-production",
+            "phases": ["primary", "recovery"],
+            "applicableStates": ["error"],
+            "export": true
+          },
+          "steps": [
+            { "action": "navigate", "value": "/studio" },
+            { "action": "expectText", "selector": "h1", "value": "Demo Studio" },
+            { "action": "checkpoint", "checkpoint": "start" },
+            { "action": "fill", "selector": "input[type=\"file\"]", "value": "invalid.json" },
+            { "action": "expectText", "selector": "[role=\"alert\"]", "value": "Invalid project" },
+            { "action": "checkpoint", "checkpoint": "error" },
+            { "action": "expectVisible", "selector": "body" },
+            { "action": "checkpoint", "checkpoint": "failure" },
+            { "action": "expectText", "selector": "h1", "value": "Demo Studio" },
+            { "action": "checkpoint", "checkpoint": "preserved-state" },
+            { "action": "fill", "selector": "label:has-text(\"HANDLE\") input", "value": "ZSCENE" },
+            { "action": "fill", "selector": "label:has-text(\"CONCEPT\") input", "value": "A local-first three-scene arc" },
+            { "action": "fill", "selector": "label:has-text(\"TITLE\") input", "value": "Signal opening" },
+            { "action": "click", "selector": "button:has-text(\"PLAY PRODUCTION\")" },
+            { "action": "click", "selector": "button:has-text(\"PAUSE\")" },
+            { "action": "expectDownload", "selector": "button:has-text(\"SAVE PROJECT\")", "filenameIncludes": "scenestart-production.json" },
+            { "action": "expectDownload", "selector": "button:has-text(\"EXPORT OFFLINE HTML\")", "filenameIncludes": "my-production.html" },
+            { "action": "checkpoint", "checkpoint": "export" },
+            { "action": "expectText", "selector": "[role=\"status\"]", "value": "Project saved locally." },
+            { "action": "checkpoint", "checkpoint": "success" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -66,6 +66,7 @@ export type JourneyJsonValue = string | number | boolean | null;
 export type JourneyStep =
   | { action: "navigate"; value: string }
   | { action: "setNetwork"; state: "online" | "offline" }
+  | { action: "setStorage"; state: "available" | "unavailable" }
   | { action: "click"; selector: string }
   | { action: "fill"; selector: string; value: string }
   | { action: "press"; selector?: string; value: string }

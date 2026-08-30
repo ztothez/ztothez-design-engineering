@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "adapter": "react-typescript-vite",
+  "adapterVersion": "1.2.1",
+  "plan": {
+    "id": "azure-optimizer-brief-design-plan",
+    "sourceDigest": "8bb33769104b0f6dffcdc032e301125490030f43041ce2b94135db2bff1402e3",
+    "compilerVersion": "1.0.0"
+  },
+  "outputMode": "new-independent-fixture",
+  "files": [
+    {
+      "path": "index.html",
+      "digest": "9657b35b6b710ac287200f2a7367788aa08f1e7033feb5efb9d915f384253d94",
+      "bytes": 428
+    },
+    {
+      "path": "package.json",
+      "digest": "fb5f356c0735db1cbb9b8a2e6c6cdce80b9528c0312428cafda0e35274d00466",
+      "bytes": 567
+    },
+    {
+      "path": "README.md",
+      "digest": "3aed5eb06aa9ea4d23094994af9cb1ae07f2ec05828205b3265db98ea4c194fd",
+      "bytes": 650
+    },
+    {
+      "path": "src/App.tsx",
+      "digest": "fbd080ee49ea3a687a12e57a17869ecdbd2a52ac54b69dfdad2639fdd40e2d80",
+      "bytes": 123
+    },
+    {
+      "path": "src/components/SourceBoundaryPanel.tsx",
+      "digest": "e5f24a841f86a5b2fd752607d35e3d3ff9a2c55675d0bd0007efbe2510340af8",
+      "bytes": 1530
+    },
+    {
+      "path": "src/components/TaskWorkspace.tsx",
+      "digest": "c8302af81e5ba7423297c674e15a86fe85aaf556efaf30af924b109c9578abfe",
+      "bytes": 4246
+    },
+    {
+      "path": "src/domain/source-mode.ts",
+      "digest": "ee216d62b1299d52274e5ad72c9d341566ca28f1dcef9afcf9a770bbed8e83e7",
+      "bytes": 1473
+    },
+    {
+      "path": "src/domain/task-state.test.ts",
+      "digest": "9b85bd2e2076f22f14176807c518e640f934931b701ec7fca13fc5ff490d335e",
+      "bytes": 907
+    },
+    {
+      "path": "src/domain/task-state.ts",
+      "digest": "bc3aea5b0a9270419fbf5d1f06dbc0c2c89727f6e977d5a23d662bccea71cfd1",
+      "bytes": 2114
+    },
+    {
+      "path": "src/generated/plan.ts",
+      "digest": "168c882fea60bceb43fdac6b11d70cb8150b00f9d1bc3776897ae25b0c548a8f",
+      "bytes": 6529
+    },
+    {
+      "path": "src/main.tsx",
+      "digest": "a5d4758afc4ed63b02993281e03af98beb056bec40ea796517acb029fbeacbac",
+      "bytes": 254
+    },
+    {
+      "path": "src/styles/app.css",
+      "digest": "05d02155b988dd5971b36a6f6ea7f5127767a1286e920c810c57642f7b15b84e",
+      "bytes": 4949
+    },
+    {
+      "path": "src/styles/tokens.css",
+      "digest": "af9195454abb3b4d85301fdf7a76aff66554e54cead6fdaceebb10ca5bfb19c4",
+      "bytes": 1494
+    },
+    {
+      "path": "tsconfig.app.json",
+      "digest": "bc8bc439ad769c6f59c7b8e566276bcb252e7f02c45376120395f49ddeb03aa2",
+      "bytes": 577
+    },
+    {
+      "path": "tsconfig.json",
+      "digest": "3a11d1d758b82ceae1687b3b3b673d98febb16b81305239be576b6aa30148fed",
+      "bytes": 139
+    },
+    {
+      "path": "tsconfig.node.json",
+      "digest": "9e6d76053783906744ac6a2aa171802266a4ddb1b5a2c7590c1af596dc2d8d51",
+      "bytes": 199
+    },
+    {
+      "path": "vite.config.ts",
+      "digest": "f662415ca9fc813228722334ceab3df5d154d874e7b0980d3b3f9629e130d96a",
+      "bytes": 693
+    }
+  ],
+  "guarantees": [
+    "The target was absent, contained by the authorized generation root, and separate from every validated portfolio root.",
+    "The generated task uses explicit reducer-owned domain state and semantic CSS tokens.",
+    "Demonstration, imported, cached, and live source modes retain separate origin, freshness, connection, and limitation disclosures.",
+    "The generated task exposes measurable context, outcome, next-action, status-purpose, density, and evidence-basis composition semantics.",
+    "Development and preview responses expose the generation plan identifier for repair-target verification."
+  ],
+  "limitations": [
+    "This adapter creates a new independent fixture and does not merge into an existing repository.",
+    "Generated source and unit tests do not prove rendered accessibility, live integration, usability, or release readiness."
+  ]
+}

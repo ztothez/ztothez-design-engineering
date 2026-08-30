@@ -255,6 +255,23 @@ adds retained start, success, failure, preserved-state, keyboard, export, and of
 Only states declared applicable by the task and data model are verified; unsupported automation remains
 an explicit limitation.
 
+Qualify the three repository-owned delivery pilots after their declared browser profiles are
+captured, then evaluate equivalent development and locked-holdout evidence:
+
+```bash
+zz-design qualify-pilots \
+  --config knowledge-base/benchmarks/delivery-pilots.yaml \
+  --evidence-root .ztothez-design-runtime/v4-pilots
+
+zz-design evaluate-v4 \
+  --config knowledge-base/benchmarks/v4-evaluation.yaml \
+  --evidence-root .ztothez-design-runtime/v4-pilots
+```
+
+Run `npm run v4:qualification -- --pilot-evidence-root PATH` only after those browser reports exist.
+It retains command evidence and produces the final local qualification report under the ignored V4
+qualification directory. It does not publish, tag, or push a release.
+
 Validate a design-intelligence deliverable:
 
 ```bash
@@ -446,4 +463,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), and [`V3-ROADMAP.md`](V3-ROADMAP.md) for evidence-backed status and completion criteria. V2 includes an external anonymous human visual comparison of five candidates; it validates the static visual questions asked and does not claim interactive representative-user testing. V4 Items 1 through 5 implement evidence-gated product briefs, deterministic design-plan compilation, contained React and TypeScript fixture generation, rendered visual-composition and asset enforcement, and bounded finding-driven repair with rollback. Item 6 adds versioned executable interaction and recovery checkpoints while preserving the boundary between runtime, human-review, and representative-user evidence. The remaining closed-loop delivery program is defined in [`V4-ROADMAP.md`](V4-ROADMAP.md).
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and locally qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. Local qualification does not itself publish a package, activate the separate website, or claim representative-user or universal design validation.

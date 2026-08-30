@@ -1,0 +1,47 @@
+version: "1.0"
+id: v4-before-after-holdout
+requiredViewports:
+  - { width: 375, height: 812 }
+  - { width: 768, height: 1024 }
+  - { width: 1024, height: 768 }
+  - { width: 1440, height: 1000 }
+calibration:
+  report: evidence/interface-quality/azure-v2-review/review.completed.report.json
+  qualitativeSources:
+    - evidence/interface-quality/azure-v2-review/qualitative/visual-review-01.md
+    - evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-10.md
+ruleFixtures:
+  positive: knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-positive.json
+  negative: knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-negative.json
+  abstention: knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-abstention.json
+products:
+  - id: aegisops
+    cohort: development
+    evidenceDirectory: aegisops
+    baselineContract: knowledge-base/benchmarks/aegisops/product-contract.yaml
+    candidateContract: knowledge-base/benchmarks/aegisops/interaction-product-contract.yaml
+    tasks:
+      - id: generate-detection-package
+        baselineProfiles: [demo-success, offline-recovery]
+        candidateProfile: interaction-qualification
+  - id: scenestart
+    cohort: development
+    evidenceDirectory: scenestart
+    baselineContract: knowledge-base/benchmarks/scenestart/product-contract.yaml
+    candidateContract: knowledge-base/benchmarks/scenestart/interaction-product-contract.yaml
+    tasks:
+      - id: workshop-to-studio
+        baselineProfiles: [guided-workshop]
+        candidateProfile: workshop-interaction-qualification
+      - id: export-offline-production
+        baselineProfiles: [studio-export]
+        candidateProfile: studio-interaction-qualification
+  - id: azure-optimizer
+    cohort: holdout
+    evidenceDirectory: azure-optimizer
+    baselineContract: knowledge-base/benchmarks/azure-optimizer/product-contract.yaml
+    candidateContract: knowledge-base/benchmarks/azure-optimizer/interaction-product-contract.yaml
+    tasks:
+      - id: prioritize-cloud-savings
+        baselineProfiles: [ztothez-analysis]
+        candidateProfile: holdout-interaction-qualification

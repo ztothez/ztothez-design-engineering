@@ -1,0 +1,57 @@
+{
+  "version": "1.1",
+  "contract": "aegisops",
+  "profiles": [
+    {
+      "id": "interaction-qualification",
+      "name": "Generate, recover, retry, and export a detection package",
+      "environment": [
+        "The repository-owned AegisOPS fixture is running",
+        "The first pipeline request returns a controlled failure",
+        "Demo mode permits a deterministic successful retry",
+        "Downloads are enabled"
+      ],
+      "expectedNetwork": [
+        {
+          "id": "pipeline-controlled-failure",
+          "method": "POST",
+          "urlIncludes": "/run",
+          "status": 500,
+          "minOccurrences": 1,
+          "maxOccurrences": 1
+        }
+      ],
+      "journeys": [
+        {
+          "id": "generate-recover-and-export",
+          "name": "generate-recover-and-export",
+          "interaction": {
+            "task": "generate-detection-package",
+            "phases": ["primary", "recovery"],
+            "applicableStates": ["error"],
+            "export": true
+          },
+          "steps": [
+            { "action": "expectVisible", "selector": "input[aria-label=\"ATT&CK technique or target\"]" },
+            { "action": "checkpoint", "checkpoint": "start" },
+            { "action": "fill", "selector": "input[aria-label=\"ATT&CK technique or target\"]", "value": "T1059.001" },
+            { "action": "expectResponse", "selector": "button:has-text(\"Run Pipeline\")", "urlIncludes": "/run", "status": 500, "method": "POST" },
+            { "action": "expectText", "selector": "body", "value": "Pipeline failed" },
+            { "action": "checkpoint", "checkpoint": "error" },
+            { "action": "expectVisible", "selector": "button:has-text(\"Retry\")" },
+            { "action": "checkpoint", "checkpoint": "failure" },
+            { "action": "expectValue", "selector": "input[aria-label=\"ATT&CK technique or target\"]", "value": "T1059.001" },
+            { "action": "checkpoint", "checkpoint": "preserved-state" },
+            { "action": "click", "selector": "button[role=\"switch\"]" },
+            { "action": "expectAttribute", "selector": "button[role=\"switch\"]", "name": "aria-checked", "value": "true" },
+            { "action": "expectResponse", "selector": "button:has-text(\"Run Pipeline\")", "urlIncludes": "/run", "status": 200, "method": "POST" },
+            { "action": "expectText", "selector": "body", "value": "Pipeline complete" },
+            { "action": "checkpoint", "checkpoint": "success" },
+            { "action": "expectDownload", "selector": "button:has-text(\"Download SIGMA\")", "filenameIncludes": "sigma_T1059.001.yml" },
+            { "action": "checkpoint", "checkpoint": "export" }
+          ]
+        }
+      ]
+    }
+  ]
+}

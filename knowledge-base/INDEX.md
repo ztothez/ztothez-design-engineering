@@ -50,18 +50,51 @@ Ignored books, raw local research, historical conversions, and benchmark evidenc
 
 ## Product Benchmarks
 
+The executable V4 delivery-pilot boundary is declared in `benchmarks/delivery-pilots.yaml`. Run
+`zz-design qualify-pilots --config knowledge-base/benchmarks/delivery-pilots.yaml --evidence-root PATH`
+after capturing the declared browser profiles. The report classifies product findings, verifier
+limitations, source-policy restrictions, and system defects without generating human evidence.
+
+Run the equivalent before-and-after and locked-holdout evaluation after pilot qualification:
+
+```bash
+zz-design evaluate-v4 \
+  --config knowledge-base/benchmarks/v4-evaluation.yaml \
+  --evidence-root PATH
+```
+
+The evaluation retains the attributable V2 visual review as calibration, verifies exact task,
+state, route, and viewport identity, exercises maintained positive, negative, and abstention rule
+fixtures, and requires the Azure holdout to pass before promoting a cross-product rule. It reports
+each quality dimension separately and never manufactures human evidence or a composite vanity score.
+
+After all declared browser reports exist, retain the final local release qualification with:
+
+```bash
+npm run v4:qualification -- \
+  --pilot-evidence-root .ztothez-design-runtime/v4-pilots \
+  --output .ztothez-design-runtime/v4-qualification
+```
+
+The ignored output binds command logs, checksums, pilot and holdout reports, package installation,
+offline release, clean-room independence, CI coverage, documentation, and human-evidence limits.
+This command performs no Git push, tag, npm publication, or website deployment.
+
 Product benchmarks supplement the root skill with domain semantics and executable acceptance evidence. Validate the selected contract before implementation, load only its manifest and contract by default, and inspect its approved source-evidence summary only when a criterion needs deeper grounding.
 
 - AegisOPS SOC readiness command center: `benchmarks/aegisops/MANIFEST.md` and `benchmarks/aegisops/product-contract.yaml`.
 - AegisOPS runtime journey profiles: `benchmarks/aegisops/journeys.json`.
+- AegisOPS qualified interaction and recovery boundary: `benchmarks/aegisops/interaction-product-contract.yaml` and `benchmarks/aegisops/interaction-journeys.json`.
 - AegisOPS evidence interpretation, rejection examples, and current accessibility calibration: `benchmarks/aegisops/acceptance-criteria.md`, `benchmarks/aegisops/anti-patterns.md`, and `benchmarks/aegisops/CALIBRATION.md`.
 - SceneStart local-first demoscene learning studio: `benchmarks/scenestart/MANIFEST.md` and `benchmarks/scenestart/product-contract.yaml`.
 - SceneStart Studio, Workshop, Learn, and Release profiles: `benchmarks/scenestart/journeys.json`.
+- SceneStart qualified storage and import recovery boundary: `benchmarks/scenestart/interaction-product-contract.yaml` and `benchmarks/scenestart/interaction-journeys.json`.
 - SceneStart evidence boundaries, rejection examples, and calibration: `benchmarks/scenestart/acceptance-criteria.md`, `benchmarks/scenestart/anti-patterns.md`, and `benchmarks/scenestart/CALIBRATION.md`.
 - System corpus manifest, portable schema, provenance, and controlled positive and negative cases: `benchmarks/corpus/corpus.yaml`, `benchmarks/corpus/corpus.schema.yaml`, `benchmarks/corpus/PROVENANCE.md`, and `benchmarks/corpus/cases/`.
 - Portable anonymous comparison contracts: `benchmarks/interface-quality/comparison-methodology.schema.yaml`, `benchmarks/interface-quality/comparison-methodology-v1.1.schema.yaml`, `benchmarks/interface-quality/review.schema.yaml`, and `benchmarks/interface-quality/review-session.schema.yaml`.
 - Solo-maintainer engineering continuation rules and claim boundaries: `benchmarks/interface-quality/SOLO-MAINTAINER-TRACK.md`.
 - Azure V2 human and interaction review method: `benchmarks/azure-optimizer/v2-human-review-methodology.yaml`. Reviewer-facing evidence remains outside the distributable knowledge corpus under `evidence/interface-quality/azure-v2-review/`.
+- Azure Optimizer locked interaction holdout: `benchmarks/azure-optimizer/interaction-product-contract.yaml` and `benchmarks/azure-optimizer/interaction-journeys.json`.
 - Portable product-task profile, archetype activation rules, and evidence boundary: `benchmarks/portfolio-corpus/PRODUCT-TASK-CONTRACTS.md`, `benchmarks/portfolio-corpus/product-task-profile.schema.yaml`, and `benchmarks/portfolio-corpus/archetype-profiles.yaml`.
 
 Use `evaluate_corpus_benchmark` after changing retrieval, auditing, product-contract validation, anti-slop rules, or approved knowledge. CLI fallback:

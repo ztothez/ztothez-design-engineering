@@ -67,6 +67,8 @@ try {
   assert.equal(runNode([cliPath, "--version"]).trim(), installedPackage.version);
   assert.match(runNode([cliPath, "--help"]), /ztothez-design-engineering/);
   assert.match(runNode([cliPath, "repair-react", "--help"]), /Repairs only manifest-owned files/);
+  assert.match(runNode([cliPath, "evaluate-v4", "--help"]), /locked holdout/);
+  assert.match(runNode([cliPath, "qualify-v4", "--help"]), /retained V4/);
   assert.match(runNode([cliPath, "portfolio", "--help"]), /portfolio snapshot --project ID/);
   const briefCli = JSON.parse(
     runNode([

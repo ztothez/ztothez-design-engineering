@@ -3,8 +3,8 @@
 ## Calibration Context
 
 - Date: 2026-08-26
-- Application: `/home/ztothez/Studio/portfolio/AegisOPS`
-- Audited frontend: `/home/ztothez/Studio/portfolio/AegisOPS/frontend`
+- Application reference: `portfolio:AegisOPS`
+- Audited frontend reference: `portfolio:AegisOPS/frontend`
 - UIX quality gate: version 1.9.1
 - Browser: Chromium 151.0.7922.108
 - Failure policy: warnings and errors block release

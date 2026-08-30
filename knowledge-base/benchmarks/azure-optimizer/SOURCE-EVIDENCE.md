@@ -3,7 +3,7 @@
 ## Authority Boundary
 
 - Product family: Azure infrastructure analysis and optimization dashboard.
-- Owner-authorized comparison workspace: `/home/ztothez/Studio/experiments/redesign-azure`.
+- Owner-authorized comparison workspace reference: `workspace:redesign-azure`.
 - Immutable control implementation: `azure-optimizer-og/`.
 - Comparison implementations: `lovable/`, `ui-ux-max-pro/`, and `uix-design-skill/`.
 - Repository snapshot at normalization: `6b0dbe1`.

@@ -11,6 +11,8 @@ dist-test/
 coverage/
 .nyc_output/
 *.tsbuildinfo
+tests/fixtures/pilots/**/vite.config.js
+tests/fixtures/pilots/**/vite.config.d.ts
 .cache/
 .turbo/
 
@@ -27,6 +29,13 @@ coverage/
 .uix-quality-gate/
 playwright-report/
 test-results/
+
+# Separate review site and local product runtime captures
+/ReturnReview/
+/evidence/scenestart-guided-workshop/
+/evidence/scenestart-learning-persistence/
+/evidence/scenestart-release-provenance/
+/evidence/scenestart-studio-export/
 
 # Reproducible raw comparison captures; reviewer-facing copies are retained.
 /evidence/interface-quality/azure-baseline/anonymous-*/overview/*.png

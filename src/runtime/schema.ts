@@ -30,6 +30,7 @@ const interactionTaskIdSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,63}$/);
 export const journeyStepSchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("navigate"), value: z.string().min(1).max(4_096) }),
   z.object({ action: z.literal("setNetwork"), state: z.enum(["online", "offline"]) }),
+  z.object({ action: z.literal("setStorage"), state: z.enum(["available", "unavailable"]) }),
   z.object({ action: z.literal("click"), selector: z.string().min(1).max(1_024) }),
   z.object({
     action: z.literal("fill"),

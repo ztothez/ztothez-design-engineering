@@ -1,0 +1,38 @@
+version: "1.0"
+id: v4-multi-product-delivery-pilots
+requiredViewports:
+  - { width: 375, height: 812 }
+  - { width: 768, height: 1024 }
+  - { width: 1024, height: 768 }
+  - { width: 1440, height: 1000 }
+products:
+  - id: aegisops
+    domain: security-operations
+    brief: knowledge-base/benchmarks/aegisops/product-design-brief.yaml
+    plan: knowledge-base/benchmarks/aegisops/design-plan.json
+    fixture: tests/fixtures/pilots/aegisops-fixture
+    sourcePolicy: repository-owned-fixture
+    evidenceDirectory: aegisops
+    profiles: [demo-success, offline-recovery, responsive-overview]
+    interactionContract: knowledge-base/benchmarks/aegisops/interaction-product-contract.yaml
+    interactionProfiles: [interaction-qualification]
+  - id: scenestart
+    domain: creative-production
+    brief: knowledge-base/benchmarks/scenestart/product-design-brief.yaml
+    plan: knowledge-base/benchmarks/scenestart/design-plan.json
+    fixture: tests/fixtures/pilots/scenestart-fixture
+    sourcePolicy: repository-owned-fixture
+    evidenceDirectory: scenestart
+    profiles: [studio-export, guided-workshop, learning-persistence, release-provenance]
+    interactionContract: knowledge-base/benchmarks/scenestart/interaction-product-contract.yaml
+    interactionProfiles: [workshop-interaction-qualification, studio-interaction-qualification]
+  - id: azure-optimizer
+    domain: cloud-cost-operations
+    brief: knowledge-base/benchmarks/azure-optimizer/product-design-brief.yaml
+    plan: knowledge-base/benchmarks/azure-optimizer/design-plan.json
+    fixture: tests/fixtures/pilots/azure-optimizer-fixture
+    sourcePolicy: repository-owned-fixture
+    evidenceDirectory: azure-optimizer
+    profiles: [overview-baseline, ztothez-analysis]
+    interactionContract: knowledge-base/benchmarks/azure-optimizer/interaction-product-contract.yaml
+    interactionProfiles: [holdout-interaction-qualification]

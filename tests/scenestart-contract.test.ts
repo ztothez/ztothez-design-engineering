@@ -36,6 +36,12 @@ test("SceneStart benchmark product contract is internally consistent", async () 
 });
 
 test("SceneStart profiles preserve product-specific journey evidence", async () => {
+  const historical = JSON.parse(await readFile(journeyPath, "utf8")) as {
+    version: string;
+    profiles: Array<{ journeys: Array<{ interaction?: unknown }> }>;
+  };
+  assert.equal(historical.version, "1.0");
+  assert.ok(historical.profiles.every((profile) => profile.journeys.every((journey) => !journey.interaction)));
   const studio = await loadRuntimeJourneys(journeyPath, "studio-export");
   assert.equal(studio[0]?.name, "compose-save-export");
   assert.equal(
@@ -76,6 +82,34 @@ test("SceneStart profiles preserve product-specific journey evidence", async () 
       (step) => step.action === "expectDownload" && step.filenameIncludes === "readme.txt",
     ),
   );
+});
+
+test("SceneStart V1.2 interaction contract verifies real storage and import recovery", async () => {
+  const report = await validateProductContract(
+    join(benchmarkDirectory, "interaction-product-contract.yaml"),
+    { projectRoot: process.cwd() },
+  );
+  assert.equal(report.passed, true, JSON.stringify(report.issues, null, 2));
+  assert.equal(report.taskModel.status, "ready");
+  assert.equal(report.taskModel.primaryTasks, 2);
+  assert.equal(report.taskModel.recoveryTasks, 2);
+
+  const workshop = await loadRuntimeJourneySelection(
+    join(benchmarkDirectory, "interaction-journeys.json"),
+    "workshop-interaction-qualification",
+  );
+  assert.ok(workshop.journeys[0]?.steps.some(
+    (step) => step.action === "setStorage" && step.state === "unavailable",
+  ));
+  assert.equal(workshop.journeys[0]?.steps.some((step) => step.action === "setNetwork"), false);
+
+  const studio = await loadRuntimeJourneySelection(
+    join(benchmarkDirectory, "interaction-journeys.json"),
+    "studio-interaction-qualification",
+  );
+  assert.ok(studio.journeys[0]?.steps.some(
+    (step) => step.action === "fill" && step.selector === "input[type=\"file\"]",
+  ));
 });
 
 test("SceneStart authority remains clean-room and repository-contained", async () => {

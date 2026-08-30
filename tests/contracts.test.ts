@@ -35,6 +35,12 @@ test("AegisOPS benchmark product contract is internally consistent", async () =>
 
 test("AegisOPS journey profiles load as runtime journeys", async () => {
   const journeyFile = join(benchmarkDirectory, "journeys.json");
+  const historical = JSON.parse(await readFile(journeyFile, "utf8")) as {
+    version: string;
+    profiles: Array<{ journeys: Array<{ interaction?: unknown }> }>;
+  };
+  assert.equal(historical.version, "1.0");
+  assert.ok(historical.profiles.every((profile) => profile.journeys.every((journey) => !journey.interaction)));
   const offline = await loadRuntimeJourneys(journeyFile, "offline-recovery");
   assert.equal(offline.length, 1);
   assert.equal(offline[0]?.name, "preserve-and-retry");
@@ -51,6 +57,26 @@ test("AegisOPS journey profiles load as runtime journeys", async () => {
   await assert.rejects(
     () => loadRuntimeJourneys(journeyFile, "missing-profile"),
     /Unknown journey profile/,
+  );
+});
+
+test("AegisOPS V1.2 interaction contract binds primary and recovery evidence", async () => {
+  const report = await validateProductContract(
+    join(benchmarkDirectory, "interaction-product-contract.yaml"),
+    { projectRoot: process.cwd() },
+  );
+  assert.equal(report.passed, true, JSON.stringify(report.issues, null, 2));
+  assert.equal(report.taskModel.status, "ready");
+  assert.equal(report.taskModel.primaryTasks, 1);
+  assert.equal(report.taskModel.recoveryTasks, 1);
+  const selection = await loadRuntimeJourneySelection(
+    join(benchmarkDirectory, "interaction-journeys.json"),
+    "interaction-qualification",
+  );
+  assert.equal(selection.journeys.length, 1);
+  assert.deepEqual(
+    selection.journeys[0]?.steps.filter((step) => step.action === "checkpoint").map((step) => step.checkpoint),
+    ["start", "error", "failure", "preserved-state", "success", "export"],
   );
 });
 

@@ -354,7 +354,7 @@ export async function inspectProductContract(
     journeyProfiles: suite?.profiles.length ?? 0,
     journeys: suite?.profiles.reduce((sum, profile) => sum + profile.journeys.length, 0) ?? 0,
   };
-  const taskModel = contract?.version === "1.1"
+  const taskModel = contract && contract.version !== "1.0"
     ? {
         status: issues.some((entry) => entry.path.startsWith("benchmark.")) ? "invalid" as const : "ready" as const,
         archetype: contract.benchmark.archetype,
