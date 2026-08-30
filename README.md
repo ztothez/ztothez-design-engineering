@@ -1,6 +1,8 @@
 # ZtotheZ Design Engineering System
 
 [![Quality](https://github.com/ztothez/ztothez-design-engineering/actions/workflows/quality.yml/badge.svg)](https://github.com/ztothez/ztothez-design-engineering/actions/workflows/quality.yml)
+[![npm](https://img.shields.io/npm/v/@ztothez/design-engineering)](https://www.npmjs.com/package/@ztothez/design-engineering)
+[![GitHub Release](https://img.shields.io/github/v/release/ztothez/ztothez-design-engineering)](https://github.com/ztothez/ztothez-design-engineering/releases/latest)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support%20My%20Work-FFDD00?style=flat&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/ztothez)
 
 ZtotheZ Design Engineering is a local-first Agent Skill, MCP server, and deterministic quality gate for building production UI and UX systems. It combines product semantics, software architecture, usability evaluation, browser verification, and evidence-backed acceptance criteria.
@@ -23,7 +25,7 @@ This project focuses on design engineering instead of style recommendation. It c
 - Opt-in V2 browser contracts for persistent data-mode disclosure, trust-stage and fixture-state coverage, chart names and alternatives, masked dynamic regions, and checksum-based screenshot regression detection.
 - Product contracts with declarative task journeys and acceptance criteria.
 - Consolidated quality gates and multi-profile release decisions.
-- Executable AegisOPS and SceneStart benchmark contracts.
+- Executable AegisOPS, SceneStart, and Azure Optimizer benchmark contracts and delivery pilots.
 - Versioned positive and negative corpus benchmarks with provenance, per-dimension scoring, recommendation MRR, and explicit abstention checks.
 - Exact provenance and dependency inventories with active-reference isolation checks.
 - A self-contained offline runtime with approved knowledge, a serialized retrieval index, production dependencies, and SHA-256 integrity evidence.
@@ -41,6 +43,18 @@ Ranked BM25 knowledge retrieval and exact filename reads are available now. The 
 
 ## Quick Start
 
+Install the verified public release:
+
+```bash
+npm install -g @ztothez/design-engineering@2.0.3
+zz-design --version
+```
+
+The matching package archive, checksums, offline manifest, and retrieval index are attached to the
+[`v2.0.3` GitHub Release](https://github.com/ztothez/ztothez-design-engineering/releases/tag/v2.0.3).
+
+Build and test from source:
+
 ```bash
 git clone https://github.com/ztothez/ztothez-design-engineering.git
 cd ztothez-design-engineering
@@ -56,7 +70,7 @@ Build, install, and verify the distributable package:
 npm run package:smoke
 npm run release:pack
 npm run release:check
-npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.0.tgz
+npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.3.tgz
 zz-design --version
 ```
 
@@ -463,4 +477,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and locally qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. Local qualification does not itself publish a package, activate the separate website, or claim representative-user or universal design validation.
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. Version `2.0.3` passed the complete GitHub Actions quality workflow and is published to npm and GitHub Releases. These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.
