@@ -2,12 +2,25 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
-import { join } from "node:path";
+import { join, relative } from "node:path";
 
 import YAML from "yaml";
 
-import { PROJECT_ROOT } from "./package-artifact.mjs";
+import { expectedKnowledgePaths, PROJECT_ROOT } from "./package-artifact.mjs";
 import { digestTree } from "./offline-release.mjs";
+
+const portable = (path) => path.split("\\").join("/");
+
+async function filesUnder(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...(await filesUnder(path)));
+    else if (entry.isFile()) files.push(path);
+  }
+  return files;
+}
 
 const destination = join(PROJECT_ROOT, ".ztothez-design-release");
 const manifest = JSON.parse(await readFile(join(destination, "OFFLINE-MANIFEST.json"), "utf8"));
@@ -54,20 +67,15 @@ for (const path of [
   assert.ok(manifest.schemas.includes(path), `V2 schema missing from offline manifest: ${path}`);
 }
 
-const forbiddenFragments = [
-  ["legacy", "sources"].join("-"),
-  ["external", "reference"].join("-"),
-  ["external", "reference"].join("-"),
-];
-const runtimeKnowledge = await readdir(join(runtimeRoot, "knowledge-base"), { recursive: true });
-for (const path of runtimeKnowledge) {
-  const normalized = String(path).toLowerCase();
-  assert.equal(
-    forbiddenFragments.some((fragment) => normalized.includes(fragment)),
-    false,
-    `offline runtime contains a prohibited reference path: ${path}`,
-  );
-}
+const runtimeKnowledgeRoot = join(runtimeRoot, "knowledge-base");
+const runtimeKnowledge = (await filesUnder(runtimeKnowledgeRoot))
+  .map((path) => `knowledge-base/${portable(relative(runtimeKnowledgeRoot, path))}`)
+  .sort();
+assert.deepEqual(
+  runtimeKnowledge,
+  (await expectedKnowledgePaths()).filter((path) => path.startsWith("knowledge-base/")),
+  "offline runtime knowledge must exactly match the approved distribution boundary",
+);
 
 const cliPath = join(destination, manifest.entrypoint);
 const result = spawnSync(process.execPath, [cliPath, "--version"], {
@@ -86,6 +94,6 @@ process.stdout.write(`${JSON.stringify({
   knowledgeChunks: index.chunks.length,
   runtimeFiles: manifest.runtimeIntegrity.files,
   offlineLaunch: "passed",
-  prohibitedReferencePaths: 0,
+  approvedKnowledgeBoundary: "exact match",
   passed: true,
 }, null, 2)}\n`);

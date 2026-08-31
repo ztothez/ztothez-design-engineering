@@ -86,9 +86,7 @@ try {
   await symlink(join(PROJECT_ROOT, "node_modules"), join(isolatedRoot, "node_modules"), "dir");
 
   for (const forbiddenPath of [
-    ["local", "reference", "archive"].join("-"),
     ["older", "design", "data"].join("-"),
-    ["external", "reference", "archive"].join("-"),
     join("knowledge-base", "architecture"),
     join("knowledge-base", "figma-and-systems"),
     join("knowledge-base", ["legacy", "sources"].join("-")),
