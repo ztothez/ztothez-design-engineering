@@ -86,21 +86,14 @@ venv/
 /Vibe Coding, Spaghetti Code, and AI Slop A Deep-Research Engineering Guide.md
 /deep-research-report-figma.md
 
-# Archived third-party, conversation, and superseded sources
-/knowledge-base/legacy-sources/*
-!/knowledge-base/legacy-sources/design-system/
-!/knowledge-base/legacy-sources/design-system/**
+# Archived and superseded knowledge sources retained only in private backup
+/knowledge-base/architecture/
+/knowledge-base/figma-and-systems/
+/knowledge-base/legacy-sources/
+/knowledge-base/ux-patterns/
 
 # Converted third-party UX books, articles, and course handouts
 /knowledge-base/usability-evaluation/sources/
-/knowledge-base/ux-patterns/HR Software_ Exploring UX Patterns  Benchmarking Solutions _ by Creative Navy _ Medium.md
-/knowledge-base/ux-patterns/The Ultimate Guide to Web Wizard Design _ by Creative Navy _ Medium.md
-/knowledge-base/ux-patterns/User Area Design  Guidance for Dashboards _ by Creative Navy _ Medium.md
-/knowledge-base/ux-patterns/communicatingtheuserexperience.md
-/knowledge-base/ux-patterns/designingsearch.md
-/knowledge-base/ux-patterns/evilbydesign.md
-/knowledge-base/ux-patterns/theessentialguidetouserinterfacedesign.md
-/knowledge-base/ux-patterns/usableusability.md
 
 # Local binary research artifacts
 *.pdf

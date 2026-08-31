@@ -32,6 +32,18 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 | `provenance.yaml` | Machine-readable ownership, license, transformation, and distribution records | Auditing every shipped knowledge artifact before release |
 | `dependencies.yaml` | Direct dependency role, boundary, license, fallback, and replacement plan | Reviewing supply-chain exposure and local fallback behavior |
 
+## Public Knowledge Boundary
+
+Only the maintained files listed above, the benchmark contracts, and the explicit retrieval,
+provenance, and dependency manifests belong in the public repository. Raw architecture notes,
+historical Figma research, legacy design-system sources, converted UX references, books, and course
+materials are retained only in private backup. They are not runtime dependencies, package inputs,
+retrieval fallbacks, or implementation authorities.
+
+Do not recreate raw or historical archive directories alongside the maintained knowledge corpus.
+Admit a new public knowledge artifact only after it has an independently authored maintained form,
+an approved retrieval purpose, and a provenance record that permits distribution.
+
 ## Scoped Knowledge Retrieval
 
 Use `search_design_knowledge` to search the approved distributable corpus before opening deep source files. The deterministic BM25 index is governed by `retrieval-scope.yaml`, which names every eligible Markdown file and marks the root `SKILL.md` as authoritative.
