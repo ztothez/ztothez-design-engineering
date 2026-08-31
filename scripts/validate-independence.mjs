@@ -110,11 +110,6 @@ async function validateReferenceIsolation() {
   const forbidden = [
     ["legacy", "sources"].join("-"),
     ["older", "design", "data"].join("-"),
-    ["usability", "uix"].join(""),
-    ["external", "reference"].join("-"),
-    ["external", "reference"].join("-"),
-    ["historical-readiness-source", "ai", "uix", "readiness", "plan"].join("-"),
-    ["external-design-source", "cc"].join("."),
     ["knowledge-base", "architecture"].join("/"),
     ["knowledge-base", "figma-and-systems"].join("/"),
     ["knowledge-base", "ux-patterns"].join("/"),

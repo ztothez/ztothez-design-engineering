@@ -108,7 +108,7 @@ function cohortReport(
   const runs = selected.filter((project) => project.declaration.cohort === cohort).map(runFor);
   return {
     version: "1.2.0",
-    toolVersion: "2.0.4",
+    toolVersion: "2.0.5",
     runId: `${cohort}-run`,
     mode: "cohort",
     registryId: "root1",

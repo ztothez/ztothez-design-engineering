@@ -114,12 +114,13 @@ test("SceneStart V1.2 interaction contract verifies real storage and import reco
 
 test("SceneStart authority remains clean-room and repository-contained", async () => {
   const contract = parse(await readFile(contractPath, "utf8")) as ProductContract;
+  assert.deepEqual(
+    contract.authority.precedence.map((source) => source.path),
+    ["SOURCE-EVIDENCE.md", "MANIFEST.md", "../../../SKILL.md"],
+  );
   assert.ok(
     contract.authority.precedence.every(
-      (source) =>
-        !source.path.startsWith("/") &&
-        !source.path.toLowerCase().includes("external-design-reference") &&
-        !source.path.toLowerCase().includes("external-ux-reference"),
+      (source) => !source.path.startsWith("/"),
     ),
   );
   assert.ok(

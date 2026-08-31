@@ -12,11 +12,17 @@ test("distribution metadata excludes reference paths and classifies dependencies
   const scopedPaths = Object.values(scope.categories).flatMap(
     (category) => (category as { files: string[] }).files,
   );
-  const forbidden = ["legacy-sources", "external-design-reference", "external-ux-reference"];
+  const approvedRetrievalRoots = [
+    "knowledge-base/maintained/",
+    "knowledge-base/design-intelligence/",
+    "knowledge-base/usability-evaluation/",
+  ];
 
   assert.equal(
-    scopedPaths.some((path) => forbidden.some((fragment) => path.includes(fragment))),
-    false,
+    scopedPaths.every(
+      (path) => path === "SKILL.md" || approvedRetrievalRoots.some((root) => path.startsWith(root)),
+    ),
+    true,
   );
   assert.equal(provenance.policy.coverage, "exact-distribution");
   assert.ok(provenance.artifactSets.every((set: { status: string }) => set.status === "approved"));
