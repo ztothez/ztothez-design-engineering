@@ -46,12 +46,12 @@ Ranked BM25 knowledge retrieval and exact filename reads are available now. The 
 Install the verified public release:
 
 ```bash
-npm install -g @ztothez/design-engineering@2.0.3
+npm install -g @ztothez/design-engineering@2.0.4
 zz-design --version
 ```
 
 The matching package archive, checksums, offline manifest, and retrieval index are attached to the
-[`v2.0.3` GitHub Release](https://github.com/ztothez/ztothez-design-engineering/releases/tag/v2.0.3).
+[`v2.0.4` GitHub Release](https://github.com/ztothez/ztothez-design-engineering/releases/tag/v2.0.4).
 
 Build and test from source:
 
@@ -70,7 +70,7 @@ Build, install, and verify the distributable package:
 npm run package:smoke
 npm run release:pack
 npm run release:check
-npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.3.tgz
+npm install -g ./.ztothez-design-release/ztothez-design-engineering-2.0.4.tgz
 zz-design --version
 ```
 
@@ -477,4 +477,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. Version `2.0.3` passed the complete GitHub Actions quality workflow and is published to npm and GitHub Releases. These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. Version `2.0.4` is the sanitized maintenance release that removes an obsolete reference-derived specification from distribution and extends independence scanning to every provenance-approved artifact. These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.

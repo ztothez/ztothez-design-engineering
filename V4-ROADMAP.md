@@ -304,7 +304,7 @@ Implemented with the integrity-bound `zz-design qualify-v4` evaluator and
 rejection regression tests, deterministic plan traceability, contained generation, bounded repair
 stopping behavior, browser journeys, pilot qualification, locked holdout evaluation, package and
 private-evidence boundaries, offline release, and archive-removal independence. Installation covers
-the CLI and MCP clients, version `2.0.3` migration, rollback, and troubleshooting. The retained local
+the CLI and MCP clients, version `2.0.4` migration, rollback, and troubleshooting. The retained local
 qualification passes every criterion while limiting human claims to existing V2 calibration and
 explicitly excluding representative-user validation, universal quality, and external V4 release
 approval. Current private V3 requalification is separately supported by its ignored local evidence.

@@ -11,7 +11,7 @@ import type { MaintainerAnnotation } from "../src/portfolio/taxonomy-schema.js";
 
 const sampleReport: PortfolioBenchmarkReport = {
   version: "1.2.0",
-  toolVersion: "2.0.3",
+  toolVersion: "2.0.4",
   runId: "run-test-cross-123",
   mode: "cohort",
   registryId: "test-reg",

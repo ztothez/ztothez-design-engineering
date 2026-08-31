@@ -129,8 +129,8 @@ async function validateReferenceIsolation() {
   for (const root of roots) {
     activeFiles.push(...(await filesUnder(join(PROJECT_ROOT, root))));
   }
-  for (const knowledgePath of await expectedKnowledgePaths()) {
-    activeFiles.push(join(PROJECT_ROOT, knowledgePath));
+  for (const artifactPath of await expectedProvenancePaths()) {
+    activeFiles.push(join(PROJECT_ROOT, artifactPath));
   }
 
   const inspected = new Set();
