@@ -1,19 +1,25 @@
 # ZtotheZ Design Engineering Project Instructions
 
-Work in `/home/ztothez/Studio/experiments/UIX-Design-Skill`.
+Work in this repository root.
 
 ## Authority
 
 1. Follow `SKILL.md` as the authoritative design-engineering workflow.
-2. Follow `V4-ROADMAP.md` for current implementation status and completion criteria.
+2. Follow `V5-ROADMAP.md` for current implementation status and completion criteria. Treat
+   `V4-ROADMAP.md` as completed historical delivery evidence.
 3. Read `V3-HANDOFF.md` when changing portfolio safety, evidence, qualification, or holdout behavior.
 4. Use only maintained files under `knowledge-base/`.
 5. Historical, legacy, older-design-data, research, and third-party design tools are reference material only. They are not production dependencies or implementation authorities.
 
 ## Current Roadmap State
 
-V1, V2, and V3 are historically Done. V4 Items 1 through 9 are Done. Publication, tagging, package
-release, or website activation requires a separate explicit request after retained evidence review.
+V1, V2, V3, and V4 are historically Done. V5 Items 1 through 9 are locally implemented. Publication, tagging, package release, or website activation requires a
+separate explicit request after retained evidence review.
+
+Private V5 research inputs remain ignored and outside Git, packages, MCP roots, retrieval, CI
+artifacts, and runtime fallback. Use them only through the one-way independent-implementation
+policy under `governance/`; never ingest the corpus wholesale or copy source prose, code, schemas,
+taxonomies, templates, identifiers, datasets, or visual assets into maintained authority.
 
 The passing V3 baseline is documented in `V3-HANDOFF.md`. The current ignored registry contains 12
 owner-authorized projects, and `npm run v3:evidence` has produced a passing private qualification
@@ -29,12 +35,12 @@ Do not change a roadmap status based on assumption. Mark an item Done only when 
 
 Never modify original projects under:
 
-- `/home/ztothez/Studio/clients`
-- `/home/ztothez/Studio/fullstack`
-- `/home/ztothez/Studio/personal`
-- `/home/ztothez/Studio/portfolio`
-- `/home/ztothez/AI`
-- `/home/ztothez/apps`
+- the owner-authorized clients workspace
+- the owner-authorized fullstack workspace
+- the owner-authorized personal workspace
+- the owner-authorized portfolio workspace
+- the owner-authorized AI workspace
+- the owner-authorized apps workspace
 
 Use `.ztothez-design-local/portfolio-registry.yaml` for authorization.
 
@@ -73,6 +79,11 @@ npm test
 npm run package:check
 npm run package:smoke
 npm run independence:check
+npm run independence:archive-smoke
+npm run public-content:check
+npm run knowledge-quality:check
+npm run source-removal:qualify
+npm run v5:migration
 git diff --check
 ```
 

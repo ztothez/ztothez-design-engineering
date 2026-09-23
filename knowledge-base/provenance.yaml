@@ -48,7 +48,23 @@ artifactSets:
       - V2-ROADMAP.md
       - V3-ROADMAP.md
       - V4-ROADMAP.md
+      - V5-ROADMAP.md
       - docs/installation.md
+      - governance/knowledge-admission.json
+      - governance/knowledge-admission.schema.json
+      - governance/PRIVATE-RESEARCH-POLICY.md
+      - governance/public-content-policy.json
+      - governance/public-content-policy.schema.json
+      - governance/public-knowledge-boundary.json
+      - governance/public-knowledge-boundary.schema.json
+      - governance/public-knowledge-inventory.json
+      - governance/public-knowledge-inventory.schema.json
+      - governance/rule-registry.json
+      - governance/rule-registry.schema.json
+      - model/compiled-authority.json
+      - model/compiled-authority.schema.json
+      - model/ztothez-design-engineering-model.json
+      - model/ztothez-design-engineering-model.schema.json
       - knowledge-base/INDEX.md
       - knowledge-base/dependencies.yaml
       - knowledge-base/provenance.yaml
@@ -97,6 +113,8 @@ artifactSets:
       - knowledge-base/benchmarks/interface-quality/comparison-methodology-v1.1.schema.yaml
       - knowledge-base/benchmarks/interface-quality/comparison-methodology.template.yaml
       - knowledge-base/benchmarks/interface-quality/evidence/example-runtime-report.json
+      - knowledge-base/benchmarks/interface-quality/evidence/v4-calibration-report.json
+      - knowledge-base/benchmarks/interface-quality/evidence/v4-qualitative-calibration.md
       - knowledge-base/benchmarks/interface-quality/review.schema.yaml
       - knowledge-base/benchmarks/interface-quality/review-session.schema.yaml
       - knowledge-base/benchmarks/interface-quality/review.template.yaml
@@ -187,6 +205,15 @@ artifactSets:
       - knowledge-base/benchmarks/scenestart/design-plan.json
       - knowledge-base/benchmarks/scenestart/product-design-brief.yaml
       - knowledge-base/benchmarks/scenestart/product-contract.yaml
+  - id: agent-workbench-benchmark
+    source: ztothez-maintained
+    status: approved
+    reviewedBy: ZtotheZ
+    reviewedAt: "2026-09-01T00:00:00+03:00"
+    transformation: Independently authored source-only agent product contract and qualification journey for the V6 workbench boundary.
+    paths:
+      - knowledge-base/benchmarks/agent-workbench/journeys.json
+      - knowledge-base/benchmarks/agent-workbench/product-contract.yaml
   - id: corpus-benchmark
     source: ztothez-corpus
     status: approved
@@ -210,3 +237,8 @@ artifactSets:
       - knowledge-base/benchmarks/corpus/cases/task-incomplete/product-contract.yaml
       - knowledge-base/benchmarks/corpus/corpus.schema.yaml
       - knowledge-base/benchmarks/corpus/corpus.yaml
+      - knowledge-base/benchmarks/knowledge-quality/README.md
+      - knowledge-base/benchmarks/knowledge-quality/knowledge-quality.schema.yaml
+      - knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml
+      - knowledge-base/benchmarks/source-removal/README.md
+      - knowledge-base/benchmarks/source-removal/source-removal-qualification.yaml

@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ztothez.com/schemas/public-knowledge-boundary-v1.json",
+  "title": "ZtotheZ Public Repository Knowledge Boundary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "authority", "scope", "policy", "currentBoundary", "removedArtifacts"],
+  "properties": {
+    "version": { "const": "1.0" },
+    "authority": { "const": "SKILL.md" },
+    "scope": { "const": "public-repository-knowledge-boundary" },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publicKnowledgeMustEqualAdmissionManifest",
+        "removedSourcesCannotBeRuntimeFallbacks",
+        "privateArchiveLocationsAreNotPublished",
+        "historyRewriteRequiresSeparateApproval",
+        "tagsAndReleasesRequireSeparateApproval"
+      ],
+      "properties": {
+        "publicKnowledgeMustEqualAdmissionManifest": { "const": true },
+        "removedSourcesCannotBeRuntimeFallbacks": { "const": true },
+        "privateArchiveLocationsAreNotPublished": { "const": true },
+        "historyRewriteRequiresSeparateApproval": { "const": true },
+        "tagsAndReleasesRequireSeparateApproval": { "const": true }
+      }
+    },
+    "currentBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "admittedManifest",
+        "admittedFileCount",
+        "packageKnowledgeFileCount",
+        "retrievalAuthority"
+      ],
+      "properties": {
+        "admittedManifest": { "const": "governance/knowledge-admission.json" },
+        "admittedFileCount": { "type": "integer", "minimum": 1 },
+        "packageKnowledgeFileCount": { "type": "integer", "minimum": 1 },
+        "retrievalAuthority": { "const": "knowledge-base/retrieval-scope.yaml" }
+      }
+    },
+    "removedArtifacts": {
+      "type": "array",
+      "minItems": 46,
+      "maxItems": 46,
+      "items": { "$ref": "#/$defs/removedArtifact" }
+    }
+  },
+  "$defs": {
+    "removedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "previousPath",
+        "category",
+        "preRemovalContentDigest",
+        "disposition",
+        "publicDistributionDecision",
+        "packageDecision",
+        "retrievalDecision",
+        "admissionDecision",
+        "privateArchiveStatus",
+        "maintainedReplacementPaths",
+        "ownerReviewedBy",
+        "ownerReviewedAt",
+        "removalEvidence"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^ztde-removed-[a-f0-9]{16}$" },
+        "previousPath": { "type": "string", "pattern": "^knowledge-base/[A-Za-z0-9._ /-]+$" },
+        "category": {
+          "enum": [
+            "raw-architecture-source",
+            "superseded-figma-research",
+            "legacy-source-tree",
+            "superseded-ux-reference"
+          ]
+        },
+        "preRemovalContentDigest": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["algorithm", "value"],
+          "properties": {
+            "algorithm": { "const": "sha256" },
+            "value": {
+              "anyOf": [
+                { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+                { "const": "unavailable-in-archive-install" }
+              ]
+            }
+          }
+        },
+        "disposition": { "const": "remove-from-public-tree" },
+        "publicDistributionDecision": { "const": "prohibited" },
+        "packageDecision": { "const": "prohibited" },
+        "retrievalDecision": { "const": "prohibited" },
+        "admissionDecision": { "const": "not-admitted" },
+        "privateArchiveStatus": { "const": "owner-confirmed-private-backup-outside-repository" },
+        "maintainedReplacementPaths": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^knowledge-base/[A-Za-z0-9._/-]+$" }
+        },
+        "ownerReviewedBy": { "const": "ZtotheZ" },
+        "ownerReviewedAt": { "type": "string", "format": "date-time" },
+        "removalEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "currentTreeAbsent",
+            "removalCommit",
+            "historicalGitObjectDecision",
+            "tagAndReleaseDecision"
+          ],
+          "properties": {
+            "currentTreeAbsent": { "const": true },
+            "removalCommit": { "const": "2d77beb" },
+            "historicalGitObjectDecision": { "const": "separate-owner-approval-required" },
+            "tagAndReleaseDecision": { "const": "separate-owner-approval-required" }
+          }
+        }
+      }
+    }
+  }
+}

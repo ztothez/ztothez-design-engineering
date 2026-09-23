@@ -45,6 +45,30 @@ jobs:
       - name: Install Chromium
         run: npx --no-install playwright-core install --with-deps chromium
 
+      - name: Validate public knowledge inventory
+        run: npm run knowledge:inventory
+
+      - name: Validate knowledge admission manifest
+        run: npm run knowledge:admission
+
+      - name: Validate public knowledge boundary
+        run: npm run knowledge:boundary
+
+      - name: Validate shadow design model
+        run: npm run model:validate -- --json
+
+      - name: Validate compiled authority boundary
+        run: npm run authority:compile -- --json
+
+      - name: Validate public repository content
+        run: npm run public-content:check -- --json
+
+      - name: Evaluate V5 knowledge quality
+        run: npm run knowledge-quality:check
+
+      - name: Qualify V5 source removal
+        run: npm run source-removal:qualify
+
       - name: Validate clean-room independence
         run: node scripts/validate-independence.mjs | tee .ztothez-design-independence.json
 
@@ -220,26 +244,6 @@ jobs:
         run: |
           npm run validate-design -- \
             --manifest knowledge-base/design-intelligence/design-deliverable.template.yaml
-
-      - name: Validate Azure V2 review packet integrity
-        run: |
-          npm run validate-comparison -- \
-            --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-            --review evidence/interface-quality/azure-v2-review/review.yaml
-
-      - name: Validate solo-maintainer engineering track
-        run: |
-          npm run compile-comparison -- \
-            --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-            --base-review evidence/interface-quality/azure-v2-review/review.yaml \
-            --sessions evidence/interface-quality/azure-v2-review/coordinator/maintainer-sessions \
-            --output evidence/interface-quality/azure-v2-review/review.completed.yaml \
-            --report evidence/interface-quality/azure-v2-review/review.completed.report.json
-          npm run assess-maintainer -- \
-            --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-            --review evidence/interface-quality/azure-v2-review/review.completed.yaml \
-            --output evidence/interface-quality/azure-v2-review/maintainer-assessment.json \
-            --require-engineering-ready
 
       - name: Evaluate maintained corpus
         run: npm run evaluate-corpus -- --output .ztothez-design-corpus
@@ -492,16 +496,6 @@ jobs:
           retention-days: 14
           include-hidden-files: true
 
-      - name: Upload maintainer assessment
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: ztothez-design-maintainer-assessment
-          path: |
-            evidence/interface-quality/azure-v2-review/review.completed.report.json
-            evidence/interface-quality/azure-v2-review/maintainer-assessment.json
-          if-no-files-found: warn
-          retention-days: 14
 
       - name: Upload corpus evidence
         if: always()

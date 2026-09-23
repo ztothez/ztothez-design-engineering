@@ -1,0 +1,1986 @@
+{
+  "authority": "SKILL.md",
+  "buildMetadata": {
+    "generatedAt": "deterministic-build",
+    "generatedBy": "ztothez-design compile-authority",
+    "privateSourcesIncluded": false
+  },
+  "compilerVersion": "1.0.0",
+  "cutoverStatus": "not-authoritative-until-v5-item-8",
+  "integrity": {
+    "admissionSha256": "b457377a684108c5b3ba14190895d3c26b939d10723a8ed995f5ca21a2aec7ff",
+    "modelSha256": "051cd3c12a54b409998a0ab1ad0336e64468c24776a0c0e345df66f8bc1650f0",
+    "payloadSha256": "b84253c2d602dfc831172468c2b2cef8a01a249b75459b188b65d0ac536b0ef3",
+    "retrievalScopeSha256": "0fc9c7bc9b31f76744c9c4461d22cc6b8d8309f10ef6c6a10ae01f1d129d1c9d",
+    "ruleRegistrySha256": "8c9c36e279b11b6732fe8cc8c58aa7b56945f788413b4b6866ed0d2354ce9d94"
+  },
+  "knowledge": {
+    "admittedFileCount": 142,
+    "exactReadDocuments": [
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/asset-generation.md",
+        "sha256": "b73f6a8e3e3fe5be1a18c8dcd1b91996f0fc887126111ba1a682bdb4b9d31c2c",
+        "sourceId": "admission:ztde-kb-315a74a45b2e7886"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/brand-systems.md",
+        "sha256": "dcd8d9c94d6de206c5e8bdc346e84b8a64fb8d16b98b6e883dfff27659066530",
+        "sourceId": "admission:ztde-kb-e28110d9d442244f"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/closed-loop-repair.md",
+        "sha256": "af8135018aa7cb5507419623740cfa6e4a606fa4b10f843dfc54d0996ff0d699",
+        "sourceId": "admission:ztde-kb-20f718fcfc85bc64"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/design-plan.md",
+        "sha256": "ac6f3256aa0d4874373ee1446b192fd3718b3b9edce3f29bcd2665256562f00f",
+        "sourceId": "admission:ztde-kb-77334a2498717611"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/figma-production.md",
+        "sha256": "dc80beea9de4708f7f41c8b7b26654554bc4da7d5bd136f173290f380e72f4b0",
+        "sourceId": "admission:ztde-kb-7f88ba0ba0b3c056"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/generation-adapter.md",
+        "sha256": "025ef0074c9e08b3859ca50811606a26d9b59eb9123e5d607d3e254d74c00127",
+        "sourceId": "admission:ztde-kb-652712d011423324"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/iconography.md",
+        "sha256": "cd599a7bd41b0d3611b0553b4cd4cc4f0108a9328d1fe998196bc18dcede5b40",
+        "sourceId": "admission:ztde-kb-4d345de283dda5d5"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/information-design.md",
+        "sha256": "0b47f632df787c491814d04676551692d6d8704f864288d119be1b5a6f25de04",
+        "sourceId": "admission:ztde-kb-b376e85ba8146c89"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/interaction-recovery-verification.md",
+        "sha256": "d859e0cda735a857b2323dde30e30cc0a78adf993f63abdbff842215abc0cbb3",
+        "sourceId": "admission:ztde-kb-908481a959d6eb0e"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/interface-trust.md",
+        "sha256": "da03468feec68eadaac067ef3eb83d58af7b897214e3e8a9a91f81d6ffde5ada",
+        "sourceId": "admission:ztde-kb-5f2511315b7444f2"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/licensing-and-provenance.md",
+        "sha256": "41c9b8fb37e3a155c029d641cd9311ad7762b83315e7fa471fbed4c33e9bca06",
+        "sourceId": "admission:ztde-kb-66598c3330028f85"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/MASTER.md",
+        "sha256": "b61c4a3adb12517ef283a4b2e4df60ffc6f20331c6b2cd0f7546b17f347cd076",
+        "sourceId": "admission:ztde-kb-70aeea3316b92d14"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/presentation-design.md",
+        "sha256": "d057c7cd4e31cfb0818889401912a64d993768970337a8459904f9862576aca6",
+        "sourceId": "admission:ztde-kb-08edeaad9dfb4885"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/product-design-brief.md",
+        "sha256": "ba2e435153a92a87e0dff543ca1b333305712111607055c2b7f4b8d7a68e0008",
+        "sourceId": "admission:ztde-kb-84405b81adf83cfa"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/visual-accessibility.md",
+        "sha256": "67f62d0e3515199e890e2281228fb2837acfa12c8c5a9cf3d6b76da44e085dce",
+        "sourceId": "admission:ztde-kb-20c7c49684873651"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/visual-polish.md",
+        "sha256": "836f8e250eab1997e3374dbd09c16b5c0143b4958e56f67538e6ceedea483bc6",
+        "sourceId": "admission:ztde-kb-a292e8d89bb08d6a"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+        "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039",
+        "sourceId": "admission:ztde-kb-d5f53820992595c5"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/MASTER.md",
+        "sha256": "c831c1875477f7cea454b42c880d48c879795bbe493d4997bc6085581c851ba6",
+        "sourceId": "admission:ztde-kb-07d4545108973252"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/product-platforms.md",
+        "sha256": "e73a0a8857adf5d81df1617f0118d7f892e0f2a7ba3e8b86f12a98d74d4993c1",
+        "sourceId": "admission:ztde-kb-e96922b2e8aec8cc"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+        "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29",
+        "sourceId": "admission:ztde-kb-ee04c06045f7327a"
+      },
+      {
+        "authority": "approved",
+        "category": "ux-patterns",
+        "path": "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "sha256": "71688250fce0d1efef4e7fe9ab95810be5f2c1de93881fbe806ce87054074fac",
+        "sourceId": "admission:ztde-kb-7e1691cc7852aa2d"
+      },
+      {
+        "authority": "approved",
+        "category": "ux-patterns",
+        "path": "knowledge-base/maintained/product-patterns/MASTER.md",
+        "sha256": "0522f2bf5d5caa3ae5874570cb4a703755dbbe5ec056661f55b43b84771c3ede",
+        "sourceId": "admission:ztde-kb-33e493591a93aedd"
+      },
+      {
+        "authority": "approved",
+        "category": "ux-patterns",
+        "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+        "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7",
+        "sourceId": "admission:ztde-kb-23679d3009a8d82b"
+      },
+      {
+        "authority": "approved",
+        "category": "usability-evaluation",
+        "path": "knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md",
+        "sha256": "57d4e8391cf68aa9f1ac2df1f70f50283ef2daa389e95cf358c19306d10d8f86",
+        "sourceId": "admission:ztde-kb-bf8c0751ae022e49"
+      }
+    ],
+    "retrievalDocuments": [
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/asset-generation.md",
+        "sha256": "b73f6a8e3e3fe5be1a18c8dcd1b91996f0fc887126111ba1a682bdb4b9d31c2c",
+        "sourceId": "admission:ztde-kb-315a74a45b2e7886"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/brand-systems.md",
+        "sha256": "dcd8d9c94d6de206c5e8bdc346e84b8a64fb8d16b98b6e883dfff27659066530",
+        "sourceId": "admission:ztde-kb-e28110d9d442244f"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/closed-loop-repair.md",
+        "sha256": "af8135018aa7cb5507419623740cfa6e4a606fa4b10f843dfc54d0996ff0d699",
+        "sourceId": "admission:ztde-kb-20f718fcfc85bc64"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/design-plan.md",
+        "sha256": "ac6f3256aa0d4874373ee1446b192fd3718b3b9edce3f29bcd2665256562f00f",
+        "sourceId": "admission:ztde-kb-77334a2498717611"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/figma-production.md",
+        "sha256": "dc80beea9de4708f7f41c8b7b26654554bc4da7d5bd136f173290f380e72f4b0",
+        "sourceId": "admission:ztde-kb-7f88ba0ba0b3c056"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/generation-adapter.md",
+        "sha256": "025ef0074c9e08b3859ca50811606a26d9b59eb9123e5d607d3e254d74c00127",
+        "sourceId": "admission:ztde-kb-652712d011423324"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/iconography.md",
+        "sha256": "cd599a7bd41b0d3611b0553b4cd4cc4f0108a9328d1fe998196bc18dcede5b40",
+        "sourceId": "admission:ztde-kb-4d345de283dda5d5"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/information-design.md",
+        "sha256": "0b47f632df787c491814d04676551692d6d8704f864288d119be1b5a6f25de04",
+        "sourceId": "admission:ztde-kb-b376e85ba8146c89"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/interaction-recovery-verification.md",
+        "sha256": "d859e0cda735a857b2323dde30e30cc0a78adf993f63abdbff842215abc0cbb3",
+        "sourceId": "admission:ztde-kb-908481a959d6eb0e"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/interface-trust.md",
+        "sha256": "da03468feec68eadaac067ef3eb83d58af7b897214e3e8a9a91f81d6ffde5ada",
+        "sourceId": "admission:ztde-kb-5f2511315b7444f2"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/licensing-and-provenance.md",
+        "sha256": "41c9b8fb37e3a155c029d641cd9311ad7762b83315e7fa471fbed4c33e9bca06",
+        "sourceId": "admission:ztde-kb-66598c3330028f85"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/MASTER.md",
+        "sha256": "b61c4a3adb12517ef283a4b2e4df60ffc6f20331c6b2cd0f7546b17f347cd076",
+        "sourceId": "admission:ztde-kb-70aeea3316b92d14"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/presentation-design.md",
+        "sha256": "d057c7cd4e31cfb0818889401912a64d993768970337a8459904f9862576aca6",
+        "sourceId": "admission:ztde-kb-08edeaad9dfb4885"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/product-design-brief.md",
+        "sha256": "ba2e435153a92a87e0dff543ca1b333305712111607055c2b7f4b8d7a68e0008",
+        "sourceId": "admission:ztde-kb-84405b81adf83cfa"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/visual-accessibility.md",
+        "sha256": "67f62d0e3515199e890e2281228fb2837acfa12c8c5a9cf3d6b76da44e085dce",
+        "sourceId": "admission:ztde-kb-20c7c49684873651"
+      },
+      {
+        "authority": "approved",
+        "category": "design-intelligence",
+        "path": "knowledge-base/design-intelligence/visual-polish.md",
+        "sha256": "836f8e250eab1997e3374dbd09c16b5c0143b4958e56f67538e6ceedea483bc6",
+        "sourceId": "admission:ztde-kb-a292e8d89bb08d6a"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+        "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039",
+        "sourceId": "admission:ztde-kb-d5f53820992595c5"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/MASTER.md",
+        "sha256": "c831c1875477f7cea454b42c880d48c879795bbe493d4997bc6085581c851ba6",
+        "sourceId": "admission:ztde-kb-07d4545108973252"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/product-platforms.md",
+        "sha256": "e73a0a8857adf5d81df1617f0118d7f892e0f2a7ba3e8b86f12a98d74d4993c1",
+        "sourceId": "admission:ztde-kb-e96922b2e8aec8cc"
+      },
+      {
+        "authority": "approved",
+        "category": "architecture",
+        "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+        "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29",
+        "sourceId": "admission:ztde-kb-ee04c06045f7327a"
+      },
+      {
+        "authority": "approved",
+        "category": "ux-patterns",
+        "path": "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "sha256": "71688250fce0d1efef4e7fe9ab95810be5f2c1de93881fbe806ce87054074fac",
+        "sourceId": "admission:ztde-kb-7e1691cc7852aa2d"
+      },
+      {
+        "authority": "approved",
+        "category": "ux-patterns",
+        "path": "knowledge-base/maintained/product-patterns/MASTER.md",
+        "sha256": "0522f2bf5d5caa3ae5874570cb4a703755dbbe5ec056661f55b43b84771c3ede",
+        "sourceId": "admission:ztde-kb-33e493591a93aedd"
+      },
+      {
+        "authority": "approved",
+        "category": "ux-patterns",
+        "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+        "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7",
+        "sourceId": "admission:ztde-kb-23679d3009a8d82b"
+      },
+      {
+        "authority": "approved",
+        "category": "usability-evaluation",
+        "path": "knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md",
+        "sha256": "57d4e8391cf68aa9f1ac2df1f70f50283ef2daa389e95cf358c19306d10d8f86",
+        "sourceId": "admission:ztde-kb-bf8c0751ae022e49"
+      },
+      {
+        "authority": "authoritative",
+        "category": "skill",
+        "path": "SKILL.md",
+        "sha256": "bb0cf9f83099ba304f62810feca305a82352755a39135df9b20f889a4b2f06d2",
+        "sourceId": "policy:ztothez-design-engineering-policy"
+      }
+    ],
+    "retrievalFileCount": 25,
+    "sources": [
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-13f62e95a70252bb",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/acceptance-criteria.md",
+        "retrieval": "excluded",
+        "sha256": "e73830fe47d027e5907b842b891727597ae4fa91c9d79f3a45aca5afd6c87b16",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-bfdc0b2c1db8a2c6",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/anti-patterns.md",
+        "retrieval": "excluded",
+        "sha256": "9afab3490228a51c63376b5cfca8a479c8fe59cf6adba8218fe5f891e6e85d42",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-2289afe5dcc09672",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/attestations.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "efc01a2ce3bc595bf41bcef30072f9bac9fba48a41842206fde84bc63b1bf97c",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-6b395e620af440f4",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/attestations.yaml",
+        "retrieval": "excluded",
+        "sha256": "033975edac7e41b2fc88eae73411980c762ebb68b091cd7fe723ae0a0e75a517",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-6eae66a0644321c7",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/CALIBRATION.md",
+        "retrieval": "excluded",
+        "sha256": "ad56595f21c555b20dea73c2696ef34737c033980721c94829a9060173ebd200",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-91209a99d415226d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/design-plan.json",
+        "retrieval": "excluded",
+        "sha256": "22a309f4fbb0e68eb07ab29d3ae66e7e90a5f17d690438c07d460f1eb426ff82",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-4d97c1e7719ac16a",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/interaction-journeys.json",
+        "retrieval": "excluded",
+        "sha256": "80c67c70b35d867aafec51f02dee24851cfd3ad1cc15af6bffa20ed4e259ae7b",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-b33a94346f01aed9",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/interaction-product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "d35320b2b6deda94248fca1fc4b63433ac4c14a8c96de8361175fa35a3046d5c",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-796297aceebf7e43",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/journeys.json",
+        "retrieval": "excluded",
+        "sha256": "3be5d026616a134f90ec5817af1882f9dc6e1a381b23064e452ef09d451ee2e7",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-3791d9c0f8900bea",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/MANIFEST.md",
+        "retrieval": "excluded",
+        "sha256": "74db4b07832a3906081a6b506691d264139e783d15c2fd387c6fc9e8446ede5b",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-15bdf860754f8177",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "1fd994d5b9ac7b38ba5f921b238e736ce7e5654702a0f5b509f5123eb2b91975",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-0fbfa74d72deca38",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/product-design-brief.yaml",
+        "retrieval": "excluded",
+        "sha256": "10dee1a1b1c2399c11273bc6fee35f328cc03078ebf2d73e7b8e71a0ad4197c2",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-286f0f978558ace3",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/aegisops/SOURCE-EVIDENCE.md",
+        "retrieval": "excluded",
+        "sha256": "f2c4244f803036a5577ce2ee280337718a1af1bbab90114e30582a97be51e190",
+        "sourceRecord": "aegisops-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-a3e32483bb78fc68",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/agent-workbench/journeys.json",
+        "retrieval": "excluded",
+        "sha256": "0c709864c6b992a824025bdec0a39c3ac18da5561265fe1cb112dbf19602db0d",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-cbeee15fc8b81ce8",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/agent-workbench/product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "f10069ee06dc3211fcf0996d0480f23a6ff90b6998fd223b741538564a3c1408",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-7b1c17210f0f0ec1",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/acceptance-criteria.md",
+        "retrieval": "excluded",
+        "sha256": "83e369bff3344cb89c97c9b682c9ad3b2cb89462688e543f192cbac6f0487ef8",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-afd327cce3194768",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/anti-patterns.md",
+        "retrieval": "excluded",
+        "sha256": "c492379f9b3200f066984a1cd267939f10c26efb4a9aa6f0d18faec20a337e46",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-49f34a1c920ee56d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/design-plan.json",
+        "retrieval": "excluded",
+        "sha256": "fc9064ce26aac2f64767a565f5650f31f3b0d74d3bc852ce291e8c2eddcbfa39",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-ac63ea3d928206bf",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/interaction-journeys.json",
+        "retrieval": "excluded",
+        "sha256": "f893ab68b260b414fdbfb0fdac3ad887b3bd3799654c1d5a5ae2921aa5fa978b",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-24b8426b40e2cc7d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/interaction-product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "1f4a04170374558853e99db826663e88563361f3cac29113906ae4bb02f82079",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-61bbaa64d9f71d97",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/journeys.json",
+        "retrieval": "excluded",
+        "sha256": "6b8d591b482aebd505199ecfa92715ea890c5d4ec5a4711b8fc62c6ed0a620b0",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-f1cdeff2089847ae",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "a2d7953285b725e25eb91860d7a573da8ef792ae272c3e25f83163e2ba654d81",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-4f6a9f091c97261b",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/product-design-brief.yaml",
+        "retrieval": "excluded",
+        "sha256": "699b83441aa4f9c4c78cb62f0d24da9d978007aeee91c5b3b9af9e8995a20df6",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-bd9cf80698773ee5",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/SOURCE-EVIDENCE.md",
+        "retrieval": "excluded",
+        "sha256": "ffe835adf00b634aca3c17edb1f331251b50c869d91cc6e18f22e9544aebd817",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-b0852f4b4d93a9ac",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml",
+        "retrieval": "excluded",
+        "sha256": "25bcc61a5c1ac6dd4f4fb1a936ff27becac44b6b7e20e395ddb442eb9238b5b7",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-9a43355f8fe425a7",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/V2-IMPLEMENTATION.md",
+        "retrieval": "excluded",
+        "sha256": "a4919b69def5f1dc8188aaeb40679a61749201c45979121e1b7a8eee20e01611",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-9030bc6e80305d28",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/azure-optimizer/v2-journeys.json",
+        "retrieval": "excluded",
+        "sha256": "9f2ebf50c86aeaf98bbd9ee56630b525073b0535f524a11e34569d0b80560195",
+        "sourceRecord": "azure-optimizer-owner-evidence"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-9228f99106c59b05",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/anti-slop-negative/package.json",
+        "retrieval": "excluded",
+        "sha256": "51d23e368a965b56e0388e26e3fb419531fa31965597e98596c754fe92aa5767",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-c1fb24eaf1232d84",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/anti-slop-negative/src/FakeDashboard.tsx",
+        "retrieval": "excluded",
+        "sha256": "66a6051fa2dafaf8a3bd4d02fc110e2200a76e35961d089d5445ec015321990b",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-e0cc570e781b7e6a",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/anti-slop-positive/package.json",
+        "retrieval": "excluded",
+        "sha256": "d421901fc85be10b40e4ac46fa57b8e5316688821dc24402d949dd50578496e0",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-6b693fdbe8fd146d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/anti-slop-positive/src/Progress.tsx",
+        "retrieval": "excluded",
+        "sha256": "eb3424790521b5903187577534b4406c39d688c80a9100ff20b69532968ab3b2",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-da92ed6590c2e4ab",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/architecture-negative/package.json",
+        "retrieval": "excluded",
+        "sha256": "2dcd675e5671ac38dfc4294defabf19badd8c4b68a8cccdfabe3e6c26e93100d",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-f198051deeacbe0d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/architecture-negative/src/OperationsPanel.tsx",
+        "retrieval": "excluded",
+        "sha256": "c3239dc0e3c0b88f09f5ae906bd76cca89a02b66cca95f01adf6f4c1445a7a81",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-0d1e6ef35e3e27f2",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/architecture-positive/package.json",
+        "retrieval": "excluded",
+        "sha256": "56ea2a5a9c92310962d6110da7887a7135678873eed23bc5263ac112a4ba7ebd",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-511ecdf2302c22b5",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/architecture-positive/src/Dashboard.tsx",
+        "retrieval": "excluded",
+        "sha256": "761ac9cbb4abf40c5e4b57e0e1271f02c901e8de508dd7e930ab39986b310db5",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-e39054d55cc64323",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/architecture-positive/src/theme.css",
+        "retrieval": "excluded",
+        "sha256": "a92feb10431443ccb6bb49da949df6441559925dabf12da41966d5aab547eac2",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-001d0368a001e9a3",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/task-incomplete/journeys.json",
+        "retrieval": "excluded",
+        "sha256": "29a96dfa8ebaef69ca6c42db019cc2d60f13cd764e88c0d30a6c2e788e3548ff",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-42743a47421edae1",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/task-incomplete/product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "16f4a2bf2a075b56b96bc31c99e2de12db87aa49ee533c9a3dd7056ba33788dc",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-2dca547e567311ae",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/cases/task-incomplete/SOURCE-EVIDENCE.md",
+        "retrieval": "excluded",
+        "sha256": "2fd3575773933e002ed730c40dc5f71a75774b749357d258dcae9486ba353b31",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-4c23c0a831a01682",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/corpus.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "bdd3899645fc0b168949fd8360d08e3205bddf36d3aa595f8a4635c57479bb04",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-e211c40bdce6f530",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/corpus.yaml",
+        "retrieval": "excluded",
+        "sha256": "48615c9e6762455e327cc2e335fb18f350bbfb7ce03f6c6d6e1302dede50657a",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-020a976ca0464e0c",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/PROVENANCE.md",
+        "retrieval": "excluded",
+        "sha256": "1d41b7582508da9185476a92e49e4270291a9623e7d0a74a031634f8868fa0ad",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-e3d6642e4929e60c",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/corpus/README.md",
+        "retrieval": "excluded",
+        "sha256": "f6cd5179913c97629a63f70d3d969e1567dfda6ee9a962d9f3955631161fc146",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-71f0b713b608a6e1",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/delivery-pilots.yaml",
+        "retrieval": "excluded",
+        "sha256": "b9cf55d54e2be5087b3a0e49b9f541ad9c5cb36c9c0033fb758f148243d25869",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-2d6bb30cc40244e3",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/comparison-methodology-v1.1.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "336573a66086d802093601b84e6aa928b8be240084d43f169af4894432f02261",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-93014a58430c5d84",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/comparison-methodology.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "e931293b71dc364f181b60719f82c48b085361e962c64a42cb27a5ed6504cd51",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-4124ca303dfc6c0a",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/comparison-methodology.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "196dbb2c29f8beda31d3afbb9c4af93e97b7692d2a76373e660d99a896f91988",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-3a521ec8718f6e54",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/evidence/example-runtime-report.json",
+        "retrieval": "excluded",
+        "sha256": "90147b28b13930154a1a0a8df490e1cdd19b92b640d4370afcb2dfd65ac6ef8b",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-9f1f146ebf764cef",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/evidence/v4-calibration-report.json",
+        "retrieval": "excluded",
+        "sha256": "ac3ffb4162560ab11eab6bdc2e9d8e760b986e773080accab9a35935cc489c3d",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-a0c29691eb6c5e9d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/evidence/v4-qualitative-calibration.md",
+        "retrieval": "excluded",
+        "sha256": "d6830869229a5b9d2f05b9fb1674eccf4d7161dcbad5da159162bf3ae1a4ec45",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-57278d2d5a4892cb",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/README.md",
+        "retrieval": "excluded",
+        "sha256": "55ce905f7d438430783abdc55cc510a6ca58f54870311928cb50df8b4ec1b9b9",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-f869bd711e4bdf61",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/review-session.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "7ebb7a15a0e3cd7087cb7b4b2ac13bb001ed52f6952549ddc5aed020b73377a7",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-6c62548db017ddaf",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/review.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "1a10edaa135c0f3711e5bd27c0256ccd9c1a95f995a12fed7f85971769284492",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-4441013bcd1ec5e0",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/review.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "3a0622005e69a430cfbf5f08e2e58207fc514cd09dfe327b9b8d17ec616b5331",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-8e97cc90695e6c2f",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/interface-quality/SOLO-MAINTAINER-TRACK.md",
+        "retrieval": "excluded",
+        "sha256": "ffc1fd072ac72ee89177d9386612b59ddaea6542902d499dd7fc27dda7967a45",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-9a84798e3aeaae6c",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "5a44338cbccebf92aa57c752cd6a00723d34c4c1af088a421b95d63de824b178",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-3b48275fd43ef6e3",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "retrieval": "excluded",
+        "sha256": "a2bfe7d46d984f57ede466d5d727a3fa92597a2f91a4880c98797261c3d9fb4e",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-4692d1c3c486c1af",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/knowledge-quality/README.md",
+        "retrieval": "excluded",
+        "sha256": "ac54751424752de9d5f695ae96ed9e1e8b05a4a72fbf0aad747d4879daa0bd27",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-284260fcad92d2b3",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/ADAPTERS.md",
+        "retrieval": "excluded",
+        "sha256": "696b269a4819310e6794efedd0ed6a7029e6306b0d52d437469dcc4bb486ea94",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-05f9c646a1031f7f",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/archetype-profiles.yaml",
+        "retrieval": "excluded",
+        "sha256": "a82b557cc0ac2751f6394e84ce2c9a3c17bf4b79aa8081580b2053bba804dd2f",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-dd7ac35967a41b9a",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/PORTFOLIO-RUNNER.md",
+        "retrieval": "excluded",
+        "sha256": "35b59fb8ebaa4f35f29c53ef7344d9694738d094407a271a91e8d8d8cf77eb52",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-00da476ec801db37",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/PRODUCT-TASK-CONTRACTS.md",
+        "retrieval": "excluded",
+        "sha256": "cec6766d4f3195c9de5e92e3caf08ea61911b31827ca77756655fd5e5c9de50f",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-d9cdaff9a159349e",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/product-task-profile.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "8a36b9c9941550c22716cb0cca9046326a213810fa6f5ba819370db94fc904e9",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-3c21130405aa3bc5",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md",
+        "retrieval": "excluded",
+        "sha256": "d925c071f282da852887404179df628212e26573b5e2777048df78e1f59ff83d",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-03f6810b04a1fb15",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/registry.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "5b7cfb09daf2cd1e3d07b24c6b630bd11b304cf9ca9df37d2fad6aae48060e20",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-a3433361818ad80e",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/registry.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "faaa2f9446cfc4a6cf22c2c72ddff1272663eebb361c03e33d33a3947f51ea92",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-2e3fa0c5d06095d7",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-abstention.json",
+        "retrieval": "excluded",
+        "sha256": "b509513112abc1340b0a4c43e932b7b0d3ea0da57a9abe256637bb77112c24b9",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-1d098d15b2159e1e",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-negative.json",
+        "retrieval": "excluded",
+        "sha256": "80d36a30cd86e5bc1d28e035b9736f3254efe509979e96c3585cde981a324410",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-00515c30a71cfdc4",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-positive.json",
+        "retrieval": "excluded",
+        "sha256": "f87e2ddf83fcadeb616037dc9155b298c474452410349b45e13ab9760d3fa3b3",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-7657c1b6642649a1",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-abstention.json",
+        "retrieval": "excluded",
+        "sha256": "087c8d5cb2bfccbb1f29872bf873e6eafc6df5bdb0b8160fd08a0ba8bada8a16",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-3fe8eacd7b5b7f38",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-negative.json",
+        "retrieval": "excluded",
+        "sha256": "3e6abc3c18989bea2bafbcdda4ba32797f1389c4f7a312cf3199bc8e279d9b4b",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-e6a25b08e57cd1a9",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-positive.json",
+        "retrieval": "excluded",
+        "sha256": "6b69b60828d25def729217984c56777913bd76799bdfcd257ad32f2dc45b4a8f",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-27708010380f710b",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-abstention.json",
+        "retrieval": "excluded",
+        "sha256": "296a52e09936e92a912467e49d00f1dc9bc638c4656b8be03a258be0adb79dd2",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-6b06b26c2ccdfdee",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-negative.json",
+        "retrieval": "excluded",
+        "sha256": "6613e204d7579a55ec734ca636e5104dffc8154a1b0b0dc507924dc85cd5c225",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-3bd11f38a05e581b",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-positive.json",
+        "retrieval": "excluded",
+        "sha256": "668216cc0547b0bef6bb4545c19091f790e3f26bfb39a73c1e1cac72010e1de3",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-5317eeee5b096cd2",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-holdout-evaluation.template.json",
+        "retrieval": "excluded",
+        "sha256": "fb36a90f929b74fc45c7b453b4a617e265260e421314503286135081e44537c2",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-0968aea69fd62a0d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/rule-promotion-evidence.template.json",
+        "retrieval": "excluded",
+        "sha256": "37656c04ce86a8db68ae2626666a77c4025b8ebd1526caf9dc3ef170e01ab7d2",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-c334007de981d903",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/v3-command-evidence.template.json",
+        "retrieval": "excluded",
+        "sha256": "c2487b483fd95bba256fd4a9455efa858a4def7b87120c813be62cba9ee9f8e7",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-cb60b355bb55bd57",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/portfolio-corpus/v3-qualification-evidence.template.json",
+        "retrieval": "excluded",
+        "sha256": "069d8db41b2a11d6f4fbfa6701e1bfa53669e1e9d46fc17e5c88362fcdfc1439",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-d64c3f2ba01d0a0d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/acceptance-criteria.md",
+        "retrieval": "excluded",
+        "sha256": "34d6769b460179cb2b6683e1e2fafef1bf1d464d3fa7e51bc12296769c566b11",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-26364a56d92ca09b",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/anti-patterns.md",
+        "retrieval": "excluded",
+        "sha256": "873d3a4a7bc0debcb527adda56aebc832bd08a8ad44f6852efb2b08e4523d1b2",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-43b11d2e392ee121",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/attestations.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "8eb06321db31de1d19091f2b2ea363e50a25e52fa505471578fd474c98bdfe91",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-58355b8d054a9325",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/attestations.yaml",
+        "retrieval": "excluded",
+        "sha256": "63abf41180f78d725a3b8e861509c7004e350c055a4362cd70550136f5e7bfeb",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-0f67b331c4b96448",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/CALIBRATION.md",
+        "retrieval": "excluded",
+        "sha256": "22b73d336094c6a92365a02d383443b25a66c7db327422723d5338797a89c3e2",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-d8b74783cf1a653d",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/design-plan.json",
+        "retrieval": "excluded",
+        "sha256": "938c350dd8c8de43798548f6dd804b47e339cb1dae80a79417d5a020d06f8a92",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-049530e913d193c7",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/human-review.md",
+        "retrieval": "excluded",
+        "sha256": "7852ed046ecb24d573ac0e43476dd271b04e900e38fb9d0a54acc9d515e8ecce",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-b8674c71804eacb8",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/human-review.template.md",
+        "retrieval": "excluded",
+        "sha256": "912f260296707914aeae268dd83c0995fe5d92c6fe13621ba2e40c5b366d36ce",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-84df556f13e5b8dd",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/interaction-journeys.json",
+        "retrieval": "excluded",
+        "sha256": "1de748c535a2a888e6cf576121089298b198958effb8fc883263599fc9795978",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-5c9b397b3853a2f0",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/interaction-product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "3c0ba72b7a27b00e49dd03b407cd1ce218c445f9605ae1f5c029ae156ea1350c",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-10417c2548782714",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/journeys.json",
+        "retrieval": "excluded",
+        "sha256": "947b58b4d0672ec30778334f27699f8e70cf5c40553738eca54f6ef305f03c39",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-f6322f58c291e86b",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/MANIFEST.md",
+        "retrieval": "excluded",
+        "sha256": "4df8f3026682d703d5ed0587c2ebf703ce8a9c831c491c96f465c769749a6cfb",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-95b10c40a32f7188",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/product-contract.yaml",
+        "retrieval": "excluded",
+        "sha256": "3c93baec40571c49c9497bf7728ffc2f8500a32f6a0ba3ce35b991ee3cea643e",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-4556d700aaccbc29",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/product-design-brief.yaml",
+        "retrieval": "excluded",
+        "sha256": "3537fdaca24155147b4e32f1e9506c0d4a48a73f071740c4457bb65b4c689a3f",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authorized-product-evidence",
+        "id": "ztde-kb-8e8e95147d3c8582",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/scenestart/SOURCE-EVIDENCE.md",
+        "retrieval": "excluded",
+        "sha256": "6a8b0f86ce14201bdd280e2c9daac3c8c62af07dd27715564dfaf6355bc33892",
+        "sourceRecord": "scenestart-owner-evidence"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-60a32ebb346f5012",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/source-removal/README.md",
+        "retrieval": "excluded",
+        "sha256": "61c143d14532fcd771e9f1c8426810273ceef3276fd178c8b76f3bf1847a2203",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-4fed44730f69716c",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/source-removal/source-removal-qualification.yaml",
+        "retrieval": "excluded",
+        "sha256": "e7fac1c493e256749014dfa877ca400ebba51649c1c442be9fcaf653acf2f42c",
+        "sourceRecord": "ztothez-corpus"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-989c1997e7982381",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/v4-evaluation.yaml",
+        "retrieval": "excluded",
+        "sha256": "24d69461fc96036071bc153c81bf12c2ba186d95be01f63e9faeba0af2c64d0c",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-b39550ca942bfe63",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-abstention.json",
+        "retrieval": "excluded",
+        "sha256": "9779e13e6236baf35db270d8598ce7c93342e5c4888ecd842b58564771c244d3",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-289317d50c4856ea",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-negative.json",
+        "retrieval": "excluded",
+        "sha256": "2e8467cdd3eae71a150ea906c7a8366916ec3fce91e286bf50c9c0f4aa7aedf1",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "synthetic-fixture",
+        "id": "ztde-kb-baac7bfaf712c8c0",
+        "package": "approved",
+        "path": "knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-positive.json",
+        "retrieval": "excluded",
+        "sha256": "a0d8ac825746ba0bbcf197a55f6e3ed37346a48d2a32520a0dd15b1a74b5c17b",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-669e78babb34be20",
+        "package": "approved",
+        "path": "knowledge-base/dependencies.yaml",
+        "retrieval": "excluded",
+        "sha256": "35387724fba7bec2fb34f6e5bad7b8404eae7f6d49577e3f0eecbe2f5782d71b",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-315a74a45b2e7886",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/asset-generation.md",
+        "retrieval": "included",
+        "sha256": "b73f6a8e3e3fe5be1a18c8dcd1b91996f0fc887126111ba1a682bdb4b9d31c2c",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-e28110d9d442244f",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/brand-systems.md",
+        "retrieval": "included",
+        "sha256": "dcd8d9c94d6de206c5e8bdc346e84b8a64fb8d16b98b6e883dfff27659066530",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-20f718fcfc85bc64",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/closed-loop-repair.md",
+        "retrieval": "included",
+        "sha256": "af8135018aa7cb5507419623740cfa6e4a606fa4b10f843dfc54d0996ff0d699",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-546586f4c0f3e6e5",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/design-deliverable.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "1f9629f6c9266e6b6ad0d7fae3133ed180770361e40c719444f022892743d3b8",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-6e3768a6f2e3ed78",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/design-deliverable.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "847e944dcc58726fb1b4a4435c504748cf5b1fcff1f6996aec71038919452486",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-77334a2498717611",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/design-plan.md",
+        "retrieval": "included",
+        "sha256": "ac6f3256aa0d4874373ee1446b192fd3718b3b9edce3f29bcd2665256562f00f",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-1c5f93ff2ebf875a",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/design-plan.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "695b0eef9bde30fa5781a1d0e3dc30a40af868fc5d41999bb569a9def963f404",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-7f88ba0ba0b3c056",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/figma-production.md",
+        "retrieval": "included",
+        "sha256": "dc80beea9de4708f7f41c8b7b26654554bc4da7d5bd136f173290f380e72f4b0",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-652712d011423324",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/generation-adapter.md",
+        "retrieval": "included",
+        "sha256": "025ef0074c9e08b3859ca50811606a26d9b59eb9123e5d607d3e254d74c00127",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-2898a6efe484b110",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/generation-adapter.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "e4525c0edafaa9c219936708b6e2a8157e4f3bfe3a77bf5a652023b5cdb3b7f3",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-4d345de283dda5d5",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/iconography.md",
+        "retrieval": "included",
+        "sha256": "cd599a7bd41b0d3611b0553b4cd4cc4f0108a9328d1fe998196bc18dcede5b40",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-b376e85ba8146c89",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/information-design.md",
+        "retrieval": "included",
+        "sha256": "0b47f632df787c491814d04676551692d6d8704f864288d119be1b5a6f25de04",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-dc111417cbe9b2f1",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/information-design.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "8e05b86cf529b39f68a866f6a7d504eae31d8fe4428edf0f293f25792bf11e42",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-34f29f55670948f3",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/information-design.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "9867f9d7bb0f07bd0545c65b65aa09e1cff5268de3ccbc587a967862d2352cd7",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-908481a959d6eb0e",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/interaction-recovery-verification.md",
+        "retrieval": "included",
+        "sha256": "d859e0cda735a857b2323dde30e30cc0a78adf993f63abdbff842215abc0cbb3",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-5f2511315b7444f2",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/interface-trust.md",
+        "retrieval": "included",
+        "sha256": "da03468feec68eadaac067ef3eb83d58af7b897214e3e8a9a91f81d6ffde5ada",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-c32c05a97e1be7c5",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/interface-trust.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "0f92dca0b75dbabbb83b50aedd77fad78c8e84e347872e877e1db6c84a5e883d",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-54f76076baf6bc4f",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/interface-trust.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "156b7824326f01e82eabbc105cc29a3636cb44e2d4b1becac1e9aab7a65a7fa7",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-66598c3330028f85",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/licensing-and-provenance.md",
+        "retrieval": "included",
+        "sha256": "41c9b8fb37e3a155c029d641cd9311ad7762b83315e7fa471fbed4c33e9bca06",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-70aeea3316b92d14",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/MASTER.md",
+        "retrieval": "included",
+        "sha256": "b61c4a3adb12517ef283a4b2e4df60ffc6f20331c6b2cd0f7546b17f347cd076",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-08edeaad9dfb4885",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/presentation-design.md",
+        "retrieval": "included",
+        "sha256": "d057c7cd4e31cfb0818889401912a64d993768970337a8459904f9862576aca6",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-84405b81adf83cfa",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/product-design-brief.md",
+        "retrieval": "included",
+        "sha256": "ba2e435153a92a87e0dff543ca1b333305712111607055c2b7f4b8d7a68e0008",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-d1f1929735b3cde1",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/product-design-brief.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "039f56d9c000602390c038b4265188a754d04bde28ec2ed35545d5d74c58052d",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-3aa78c3807bb6274",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/product-design-brief.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "be0b6b204457c2e6d877a9458de65f535a3c2d358b2649434776e8f8250361db",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-19c5dcdade0a4346",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/repair-request.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "883354be3fa6b6177573f4518fe2151d15bc6ea2f626bd5bc26f4824b50a3557",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-a34196d51acd8d3b",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/repair-request.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "f8062c082ec09957ffa06fdfa9b6311997427430ca1340b35664a2ffe5530328",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-20c7c49684873651",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/visual-accessibility.md",
+        "retrieval": "included",
+        "sha256": "67f62d0e3515199e890e2281228fb2837acfa12c8c5a9cf3d6b76da44e085dce",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-a292e8d89bb08d6a",
+        "package": "approved",
+        "path": "knowledge-base/design-intelligence/visual-polish.md",
+        "retrieval": "included",
+        "sha256": "836f8e250eab1997e3374dbd09c16b5c0143b4958e56f67538e6ceedea483bc6",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-6e1a355561a3a767",
+        "package": "approved",
+        "path": "knowledge-base/INDEX.md",
+        "retrieval": "excluded",
+        "sha256": "d50b0498e31b73428b685811b49579671deb325ee075c6147dd985fa4da5989e",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-d5f53820992595c5",
+        "package": "approved",
+        "path": "knowledge-base/maintained/architecture/component-boundaries.md",
+        "retrieval": "included",
+        "sha256": "fbfad0924d87599e4d0950f237675ed5fcc88fe0ac2e458e9e5f6fcd028d0039",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-07d4545108973252",
+        "package": "approved",
+        "path": "knowledge-base/maintained/architecture/MASTER.md",
+        "retrieval": "included",
+        "sha256": "c831c1875477f7cea454b42c880d48c879795bbe493d4997bc6085581c851ba6",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-e96922b2e8aec8cc",
+        "package": "approved",
+        "path": "knowledge-base/maintained/architecture/product-platforms.md",
+        "retrieval": "included",
+        "sha256": "e73a0a8857adf5d81df1617f0118d7f892e0f2a7ba3e8b86f12a98d74d4993c1",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-ee04c06045f7327a",
+        "package": "approved",
+        "path": "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md",
+        "retrieval": "included",
+        "sha256": "35647b5b6c87bbfa909cee09dd54237edccc40210d91eeb61bcf3dc9d84c7d29",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-7e1691cc7852aa2d",
+        "package": "approved",
+        "path": "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "retrieval": "included",
+        "sha256": "71688250fce0d1efef4e7fe9ab95810be5f2c1de93881fbe806ce87054074fac",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-33e493591a93aedd",
+        "package": "approved",
+        "path": "knowledge-base/maintained/product-patterns/MASTER.md",
+        "retrieval": "included",
+        "sha256": "0522f2bf5d5caa3ae5874570cb4a703755dbbe5ec056661f55b43b84771c3ede",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-23679d3009a8d82b",
+        "package": "approved",
+        "path": "knowledge-base/maintained/product-patterns/operational-dashboards.md",
+        "retrieval": "included",
+        "sha256": "6e7a058fd1ffc6a8b2909f72fc8fafa2126d73a322b94dc9568176a48af8a8d7",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-b21062e7ecec1408",
+        "package": "approved",
+        "path": "knowledge-base/provenance.yaml",
+        "retrieval": "excluded",
+        "sha256": "397da3c43d02b4c52ba39bb157362d35962559b618707dbbd3ef43f82e5b65de",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-df56aa56d7e2bfbf",
+        "package": "approved",
+        "path": "knowledge-base/retrieval-scope.yaml",
+        "retrieval": "excluded",
+        "sha256": "0fc9c7bc9b31f76744c9c4461d22cc6b8d8309f10ef6c6a10ae01f1d129d1c9d",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-bf8c0751ae022e49",
+        "package": "approved",
+        "path": "knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md",
+        "retrieval": "included",
+        "sha256": "57d4e8391cf68aa9f1ac2df1f70f50283ef2daa389e95cf358c19306d10d8f86",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-c144853516e11562",
+        "package": "approved",
+        "path": "knowledge-base/usability-evaluation/heuristic-review.schema.yaml",
+        "retrieval": "excluded",
+        "sha256": "b6c4748b24c57eac0919b87ee2ef1bd73de9d2b126f2a0e577f9b959c279e104",
+        "sourceRecord": "ztothez-maintained"
+      },
+      {
+        "evidenceClass": "owner-authored",
+        "id": "ztde-kb-bc9d3070c3725709",
+        "package": "approved",
+        "path": "knowledge-base/usability-evaluation/heuristic-review.template.yaml",
+        "retrieval": "excluded",
+        "sha256": "acc37b35123e3f5c13f53c3c33e16c7b22fdb3376cd6857f7dc2520435157ff9",
+        "sourceRecord": "ztothez-maintained"
+      }
+    ]
+  },
+  "lifecycle": "shadow",
+  "model": {
+    "conflictCount": 2,
+    "decisionTraceCount": 2,
+    "entityCount": 20,
+    "entityIds": [
+      "ZTDE-MODEL-A11Y-001",
+      "ZTDE-MODEL-ABSTENTION-001",
+      "ZTDE-MODEL-ARCHETYPE-001",
+      "ZTDE-MODEL-ARCHETYPE-002",
+      "ZTDE-MODEL-COMPONENT-001",
+      "ZTDE-MODEL-CONFLICTPOLICY-001",
+      "ZTDE-MODEL-EVIDENCE-001",
+      "ZTDE-MODEL-EXCEPTION-001",
+      "ZTDE-MODEL-INFO-001",
+      "ZTDE-MODEL-INTERACTION-001",
+      "ZTDE-MODEL-QUALITY-001",
+      "ZTDE-MODEL-STATE-001",
+      "ZTDE-MODEL-TASK-001",
+      "ZTDE-MODEL-TASK-002",
+      "ZTDE-MODEL-TOKEN-001",
+      "ZTDE-MODEL-VERIFY-001",
+      "ZTDE-MODEL-VERIFY-002",
+      "ZTDE-MODEL-VERIFY-003",
+      "ZTDE-MODEL-VERIFY-004",
+      "ZTDE-MODEL-VISUAL-001"
+    ],
+    "relationshipCount": 13
+  },
+  "policy": {
+    "markdownRemainsWorkflowAuthorityDuringMigration": true,
+    "noMatchProducesKnowledgeGap": true,
+    "privateSourcesAreRuntimeFallbacks": false,
+    "projectPolicyIsNotExternalLaw": true,
+    "supportingFilesCannotOverrideSkill": true
+  },
+  "product": "ZtotheZ Design Engineering",
+  "ruleRegistry": {
+    "ruleCount": 251,
+    "ruleIds": [
+      "ZTDE-A11Y-001",
+      "ZTDE-ARCH-001",
+      "ZTDE-ARCH-002",
+      "ZTDE-AUTHORITY-001",
+      "ZTDE-AUTHORITY-002",
+      "ZTDE-BRIEF-001",
+      "ZTDE-BRIEF-101",
+      "ZTDE-BRIEF-201",
+      "ZTDE-BRIEF-202",
+      "ZTDE-BRIEF-203",
+      "ZTDE-BRIEF-301",
+      "ZTDE-BRIEF-302",
+      "ZTDE-BRIEF-303",
+      "ZTDE-BRIEF-401",
+      "ZTDE-BRIEF-402",
+      "ZTDE-BRIEF-501",
+      "ZTDE-BRIEF-502",
+      "ZTDE-BRIEF-601",
+      "ZTDE-BRIEF-701",
+      "ZTDE-BRIEF-702",
+      "ZTDE-BRIEF-703",
+      "ZTDE-BRIEF-704",
+      "ZTDE-BRIEF-801",
+      "ZTDE-BRIEF-901",
+      "ZTDE-BRIEF-902",
+      "ZTDE-CMP-001",
+      "ZTDE-CMP-002",
+      "ZTDE-CMP-003",
+      "ZTDE-CMP-004",
+      "ZTDE-CMP-101",
+      "ZTDE-CMP-102",
+      "ZTDE-CMP-103",
+      "ZTDE-CMP-104",
+      "ZTDE-CMP-201",
+      "ZTDE-CMP-202",
+      "ZTDE-CMP-203",
+      "ZTDE-CMP-204",
+      "ZTDE-CMP-205",
+      "ZTDE-CMP-206",
+      "ZTDE-CMP-207",
+      "ZTDE-CMP-208",
+      "ZTDE-CMP-209",
+      "ZTDE-CMP-210",
+      "ZTDE-CMP-211",
+      "ZTDE-CMP-301",
+      "ZTDE-CMP-302",
+      "ZTDE-CMP-303",
+      "ZTDE-CMP-304",
+      "ZTDE-CMP-305",
+      "ZTDE-CMP-306",
+      "ZTDE-CMP-307",
+      "ZTDE-CMP-308",
+      "ZTDE-CMP-309",
+      "ZTDE-CMP-310",
+      "ZTDE-CMP-311",
+      "ZTDE-CMP-312",
+      "ZTDE-CMP-313",
+      "ZTDE-CMP-314",
+      "ZTDE-CMP-401",
+      "ZTDE-CMP-402",
+      "ZTDE-CMP-403",
+      "ZTDE-CMP-404",
+      "ZTDE-CMP-405",
+      "ZTDE-CMP-406",
+      "ZTDE-CMP-407",
+      "ZTDE-CMP-CALIBRATION-001",
+      "ZTDE-DECISION-001",
+      "ZTDE-DECISION-002",
+      "ZTDE-DECISION-003",
+      "ZTDE-DESIGN-001",
+      "ZTDE-DI-001",
+      "ZTDE-DI-002",
+      "ZTDE-DI-101",
+      "ZTDE-DI-102",
+      "ZTDE-DI-103",
+      "ZTDE-DI-104",
+      "ZTDE-DI-105",
+      "ZTDE-DI-201",
+      "ZTDE-DI-202",
+      "ZTDE-DI-203",
+      "ZTDE-DI-204",
+      "ZTDE-DI-205",
+      "ZTDE-DI-206",
+      "ZTDE-DI-301",
+      "ZTDE-DI-302",
+      "ZTDE-DI-303",
+      "ZTDE-DI-304",
+      "ZTDE-DI-305",
+      "ZTDE-DI-306",
+      "ZTDE-DI-307",
+      "ZTDE-DI-308",
+      "ZTDE-DI-309",
+      "ZTDE-DI-310",
+      "ZTDE-DI-401",
+      "ZTDE-DI-402",
+      "ZTDE-DI-403",
+      "ZTDE-DI-501",
+      "ZTDE-DI-502",
+      "ZTDE-DI-601",
+      "ZTDE-DI-602",
+      "ZTDE-DI-603",
+      "ZTDE-DI-604",
+      "ZTDE-DI-605",
+      "ZTDE-DI-606",
+      "ZTDE-DI-701",
+      "ZTDE-DI-702",
+      "ZTDE-DI-703",
+      "ZTDE-DI-704",
+      "ZTDE-DI-705",
+      "ZTDE-DI-706",
+      "ZTDE-DI-707",
+      "ZTDE-DI-708",
+      "ZTDE-DI-709",
+      "ZTDE-DI-801",
+      "ZTDE-DI-901",
+      "ZTDE-DI-902",
+      "ZTDE-DI-912",
+      "ZTDE-DI-913",
+      "ZTDE-DI-914",
+      "ZTDE-DI-915",
+      "ZTDE-INFO-001",
+      "ZTDE-INFO-002",
+      "ZTDE-INFO-101",
+      "ZTDE-INFO-201",
+      "ZTDE-INFO-202",
+      "ZTDE-INFO-203",
+      "ZTDE-INFO-204",
+      "ZTDE-INFO-205",
+      "ZTDE-INFO-302",
+      "ZTDE-INFO-401",
+      "ZTDE-INFO-402",
+      "ZTDE-INFO-501",
+      "ZTDE-INFO-601",
+      "ZTDE-INFO-602",
+      "ZTDE-MNT-001",
+      "ZTDE-MNT-002",
+      "ZTDE-MNT-003",
+      "ZTDE-MNT-004",
+      "ZTDE-MNT-005",
+      "ZTDE-MNT-101",
+      "ZTDE-MNT-102",
+      "ZTDE-MODEL-001",
+      "ZTDE-MODEL-101",
+      "ZTDE-MODEL-201",
+      "ZTDE-MODEL-202",
+      "ZTDE-MODEL-301",
+      "ZTDE-MODEL-302",
+      "ZTDE-MODEL-303",
+      "ZTDE-MODEL-304",
+      "ZTDE-MODEL-305",
+      "ZTDE-MODEL-306",
+      "ZTDE-MODEL-401",
+      "ZTDE-MODEL-402",
+      "ZTDE-MODEL-501",
+      "ZTDE-MODEL-601",
+      "ZTDE-MODEL-602",
+      "ZTDE-MODEL-603",
+      "ZTDE-MODEL-604",
+      "ZTDE-MODEL-701",
+      "ZTDE-MODEL-901",
+      "ZTDE-MODEL-A11Y-001",
+      "ZTDE-MODEL-ABSTENTION-001",
+      "ZTDE-MODEL-ARCHETYPE-001",
+      "ZTDE-MODEL-ARCHETYPE-002",
+      "ZTDE-MODEL-COMPONENT-001",
+      "ZTDE-MODEL-CONFLICT-001",
+      "ZTDE-MODEL-CONFLICT-002",
+      "ZTDE-MODEL-CONFLICTPOLICY-001",
+      "ZTDE-MODEL-EVIDENCE-001",
+      "ZTDE-MODEL-EXCEPTION-001",
+      "ZTDE-MODEL-INFO-001",
+      "ZTDE-MODEL-INTERACTION-001",
+      "ZTDE-MODEL-QUALITY-001",
+      "ZTDE-MODEL-REL-001",
+      "ZTDE-MODEL-REL-002",
+      "ZTDE-MODEL-REL-003",
+      "ZTDE-MODEL-REL-004",
+      "ZTDE-MODEL-REL-005",
+      "ZTDE-MODEL-REL-006",
+      "ZTDE-MODEL-REL-007",
+      "ZTDE-MODEL-REL-008",
+      "ZTDE-MODEL-REL-009",
+      "ZTDE-MODEL-REL-010",
+      "ZTDE-MODEL-REL-011",
+      "ZTDE-MODEL-REL-012",
+      "ZTDE-MODEL-REL-013",
+      "ZTDE-MODEL-STATE-001",
+      "ZTDE-MODEL-TASK-001",
+      "ZTDE-MODEL-TASK-002",
+      "ZTDE-MODEL-TOKEN-001",
+      "ZTDE-MODEL-TRACE-001",
+      "ZTDE-MODEL-TRACE-002",
+      "ZTDE-MODEL-VERIFY-001",
+      "ZTDE-MODEL-VERIFY-002",
+      "ZTDE-MODEL-VERIFY-003",
+      "ZTDE-MODEL-VERIFY-004",
+      "ZTDE-MODEL-VISUAL-001",
+      "ZTDE-PUBLIC-101",
+      "ZTDE-PUBLIC-102",
+      "ZTDE-PUBLIC-103",
+      "ZTDE-PUBLIC-201",
+      "ZTDE-PUBLIC-202",
+      "ZTDE-PUBLIC-301",
+      "ZTDE-PUBLIC-401",
+      "ZTDE-PUBLIC-402",
+      "ZTDE-REPO-001",
+      "ZTDE-RUNTIME-001",
+      "ZTDE-RUNTIME-002",
+      "ZTDE-RUNTIME-003",
+      "ZTDE-RUNTIME-004",
+      "ZTDE-RUNTIME-005",
+      "ZTDE-RUNTIME-006",
+      "ZTDE-RUNTIME-007",
+      "ZTDE-RUNTIME-008",
+      "ZTDE-RUNTIME-009",
+      "ZTDE-RUNTIME-010",
+      "ZTDE-RUNTIME-011",
+      "ZTDE-RUNTIME-012",
+      "ZTDE-RUNTIME-013",
+      "ZTDE-RUNTIME-014",
+      "ZTDE-RUNTIME-015",
+      "ZTDE-RUNTIME-016",
+      "ZTDE-RUNTIME-017",
+      "ZTDE-RUNTIME-018",
+      "ZTDE-RUNTIME-019",
+      "ZTDE-RUNTIME-020",
+      "ZTDE-RUNTIME-021",
+      "ZTDE-RUNTIME-022",
+      "ZTDE-SCAN-001",
+      "ZTDE-SEC-001",
+      "ZTDE-SLOP-001",
+      "ZTDE-SLOP-002",
+      "ZTDE-SLOP-003",
+      "ZTDE-STATE-001",
+      "ZTDE-TRUST-001",
+      "ZTDE-TRUST-002",
+      "ZTDE-TRUST-101",
+      "ZTDE-TRUST-102",
+      "ZTDE-TRUST-103",
+      "ZTDE-TRUST-104",
+      "ZTDE-TRUST-105",
+      "ZTDE-TRUST-201",
+      "ZTDE-TRUST-202",
+      "ZTDE-TRUST-203",
+      "ZTDE-TRUST-204",
+      "ZTDE-TRUST-205",
+      "ZTDE-TRUST-206",
+      "ZTDE-TRUST-301",
+      "ZTDE-TRUST-302",
+      "ZTDE-TRUST-401",
+      "ZTDE-TRUST-402"
+    ],
+    "sourcePaths": [
+      "knowledge-base/benchmarks/corpus/corpus.yaml",
+      "knowledge-base/benchmarks/interface-quality/evidence/v4-calibration-report.json",
+      "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+      "knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-abstention.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-negative.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-positive.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-abstention.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-negative.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-positive.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-abstention.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-negative.json",
+      "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-positive.json",
+      "knowledge-base/design-intelligence/repair-request.template.yaml",
+      "model/ztothez-design-engineering-model.json",
+      "src/acceptance/evaluator.ts",
+      "src/audit/rules/accessibility-name.ts",
+      "src/audit/rules/component-size.ts",
+      "src/audit/rules/credential-placeholder.ts",
+      "src/audit/rules/interactive-integrity.ts",
+      "src/audit/rules/mixed-responsibilities.ts",
+      "src/audit/rules/mock-production-path.ts",
+      "src/audit/rules/network-state.ts",
+      "src/audit/rules/operational-claim.ts",
+      "src/audit/rules/placeholder-interaction.ts",
+      "src/audit/rules/raw-design-values.ts",
+      "src/audit/scanner.ts",
+      "src/authority/compiler.ts",
+      "src/authority/validator.ts",
+      "src/comparison/evaluator.ts",
+      "src/comparison/maintainer.ts",
+      "src/design-intelligence/validator.ts",
+      "src/design-plan/reconciliation.ts",
+      "src/information-design/validator.ts",
+      "src/interface-trust/validator.ts",
+      "src/model/validator.ts",
+      "src/product-brief/validator.ts",
+      "src/public-content/validator.ts",
+      "src/runtime/advanced-checks.ts",
+      "src/runtime/composition-checks.ts",
+      "src/runtime/interface-checks.ts",
+      "src/runtime/verifier.ts"
+    ]
+  },
+  "version": "1.0"
+}

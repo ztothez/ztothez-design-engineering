@@ -1,0 +1,28 @@
+version: "1.0"
+description: Portable schema summary for V5 knowledge-quality benchmarks.
+authority: SKILL.md
+requiredFields:
+  manifest:
+    - version
+    - id
+    - description
+    - thresholds
+    - sources
+    - cases
+  caseKinds:
+    - retrieval
+    - rule-provenance
+    - conflict
+    - supersession
+    - model-parity
+dimensions:
+  - source-quality
+  - retrieval-quality
+  - rule-quality
+  - product-outcome
+rules:
+  - Retrieval cases must use approved retrieval categories and must either match an expected admitted path or return an explicit no-match.
+  - Rule-provenance cases must inspect registered ZTDE rules for source IDs, model links, expected categories, and private-fallback absence.
+  - Conflict cases must prove deterministic priority between model entities instead of relying on document order.
+  - Supersession cases must reference public boundary records by index and prove removed sources are absent from admission, retrieval, package, and current-tree authority while replacements are admitted.
+  - Model-parity cases must bind current product decisions to shadow-model traces and compiled exact-read or retrieval documents.

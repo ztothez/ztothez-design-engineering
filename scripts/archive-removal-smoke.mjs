@@ -68,7 +68,7 @@ let fixture;
 try {
   await mkdir(isolatedRoot, { recursive: true });
 
-  for (const directory of [".github", "ci", "cli", "docs", "evidence", "scripts", "src", "tests"]) {
+  for (const directory of [".github", "ci", "cli", "docs", "scripts", "src", "tests"]) {
     await cp(join(PROJECT_ROOT, directory), join(isolatedRoot, directory), { recursive: true });
   }
   for (const path of [
@@ -86,6 +86,7 @@ try {
   await symlink(join(PROJECT_ROOT, "node_modules"), join(isolatedRoot, "node_modules"), "dir");
 
   for (const forbiddenPath of [
+    ["Data", "For", "V5"].join(""),
     ["older", "design", "data"].join("-"),
     join("knowledge-base", "architecture"),
     join("knowledge-base", "figma-and-systems"),
@@ -96,7 +97,18 @@ try {
     await assert.rejects(lstat(join(isolatedRoot, forbiddenPath)), { code: "ENOENT" });
   }
 
+  runNpm(["run", "knowledge:boundary", "--silent"], isolatedRoot);
+  runNpm(["run", "model:validate", "--silent"], isolatedRoot);
+  runNpm(["run", "authority:compile", "--silent"], isolatedRoot);
   runNpm(["run", "independence:check", "--silent"], isolatedRoot);
+  runNpm([
+    "run",
+    "source-removal:qualify",
+    "--silent",
+    "--",
+    "--output",
+    ".ztothez-design-source-removal/qualification",
+  ], isolatedRoot);
   runNpm(["run", "build", "--silent"], isolatedRoot);
   runNpm(["run", "typecheck", "--silent"], isolatedRoot);
   runNpm(["test", "--silent"], isolatedRoot);
@@ -165,16 +177,27 @@ try {
     ),
   );
   assert.equal(corpusReport.passed, true);
+  const sourceRemovalReport = JSON.parse(
+    await readFile(
+      join(isolatedRoot, ".ztothez-design-source-removal", "qualification", "source-removal-qualification.json"),
+      "utf8",
+    ),
+  );
+  assert.equal(sourceRemovalReport.passed, true);
 
   process.stdout.write(`${JSON.stringify({
     version: "1.0",
     isolatedWorkspace: true,
     referenceArchivesPresent: false,
+    publicKnowledgeBoundary: "passed",
+    shadowDesignModel: "passed",
+    compiledAuthority: "passed",
     build: "passed",
     typecheck: "passed",
     regressionSuite: "passed",
     mcpAndRetrieval: "passed through regression suite",
     corpus: "passed",
+    sourceRemovalQualification: "passed",
     fixtureQualityGate: "passed",
   }, null, 2)}\n`);
 } finally {

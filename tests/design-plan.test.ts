@@ -8,8 +8,14 @@ import { parse, stringify } from "yaml";
 
 import { runCompilePlanCli } from "../cli/compile-plan.js";
 import { compileDesignPlan, DESIGN_PLAN_COMPILER_VERSION } from "../src/design-plan/compiler.js";
+import {
+  reconcileDesignPlan,
+  planReconciliationReportSchema,
+  retrieveDecisionRuleReport,
+} from "../src/design-plan/reconciliation.js";
 import { designPlanSchema } from "../src/design-plan/schema.js";
 import { loadProductDesignBrief } from "../src/product-brief/loader.js";
+import { createHandoff, verifyHandoff } from "../src/handoff/compiler.js";
 
 const templatePath = join(process.cwd(), "knowledge-base", "design-intelligence", "product-design-brief.template.yaml");
 
@@ -36,6 +42,78 @@ test("design plan compilation is deterministic, traceable, and provisional for p
     assert.ok(decision.traceRefs.length > 0);
     assert.ok(decision.traceRefs.every((reference) => traceIds.has(reference)));
   }
+});
+
+test("plan reconciliation selects typed first-party rules without promoting evidence", async () => {
+  const brief = await loadProductDesignBrief(templatePath);
+  const plan = await compileDesignPlan(brief, { briefSourcePath: templatePath, projectRoot: process.cwd() });
+  const report = reconcileDesignPlan(brief, plan);
+
+  assert.equal(report.status, "provisional");
+  assert.equal(report.stages.length, 7);
+  assert.ok(report.decisionRules.length > 0);
+  assert.ok(report.decisionRules.every((rule) => rule.confidence >= 0 && rule.confidence <= 1));
+  assert.ok(report.decisionRules.every((rule) => rule.sourceRef.startsWith("SKILL.md#")));
+  assert.ok(report.limitations.some((entry) => entry.toLowerCase().includes("human")));
+  assert.equal(planReconciliationReportSchema.safeParse(report).success, true);
+  assert.equal(JSON.stringify(report).includes(process.cwd()), false);
+});
+
+test("decision-rule retrieval returns matches and an explicit no-match result", async () => {
+  const brief = await loadProductDesignBrief(templatePath);
+  const report = retrieveDecisionRuleReport(brief);
+  assert.equal(report.status, "matches");
+  assert.equal(report.noMatch, false);
+  assert.ok(report.results.every((rule) => rule.sourceRef.startsWith("SKILL.md#")));
+
+  const silentBrief = structuredClone(brief);
+  silentBrief.problem.statement = "A quiet archival note with no interface decision context.";
+  silentBrief.constraints = ["The document is retained for reference only."];
+  silentBrief.tasks = silentBrief.tasks.map((task) => ({
+    ...task,
+    title: "Archive note",
+    goal: "Keep a historical record",
+    successSignal: "The note is retained",
+    failureImpact: "No operational action is taken",
+    recovery: "Return to the archive",
+    inputs: ["note"],
+  }));
+  silentBrief.requirements = silentBrief.requirements.map((requirement) => ({
+    ...requirement,
+    statement: "The archive remains available.",
+  }));
+  silentBrief.dataSources = silentBrief.dataSources.map((source) => ({
+    ...source,
+    name: "Records",
+    freshness: "Unknown",
+    limitations: ["None"],
+    fallback: { ...source.fallback, disclosure: "None" },
+  }));
+  silentBrief.audiences = silentBrief.audiences.map((audience) => ({
+    ...audience,
+    role: "Reader",
+    goals: ["Read"],
+    contexts: ["Archive"],
+    constraints: ["None"],
+  }));
+  silentBrief.states = [{ state: "success", taskRefs: ["review-task"], behavior: "The note is shown.", recovery: "Return to archive.", disclosure: "Local archive." }];
+  const noMatch = retrieveDecisionRuleReport(silentBrief);
+  assert.equal(noMatch.status, "no-match");
+  assert.equal(noMatch.noMatch, true);
+  assert.deepEqual(noMatch.results, []);
+});
+
+test("handoff export is deterministic, checksummed, and remains provisional when contracts are planned", async () => {
+  const brief = await loadProductDesignBrief(templatePath);
+  const plan = await compileDesignPlan(brief, { briefSourcePath: templatePath, projectRoot: process.cwd() });
+  const reconciliation = reconcileDesignPlan(brief, plan);
+  const first = createHandoff(brief, plan, reconciliation);
+  const second = createHandoff(brief, plan, reconciliation);
+  assert.deepEqual(first, second);
+  assert.equal(first.status, "provisional");
+  assert.equal(first.integrity.algorithm, "sha256");
+  assert.equal(verifyHandoff(first), true);
+  assert.equal(JSON.stringify(first).includes(process.cwd()), false);
 });
 
 test("a draft brief compiles to a blocked plan without invented readiness", async () => {

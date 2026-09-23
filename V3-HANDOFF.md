@@ -16,8 +16,7 @@ The final Item 9 implementation is in:
 ## Safety Invariants
 
 - Never run benchmark commands in an original project root.
-- Never modify files under `/home/ztothez/Studio/clients`, `fullstack`, `personal`, `portfolio`,
-  `/home/ztothez/AI`, or `/home/ztothez/apps` while benchmarking.
+- Never modify files under owner-authorized source workspaces while benchmarking.
 - Use only roots and commands explicitly authorized by `.ztothez-design-local/portfolio-registry.yaml`.
 - Keep local registries, snapshots, reports, screenshots, and private evidence out of Git, npm,
   offline releases, retrieval, and exact-file MCP knowledge access.

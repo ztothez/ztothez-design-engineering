@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "contract": "agent-workbench",
+  "profiles": [
+    {
+      "id": "source-only-qualification",
+      "name": "Source-only agent qualification",
+      "environment": [
+        "CLI and MCP server are built from the current repository",
+        "Maintained contracts, schemas, and authority artifacts are available",
+        "No network, account, private source, or model gateway is required"
+      ],
+      "journeys": [
+        {
+          "id": "brief-review-handoff",
+          "name": "brief-review-handoff",
+          "steps": []
+        }
+      ]
+    }
+  ]
+}

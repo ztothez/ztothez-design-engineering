@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-09-01T00:00:00.000Z",
+  "methodologyPath": "knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml",
+  "reviewPath": "local-only-retained-review",
+  "methodologyId": "azure-v2-anonymous-human-review",
+  "reviewId": "public-calibration-summary",
+  "passed": true,
+  "releaseReady": false,
+  "findings": [
+    {
+      "ruleId": "ZTDE-CMP-CALIBRATION-001",
+      "severity": "warning",
+      "path": "calibration",
+      "message": "Public calibration preserves only aggregate qualitative disagreement; private reviewer records are retained outside Git.",
+      "remediation": "Use this artifact for V4 visual calibration only, not as external release approval."
+    }
+  ],
+  "summary": {
+    "errors": 0,
+    "warnings": 1,
+    "info": 0,
+    "requiredStages": 6,
+    "passedRequiredStages": 5,
+    "claims": 4,
+    "verifiedClaims": 4,
+    "sessions": 1
+  },
+  "stageResults": [
+    { "id": "build", "candidate": "anonymous-e", "required": true, "status": "pass" },
+    { "id": "typecheck", "candidate": "anonymous-e", "required": true, "status": "pass" },
+    { "id": "architecture-audit", "candidate": "anonymous-e", "required": true, "status": "pass" },
+    { "id": "browser-verification", "candidate": "anonymous-e", "required": true, "status": "pass" },
+    { "id": "product-journeys", "candidate": "anonymous-e", "required": true, "status": "pass" },
+    { "id": "human-review", "candidate": "comparison", "required": true, "status": "partial" }
+  ],
+  "evidenceLevels": {
+    "automated": 4,
+    "aiAssistedExpert": 0,
+    "humanExpert": 1,
+    "representativeUser": 0
+  },
+  "humanReview": {
+    "requirementsConfigured": true,
+    "humanExpertSessions": 1,
+    "representativeUserSessions": 0,
+    "completeHumanExpertSessions": 0,
+    "completeRepresentativeUserSessions": 0,
+    "distinctCandidateOrders": 1,
+    "blindedReviewerSessions": 0,
+    "minimumHumanExpertSessions": 3,
+    "minimumRepresentativeUserSessions": 5,
+    "minimumCounterbalancedOrders": 5,
+    "requirementsMet": false
+  },
+  "candidateResults": [
+    {
+      "candidate": "anonymous-e",
+      "categories": [
+        { "category": "truthful-disclosure", "score": 4, "samples": 1 },
+        { "category": "information-design", "score": 4, "samples": 1 },
+        { "category": "visual-polish", "score": 3.5, "samples": 1 }
+      ],
+      "tasks": {
+        "samples": 1,
+        "completionRate": 1,
+        "comprehensionAccuracy": 1,
+        "meanDurationSeconds": 5,
+        "meanConfidence": 4
+      }
+    }
+  ],
+  "benchmarkDecision": {
+    "configured": true,
+    "targetCandidate": "anonymous-e",
+    "comparatorCandidates": ["anonymous-b"],
+    "passed": true,
+    "issues": []
+  }
+}

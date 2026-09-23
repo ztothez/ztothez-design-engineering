@@ -60,13 +60,29 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.ok(tools.tools.some((tool) => tool.name === "get_usability_evaluation"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_heuristic_review"));
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
+    assert.ok(tools.tools.some((tool) => tool.name === "get_design_engineering_model"));
+    assert.ok(tools.tools.some((tool) => tool.name === "get_compiled_authority"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
+    assert.ok(tools.tools.some((tool) => tool.name === "evaluate_knowledge_quality"));
+    assert.ok(tools.tools.some((tool) => tool.name === "qualify_source_removal"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_design_intelligence"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_design_deliverable"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_product_design_brief"));
     assert.ok(tools.tools.some((tool) => tool.name === "compile_design_plan"));
+    assert.ok(tools.tools.some((tool) => tool.name === "reconcile_design_plan"));
+    assert.ok(tools.tools.some((tool) => tool.name === "retrieve_design_decision_rules"));
+    assert.ok(tools.tools.some((tool) => tool.name === "export_design_handoff"));
+    const handoff = await client.callTool({
+      name: "export_design_handoff",
+      arguments: { briefFile: resolve(process.cwd(), "knowledge-base", "design-intelligence", "product-design-brief.template.yaml") },
+    });
+    const handoffOutput = handoff.structuredContent as { version?: unknown; integrity?: { algorithm?: unknown }; stages?: unknown[] } | undefined;
+    assert.equal(handoff.isError, undefined);
+    assert.equal(handoffOutput?.version, "1.0");
+    assert.equal(handoffOutput?.integrity?.algorithm, "sha256");
+    assert.equal(handoffOutput?.stages?.length, 7);
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
     assert.ok(tools.tools.some((tool) => tool.name === "list_portfolio_projects"));
     assert.ok(tools.tools.some((tool) => tool.name === "get_portfolio_benchmark_report"));
@@ -110,6 +126,48 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(noMatchReport?.status, "no-match");
     assert.deepEqual(noMatchReport?.results, []);
 
+    const shadowModel = await client.callTool({
+      name: "get_design_engineering_model",
+      arguments: {},
+    });
+    const shadowModelSummary = shadowModel.structuredContent as
+      | {
+          lifecycle?: unknown;
+          cutoverStatus?: unknown;
+          validationStatus?: unknown;
+          entityCount?: unknown;
+          findingCount?: unknown;
+        }
+      | undefined;
+    assert.equal(shadowModel.isError, undefined);
+    assert.equal(shadowModelSummary?.lifecycle, "shadow");
+    assert.equal(shadowModelSummary?.cutoverStatus, "not-authoritative-until-v5-item-8");
+    assert.equal(shadowModelSummary?.validationStatus, "pass");
+    assert.equal(shadowModelSummary?.entityCount, 20);
+    assert.equal(shadowModelSummary?.findingCount, 0);
+
+    const compiledAuthority = await client.callTool({
+      name: "get_compiled_authority",
+      arguments: {},
+    });
+    const compiledAuthoritySummary = compiledAuthority.structuredContent as
+      | {
+          lifecycle?: unknown;
+          validationStatus?: unknown;
+          admittedFileCount?: unknown;
+          retrievalFileCount?: unknown;
+          exactReadFileCount?: unknown;
+          ruleCount?: unknown;
+        }
+      | undefined;
+    assert.equal(compiledAuthority.isError, undefined);
+    assert.equal(compiledAuthoritySummary?.lifecycle, "shadow");
+    assert.equal(compiledAuthoritySummary?.validationStatus, "pass");
+    assert.equal(compiledAuthoritySummary?.admittedFileCount, 142);
+    assert.equal(compiledAuthoritySummary?.retrievalFileCount, 25);
+    assert.equal(compiledAuthoritySummary?.exactReadFileCount, 24);
+    assert.equal(compiledAuthoritySummary?.ruleCount, 251);
+
     const corpus = await client.callTool({
       name: "evaluate_corpus_benchmark",
       arguments: {},
@@ -122,6 +180,18 @@ test("MCP exposes the repository auditor with structured output", async () => {
     assert.equal(corpusReport?.overallScore, 1);
     assert.equal(corpusReport?.caseResults?.length, 13);
     assert.equal(corpusReport?.dimensions?.length, 5);
+
+    const sourceRemoval = await client.callTool({
+      name: "qualify_source_removal",
+      arguments: {},
+    });
+    const sourceRemovalReport = sourceRemoval.structuredContent as
+      | { passed?: unknown; privateSourcesUsed?: unknown; queryResults?: unknown[] }
+      | undefined;
+    assert.equal(sourceRemoval.isError, undefined);
+    assert.equal(sourceRemovalReport?.passed, true);
+    assert.equal(sourceRemovalReport?.privateSourcesUsed, false);
+    assert.equal(sourceRemovalReport?.queryResults?.length, 7);
 
     const deniedCorpusTraversal = await client.callTool({
       name: "evaluate_corpus_benchmark",

@@ -1,0 +1,126 @@
+version: "1.0"
+id: v5-knowledge-quality
+description: V5 benchmark proving maintained knowledge, compiled rules, conflict precedence, supersession records, retrieval gaps, and shadow-model task parity remain coherent without private source fallback.
+thresholds:
+  overallMinimumScore: 1
+  dimensions:
+    source-quality:
+      minimumScore: 1
+    retrieval-quality:
+      minimumScore: 1
+    rule-quality:
+      minimumScore: 1
+    product-outcome:
+      minimumScore: 1
+sources:
+  - id: v5-roadmap
+    title: V5 roadmap requirements
+    evidence: V5-ROADMAP.md
+    owner: ZtotheZ
+    status: owner-authored
+  - id: compiled-authority
+    title: Deterministic compiled authority
+    evidence: model/compiled-authority.json
+    owner: ZtotheZ
+    status: compiled-authority
+  - id: public-boundary
+    title: Public knowledge boundary
+    evidence: governance/public-knowledge-boundary.json
+    owner: ZtotheZ
+    status: admitted-public
+cases:
+  - id: retrieve-operational-answer-flow
+    kind: retrieval
+    dimension: retrieval-quality
+    source: compiled-authority
+    rationale: Operational dashboard questions must resolve to maintained information hierarchy guidance.
+    query: "what changed impact why what next verify operational answer flow"
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/information-design.md
+      maxRank: 3
+  - id: unsupported-private-source-gap
+    kind: retrieval
+    dimension: retrieval-quality
+    source: v5-roadmap
+    rationale: Unsupported private or unknown-source queries must return an explicit gap instead of archive fallback.
+    query: "private archived raw source exact paragraph unavailable zxqv"
+    categories: [architecture]
+    expected:
+      status: no-match
+  - id: core-rule-provenance
+    kind: rule-provenance
+    dimension: rule-quality
+    source: compiled-authority
+    rationale: Core design-engineering rules must keep categories, model links, and source IDs after authority compilation.
+    ruleIds:
+      - ZTDE-A11Y-001
+      - ZTDE-ARCH-001
+      - ZTDE-DESIGN-001
+      - ZTDE-INFO-001
+      - ZTDE-TRUST-001
+      - ZTDE-SLOP-001
+    expected:
+      categories:
+        - accessibility
+        - architecture
+        - design-token-validation
+        - information-design-validation
+        - interface-trust-validation
+        - anti-slop-validation
+      modelLinks:
+        - ZTDE-MODEL-A11Y-001
+      requireSourceIds: true
+      forbidPrivateFallback: true
+  - id: accessibility-over-visual-polish
+    kind: conflict
+    dimension: rule-quality
+    source: v5-roadmap
+    rationale: Visual polish must not override accessibility when contrast, focus, target, or motion behavior is at risk.
+    conflictId: ZTDE-MODEL-CONFLICT-001
+    expected:
+      higherPriorityEntity: ZTDE-MODEL-A11Y-001
+      lowerPriorityEntity: ZTDE-MODEL-VISUAL-001
+      resolutionIncludes: [browser runtime gate, operability]
+      evidenceClasses: [official-standard, automated-verification]
+  - id: removed-architecture-source-superseded
+    kind: supersession
+    dimension: source-quality
+    source: public-boundary
+    rationale: Raw architecture material removed from the public tree must stay non-admitted and point to admitted maintained replacements.
+    removedArtifactIndex: 0
+    expected:
+      replacementPaths:
+        - knowledge-base/maintained/architecture/MASTER.md
+        - knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md
+      removedFromCurrentTree: true
+      removedFromRetrieval: true
+      removedFromPackage: true
+      removedFromAdmission: true
+  - id: operational-dashboard-model-parity
+    kind: model-parity
+    dimension: product-outcome
+    source: compiled-authority
+    rationale: The shadow model must preserve the operational dashboard production workflow before any model cutover.
+    traceId: ZTDE-MODEL-TRACE-001
+    expected:
+      orderedEntities:
+        - ZTDE-MODEL-ARCHETYPE-001
+        - ZTDE-MODEL-TASK-001
+        - ZTDE-MODEL-STATE-001
+        - ZTDE-MODEL-INFO-001
+        - ZTDE-MODEL-COMPONENT-001
+        - ZTDE-MODEL-TOKEN-001
+        - ZTDE-MODEL-A11Y-001
+      verificationRefs:
+        - ZTDE-MODEL-VERIFY-001
+        - ZTDE-MODEL-VERIFY-002
+        - ZTDE-MODEL-VERIFY-003
+      retrievalPaths:
+        - knowledge-base/design-intelligence/interface-trust.md
+        - knowledge-base/design-intelligence/information-design.md
+        - knowledge-base/maintained/architecture/component-boundaries.md
+        - knowledge-base/benchmarks/aegisops/interaction-product-contract.yaml
+        - knowledge-base/benchmarks/azure-optimizer/interaction-product-contract.yaml
+        - knowledge-base/benchmarks/scenestart/interaction-product-contract.yaml

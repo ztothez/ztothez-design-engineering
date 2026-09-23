@@ -28,6 +28,26 @@ async function main(): Promise<void> {
     process.exitCode = await runCompilePlanCli(argumentsList.slice(1));
     return;
   }
+  if (argumentsList[0] === "reconcile-plan") {
+    const { runReconcilePlanCli } = await import("./reconcile-plan.js");
+    process.exitCode = await runReconcilePlanCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "retrieve-rules") {
+    const { runRetrieveRulesCli } = await import("./retrieve-rules.js");
+    process.exitCode = await runRetrieveRulesCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "export-handoff") {
+    const { runExportHandoffCli } = await import("./export-handoff.js");
+    process.exitCode = await runExportHandoffCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "shadow-evaluate") {
+    const { runShadowEvaluateCli } = await import("./shadow-evaluate.js");
+    process.exitCode = await runShadowEvaluateCli(argumentsList.slice(1));
+    return;
+  }
   if (argumentsList[0] === "generate-react") {
     const { runGenerateReactCli } = await import("./generate-react.js");
     process.exitCode = await runGenerateReactCli(argumentsList.slice(1));
@@ -51,6 +71,31 @@ async function main(): Promise<void> {
   if (argumentsList[0] === "qualify-v4") {
     const { runQualifyV4Cli } = await import("./qualify-v4.js");
     process.exitCode = await runQualifyV4Cli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "validate-model") {
+    const { runValidateModelCli } = await import("./validate-model.js");
+    process.exitCode = await runValidateModelCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "compile-authority") {
+    const { runCompileAuthorityCli } = await import("./compile-authority.js");
+    process.exitCode = await runCompileAuthorityCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "validate-public-content") {
+    const { runValidatePublicContentCli } = await import("./validate-public-content.js");
+    process.exitCode = await runValidatePublicContentCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "evaluate-knowledge-quality") {
+    const { runEvaluateKnowledgeQualityCli } = await import("./evaluate-knowledge-quality.js");
+    process.exitCode = await runEvaluateKnowledgeQualityCli(argumentsList.slice(1));
+    return;
+  }
+  if (argumentsList[0] === "qualify-source-removal") {
+    const { runQualifySourceRemovalCli } = await import("./qualify-source-removal.js");
+    process.exitCode = await runQualifySourceRemovalCli(argumentsList.slice(1));
     return;
   }
   if (process.argv.includes("--help") || process.argv.includes("-h")) {

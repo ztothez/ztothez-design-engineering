@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ztothez.dev/schemas/public-content-policy.schema.json",
+  "title": "ZtotheZ Public Content Policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "id",
+    "authority",
+    "reviewedBy",
+    "reviewedAt",
+    "policy",
+    "approvedPublicRoots",
+    "approvedRootFiles",
+    "blockedPathPrefixes",
+    "evidenceRules",
+    "consentedAttributionLabels",
+    "anonymousLabelPattern"
+  ],
+  "properties": {
+    "version": { "const": "1.0" },
+    "id": { "type": "string", "minLength": 1 },
+    "authority": { "const": "SKILL.md" },
+    "reviewedBy": { "type": "string", "minLength": 1 },
+    "reviewedAt": { "type": "string", "format": "date-time" },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scanTrackedFiles", "failClosedOnUnclassifiedEvidence", "redactFindings"],
+      "properties": {
+        "scanTrackedFiles": { "type": "boolean" },
+        "failClosedOnUnclassifiedEvidence": { "type": "boolean" },
+        "redactFindings": { "type": "boolean" }
+      }
+    },
+    "approvedPublicRoots": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "/$" },
+      "uniqueItems": true
+    },
+    "approvedRootFiles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "blockedPathPrefixes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "/$" },
+      "uniqueItems": true
+    },
+    "evidenceRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "pathPrefix",
+          "privacyClassification",
+          "publicationDecision",
+          "allowedAttribution",
+          "personalDataReviewed"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "pathPrefix": { "type": "string", "pattern": "/$" },
+          "privacyClassification": { "type": "string", "minLength": 1 },
+          "publicationDecision": { "enum": ["approved-public", "private-only", "blocked"] },
+          "allowedAttribution": { "type": "string", "minLength": 1 },
+          "personalDataReviewed": { "type": "boolean" }
+        }
+      }
+    },
+    "consentedAttributionLabels": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "anonymousLabelPattern": { "type": "string", "minLength": 1 }
+  }
+}

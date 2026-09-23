@@ -19,6 +19,32 @@ const benchmarkDirectory = resolve(
   "aegisops",
 );
 
+const agentWorkbenchDirectory = resolve(
+  process.cwd(),
+  "knowledge-base",
+  "benchmarks",
+  "agent-workbench",
+);
+
+test("agent workbench product contract defines source-only agent tasks and recovery", async () => {
+  const report = await validateProductContract(join(agentWorkbenchDirectory, "product-contract.yaml"), {
+    projectRoot: process.cwd(),
+  });
+  assert.equal(report.passed, true, JSON.stringify(report.issues, null, 2));
+  assert.deepEqual(report.counts, {
+    actors: 2,
+    modes: 3,
+    acceptanceCriteria: 8,
+    journeyProfiles: 1,
+    journeys: 1,
+  });
+  assert.equal(report.taskModel.status, "ready");
+  assert.equal(report.taskModel.archetype, "utility");
+  assert.equal(report.taskModel.primaryTasks, 1);
+  assert.equal(report.taskModel.recoveryTasks, 3);
+  assert.equal(report.taskModel.narrowViewportTasks, 0);
+});
+
 test("AegisOPS benchmark product contract is internally consistent", async () => {
   const report = await validateProductContract(join(benchmarkDirectory, "product-contract.yaml"), {
     projectRoot: process.cwd(),

@@ -1,0 +1,77 @@
+version: "1.0"
+id: v5-source-removal-qualification
+description: Verifies that admitted maintained knowledge can answer representative architecture, Figma, product-pattern, usability, visual-polish, provenance, and gap queries after non-admitted references are absent.
+authority: SKILL.md
+requirements:
+  admittedPublicKnowledgeOnly: true
+  privateSourcesAreFallbacks: false
+  documentBoundaryRetainedForRollback: true
+  limitationsRemainSeparate: true
+expectedArchiveSmoke:
+  isolatedWorkspace: true
+  referenceArchivesPresent: false
+  requiredStages:
+    - publicKnowledgeBoundary
+    - shadowDesignModel
+    - compiledAuthority
+    - build
+    - typecheck
+    - regressionSuite
+    - mcpAndRetrieval
+    - corpus
+    - fixtureQualityGate
+queryCases:
+  - id: architecture-component-boundaries
+    queryClass: architecture
+    query: "component responsibility coupling boundaries state rendering domain policy"
+    categories: [architecture]
+    expected:
+      status: matches
+      path: knowledge-base/maintained/architecture/component-boundaries.md
+      maxRank: 3
+  - id: figma-production-structure
+    queryClass: figma
+    query: "Figma auto layout variants component library production export readiness"
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/figma-production.md
+      maxRank: 3
+  - id: product-pattern-operational-dashboard
+    queryClass: product-pattern
+    query: "operational dashboard metrics filters records exceptions recovery workflow"
+    categories: [ux-patterns]
+    expected:
+      status: matches
+      path: knowledge-base/maintained/product-patterns/operational-dashboards.md
+      maxRank: 3
+  - id: usability-heuristic-evaluation
+    queryClass: usability
+    query: "heuristic evaluation observation severity confidence remediation validation method"
+    categories: [usability-evaluation]
+    expected:
+      status: matches
+      path: knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md
+      maxRank: 3
+  - id: visual-polish-density-rhythm
+    queryClass: visual-polish
+    query: "visual polish density rhythm spacing contrast chart composition"
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/visual-polish.md
+      maxRank: 3
+  - id: provenance-licensing-boundary
+    queryClass: provenance
+    query: "asset licensing provenance generated media source disclosure redistribution"
+    categories: [design-intelligence]
+    expected:
+      status: matches
+      path: knowledge-base/design-intelligence/licensing-and-provenance.md
+      maxRank: 3
+  - id: unsupported-reference-gap
+    queryClass: gap
+    query: "unavailable private appendix exact legacy paragraph zxqv"
+    categories: [architecture]
+    expected:
+      status: no-match

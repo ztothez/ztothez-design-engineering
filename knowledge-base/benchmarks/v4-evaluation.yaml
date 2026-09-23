@@ -6,10 +6,9 @@ requiredViewports:
   - { width: 1024, height: 768 }
   - { width: 1440, height: 1000 }
 calibration:
-  report: evidence/interface-quality/azure-v2-review/review.completed.report.json
+  report: knowledge-base/benchmarks/interface-quality/evidence/v4-calibration-report.json
   qualitativeSources:
-    - evidence/interface-quality/azure-v2-review/qualitative/visual-review-01.md
-    - evidence/interface-quality/azure-v2-review/qualitative/visual-reviews-02-10.md
+    - knowledge-base/benchmarks/interface-quality/evidence/v4-qualitative-calibration.md
 ruleFixtures:
   positive: knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-positive.json
   negative: knowledge-base/benchmarks/v4-rule-fixtures/task-bound-interaction-negative.json

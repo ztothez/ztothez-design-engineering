@@ -1,0 +1,1324 @@
+{
+  "version": "1.0",
+  "authority": "SKILL.md",
+  "scope": "public-repository-knowledge-boundary",
+  "policy": {
+    "publicKnowledgeMustEqualAdmissionManifest": true,
+    "removedSourcesCannotBeRuntimeFallbacks": true,
+    "privateArchiveLocationsAreNotPublished": true,
+    "historyRewriteRequiresSeparateApproval": true,
+    "tagsAndReleasesRequireSeparateApproval": true
+  },
+  "currentBoundary": {
+    "admittedManifest": "governance/knowledge-admission.json",
+    "admittedFileCount": 142,
+    "packageKnowledgeFileCount": 142,
+    "retrievalAuthority": "knowledge-base/retrieval-scope.yaml"
+  },
+  "removedArtifacts": [
+    {
+      "id": "ztde-removed-fe825d03c27f795f",
+      "previousPath": "knowledge-base/architecture/ATAM.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "61f570c9eec9e154c56b99aaeb3e15c7ebcd5fc12ad3369baa00492df3df40d0"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-a69030665cca1e2c",
+      "previousPath": "knowledge-base/architecture/DOOS_2 updated.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "74e331b7821fff5df058a0b5575a0421628ad17e6b86b2b92740e000bf98577d"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-b99e8382db43960b",
+      "previousPath": "knowledge-base/architecture/Evaluation.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "62bdc55c892d7a5eb118f556541d37c06114949a658b95b405159acbc1f50769"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-99736ed2c6d2ee0b",
+      "previousPath": "knowledge-base/architecture/Master_Digital_Product_UIX_Architecture_Handbook.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "7e7cd7c351804a8f072a2a4f1a318137d19b61ab8387d33ae54c48333e7761fc"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-c8f7c8bc04c8ac2d",
+      "previousPath": "knowledge-base/architecture/ProductPlatforms.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "5e6c62fac934105fcf3822e50a4f7d667988abc1ba02c532410ca89dbd63059c"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-3da6ba6a17054e80",
+      "previousPath": "knowledge-base/architecture/SDA Components and Interfaces.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "88b4e54c9b42776630f821e0f5e2534f83840d784854db43631d89b5b065cc80"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-7b4719f384ad5652",
+      "previousPath": "knowledge-base/architecture/SDA1.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "92bf453dd510a6078b1efa5f8547752391b4d4e5e908e610b6a824f1fd7e3051"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-d8f9aeeb65fa7bb9",
+      "previousPath": "knowledge-base/architecture/SDA10.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "b977d620726d8309b516a874c2bfda9a2463fe0121d63a53d2589f71cb2b48a5"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-f0ba4342252a7ae0",
+      "previousPath": "knowledge-base/architecture/SDA11.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "ebe8d69b3b43d774818775a5c74c796a554ecb2391e4047bf767a7b8e8071544"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-5f23815e0a240928",
+      "previousPath": "knowledge-base/architecture/SDA12.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "a49740675d210db82607b837e2a87efdeca6b98363c433df92645c9c8042eb1d"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-d9c5aa0c10ad7567",
+      "previousPath": "knowledge-base/architecture/SDA2.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "b019292e4d10b70db9dd5d0c99b86631be9e9868185a0ff6fee3655716d74587"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-9abbd7d627a3a8a1",
+      "previousPath": "knowledge-base/architecture/SDA3.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "9ede6d092a75fb43a31aa61182d420669df0ac92a209ef963d1cc71d63525efe"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-3a5a3b5072261a37",
+      "previousPath": "knowledge-base/architecture/SDA4.1.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "f8dbaa249ba0698b3832898876e11121625cfa07f5d4c69b7f0f56641ff04c5f"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-69fa2fa26dc047fc",
+      "previousPath": "knowledge-base/architecture/SDA4.2.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "65ab260595ea1b37387075f01fbf3b916dfc2f9e19bc44f498be1cc1a587a266"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-6270db42430d9013",
+      "previousPath": "knowledge-base/architecture/SDA5.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "42a8a0e2700080617b5399db993dd21a4e9867e89d4b5c9e132f69f8ba6c112f"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-9378d48b7d5b26d4",
+      "previousPath": "knowledge-base/architecture/SDA6.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "1ecd463a63b22c52bbda3be0fb243f216b609b157d12cfd69fbd2442aa7f3d2f"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-c9d28696b574d6bb",
+      "previousPath": "knowledge-base/architecture/SDA7.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "199cbc503d96d781d9296d419388d2b7ba5343baf4886cf1a28d42004150a9e7"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-8b39123ba5524787",
+      "previousPath": "knowledge-base/architecture/SDA8.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "85fc3e51447699adaea34b1ae8593e424fe74cb2e819b13a31274b69338cd321"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-dec91fdca082b75b",
+      "previousPath": "knowledge-base/architecture/SDA9.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "4c4bbb015aad978acac893ff91656a59b094bc268c5a2685145edc63e740dcee"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-6bc6832308f757a7",
+      "previousPath": "knowledge-base/architecture/SDA_Architecture.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "25458fe9eae77a844110f9fa3003f0c76e01927f49ff83ec1385ba57b561dd7b"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-e0c092dabf6ad705",
+      "previousPath": "knowledge-base/architecture/SDA_Architecture2.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "c123dabaef162b4d53c247c2d889a04180a809c3095d5c701e5d949fb7c329d8"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-3fa732eb34178708",
+      "previousPath": "knowledge-base/architecture/SDA_DP_set1.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "414f5d40adaf71d9df351a985cb5899635e96c0620800aad39b8fd4339156b5f"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-404a3af35b9c5a7c",
+      "previousPath": "knowledge-base/architecture/SDA_DP_set2.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "781379baa003a5fba3d20c3693930ccdbd04863343388d83fd17cf512f45e68e"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-8dd59deb1cb90d22",
+      "previousPath": "knowledge-base/architecture/SDA_DP_set3.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "826a77ee7f919dd067f98f881f42ceb335fe9c70c87da953596d448c8b7a5d1a"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-6c9148a7bc17a27b",
+      "previousPath": "knowledge-base/architecture/SDA_Packages and Cohesion.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "adefa8c774684d71c6d076ebdb67851884f4f7f6e88637d45124fea8a9ce901c"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-38e74792e656d2c7",
+      "previousPath": "knowledge-base/architecture/SDA_Packages and Coupling.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "421a949ef7ed91725662e5203c11b6d62af5ceb09a54b81aa034d6b059d8bc27"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-6c89b66f2496b59d",
+      "previousPath": "knowledge-base/architecture/SDA_whatisdesign.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "eb776be5282c32cdd4caebd025f379680d8e92216cb3f2ced133c068140945cf"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-a884407567bf83da",
+      "previousPath": "knowledge-base/architecture/Styles1.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "d582f9632024515148a5957cdc335078dd5eaad16c34eae9521c72da66bfe949"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-7de97fed2471a546",
+      "previousPath": "knowledge-base/architecture/Styles2.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "207be803a3c10b868b78109f76f60655ac15e135d02dd9bd22fecb336db38a1c"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-40ae72f3688fcffd",
+      "previousPath": "knowledge-base/architecture/Styles3.md",
+      "category": "raw-architecture-source",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "d7c31771eb7dd7c80323c30e1ff44eef2887370dc924b2782fcd7ee3575ebb93"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/architecture/MASTER.md",
+        "knowledge-base/maintained/architecture/component-boundaries.md",
+        "knowledge-base/maintained/architecture/product-platforms.md",
+        "knowledge-base/maintained/architecture/quality-attributes-and-evaluation.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-65ac32ff44733a7a",
+      "previousPath": "knowledge-base/figma-and-systems/AI_Design_Skill_Research_Handbook.md",
+      "category": "superseded-figma-research",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "a4e5f349c7a0eae3920453aa7903e05da878331c9d846affc8056be3a056b01f"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/design-intelligence/figma-production.md",
+        "knowledge-base/design-intelligence/design-plan.md",
+        "knowledge-base/design-intelligence/design-deliverable.schema.yaml"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-4ade2c5712347fc5",
+      "previousPath": "knowledge-base/figma-and-systems/ZtotheZ_AI_Product_Design_SKILL.md",
+      "category": "superseded-figma-research",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "f9671d6bcaff53f877c442f14884436b213429af91f2314ac0f73df080cadde4"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/design-intelligence/figma-production.md",
+        "knowledge-base/design-intelligence/design-plan.md",
+        "knowledge-base/design-intelligence/design-deliverable.schema.yaml"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-563e2eec4079263c",
+      "previousPath": "knowledge-base/legacy-sources/design-system/ENTERPRISE_READINESS.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "c105b06de45e1a85b7c7b781b4f0f70b866ac53611b7a324fe15fb294d90093b"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-256703458fe6ccb9",
+      "previousPath": "knowledge-base/legacy-sources/design-system/MASTER.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "22059d7fbf7ff305cbfea201ec2e3ff81d9d03bff590c48a48cc72c11c60a04a"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-cf686caa9841cf4c",
+      "previousPath": "knowledge-base/legacy-sources/design-system/ai-workspace-patterns/MASTER.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "de931d4c1a7e7e119b0b342695adb6fb23ac1908e5f67a3f561ab281fac32078"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-d2f2f0a95e3a6ad0",
+      "previousPath": "knowledge-base/legacy-sources/design-system/ai-workspace-patterns/UX-FOUNDATIONS.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "7a74b29ced40255087d480cd4f516d1c41fdbf4f1c9cc6df7cdf8b2763de541f"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-59a4008dee210f89",
+      "previousPath": "knowledge-base/legacy-sources/design-system/ai-workspace-patterns/pages/agent.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "b1f1150255bf52a82bd44686cda7bb7810500b8fef0e596b35cfcb86a9ab4b3e"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-c54c3d1e74a5c9b8",
+      "previousPath": "knowledge-base/legacy-sources/design-system/ai-workspace-patterns/pages/analyze.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "239f587ff8be1fb1328b758f1c73e8ede3e3c27ebb9307af2b4cc4dde685c2b6"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-0564d6d7b8754b25",
+      "previousPath": "knowledge-base/legacy-sources/design-system/ai-workspace-patterns/pages/landing.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "78e1fd86099d3ee168622dab57c4e67e205c3522eb769cc7deed2ed2948365bd"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-c85ed795208be658",
+      "previousPath": "knowledge-base/legacy-sources/design-system/operational-dashboard-patterns/MASTER.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "68ec3de580749919a31b6e43a9ec45d3b39270160c7625bd3300b12e7669ffec"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-6e3f425939c748b4",
+      "previousPath": "knowledge-base/legacy-sources/design-system/operational-dashboard-patterns/pages/document-conversion.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "b864d618d6680355d1dbebb6b08bd4ae65e632ee90dbb0f736d0e0dfcc9f059c"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-205bfc197f117931",
+      "previousPath": "knowledge-base/legacy-sources/design-system/operational-dashboard-patterns/pages/media-processing.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "22da970013565a5453da4788a450a94e2a344562cd1eaacfafa32375c2681547"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-e6e693250b6be744",
+      "previousPath": "knowledge-base/legacy-sources/design-system/operational-dashboard-patterns/pages/period-records.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "1b4cd75d4557ef3d585eb015cbd231e93ba03fc4609d7b8fbee738f7bd06e08b"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-526de453159c0328",
+      "previousPath": "knowledge-base/legacy-sources/design-system/operational-dashboard-patterns/pages/pipeline-tracker.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "438677cdfb3cee4740a019e0f01bd5bd64a4d3544283fa74a261332553874c50"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-0ee547d0e0564a3c",
+      "previousPath": "knowledge-base/legacy-sources/design-system/operational-dashboard-patterns/pages/repayment-tracker.md",
+      "category": "legacy-source-tree",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "4ef317d7ffeff92b8f0f0a3ca8619e41fd5082c1c330223a20ffd51aa5183b1e"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/maintained/product-patterns/ai-workspaces.md",
+        "knowledge-base/maintained/product-patterns/operational-dashboards.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    },
+    {
+      "id": "ztde-removed-282136dbaaf83422",
+      "previousPath": "knowledge-base/ux-patterns/web-curator-tool-software-architecture-document.md",
+      "category": "superseded-ux-reference",
+      "preRemovalContentDigest": {
+        "algorithm": "sha256",
+        "value": "30f0a589f74dd06e0ab843b8ab324b8b738cbb3e358df44fd5c027b6989c2764"
+      },
+      "disposition": "remove-from-public-tree",
+      "publicDistributionDecision": "prohibited",
+      "packageDecision": "prohibited",
+      "retrievalDecision": "prohibited",
+      "admissionDecision": "not-admitted",
+      "privateArchiveStatus": "owner-confirmed-private-backup-outside-repository",
+      "maintainedReplacementPaths": [
+        "knowledge-base/usability-evaluation/HEURISTIC_EVALUATION.md",
+        "knowledge-base/design-intelligence/information-design.md"
+      ],
+      "ownerReviewedBy": "ZtotheZ",
+      "ownerReviewedAt": "2026-08-31T00:00:00+03:00",
+      "removalEvidence": {
+        "currentTreeAbsent": true,
+        "removalCommit": "2d77beb",
+        "historicalGitObjectDecision": "separate-owner-approval-required",
+        "tagAndReleaseDecision": "separate-owner-approval-required"
+      }
+    }
+  ]
+}

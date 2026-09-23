@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { lstat, readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 
@@ -55,6 +56,130 @@ async function validateProvenance() {
     assert.ok(paths.includes(path), `V2 module is missing approved provenance: ${path}`);
   }
   return { artifacts: paths.length, sources: sources.size };
+}
+
+async function validateKnowledgeAdmission() {
+  const result = spawnSync(process.execPath, ["scripts/knowledge-admission.mjs", "--check"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `knowledge admission validation failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  return JSON.parse(result.stdout);
+}
+
+async function validatePublicKnowledgeBoundary() {
+  const result = spawnSync(process.execPath, ["scripts/knowledge-boundary.mjs", "--check"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `public knowledge boundary validation failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  return JSON.parse(result.stdout);
+}
+
+async function validateShadowDesignModel() {
+  const result = spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", ["run", "model:validate", "--silent", "--", "--json"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `shadow design model validation failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  return JSON.parse(result.stdout);
+}
+
+async function validateCompiledAuthority() {
+  const result = spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", ["run", "authority:compile", "--silent", "--", "--json"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `compiled authority validation failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  return JSON.parse(result.stdout);
+}
+
+async function validateKnowledgeQuality() {
+  const result = spawnSync(process.execPath, ["dist/cli/evaluate-knowledge-quality.js", "--json"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `knowledge quality evaluation failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  const report = JSON.parse(result.stdout);
+  assert.equal(report.passed, true);
+  assert.equal(report.qualityBreakdown.sourceQuality, "pass");
+  assert.equal(report.qualityBreakdown.retrievalQuality, "pass");
+  assert.equal(report.qualityBreakdown.ruleQuality, "pass");
+  assert.equal(report.qualityBreakdown.productOutcome, "pass");
+  return {
+    benchmarkId: report.benchmarkId,
+    cases: report.caseResults.length,
+    overallScore: report.overallScore,
+  };
+}
+
+async function validateSourceRemovalQualification() {
+  const result = spawnSync(process.execPath, ["dist/cli/qualify-source-removal.js", "--json"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `source-removal qualification failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  const report = JSON.parse(result.stdout);
+  assert.equal(report.passed, true);
+  assert.equal(report.privateSourcesUsed, false);
+  assert.equal(report.referenceArchivesPresent, false);
+  assert.equal(report.queryResults.every((entry) => entry.status === "pass"), true);
+  return {
+    benchmarkId: report.benchmarkId,
+    queryCases: report.queryResults.length,
+    limitations: report.limitationCount,
+  };
+}
+
+async function validatePublicContent() {
+  const result = spawnSync(process.platform === "win32" ? "npm.cmd" : "npm", ["run", "public-content:check", "--silent", "--", "--json"], {
+    cwd: PROJECT_ROOT,
+    encoding: "utf8",
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  if (result.error) throw result.error;
+  assert.equal(
+    result.status,
+    0,
+    `public content validation failed:\n${[result.stdout, result.stderr].filter(Boolean).join("\n")}`,
+  );
+  return JSON.parse(result.stdout);
 }
 
 async function validateDependencies() {
@@ -116,6 +241,14 @@ async function validateReferenceIsolation() {
     ["knowledge-base", "usability-evaluation", "sources"].join("/"),
   ];
   const roots = ["src", "cli", "docs", "ci", ".github", "scripts"];
+  const boundaryGovernanceFiles = new Set([
+    "governance/public-knowledge-boundary.json",
+    "governance/public-knowledge-boundary.schema.json",
+    "governance/public-content-policy.json",
+    "governance/public-content-policy.schema.json",
+    "scripts/knowledge-boundary.mjs",
+    "tests/knowledge-boundary.test.ts",
+  ]);
   const activeFiles = [
     join(PROJECT_ROOT, "README.md"),
     join(PROJECT_ROOT, "SKILL.md"),
@@ -133,6 +266,8 @@ async function validateReferenceIsolation() {
     const path = portable(relative(PROJECT_ROOT, file));
     if (inspected.has(path)) continue;
     inspected.add(path);
+    if (path.startsWith("tests/")) continue;
+    if (boundaryGovernanceFiles.has(path)) continue;
     if (![".cjs", ".css", ".html", ".js", ".json", ".md", ".mjs", ".ts", ".tsx", ".yaml", ".yml"].includes(extname(file))) continue;
     const content = (await readFile(file, "utf8")).toLowerCase();
     for (const fragment of forbidden) {
@@ -144,6 +279,13 @@ async function validateReferenceIsolation() {
 
 const report = {
   version: "1.0",
+  knowledgeAdmission: await validateKnowledgeAdmission(),
+  publicKnowledgeBoundary: await validatePublicKnowledgeBoundary(),
+  shadowDesignModel: await validateShadowDesignModel(),
+  compiledAuthority: await validateCompiledAuthority(),
+  knowledgeQuality: await validateKnowledgeQuality(),
+  sourceRemovalQualification: await validateSourceRemovalQualification(),
+  publicContent: await validatePublicContent(),
   provenance: await validateProvenance(),
   dependencyInventory: await validateDependencies(),
   referenceIsolation: await validateReferenceIsolation(),

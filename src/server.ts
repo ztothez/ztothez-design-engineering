@@ -33,11 +33,25 @@ import { comparisonReportSchema } from "./comparison/schema.js";
 import { evaluateCorpusBenchmark } from "./corpus/evaluator.js";
 import { formatCorpusReport } from "./corpus/report.js";
 import { corpusReportSchema } from "./corpus/schema.js";
+import { evaluateKnowledgeQuality } from "./knowledge-quality/evaluator.js";
+import { formatKnowledgeQualityReport } from "./knowledge-quality/report.js";
+import { knowledgeQualityReportSchema } from "./knowledge-quality/schema.js";
+import { qualifySourceRemoval } from "./source-removal/evaluator.js";
+import { formatSourceRemovalQualificationReport } from "./source-removal/report.js";
+import { sourceRemovalQualificationReportSchema } from "./source-removal/schema.js";
 import { loadDesignDeliverable } from "./design-intelligence/loader.js";
 import { formatDesignDeliverableReport } from "./design-intelligence/report.js";
 import { designDeliverableReportSchema } from "./design-intelligence/schema.js";
 import { validateDesignDeliverable } from "./design-intelligence/validator.js";
 import { compileDesignPlan } from "./design-plan/compiler.js";
+import {
+  reconcileDesignPlan,
+  planReconciliationReportSchema,
+  retrieveDecisionRuleReport,
+  decisionRuleRetrievalReportSchema,
+} from "./design-plan/reconciliation.js";
+import { createHandoff, formatHandoff } from "./handoff/compiler.js";
+import { handoffSchema } from "./handoff/schema.js";
 import { formatDesignPlan } from "./design-plan/report.js";
 import { designPlanSchema } from "./design-plan/schema.js";
 import { formatQualityGateReport } from "./quality-gate/report.js";
@@ -49,7 +63,13 @@ import { formatProductBriefReport } from "./product-brief/report.js";
 import { productBriefReportSchema } from "./product-brief/schema.js";
 import { validateProductDesignBrief } from "./product-brief/validator.js";
 import { listPortfolioProjectsForMcp, readPortfolioReportForMcp } from "./portfolio/mcp.js";
+import { loadCompiledAuthority } from "./authority/loader.js";
+import { formatAuthorityCompilationReport } from "./authority/report.js";
+import type { CompiledAuthority } from "./authority/schema.js";
 import { formatKnowledgeSearchReport } from "./retrieval/report.js";
+import { loadDesignEngineeringModel } from "./model/loader.js";
+import { formatModelValidationReport } from "./model/report.js";
+import { validateDesignEngineeringModel } from "./model/validator.js";
 import {
   knowledgeSearchInputSchema,
   knowledgeSearchReportSchema,
@@ -80,6 +100,8 @@ import {
 import { formatRuntimeReport } from "./runtime/report.js";
 import { validateRuntimeUrl } from "./runtime/policy.js";
 import { verifyUiRuntime } from "./runtime/verifier.js";
+import { evaluateShadowCutover } from "./shadow/evaluator.js";
+import { shadowEvaluationSchema } from "./shadow/schema.js";
 
 const MAX_FILE_BYTES = 2 * 1024 * 1024;
 const MODULE_DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -119,17 +141,30 @@ const PROJECT_ROOT = resolveProjectRoot();
 const KNOWLEDGE_BASE_ROOT = join(PROJECT_ROOT, "knowledge-base");
 const BENCHMARK_ROOT = join(KNOWLEDGE_BASE_ROOT, "benchmarks");
 const CORPUS_ROOT = join(BENCHMARK_ROOT, "corpus");
+const KNOWLEDGE_QUALITY_ROOT = join(BENCHMARK_ROOT, "knowledge-quality");
+const SOURCE_REMOVAL_ROOT = join(BENCHMARK_ROOT, "source-removal");
 const DESIGN_INTELLIGENCE_ROOT = join(KNOWLEDGE_BASE_ROOT, "design-intelligence");
 const RETRIEVAL_SCOPE_PATH = join(KNOWLEDGE_BASE_ROOT, "retrieval-scope.yaml");
 let knowledgeIndexPromise: Promise<KnowledgeIndex> | undefined;
+let compiledAuthorityPromise: Promise<CompiledAuthority> | undefined;
 
-function getKnowledgeIndex(): Promise<KnowledgeIndex> {
-  knowledgeIndexPromise ??= buildKnowledgeIndex(PROJECT_ROOT, RETRIEVAL_SCOPE_PATH).catch(
+function getCompiledAuthority(): Promise<CompiledAuthority> {
+  compiledAuthorityPromise ??= loadCompiledAuthority("model/compiled-authority.json", PROJECT_ROOT).catch(
     (error: unknown) => {
-      knowledgeIndexPromise = undefined;
+      compiledAuthorityPromise = undefined;
       throw error;
     },
   );
+  return compiledAuthorityPromise;
+}
+
+async function getKnowledgeIndex(): Promise<KnowledgeIndex> {
+  knowledgeIndexPromise ??= getCompiledAuthority()
+    .then((authority) => buildKnowledgeIndex(PROJECT_ROOT, RETRIEVAL_SCOPE_PATH, authority))
+    .catch((error: unknown) => {
+      knowledgeIndexPromise = undefined;
+      throw error;
+    });
   return knowledgeIndexPromise;
 }
 
@@ -213,9 +248,20 @@ async function listMarkdownFiles(
 
 async function readKnowledgeArea(area: KnowledgeArea, requestedFile?: string): Promise<string> {
   const baseDirectory = await realpath(area.directory);
+  const compiledAuthority = await getCompiledAuthority();
+  const exactReadPaths = new Set(compiledAuthority.knowledge.exactReadDocuments.map((document) => document.path));
+  const exactFilesInArea = compiledAuthority.knowledge.exactReadDocuments
+    .map((document) => {
+      const absolutePath = resolve(PROJECT_ROOT, document.path);
+      if (!isPathContained(baseDirectory, absolutePath)) return undefined;
+      if (isExcludedKnowledgePath(area, baseDirectory, absolutePath)) return undefined;
+      return relative(baseDirectory, absolutePath).split(sep).join("/");
+    })
+    .filter((file): file is string => file !== undefined)
+    .sort((left, right) => left.localeCompare(right));
 
   if (requestedFile === undefined) {
-    const files = await listMarkdownFiles({ ...area, directory: baseDirectory });
+    const files = exactFilesInArea;
     const listing = files.length > 0 ? files.map((file) => `- ${file}`).join("\n") : "- No Markdown files found.";
 
     return `Available files in ${area.label}:\n${listing}`;
@@ -265,6 +311,9 @@ async function readKnowledgeArea(area: KnowledgeArea, requestedFile?: string): P
 
   const content = await readFile(resolvedFile, "utf8");
   const sourcePath = relative(PROJECT_ROOT, resolvedFile).split(sep).join("/");
+  if (!exactReadPaths.has(sourcePath)) {
+    throw new Error("The requested file is outside the compiled authority exact-read boundary");
+  }
   return `Source: ${sourcePath}\n\n${content}`;
 }
 
@@ -310,6 +359,52 @@ async function resolveCorpusManifest(requestedFile: string): Promise<string> {
   const fileStats = await stat(resolvedFile);
   if (!fileStats.isFile() || fileStats.size > MAX_FILE_BYTES) {
     throw new Error("The requested corpus manifest is unavailable or exceeds the file-size limit");
+  }
+  return resolvedFile;
+}
+
+async function resolveKnowledgeQualityManifest(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0") || isAbsolute(requestedFile)) {
+    throw new Error("Provide a path relative to the maintained knowledge-quality benchmark directory");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Knowledge-quality manifests must end in .json, .yaml, or .yml");
+  }
+  const benchmarkRoot = await realpath(KNOWLEDGE_QUALITY_ROOT);
+  const candidate = resolve(benchmarkRoot, requestedFile);
+  if (!isPathContained(benchmarkRoot, candidate)) {
+    throw new Error("The requested knowledge-quality manifest is outside the maintained benchmark directory");
+  }
+  const resolvedFile = await realpath(candidate);
+  if (!isPathContained(benchmarkRoot, resolvedFile)) {
+    throw new Error("The requested knowledge-quality manifest resolves outside the maintained benchmark directory");
+  }
+  const fileStats = await stat(resolvedFile);
+  if (!fileStats.isFile() || fileStats.size > MAX_FILE_BYTES) {
+    throw new Error("The requested knowledge-quality manifest is unavailable or exceeds the file-size limit");
+  }
+  return resolvedFile;
+}
+
+async function resolveSourceRemovalManifest(requestedFile: string): Promise<string> {
+  if (requestedFile.includes("\0") || isAbsolute(requestedFile)) {
+    throw new Error("Provide a path relative to the maintained source-removal benchmark directory");
+  }
+  if (!/\.(?:json|ya?ml)$/i.test(requestedFile)) {
+    throw new Error("Source-removal manifests must end in .json, .yaml, or .yml");
+  }
+  const benchmarkRoot = await realpath(SOURCE_REMOVAL_ROOT);
+  const candidate = resolve(benchmarkRoot, requestedFile);
+  if (!isPathContained(benchmarkRoot, candidate)) {
+    throw new Error("The requested source-removal manifest is outside the maintained benchmark directory");
+  }
+  const resolvedFile = await realpath(candidate);
+  if (!isPathContained(benchmarkRoot, resolvedFile)) {
+    throw new Error("The requested source-removal manifest resolves outside the maintained benchmark directory");
+  }
+  const fileStats = await stat(resolvedFile);
+  if (!fileStats.isFile() || fileStats.size > MAX_FILE_BYTES) {
+    throw new Error("The requested source-removal manifest is unavailable or exceeds the file-size limit");
   }
   return resolvedFile;
 }
@@ -839,6 +934,176 @@ server.registerTool(
 );
 
 server.registerTool(
+  "get_design_engineering_model",
+  {
+    title: "Get shadow design engineering model",
+    description:
+      "Returns the V5 shadow ZtotheZ design-engineering model or its validation report. The model is project-owned structured authority-in-progress, remains non-authoritative until V5 qualification, and never reads private research or removed sources.",
+    inputSchema: {
+      view: z
+        .enum(["summary", "validation", "full"])
+        .default("summary")
+        .describe("Return a compact summary, the validation report, or the full shadow model."),
+    },
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ view }) => {
+    try {
+      const model = await loadDesignEngineeringModel(
+        "model/ztothez-design-engineering-model.json",
+        PROJECT_ROOT,
+      );
+      const report = await validateDesignEngineeringModel(model, PROJECT_ROOT);
+      const summary = {
+        version: model.version,
+        product: model.product,
+        authority: model.authority,
+        lifecycle: model.lifecycle,
+        cutoverStatus: model.cutoverStatus,
+        entityCount: report.entityCount,
+        relationshipCount: report.relationshipCount,
+        conflictCount: report.conflictCount,
+        decisionTraceCount: report.decisionTraceCount,
+        categoryCoverage: report.categoryCoverage,
+        validationStatus: report.status,
+        findingCount: report.findingCount,
+      };
+      const structuredContent =
+        view === "full" ? { summary, model, validation: report } :
+          view === "validation" ? report :
+            summary;
+      const text =
+        view === "full" ? JSON.stringify(structuredContent, null, 2) :
+          view === "validation" ? formatModelValidationReport(report) :
+            [
+              "# ZtotheZ Design Engineering Model",
+              "",
+              `- Version: ${summary.version}`,
+              `- Lifecycle: ${summary.lifecycle}`,
+              `- Cutover: ${summary.cutoverStatus}`,
+              `- Validation: ${summary.validationStatus}`,
+              `- Entities: ${summary.entityCount}`,
+              `- Relationships: ${summary.relationshipCount}`,
+              `- Conflicts: ${summary.conflictCount}`,
+              `- Decision traces: ${summary.decisionTraceCount}`,
+              "",
+              "This model is in shadow mode. `SKILL.md` remains the workflow authority until V5 cutover evidence is accepted.",
+            ].join("\n");
+
+      return {
+        content: [{ type: "text" as const, text }],
+        structuredContent,
+        ...(report.status === "pass" ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[get_design_engineering_model] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "get_compiled_authority",
+  {
+    title: "Get compiled authority boundary",
+    description:
+      "Returns the V5 compiled authority summary or validation report binding admitted knowledge, retrieval scope, shadow model, and ZTDE rule registry. The artifact is deterministic, shadow-only, and excludes private sources.",
+    inputSchema: {
+      view: z
+        .enum(["summary", "validation", "full"])
+        .default("summary")
+        .describe("Return a compact summary, the validation report, or the full compiled authority artifact."),
+    },
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ view }) => {
+    try {
+      const authority = await getCompiledAuthority();
+      const report = {
+        version: "1.0" as const,
+        status: "pass" as const,
+        compilerVersion: authority.compilerVersion,
+        authorityPath: authority.authority,
+        lifecycle: authority.lifecycle,
+        admittedFileCount: authority.knowledge.admittedFileCount,
+        retrievalFileCount: authority.knowledge.retrievalFileCount,
+        exactReadFileCount: authority.knowledge.exactReadDocuments.length,
+        modelEntityCount: authority.model.entityCount,
+        ruleCount: authority.ruleRegistry.ruleCount,
+        payloadSha256: authority.integrity.payloadSha256,
+        findingCount: 0,
+        findings: [],
+      };
+      const summary = {
+        version: authority.version,
+        compilerVersion: authority.compilerVersion,
+        authority: authority.authority,
+        lifecycle: authority.lifecycle,
+        cutoverStatus: authority.cutoverStatus,
+        admittedFileCount: authority.knowledge.admittedFileCount,
+        retrievalFileCount: authority.knowledge.retrievalFileCount,
+        exactReadFileCount: authority.knowledge.exactReadDocuments.length,
+        modelEntityCount: authority.model.entityCount,
+        ruleCount: authority.ruleRegistry.ruleCount,
+        payloadSha256: authority.integrity.payloadSha256,
+        validationStatus: report.status,
+        findingCount: report.findingCount,
+      };
+      const structuredContent =
+        view === "full" ? { summary, authority, validation: report } :
+          view === "validation" ? report :
+            summary;
+      const text =
+        view === "full" ? JSON.stringify(structuredContent, null, 2) :
+          view === "validation" ? formatAuthorityCompilationReport(report) :
+            [
+              "# ZtotheZ Compiled Authority",
+              "",
+              `- Compiler: ${summary.compilerVersion}`,
+              `- Lifecycle: ${summary.lifecycle}`,
+              `- Cutover: ${summary.cutoverStatus}`,
+              `- Validation: ${summary.validationStatus}`,
+              `- Admitted files: ${summary.admittedFileCount}`,
+              `- Retrieval files: ${summary.retrievalFileCount}`,
+              `- Exact-read files: ${summary.exactReadFileCount}`,
+              `- Model entities: ${summary.modelEntityCount}`,
+              `- Registered rules: ${summary.ruleCount}`,
+              `- Payload SHA-256: ${summary.payloadSha256}`,
+              "",
+              "This artifact binds public knowledge, retrieval, exact reads, the shadow model, and rule identities without private-source fallback.",
+            ].join("\n");
+
+      return {
+        content: [{ type: "text" as const, text }],
+        structuredContent,
+        ...(report.status === "pass" ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[get_compiled_authority] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
   "evaluate_corpus_benchmark",
   {
     title: "Evaluate corpus benchmark",
@@ -873,6 +1138,92 @@ server.registerTool(
     } catch (error) {
       const message = errorMessage(error);
       console.error(`[evaluate_corpus_benchmark] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "evaluate_knowledge_quality",
+  {
+    title: "Evaluate knowledge quality",
+    description:
+      "Runs the maintained V5 knowledge-quality benchmark for source quality, retrieval quality, rule provenance, conflict precedence, supersession, and shadow-model parity. Returns separated dimension scores and an explicit pass or fail decision.",
+    inputSchema: {
+      manifest: z
+        .string()
+        .trim()
+        .min(1)
+        .max(512)
+        .optional()
+        .describe("Path relative to knowledge-base/benchmarks/knowledge-quality. Defaults to knowledge-quality.yaml."),
+    },
+    outputSchema: knowledgeQualityReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ manifest }) => {
+    try {
+      const manifestPath = await resolveKnowledgeQualityManifest(manifest ?? "knowledge-quality.yaml");
+      const report = await evaluateKnowledgeQuality(manifestPath, PROJECT_ROOT);
+      return {
+        content: [{ type: "text" as const, text: formatKnowledgeQualityReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[evaluate_knowledge_quality] ${message}`);
+      return {
+        isError: true,
+        content: [{ type: "text" as const, text: message }],
+      };
+    }
+  },
+);
+
+server.registerTool(
+  "qualify_source_removal",
+  {
+    title: "Qualify source removal",
+    description:
+      "Runs the maintained V5 source-removal qualification for admitted public knowledge, representative query coverage, explicit gaps, and rollback-boundary evidence.",
+    inputSchema: {
+      manifest: z
+        .string()
+        .trim()
+        .min(1)
+        .max(512)
+        .optional()
+        .describe("Path relative to knowledge-base/benchmarks/source-removal. Defaults to source-removal-qualification.yaml."),
+    },
+    outputSchema: sourceRemovalQualificationReportSchema.shape,
+    annotations: {
+      readOnlyHint: true,
+      destructiveHint: false,
+      idempotentHint: true,
+      openWorldHint: false,
+    },
+  },
+  async ({ manifest }) => {
+    try {
+      const manifestPath = await resolveSourceRemovalManifest(manifest ?? "source-removal-qualification.yaml");
+      const report = await qualifySourceRemoval(manifestPath, PROJECT_ROOT);
+      return {
+        content: [{ type: "text" as const, text: formatSourceRemovalQualificationReport(report) }],
+        structuredContent: report,
+        ...(report.passed ? {} : { isError: true }),
+      };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[qualify_source_removal] ${message}`);
       return {
         isError: true,
         content: [{ type: "text" as const, text: message }],
@@ -1075,6 +1426,116 @@ server.registerTool(
         isError: true,
         content: [{ type: "text" as const, text: message }],
       };
+    }
+  },
+);
+
+server.registerTool(
+  "reconcile_design_plan",
+  {
+    title: "Reconcile design plan decision rules",
+    description:
+      "Reconciles a validated product brief and compiled design plan with root-owned decision rules. Returns staged readiness, selecting signals, obligations, required states, measurable floors, anti-patterns, proof methods, and explicit limitations. This is read-only and does not claim rendered or human evidence.",
+    inputSchema: {
+      briefFile: z.string().trim().min(1).max(4_096).describe("Absolute path or configured-root-relative product design brief."),
+    },
+    outputSchema: planReconciliationReportSchema.shape,
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ briefFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedProductDesignBrief(briefFile);
+      const roots = await configuredProductBriefRoots();
+      const projectRoot = roots.find((root) => isPathContained(root, resolvedFile));
+      if (!projectRoot) throw new Error("The product design brief has no configured compilation root");
+      const brief = await loadProductDesignBrief(resolvedFile);
+      const plan = await compileDesignPlan(brief, { briefSourcePath: resolvedFile, projectRoot });
+      const report = reconcileDesignPlan(brief, plan);
+      return { content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }], structuredContent: report, ...(report.status === "blocked" ? { isError: true } : {}) };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[reconcile_design_plan] ${message}`);
+      return { isError: true, content: [{ type: "text" as const, text: message }] };
+    }
+  },
+);
+
+server.registerTool(
+  "retrieve_design_decision_rules",
+  {
+    title: "Retrieve design decision rules",
+    description:
+      "Retrieves only root-owned decision rules selected by a validated product brief. Returns selecting signals, confidence, obligations, required states, measurable floors, anti-patterns, proof methods, source references, and explicit no-match limitations.",
+    inputSchema: {
+      briefFile: z.string().trim().min(1).max(4_096).describe("Absolute path or configured-root-relative product design brief."),
+    },
+    outputSchema: decisionRuleRetrievalReportSchema.shape,
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ briefFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedProductDesignBrief(briefFile);
+      const report = retrieveDecisionRuleReport(await loadProductDesignBrief(resolvedFile));
+      return { content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }], structuredContent: report };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[retrieve_design_decision_rules] ${message}`);
+      return { isError: true, content: [{ type: "text" as const, text: message }] };
+    }
+  },
+);
+
+server.registerTool(
+  "export_design_handoff",
+  {
+    title: "Export design handoff",
+    description: "Creates a deterministic, checksummed handoff containing the validated brief reference, compiled plan status, selected rules, open risks, and next actions. It never embeds private source content or human attestations.",
+    inputSchema: { briefFile: z.string().trim().min(1).max(4_096).describe("Absolute path or configured-root-relative product design brief.") },
+    outputSchema: handoffSchema.shape,
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ briefFile }) => {
+    try {
+      const resolvedFile = await resolveAllowedProductDesignBrief(briefFile);
+      const roots = await configuredProductBriefRoots();
+      const projectRoot = roots.find((root) => isPathContained(root, resolvedFile));
+      if (!projectRoot) throw new Error("The product design brief has no configured compilation root");
+      const brief = await loadProductDesignBrief(resolvedFile);
+      const plan = await compileDesignPlan(brief, { briefSourcePath: resolvedFile, projectRoot });
+      const handoff = createHandoff(brief, plan, reconcileDesignPlan(brief, plan));
+      return { content: [{ type: "text" as const, text: formatHandoff(handoff) }], structuredContent: handoff, ...(handoff.status === "blocked" ? { isError: true } : {}) };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[export_design_handoff] ${message}`);
+      return { isError: true, content: [{ type: "text" as const, text: message }] };
+    }
+  },
+);
+
+server.registerTool(
+  "evaluate_shadow_cutover",
+  {
+    title: "Evaluate shadow cutover",
+    description:
+      "Runs the local V6 shadow comparison against retained V4 qualification and evaluation reports plus an authorized holdout. It qualifies parity without activating V6 authority; V5 remains authoritative until separately approved by the owner.",
+    inputSchema: {
+      pilotQualification: z.string().trim().min(1).max(512).default("v4-pilots/qualification-report.json"),
+      pilotEvaluation: z.string().trim().min(1).max(512).default("v4-pilots/evaluation-report.json"),
+      holdout: z.string().trim().min(1).max(512).default(".ztothez-design-benchmarks/runs/v3-holdout-20260830-r6/report.json"),
+    },
+    outputSchema: shadowEvaluationSchema.shape,
+    annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+  },
+  async ({ pilotQualification, pilotEvaluation, holdout }) => {
+    try {
+      const runtimeRoot = resolve(process.env.ZTOTHEZ_DESIGN_RUNTIME_ROOT?.trim() || join(PROJECT_ROOT, ".ztothez-design-runtime"));
+      const holdoutRoot = resolve(process.env.ZTOTHEZ_DESIGN_HOLDOUT_ROOT?.trim() || PROJECT_ROOT);
+      const report = await evaluateShadowCutover({ runtimeRoot, holdoutRoot, pilotQualification, pilotEvaluation, holdout });
+      return { content: [{ type: "text" as const, text: JSON.stringify(report, null, 2) }], structuredContent: report };
+    } catch (error) {
+      const message = errorMessage(error);
+      console.error(`[evaluate_shadow_cutover] ${message}`);
+      return { isError: true, content: [{ type: "text" as const, text: message }] };
     }
   },
 );

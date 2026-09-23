@@ -69,7 +69,32 @@ try {
   assert.match(runNode([cliPath, "repair-react", "--help"]), /Repairs only manifest-owned files/);
   assert.match(runNode([cliPath, "evaluate-v4", "--help"]), /locked holdout/);
   assert.match(runNode([cliPath, "qualify-v4", "--help"]), /retained V4/);
+  assert.match(runNode([cliPath, "validate-model", "--help"]), /shadow ZtotheZ design-engineering model/);
+  assert.match(runNode([cliPath, "compile-authority", "--help"]), /deterministic V5 compiled authority boundary/);
+  assert.match(runNode([cliPath, "validate-public-content", "--help"]), /public repository privacy validation/);
+  assert.match(runNode([cliPath, "evaluate-knowledge-quality", "--help"]), /conflict, drift, provenance, and model parity/);
+  assert.match(runNode([cliPath, "qualify-source-removal", "--help"]), /source removal using admitted public knowledge/);
   assert.match(runNode([cliPath, "portfolio", "--help"]), /portfolio snapshot --project ID/);
+  const publicContent = JSON.parse(runNode([cliPath, "validate-public-content", "--root", installedRoot, "--json"]));
+  assert.equal(publicContent.status, "pass");
+  assert.equal(publicContent.scannedMode, "filesystem");
+  const knowledgeQuality = JSON.parse(runNode([cliPath, "evaluate-knowledge-quality", "--project-root", installedRoot, "--json"]));
+  assert.equal(knowledgeQuality.passed, true);
+  assert.equal(knowledgeQuality.qualityBreakdown.sourceQuality, "pass");
+  assert.equal(knowledgeQuality.qualityBreakdown.retrievalQuality, "pass");
+  assert.equal(knowledgeQuality.qualityBreakdown.ruleQuality, "pass");
+  assert.equal(knowledgeQuality.qualityBreakdown.productOutcome, "pass");
+  const sourceRemoval = JSON.parse(runNode([cliPath, "qualify-source-removal", "--project-root", installedRoot, "--json"]));
+  assert.equal(sourceRemoval.passed, true);
+  assert.equal(sourceRemoval.privateSourcesUsed, false);
+  assert.equal(sourceRemoval.referenceArchivesPresent, false);
+  assert.equal(sourceRemoval.queryResults.every((entry) => entry.status === "pass"), true);
+  const compiledAuthority = JSON.parse(runNode([cliPath, "compile-authority", "--json"]));
+  assert.equal(compiledAuthority.status, "pass");
+  assert.equal(compiledAuthority.admittedFileCount, 142);
+  assert.equal(compiledAuthority.retrievalFileCount, 25);
+  assert.equal(compiledAuthority.exactReadFileCount, 24);
+  assert.ok(compiledAuthority.ruleCount >= 248);
   const briefCli = JSON.parse(
     runNode([
       cliPath,
@@ -195,6 +220,9 @@ try {
     assert.equal(tools.tools.some((tool) => tool.name === "generate_react"), false);
     assert.ok(tools.tools.some((tool) => tool.name === "search_design_knowledge"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_corpus_benchmark"));
+    assert.ok(tools.tools.some((tool) => tool.name === "evaluate_knowledge_quality"));
+    assert.ok(tools.tools.some((tool) => tool.name === "get_design_engineering_model"));
+    assert.ok(tools.tools.some((tool) => tool.name === "get_compiled_authority"));
     assert.ok(tools.tools.some((tool) => tool.name === "evaluate_interface_comparison"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_interface_trust"));
     assert.ok(tools.tools.some((tool) => tool.name === "validate_information_design"));
@@ -253,6 +281,26 @@ try {
     assert.equal(designManifest.structuredContent?.integration?.releaseReady, false);
     assert.equal(designManifest.structuredContent?.visualPolish?.releaseReady, false);
 
+    const shadowModel = await client.callTool({
+      name: "get_design_engineering_model",
+      arguments: {},
+    });
+    assert.equal(shadowModel.isError, undefined);
+    assert.equal(shadowModel.structuredContent?.lifecycle, "shadow");
+    assert.equal(shadowModel.structuredContent?.validationStatus, "pass");
+    assert.equal(shadowModel.structuredContent?.entityCount, 20);
+
+    const installedAuthority = await client.callTool({
+      name: "get_compiled_authority",
+      arguments: {},
+    });
+    assert.equal(installedAuthority.isError, undefined);
+    assert.equal(installedAuthority.structuredContent?.lifecycle, "shadow");
+    assert.equal(installedAuthority.structuredContent?.validationStatus, "pass");
+    assert.equal(installedAuthority.structuredContent?.admittedFileCount, 142);
+    assert.equal(installedAuthority.structuredContent?.retrievalFileCount, 25);
+    assert.equal(installedAuthority.structuredContent?.exactReadFileCount, 24);
+
     const result = await client.callTool({
       name: "search_design_knowledge",
       arguments: {
@@ -273,6 +321,22 @@ try {
     assert.equal(corpus.isError, undefined);
     assert.equal(corpus.structuredContent?.passed, true);
     assert.equal(corpus.structuredContent?.overallScore, 1);
+
+    const knowledgeQualityTool = await client.callTool({
+      name: "evaluate_knowledge_quality",
+      arguments: {},
+    });
+    assert.equal(knowledgeQualityTool.isError, undefined);
+    assert.equal(knowledgeQualityTool.structuredContent?.passed, true);
+    assert.equal(knowledgeQualityTool.structuredContent?.qualityBreakdown?.ruleQuality, "pass");
+
+    const sourceRemovalTool = await client.callTool({
+      name: "qualify_source_removal",
+      arguments: {},
+    });
+    assert.equal(sourceRemovalTool.isError, undefined);
+    assert.equal(sourceRemovalTool.structuredContent?.passed, true);
+    assert.equal(sourceRemovalTool.structuredContent?.privateSourcesUsed, false);
 
     const comparison = await client.callTool({
       name: "evaluate_interface_comparison",

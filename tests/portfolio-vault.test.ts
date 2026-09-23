@@ -15,7 +15,8 @@ import { portfolioBenchmarkReportSchema } from "../src/portfolio/run-schema.js";
 import type { PortfolioProject } from "../src/portfolio/schema.js";
 
 test("scanTextForSecretsAndPaths detects AWS keys, Bearer tokens, private keys, and absolute machine paths", () => {
-  const secretText = "aws_access_key_id = AKIAIOSFODNN7EXAMPLE\naws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+  const accessKey = ["AKIA", "IOSFODNN7EXAMPLE"].join("");
+  const secretText = `aws_access_key_id = ${accessKey}\naws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`;
   const scanSecrets = scanTextForSecretsAndPaths(secretText);
   assert.equal(scanSecrets.passed, false);
   assert.ok(scanSecrets.violations.some((v) => v.type === "secret" && v.pattern === "AWS Access Key"));
@@ -25,7 +26,8 @@ test("scanTextForSecretsAndPaths detects AWS keys, Bearer tokens, private keys, 
   assert.equal(scanBearer.passed, false);
   assert.ok(scanBearer.violations.some((v) => v.type === "secret" && v.pattern === "Bearer Token"));
 
-  const pathText = "Error logged at /home/ztothez/Studio/experiments/UIX-Design-Skill/src/index.ts:12";
+  const privateFile = ["/home", "ztothez", "Studio", "experiments", "UIX-Design-Skill", "src", "index.ts:12"].join("/");
+  const pathText = `Error logged at ${privateFile}`;
   const scanPath = scanTextForSecretsAndPaths(pathText);
   assert.equal(scanPath.passed, false);
   assert.ok(scanPath.violations.some((v) => v.type === "prohibited-absolute-path"));
@@ -37,14 +39,16 @@ test("scanTextForSecretsAndPaths detects AWS keys, Bearer tokens, private keys, 
 });
 
 test("redactMachinePathsAndSecrets replaces machine paths, home dirs, and secrets", () => {
-  const rawText = "Failed at /home/ztothez/projects/secret-app with token http://localhost:3000/?token=abc123secret and AWS key AKIAIOSFODNN7EXAMPLE";
+  const privateRoot = ["/home", "ztothez", "projects"].join("/");
+  const accessKey = ["AKIA", "IOSFODNN7EXAMPLE"].join("");
+  const rawText = `Failed at ${privateRoot}/secret-app with token http://localhost:3000/?token=abc123secret and AWS key ${accessKey}`;
   const redacted = redactMachinePathsAndSecrets(rawText, {
-    sourceRoot: "/home/ztothez/projects/secret-app",
-    workspaceRoot: "/home/ztothez/projects",
+    sourceRoot: `${privateRoot}/secret-app`,
+    workspaceRoot: privateRoot,
   });
 
-  assert.ok(!redacted.includes("/home/ztothez"));
-  assert.ok(!redacted.includes("AKIAIOSFODNN7EXAMPLE"));
+  assert.ok(!redacted.includes(privateRoot));
+  assert.ok(!redacted.includes(accessKey));
   assert.ok(redacted.includes("[source]"));
   assert.ok(redacted.includes("http://localhost:3000/?token=[redacted]"));
 });

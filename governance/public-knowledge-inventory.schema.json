@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ztothez.com/schemas/public-knowledge-inventory-v1.json",
+  "title": "ZtotheZ Public Knowledge Inventory",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "authority",
+    "boundary",
+    "trackedFileCount",
+    "packageFileCount",
+    "retrievalFileCount",
+    "entries"
+  ],
+  "properties": {
+    "version": { "const": "1.0" },
+    "authority": { "const": "SKILL.md" },
+    "boundary": { "const": "git-tracked-knowledge-base" },
+    "trackedFileCount": { "type": "integer", "minimum": 1 },
+    "packageFileCount": { "type": "integer", "minimum": 1 },
+    "retrievalFileCount": { "type": "integer", "minimum": 0 },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "path",
+        "sha256",
+        "purpose",
+        "retrievalStatus",
+        "packageStatus",
+        "publicStatus",
+        "provenanceRecord",
+        "sourceRecord",
+        "sourceOrigin",
+        "declaredOwner",
+        "licenseOrPermissionBasis",
+        "reuseBasis",
+        "transformationStatus",
+        "transformation",
+        "reviewedBy",
+        "reviewedAt",
+        "classification",
+        "disposition"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^ztde-kb-[a-f0-9]{16}$" },
+        "path": { "type": "string", "pattern": "^knowledge-base/[A-Za-z0-9._/-]+$" },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "purpose": {
+          "enum": [
+            "knowledge-governance",
+            "architecture-guidance",
+            "product-pattern-guidance",
+            "design-intelligence",
+            "usability-evaluation",
+            "product-benchmark"
+          ]
+        },
+        "retrievalStatus": { "enum": ["included", "excluded"] },
+        "packageStatus": { "const": "included" },
+        "publicStatus": { "const": "admitted" },
+        "provenanceRecord": { "type": "string", "minLength": 1 },
+        "sourceRecord": { "type": "string", "minLength": 1 },
+        "sourceOrigin": { "enum": ["original", "user-owned"] },
+        "declaredOwner": { "type": "string", "minLength": 1 },
+        "licenseOrPermissionBasis": { "type": "string", "minLength": 1 },
+        "reuseBasis": { "type": "string", "minLength": 1 },
+        "transformationStatus": {
+          "enum": ["independently-authored", "owner-evidence-normalized", "synthetic-benchmark"]
+        },
+        "transformation": { "type": "string", "minLength": 1 },
+        "reviewedBy": { "type": "string", "minLength": 1 },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "classification": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["duplicate", "superseded", "generation", "personalData", "externalSource"],
+          "properties": {
+            "duplicate": { "const": false },
+            "superseded": { "const": false },
+            "generation": { "enum": ["maintained-authored", "deterministic-generated"] },
+            "personalData": { "enum": ["none-declared", "owner-attribution"] },
+            "externalSource": { "const": false }
+          }
+        },
+        "disposition": { "const": "admit" }
+      }
+    }
+  }
+}

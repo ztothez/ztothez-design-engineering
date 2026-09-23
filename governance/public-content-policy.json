@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "id": "ztothez-public-content-policy",
+  "authority": "SKILL.md",
+  "reviewedBy": "ZtotheZ",
+  "reviewedAt": "2026-09-01T00:00:00+03:00",
+  "policy": {
+    "scanTrackedFiles": true,
+    "failClosedOnUnclassifiedEvidence": true,
+    "redactFindings": true
+  },
+  "approvedPublicRoots": [
+    ".github/",
+    "benchmarks/",
+    "ci/",
+    "cli/",
+    "docs/",
+    "dist/",
+    "governance/",
+    "knowledge-base/",
+    "model/",
+    "scripts/",
+    "src/",
+    "tests/"
+  ],
+  "approvedRootFiles": [
+    ".gitignore",
+    "AGENTS.md",
+    "LICENSE",
+    "README.md",
+    "ROADMAP.md",
+    "SKILL.md",
+    "V2-ROADMAP.md",
+    "V3-HANDOFF.md",
+    "V3-ROADMAP.md",
+    "V4-ROADMAP.md",
+    "V5-ROADMAP.md",
+    "V6-ROADMAP.md",
+    "V6-ENGINE-AUDIT.md",
+    "V6-ITEM4-AUDIT.md",
+    "V6-ITEM6-AUDIT.md",
+    "V6-ITEM7-AUDIT.md",
+    "V6-ITEM9-SECURITY-REVIEW.md",
+    "V6-ITEM10-SHADOW-QUALIFICATION.md",
+    "V7-ROADMAP.md",
+    "V7-ANTIGRAVITY-INSTRUCTIONS.md",
+    "package-lock.json",
+    "package.json",
+    "tsconfig.json",
+    "tsconfig.test.json"
+  ],
+  "blockedPathPrefixes": [
+    ".ztothez-design-local/",
+    ".ztothez-design-runtime/",
+    "DataForV5/",
+    "evidence/",
+    "ReturnReview/",
+    "older-design-data/",
+    "research/",
+    "knowledge-base/architecture/",
+    "knowledge-base/figma-and-systems/",
+    "knowledge-base/legacy-sources/",
+    "knowledge-base/ux-patterns/",
+    "knowledge-base/usability-evaluation/sources/"
+  ],
+  "evidenceRules": [
+    {
+      "id": "public-benchmark-knowledge",
+      "pathPrefix": "knowledge-base/benchmarks/",
+      "privacyClassification": "public-owner-reviewed",
+      "publicationDecision": "approved-public",
+      "allowedAttribution": "owner-or-anonymous-labels",
+      "personalDataReviewed": true
+    }
+  ],
+  "consentedAttributionLabels": [
+    "ZtotheZ"
+  ],
+  "anonymousLabelPattern": "^(anonymous|candidate|review|reviewer|participant|synthetic|maintainer|external|user|expert)[a-z0-9._ -]*$"
+}

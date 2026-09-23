@@ -1,0 +1,345 @@
+version: "1.1"
+id: agent-workbench
+name: ZtotheZ Agent Design Engineering Workbench
+status: benchmark
+purpose: >-
+  Enable an AI coding agent to turn a product brief into traceable design-engineering decisions,
+  inspect approved rules and quality evidence, recover from incomplete inputs, and export a bounded
+  handoff without treating assumptions, generated prose, or human review claims as verified facts.
+
+authority:
+  behavior: The maintained ZtotheZ CLI, MCP tools, schemas, and quality gates define executable behavior.
+  visual: The workbench has no production visual surface requirement; any optional console is only a client of the agent-facing contracts.
+  precedence:
+    - path: ../../../SKILL.md
+      role: Primary design-engineering workflow and evidence boundary.
+      authority: primary
+    - path: ../../../V5-ROADMAP.md
+      role: Provenance, authority migration, and release boundary requirements.
+      authority: supporting
+    - path: ../../../README.md
+      role: Published CLI, MCP, package, and evidence behavior summary.
+      authority: supporting
+
+actors:
+  - id: coding-agent
+    name: AI coding agent
+    goals:
+      - Establish whether a product brief is ready before generating implementation work.
+      - Retrieve decision rules and apply them to a real task without inventing authority.
+      - Inspect quality findings and produce a concrete, evidence-linked next action.
+    responsibilities:
+      - Keep user facts, project evidence, standards, and agent assumptions distinct.
+      - Report blocked, incomplete, failed, limitation, and unverified outcomes accurately.
+      - Never present agent-authored output as human review or legal clearance.
+  - id: system-owner
+    name: System owner
+    goals:
+      - Maintain one authoritative model and a safe public/package boundary.
+      - Review proposed capability changes before they become production authority.
+      - Reproduce agent results from structured inputs and retained evidence.
+    responsibilities:
+      - Approve authority changes and public release actions separately from implementation.
+      - Resolve provenance, privacy, licensing, and security blockers.
+      - Keep private research and original product sources outside runtime and package boundaries.
+
+outputs:
+  - id: brief-readiness
+    name: Product brief readiness result
+    sourceOfTruth: Maintained product brief schema and validator output.
+    requiredEvidence:
+      - Input brief digest
+      - Blocking fields and assumptions
+      - Readiness outcome
+  - id: design-plan
+    name: Traceable design plan
+    sourceOfTruth: Deterministic authority/compiler output bound to the validated brief.
+    requiredEvidence:
+      - Requirement and source references
+      - Architecture, state, token, responsive, asset, and verification decisions
+      - Open risks and downstream validation obligations
+  - id: quality-review
+    name: Evidence-centered quality review
+    sourceOfTruth: Existing audit, trust, information, runtime, acceptance, and review reports.
+    requiredEvidence:
+      - Finding severity and measured value where applicable
+      - Evidence class and confidence boundary
+      - Remediation and validation method
+  - id: agent-handoff
+    name: Agent implementation handoff
+    sourceOfTruth: Versioned structured handoff generated from current validated artifacts.
+    requiredEvidence:
+      - Brief and plan identity
+      - Selected rules and gate outcomes
+      - Open risks, limitations, and next actions
+
+modes:
+  - id: brief-to-plan
+    name: Brief to plan
+    purpose: Validate a product brief and compile it into traceable design-engineering decisions.
+    input: A maintained product design brief and approved project context.
+    outputs: [brief-readiness, design-plan]
+  - id: quality-review
+    name: Quality review
+    purpose: Inspect existing reports, classify evidence, and turn unresolved findings into bounded remediation.
+    input: A validated plan, product contract, runtime report, or retained quality-gate report.
+    outputs: [quality-review]
+  - id: handoff
+    name: Agent handoff
+    purpose: Export a deterministic implementation handoff without private sources or unsupported claims.
+    input: A validated brief, plan, selected rules, and completed applicable quality gates.
+    outputs: [agent-handoff]
+
+stateMachines:
+  - id: agent-run
+    initial: awaiting-input
+    states:
+      - id: awaiting-input
+        category: idle
+        userVisible: true
+        requirement: The agent has a declared task and source scope or reports what is missing.
+      - id: validating
+        category: loading
+        userVisible: true
+        requirement: Validation progress identifies the current contract or artifact without changing input.
+      - id: blocked
+        category: error
+        userVisible: true
+        requirement: Missing, conflicting, unsafe, or unauthorized input is named and no implementation-ready result is emitted.
+      - id: incomplete
+        category: fallback
+        userVisible: true
+        requirement: The agent reports an unsupported or unverified stage separately from an executed failure.
+      - id: ready
+        category: success
+        userVisible: true
+        requirement: Every emitted decision has a trace reference and all required gates for that stage pass.
+      - id: exported
+        category: terminal
+        userVisible: true
+        requirement: The handoff is checksum-bound to the current inputs and contains no private or unsupported content.
+    transitions:
+      - from: awaiting-input
+        to: validating
+        trigger: Receive a scoped brief, report, or handoff request
+      - from: validating
+        to: blocked
+        trigger: Required evidence is absent, conflicting, unsafe, or unauthorized
+      - from: validating
+        to: incomplete
+        trigger: A required capability or evidence source is unsupported or unverified
+      - from: validating
+        to: ready
+        trigger: Applicable validation and compilation gates pass
+      - from: ready
+        to: exported
+        trigger: A validated handoff is generated and integrity-checked
+      - from: blocked
+        to: validating
+        trigger: The owner supplies corrected evidence or requirements
+      - from: incomplete
+        to: validating
+        trigger: The owner supplies the missing capability or evidence
+
+metrics:
+  - id: brief-readiness
+    name: Brief readiness
+    definition: Whether the current brief satisfies the required evidence, task, state, and acceptance fields for planning.
+    sourceOfTruth: Product brief validator report.
+    format: status
+    evidenceRequired: true
+  - id: decision-traceability
+    name: Decision traceability
+    definition: Share of emitted plan decisions that point to a requirement, approved source, or evidence record.
+    sourceOfTruth: Compiled plan trace references.
+    format: percentage
+    evidenceRequired: true
+    range: { min: 0, max: 100 }
+  - id: unresolved-blockers
+    name: Unresolved blockers
+    definition: Count of applicable blocker findings that remain unresolved in the current run.
+    sourceOfTruth: Consolidated quality-gate report.
+    format: count
+    evidenceRequired: true
+    range: { min: 0, max: 10000 }
+  - id: evidence-integrity
+    name: Handoff evidence integrity
+    definition: Whether the exported handoff identity and referenced artifacts match their captured checksums and allowed boundary.
+    sourceOfTruth: Handoff validator and integrity manifest.
+    format: status
+    evidenceRequired: true
+
+constraints:
+  outOfScope:
+    - Acting as a general autonomous coding agent or modifying an existing product without a separate authorized workflow.
+    - Treating a local report, generated suggestion, or agent assumption as human, representative-user, legal, or licensing evidence.
+    - Running portfolio commands from MCP or exposing original project source through an agent response.
+    - Requiring a web UI, hosted account, Supabase, or remote model provider for core CLI and MCP behavior.
+  prohibitedClaims:
+    - Implementation-ready, accessible, production-ready, or compliant claims without the required applicable evidence.
+    - Human expert, representative-user, legal, licensing, or authorship claims derived from AI output.
+    - Source provenance or authority claims based only on a file being present in a directory.
+  mockData:
+    allowedEnvironments: [development, test, demo]
+    mustBeLabeled: true
+    prohibitedInProduction: true
+    fallbackDisclosure: Demo, synthetic, cached, estimated, and unverified results must retain their classification in every agent response and export.
+
+acceptanceCriteria:
+  - id: scoped-intake
+    title: Agent intake is scoped before work begins
+    severity: blocker
+    requirement: The agent identifies the task, product context, source scope, expected output, and missing high-risk information before compiling or reviewing.
+    evidence: [contract, manual-review]
+    appliesToModes: [brief-to-plan, quality-review, handoff]
+  - id: blocked-readiness
+    title: Blocked briefs cannot produce ready plans
+    severity: blocker
+    requirement: Missing required evidence, conflicting requirements, unsafe paths, or unauthorized sources produce a blocked result and do not produce an implementation-ready plan.
+    evidence: [contract, runtime]
+    appliesToModes: [brief-to-plan]
+  - id: traceable-decisions
+    title: Decisions retain their source chain
+    severity: blocker
+    requirement: Every emitted architecture, state, token, responsive, asset, and verification decision references a requirement, approved source, or evidence record.
+    evidence: [contract, runtime]
+    appliesToModes: [brief-to-plan, handoff]
+  - id: honest-evidence
+    title: Evidence classes remain distinct
+    severity: blocker
+    requirement: Automated, AI-assisted, human expert, representative-user, unverified, limitation, and failed results remain distinguishable and are never upgraded by the agent.
+    evidence: [contract, manual-review]
+    appliesToModes: [quality-review, handoff]
+  - id: actionable-findings
+    title: Findings are actionable
+    severity: blocker
+    requirement: Each material finding includes severity, observation, evidence, confidence boundary, remediation, and a validation method; unresolved severity 3 or 4 findings become acceptance candidates.
+    evidence: [contract, runtime]
+    appliesToModes: [quality-review, handoff]
+  - id: deterministic-output
+    title: Equivalent inputs produce equivalent output
+    severity: blocker
+    requirement: Re-running the same validated input with the same authority version produces the same structured decisions and stable integrity references.
+    evidence: [contract, runtime]
+    appliesToModes: [brief-to-plan, handoff]
+  - id: private-boundary
+    title: Private sources stay outside agent output
+    severity: blocker
+    requirement: Responses and exports contain no private research, original portfolio source, secrets, absolute local paths, or excluded archive content.
+    evidence: [contract, manual-review]
+    appliesToModes: [brief-to-plan, quality-review, handoff]
+  - id: recovery-and-abstention
+    title: Unsupported work ends honestly
+    severity: blocker
+    requirement: Unsupported capability, missing evidence, and executed failure are reported as limitation, unverified, or failed according to the evidence policy, with a concrete next action.
+    evidence: [contract, runtime]
+    appliesToModes: [brief-to-plan, quality-review, handoff]
+
+verification:
+  journeyFile: journeys.json
+  viewports:
+    - { name: source-only, width: 1024, height: 768 }
+  bindings:
+    - profile: source-only-qualification
+      journey: brief-review-handoff
+      actor: coding-agent
+      mode: brief-to-plan
+      acceptanceCriteria: [scoped-intake, blocked-readiness, traceable-decisions, deterministic-output, private-boundary, recovery-and-abstention]
+    - profile: source-only-qualification
+      journey: brief-review-handoff
+      actor: system-owner
+      mode: quality-review
+      acceptanceCriteria: [honest-evidence, actionable-findings, private-boundary, recovery-and-abstention]
+    - profile: source-only-qualification
+      journey: brief-review-handoff
+      actor: system-owner
+      mode: handoff
+      acceptanceCriteria: [traceable-decisions, honest-evidence, deterministic-output, private-boundary]
+
+benchmark:
+  archetype: utility
+  interface: source-only
+  qualityDimensions:
+    - id: truthful-disclosure
+      status: required
+      reason: Agent output must disclose source, evidence, uncertainty, and demo or synthetic status.
+    - id: information-design
+      status: required
+      reason: Structured results must put blockers, decisions, evidence, and next actions in a usable order.
+    - id: visual-system
+      status: not-applicable
+      reason: The core product is an MCP and CLI protocol surface; visual rendering is optional and separately tested.
+    - id: accessibility
+      status: required
+      reason: Structured output must remain parseable and semantically distinguish status, severity, and evidence classes.
+    - id: responsive-structure
+      status: not-applicable
+      reason: The core product has no browser layout contract; consumers own their presentation.
+    - id: state-integrity
+      status: required
+      reason: Blocked, incomplete, failed, limitation, and ready states must not be conflated.
+    - id: maintainability
+      status: required
+      reason: One engine, one authority path, stable schemas, and deterministic output are core product requirements.
+  evidencePolicy:
+    missingEvidence: unverified
+    failedBehavior: failed
+    unsupportedCapability: limitation
+  comparison:
+    taskContractId: agent-workbench
+    crossContractRanking: false
+  tasks:
+    - id: compile-brief
+      primary: true
+      actor: coding-agent
+      mode: brief-to-plan
+      intent: Determine whether a product brief is ready and compile a traceable design plan when it is.
+      start: { stateMachine: agent-run, state: awaiting-input, observable: A scoped brief and requested output are available to the agent. }
+      success:
+        stateMachine: agent-run
+        state: ready
+        observable: A validated brief and traceable plan are returned, or the blocked reason is explicit.
+        evidence: [contract, runtime]
+      recovery:
+        required: true
+        failure:
+          stateMachine: agent-run
+          state: blocked
+          observable: The missing, conflicting, unsafe, or unauthorized input is named.
+        observable: The agent preserves the brief context and states the exact correction needed.
+    - id: inspect-quality
+      primary: false
+      actor: system-owner
+      mode: quality-review
+      intent: Inspect findings and evidence boundaries, then identify the next remediation action.
+      start: { stateMachine: agent-run, state: awaiting-input, observable: A retained quality report or review record is selected. }
+      success:
+        stateMachine: agent-run
+        state: ready
+        observable: Findings, evidence classes, blockers, limitations, and remediation are separated.
+        evidence: [contract, runtime, manual-review]
+      recovery:
+        required: true
+        failure: { stateMachine: agent-run, state: incomplete, observable: Missing or unsupported evidence is reported without being upgraded. }
+        observable: The report remains usable and identifies the next evidence request.
+    - id: export-handoff
+      primary: false
+      actor: system-owner
+      mode: handoff
+      intent: Export a bounded implementation handoff from validated artifacts.
+      start:
+        stateMachine: agent-run
+        state: ready
+        observable: Required brief, plan, rules, and gate artifacts are validated.
+      success:
+        stateMachine: agent-run
+        state: exported
+        observable: A checksum-bound handoff is produced within the allowed public boundary.
+        evidence: [contract, export]
+      recovery:
+        required: true
+        failure:
+          stateMachine: agent-run
+          state: blocked
+          observable: The export is refused when an artifact is stale, private, or unsupported.
+        observable: The source handoff inputs remain available for correction.

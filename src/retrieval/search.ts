@@ -1,8 +1,10 @@
+import { createHash } from "node:crypto";
 import { readFile, realpath, stat } from "node:fs/promises";
 import { basename, isAbsolute, join, relative, resolve, sep } from "node:path";
 
 import { parse } from "yaml";
 
+import type { CompiledAuthority } from "../authority/schema.js";
 import {
   knowledgeSearchInputSchema,
   retrievalCategories,
@@ -255,14 +257,25 @@ async function loadScope(projectRoot: string, scopePath: string): Promise<Retrie
 export async function buildKnowledgeIndex(
   projectRoot: string,
   scopePath = join(projectRoot, "knowledge-base", "retrieval-scope.yaml"),
+  compiledAuthority?: CompiledAuthority,
 ): Promise<KnowledgeIndex> {
   const root = await realpath(projectRoot);
   const scope = await loadScope(root, scopePath);
+  const compiledRetrieval = new Map(
+    compiledAuthority?.knowledge.retrievalDocuments.map((document) => [document.path, document]),
+  );
   const documents: KnowledgeIndex["documents"] = [];
   const chunks: IndexedChunk[] = [];
 
   for (const category of retrievalCategories) {
     for (const sourcePath of scope.categories[category].files) {
+      const compiledDocument = compiledRetrieval.get(sourcePath);
+      if (compiledAuthority && !compiledDocument) {
+        throw new Error(`Retrieval source is outside the compiled authority boundary: ${sourcePath}`);
+      }
+      if (compiledDocument && compiledDocument.category !== category) {
+        throw new Error(`Retrieval source category differs from the compiled authority boundary: ${sourcePath}`);
+      }
       const candidate = resolve(root, sourcePath);
       if (!isPathContained(root, candidate)) {
         throw new Error(`Retrieval source escapes the project root: ${sourcePath}`);
@@ -276,6 +289,12 @@ export async function buildKnowledgeIndex(
         throw new Error(`Retrieval source is unavailable or exceeds the size limit: ${sourcePath}`);
       }
       const content = await readFile(resolvedSource, "utf8");
+      if (compiledDocument) {
+        const actualDigest = createHash("sha256").update(content).digest("hex");
+        if (actualDigest !== compiledDocument.sha256) {
+          throw new Error(`Retrieval source digest differs from the compiled authority boundary: ${sourcePath}`);
+        }
+      }
       documents.push({ path: sourcePath, category });
       const fallbackTitle = basename(sourcePath, ".md").replace(/[_-]+/g, " ");
       for (const section of markdownSections(content, fallbackTitle)) {

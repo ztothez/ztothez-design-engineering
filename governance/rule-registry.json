@@ -1,0 +1,4524 @@
+{
+  "authority": "SKILL.md",
+  "compilerVersion": "1.0.0",
+  "generatedAt": "deterministic-build",
+  "policy": {
+    "generatedFromCurrentPublicBoundary": true,
+    "privateSourcesAreNotRuntimeFallbacks": true,
+    "projectPolicyIsNotExternalLaw": true
+  },
+  "rules": [
+    {
+      "authorityClass": "official-requirement",
+      "category": "accessibility",
+      "evidenceClass": "official-standard",
+      "id": "ZTDE-A11Y-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "src/audit/rules/accessibility-name.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-A11Y-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "policy:ztothez-design-engineering-policy",
+        "standard:wcag-2.2"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "architecture",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-ARCH-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/corpus/corpus.yaml",
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-abstention.json",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-negative.json",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/component-size-positive.json",
+        "src/audit/rules/component-size.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-COMPONENT-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-ARCH-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-00515c30a71cfdc4",
+        "admission:ztde-kb-1d098d15b2159e1e",
+        "admission:ztde-kb-2e3fa0c5d06095d7",
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "admission:ztde-kb-3c21130405aa3bc5",
+        "admission:ztde-kb-e211c40bdce6f530",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "architecture",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-ARCH-002",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/corpus/corpus.yaml",
+        "src/audit/rules/mixed-responsibilities.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-COMPONENT-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-ARCH-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-e211c40bdce6f530",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-AUTHORITY-001",
+      "implementationLocations": [
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-AUTHORITY-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-AUTHORITY-002",
+      "implementationLocations": [
+        "src/authority/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-AUTHORITY-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-001",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-101",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-201",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-202",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-203",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-203 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-301",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-301 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-302",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-302 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-303",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-303 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-401",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-402",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-501",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-501 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-502",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-502 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-601",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-601 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-701",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-701 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-702",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-702 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-703",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-703 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-704",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-704 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-801",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-801 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-901",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-901 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "product-brief-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-BRIEF-902",
+      "implementationLocations": [
+        "src/product-brief/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-BRIEF-902 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-001",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-002",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-003",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-004",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-004 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-101",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-102",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-102 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-103",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-103 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-104",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-104 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-201",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-202",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-203",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-203 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-204",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-204 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-205",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-205 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-206",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-206 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-207",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-207 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-208",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-208 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-209",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-209 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-210",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-210 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-211",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-211 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-301",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-301 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-302",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-302 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-303",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-303 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-304",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-304 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-305",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-305 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-306",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-306 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-307",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-307 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-308",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-308 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-309",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-309 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-310",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-310 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-311",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-311 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-312",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-312 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-313",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-313 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-314",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-314 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-401",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-402",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-403",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-403 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-404",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-404 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-405",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-405 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-406",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-406 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-407",
+      "implementationLocations": [
+        "src/comparison/evaluator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-407 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "comparison-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-CMP-CALIBRATION-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/interface-quality/evidence/v4-calibration-report.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-CMP-CALIBRATION-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-9f1f146ebf764cef",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DECISION-001",
+      "implementationLocations": [
+        "src/design-plan/reconciliation.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DECISION-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DECISION-002",
+      "implementationLocations": [
+        "src/design-plan/reconciliation.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DECISION-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DECISION-003",
+      "implementationLocations": [
+        "src/design-plan/reconciliation.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DECISION-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "design-token-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DESIGN-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/corpus/corpus.yaml",
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-abstention.json",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-negative.json",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/raw-design-values-positive.json",
+        "knowledge-base/design-intelligence/repair-request.template.yaml",
+        "src/audit/rules/raw-design-values.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DESIGN-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-27708010380f710b",
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "admission:ztde-kb-3bd11f38a05e581b",
+        "admission:ztde-kb-3c21130405aa3bc5",
+        "admission:ztde-kb-6b06b26c2ccdfdee",
+        "admission:ztde-kb-a34196d51acd8d3b",
+        "admission:ztde-kb-e211c40bdce6f530",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-001",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-002",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-101",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-102",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-102 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-103",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-103 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-104",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-104 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-105",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-105 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-201",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-202",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-203",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-203 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-204",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-204 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-205",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-205 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-206",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-206 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-301",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-301 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-302",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-302 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-303",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-303 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-304",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-304 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-305",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-305 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-306",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-306 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-307",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-307 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-308",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-308 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-309",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-309 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-310",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-310 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-401",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-402",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-403",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-403 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-501",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-501 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-502",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-502 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-601",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-601 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-602",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-602 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-603",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-603 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-604",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-604 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-605",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-605 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-606",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-606 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-701",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-701 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-702",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-702 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-703",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-703 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-704",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-704 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-705",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-705 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-706",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-706 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-707",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-707 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-708",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-708 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-709",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-709 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-801",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-801 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-901",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-901 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-902",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-902 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-912",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-912 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-913",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-913 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-914",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-914 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "design-intelligence-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-DI-915",
+      "implementationLocations": [
+        "src/design-intelligence/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-DI-915 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-002",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-101",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-201",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-202",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-203",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-203 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-204",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-204 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-205",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-205 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-302",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-302 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-401",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-402",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-501",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-501 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-601",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-601 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "information-design-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-INFO-602",
+      "implementationLocations": [
+        "src/information-design/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-INFO-602 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-001",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-002",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-003",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-004",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-004 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-005",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-005 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-101",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "maintainer-review-validation",
+      "evidenceClass": "human-expert-review",
+      "id": "ZTDE-MNT-102",
+      "implementationLocations": [
+        "src/comparison/maintainer.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001",
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MNT-102 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-001",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-101",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-201",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-202",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-301",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-301 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-302",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-302 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-303",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-303 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-304",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-304 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-305",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-305 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-306",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-306 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-401",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-402",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-501",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-501 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-601",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-601 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-602",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-602 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-603",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-603 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-604",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-604 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-701",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-701 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-901",
+      "implementationLocations": [
+        "src/model/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-901 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "official-requirement",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "official-standard",
+      "id": "ZTDE-MODEL-A11Y-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-A11Y-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-20c7c49684873651",
+        "standard:wcag-2.2"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-ABSTENTION-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-ABSTENTION-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-ARCHETYPE-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ARCHETYPE-001",
+        "ZTDE-MODEL-COMPONENT-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-ARCHETYPE-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-23679d3009a8d82b",
+        "admission:ztde-kb-84405b81adf83cfa",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-ARCHETYPE-002",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ARCHETYPE-002",
+        "ZTDE-MODEL-COMPONENT-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-ARCHETYPE-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-5f2511315b7444f2",
+        "admission:ztde-kb-7e1691cc7852aa2d"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-COMPONENT-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-COMPONENT-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-COMPONENT-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-7e1691cc7852aa2d",
+        "admission:ztde-kb-d5f53820992595c5"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-CONFLICT-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-CONFLICT-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-CONFLICT-002",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-CONFLICT-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-CONFLICTPOLICY-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-CONFLICTPOLICY-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-CONFLICTPOLICY-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-20c7c49684873651",
+        "admission:ztde-kb-5f2511315b7444f2",
+        "admission:ztde-kb-a292e8d89bb08d6a"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-EVIDENCE-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-EVIDENCE-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-bf8c0751ae022e49",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-EXCEPTION-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-EXCEPTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-EXCEPTION-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-20c7c49684873651",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-INFO-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INFO-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-INFO-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-23679d3009a8d82b",
+        "admission:ztde-kb-b376e85ba8146c89"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-INTERACTION-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-INTERACTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-INTERACTION-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3c21130405aa3bc5",
+        "admission:ztde-kb-84405b81adf83cfa"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-QUALITY-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-QUALITY-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-QUALITY-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3c21130405aa3bc5",
+        "admission:ztde-kb-d5f53820992595c5",
+        "admission:ztde-kb-ee04c06045f7327a"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-001",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-002",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-003",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-004",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-004 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-005",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-005 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-006",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-006 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-007",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-007 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-008",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-008 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-009",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-009 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-010",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-010 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-011",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-011 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-012",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-012 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-relationship",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-REL-013",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-REL-013 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-STATE-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-STATE-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-5f2511315b7444f2",
+        "admission:ztde-kb-84405b81adf83cfa"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-TASK-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-TASK-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-15bdf860754f8177",
+        "admission:ztde-kb-b376e85ba8146c89",
+        "admission:ztde-kb-f1cdeff2089847ae"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-TASK-002",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TASK-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-TASK-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-7e1691cc7852aa2d",
+        "admission:ztde-kb-95b10c40a32f7188"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-TOKEN-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-TOKEN-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-TOKEN-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-546586f4c0f3e6e5",
+        "admission:ztde-kb-a292e8d89bb08d6a"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-decision-trace",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-TRACE-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-TRACE-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-decision-trace",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-TRACE-002",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-TRACE-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-VERIFY-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-VERIFY-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-VERIFY-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-15bdf860754f8177",
+        "admission:ztde-kb-84405b81adf83cfa"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-VERIFY-002",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-VERIFY-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-20c7c49684873651",
+        "admission:ztde-kb-3c21130405aa3bc5"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-VERIFY-003",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-VERIFY-003"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-VERIFY-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3c21130405aa3bc5",
+        "admission:ztde-kb-d5f53820992595c5"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-VERIFY-004",
+      "implementationLocations": [
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-VERIFY-004"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-VERIFY-004 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-bf8c0751ae022e49",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "model-entity-or-validator",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-MODEL-VISUAL-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "model/ztothez-design-engineering-model.json",
+        "src/authority/compiler.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-VISUAL-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-MODEL-VISUAL-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-20c7c49684873651",
+        "admission:ztde-kb-a292e8d89bb08d6a"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-101",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-102",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-102 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-103",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-103 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-201",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-202",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-301",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-301 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-401",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "project-policy-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-PUBLIC-402",
+      "implementationLocations": [
+        "src/public-content/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-PUBLIC-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "repository-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-REPO-001",
+      "implementationLocations": [
+        "src/audit/scanner.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-REPO-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-001",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-002",
+      "implementationLocations": [
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-003",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-004",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-004 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-005",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-005 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-006",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-006 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-007",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-007 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-008",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-008 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-009",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-009 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-010",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-010 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-011",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/advanced-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-011 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-012",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/advanced-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-012 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-013",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-013 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-014",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-014 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-015",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/advanced-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-015 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-016",
+      "implementationLocations": [
+        "src/acceptance/evaluator.ts",
+        "src/runtime/advanced-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-016 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-017",
+      "implementationLocations": [
+        "src/runtime/interface-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-017 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-018",
+      "implementationLocations": [
+        "src/runtime/interface-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-018 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-019",
+      "implementationLocations": [
+        "src/runtime/verifier.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-019 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-020",
+      "implementationLocations": [
+        "src/runtime/composition-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-020 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-021",
+      "implementationLocations": [
+        "src/runtime/composition-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-021 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "measured-evidence",
+      "category": "runtime-verification",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-RUNTIME-022",
+      "implementationLocations": [
+        "src/runtime/composition-checks.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-002"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-RUNTIME-022 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "repository-scan-boundary",
+      "evidenceClass": "automated-verification",
+      "id": "ZTDE-SCAN-001",
+      "implementationLocations": [
+        "src/audit/scanner.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-COMPONENT-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-SCAN-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "security-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-SEC-001",
+      "implementationLocations": [
+        "src/audit/rules/credential-placeholder.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001",
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-SEC-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "anti-slop-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-SLOP-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/corpus/corpus.yaml",
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "src/audit/rules/mock-production-path.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001",
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-SLOP-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "admission:ztde-kb-e211c40bdce6f530",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "anti-slop-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-SLOP-002",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/corpus/corpus.yaml",
+        "src/audit/rules/placeholder-interaction.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001",
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-SLOP-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-e211c40bdce6f530",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "anti-slop-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-SLOP-003",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/portfolio-corpus/PROMOTED-RULES.md",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-abstention.json",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-negative.json",
+        "knowledge-base/benchmarks/portfolio-corpus/rule-fixtures/interactive-integrity-positive.json",
+        "src/audit/rules/interactive-integrity.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-ABSTENTION-001",
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-SLOP-003 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3c21130405aa3bc5",
+        "admission:ztde-kb-3fe8eacd7b5b7f38",
+        "admission:ztde-kb-7657c1b6642649a1",
+        "admission:ztde-kb-e6a25b08e57cd1a9",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "project-policy",
+      "category": "state-recovery-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-STATE-001",
+      "implementationLocations": [
+        "src/audit/rules/network-state.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-STATE-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-001",
+      "implementationLocations": [
+        "knowledge-base/benchmarks/knowledge-quality/knowledge-quality.yaml",
+        "src/audit/rules/operational-claim.ts",
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-001 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "admission:ztde-kb-3b48275fd43ef6e3",
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-002",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-002 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-101",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-101 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-102",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-102 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-103",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-103 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-104",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-104 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-105",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-105 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-201",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-201 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-202",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-202 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-203",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-203 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-204",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-204 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-205",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-205 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-206",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-206 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-301",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-301 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-302",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-302 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-401",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-401 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    },
+    {
+      "authorityClass": "heuristic",
+      "category": "interface-trust-validation",
+      "evidenceClass": "owner-authored",
+      "id": "ZTDE-TRUST-402",
+      "implementationLocations": [
+        "src/interface-trust/validator.ts"
+      ],
+      "modelLinks": [
+        "ZTDE-MODEL-STATE-001"
+      ],
+      "owner": "ZtotheZ",
+      "rationale": "Stable ZTDE-TRUST-402 rule registry entry generated from maintained public source and bound to the V5 shadow model. This entry identifies where the rule is implemented or declared without making project policy an external legal or platform requirement.",
+      "sourceIds": [
+        "policy:ztothez-design-engineering-policy"
+      ]
+    }
+  ],
+  "version": "1.0"
+}

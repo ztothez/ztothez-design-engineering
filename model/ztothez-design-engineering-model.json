@@ -1,0 +1,488 @@
+{
+  "version": "1.0",
+  "product": "ZtotheZ Design Engineering",
+  "authority": "SKILL.md",
+  "lifecycle": "shadow",
+  "cutoverStatus": "not-authoritative-until-v5-item-8",
+  "policy": {
+    "markdownRemainsWorkflowAuthorityDuringMigration": true,
+    "privateSourcesAreRuntimeFallbacks": false,
+    "unsupportedRequestsProduceKnowledgeGap": true,
+    "documentOrderCannotResolveContradictions": true
+  },
+  "sourceRegistry": {
+    "admissionManifest": "governance/knowledge-admission.json",
+    "officialStandards": ["wcag-2.2"],
+    "projectPolicySources": ["ztothez-design-engineering-policy"]
+  },
+  "entities": [
+    {
+      "id": "ZTDE-MODEL-ARCHETYPE-001",
+      "category": "product-archetype",
+      "name": "Operational Decision Dashboard",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Dashboards that help operators interpret status, risk, priority, and next action from bounded product data.",
+      "rationale": "Operational UI quality depends on task state, evidence, recovery, and scanning structure before surface styling.",
+      "sourceRefs": ["admission:ztde-kb-23679d3009a8d82b", "admission:ztde-kb-84405b81adf83cfa", "policy:ztothez-design-engineering-policy"],
+      "metrics": [
+        {
+          "id": "ztde-primary-decision-visible",
+          "kind": "coverage",
+          "value": "Primary decision, risk, evidence, and next action must be represented before implementation readiness.",
+          "authorityClass": "project-policy"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-001", "ZTDE-MODEL-VERIFY-002"]
+    },
+    {
+      "id": "ZTDE-MODEL-ARCHETYPE-002",
+      "category": "product-archetype",
+      "name": "AI Workspace",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Workspaces where a user supplies input, configures generation or analysis, reviews machine output, and exports bounded evidence.",
+      "rationale": "AI workspaces need visible source boundaries, review states, provenance, and export constraints so generated output is not mistaken for verified product state.",
+      "sourceRefs": ["admission:ztde-kb-7e1691cc7852aa2d", "admission:ztde-kb-5f2511315b7444f2"],
+      "metrics": [
+        {
+          "id": "ztde-output-origin-visible",
+          "kind": "state",
+          "value": "Generated, simulated, cached, failed, and reviewed outputs must be visibly distinguishable.",
+          "authorityClass": "project-policy"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002", "ZTDE-MODEL-VERIFY-004"]
+    },
+    {
+      "id": "ZTDE-MODEL-TASK-001",
+      "category": "user-task",
+      "name": "Diagnose Operational Risk",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "product-specific",
+      "evidenceClass": "owner-authorized-product-evidence",
+      "scope": "A user identifies what is happening, what changed, why it matters, and what action should happen next.",
+      "rationale": "The benchmarked product contracts show that usable operational dashboards must support diagnosis without requiring users to infer data origin or task state.",
+      "sourceRefs": ["admission:ztde-kb-15bdf860754f8177", "admission:ztde-kb-f1cdeff2089847ae", "admission:ztde-kb-b376e85ba8146c89"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-001", "ZTDE-MODEL-VERIFY-003"]
+    },
+    {
+      "id": "ZTDE-MODEL-TASK-002",
+      "category": "user-task",
+      "name": "Continue Local Creative Workflow",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "product-specific",
+      "evidenceClass": "owner-authorized-product-evidence",
+      "scope": "A user starts a local-first project, preserves state across workflow steps, reviews assets, and exports an offline result.",
+      "rationale": "The SceneStart benchmark validates that creative tools still need product contracts, persistence, review, rights confirmation, and offline export evidence.",
+      "sourceRefs": ["admission:ztde-kb-95b10c40a32f7188", "admission:ztde-kb-7e1691cc7852aa2d"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-001", "ZTDE-MODEL-VERIFY-002"]
+    },
+    {
+      "id": "ZTDE-MODEL-STATE-001",
+      "category": "state-recovery-contract",
+      "name": "Source Boundary And Recovery State",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Live, demo, simulated, cached, offline, failed, and exported states across result, history, and download surfaces.",
+      "rationale": "Trustworthy interfaces preserve the origin and freshness of a result through the complete user journey, including failure and export.",
+      "sourceRefs": ["admission:ztde-kb-5f2511315b7444f2", "admission:ztde-kb-84405b81adf83cfa"],
+      "metrics": [
+        {
+          "id": "ztde-state-origin-preserved",
+          "kind": "coverage",
+          "value": "Every consequential output has visible source mode, freshness, and recovery behavior.",
+          "authorityClass": "project-policy"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002"]
+    },
+    {
+      "id": "ZTDE-MODEL-QUALITY-001",
+      "category": "quality-attribute",
+      "name": "Architecture Modularity",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Component boundaries, state ownership, file size, and dependency direction for generated and repaired applications.",
+      "rationale": "Maintainability is a product quality attribute. It is enforced through bounded component responsibilities and architecture checks, not visual preference.",
+      "sourceRefs": ["admission:ztde-kb-d5f53820992595c5", "admission:ztde-kb-ee04c06045f7327a", "admission:ztde-kb-3c21130405aa3bc5"],
+      "metrics": [
+        {
+          "id": "ztde-component-size-ceiling",
+          "kind": "threshold",
+          "value": "Flag bloated components and mixed responsibilities before release qualification.",
+          "authorityClass": "project-policy"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-003"]
+    },
+    {
+      "id": "ZTDE-MODEL-TOKEN-001",
+      "category": "design-token",
+      "name": "Semantic Token Contract",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Color, spacing, radius, typography, motion, and state values are exposed through named semantic tokens.",
+      "rationale": "Semantic tokens make design decisions portable and auditable while preventing hidden raw styling from drifting across generated surfaces.",
+      "sourceRefs": ["admission:ztde-kb-546586f4c0f3e6e5", "admission:ztde-kb-a292e8d89bb08d6a"],
+      "metrics": [
+        {
+          "id": "ztde-no-raw-design-values",
+          "kind": "threshold",
+          "value": "Reject raw visual constants in authored UI where a semantic token should express the decision.",
+          "authorityClass": "project-policy"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-003"]
+    },
+    {
+      "id": "ZTDE-MODEL-COMPONENT-001",
+      "category": "component-responsibility",
+      "name": "Task Workspace",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "The primary work surface that binds user task, state, source disclosure, result, recovery action, and export or handoff.",
+      "rationale": "A workspace component should own workflow presentation while domain state and data interpretation remain in explicit modules.",
+      "sourceRefs": ["admission:ztde-kb-7e1691cc7852aa2d", "admission:ztde-kb-d5f53820992595c5"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-003"]
+    },
+    {
+      "id": "ZTDE-MODEL-INFO-001",
+      "category": "information-priority",
+      "name": "Operational Answer Flow",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "What am I viewing, what changed, what is the impact, why, what next, and how do I verify.",
+      "rationale": "Information hierarchy should answer operational questions in order instead of presenting decorative metrics or disconnected cards.",
+      "sourceRefs": ["admission:ztde-kb-b376e85ba8146c89", "admission:ztde-kb-23679d3009a8d82b"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-004"]
+    },
+    {
+      "id": "ZTDE-MODEL-INTERACTION-001",
+      "category": "interaction-pattern",
+      "name": "Task-Bound Action",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Every consequential button, route, upload, save, retry, export, and drill-down is tied to declared task state and observable evidence.",
+      "rationale": "Interaction is complete only when it changes meaningful product state or reports a bounded limitation; placeholder controls are rejected.",
+      "sourceRefs": ["admission:ztde-kb-3c21130405aa3bc5", "admission:ztde-kb-84405b81adf83cfa"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002", "ZTDE-MODEL-VERIFY-003"]
+    },
+    {
+      "id": "ZTDE-MODEL-VISUAL-001",
+      "category": "visual-composition",
+      "name": "Readable Visual Rhythm",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "heuristic",
+      "evidenceClass": "ai-assisted-expert-review",
+      "scope": "Visual density, contrast hierarchy, whitespace, grouping, chart legibility, and responsive rhythm for dashboards and workspaces.",
+      "rationale": "Visual polish is treated as an auditable composition outcome with review evidence, not as a style catalog or decoration layer.",
+      "sourceRefs": ["admission:ztde-kb-a292e8d89bb08d6a", "admission:ztde-kb-20c7c49684873651"],
+      "metrics": [
+        {
+          "id": "ztde-readable-density",
+          "kind": "qualitative",
+          "value": "High-priority content remains scan-friendly without text walls or competing signals at each declared viewport.",
+          "authorityClass": "heuristic"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002", "ZTDE-MODEL-VERIFY-004"]
+    },
+    {
+      "id": "ZTDE-MODEL-A11Y-001",
+      "category": "accessibility-constraint",
+      "name": "WCAG-Oriented Operability Gate",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "official-requirement",
+      "evidenceClass": "official-standard",
+      "scope": "Keyboard operation, focus visibility, focus not obscured, reflow, text resizing, contrast, target sizing, accessible names, and reduced motion.",
+      "rationale": "Accessibility requirements must cite official authority when presented as requirements and must be verified separately from visual preference.",
+      "sourceRefs": ["standard:wcag-2.2", "admission:ztde-kb-20c7c49684873651"],
+      "metrics": [
+        {
+          "id": "ztde-wcag-22-aa-oriented",
+          "kind": "coverage",
+          "value": "Quality gates cover applicable WCAG 2.2 oriented runtime checks and disclose any unverified criterion.",
+          "authorityClass": "official-requirement"
+        }
+      ],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002"]
+    },
+    {
+      "id": "ZTDE-MODEL-EVIDENCE-001",
+      "category": "evidence-class",
+      "name": "Evidence Class Separation",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Automated evidence, AI-assisted expert review, human expert review, representative-user evidence, and owner maintenance review remain separate.",
+      "rationale": "Evidence quality cannot be upgraded by wording. Human review, representative-user testing, and automated checks answer different questions.",
+      "sourceRefs": ["admission:ztde-kb-bf8c0751ae022e49", "policy:ztothez-design-engineering-policy"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-004"]
+    },
+    {
+      "id": "ZTDE-MODEL-VERIFY-001",
+      "category": "verification-method",
+      "name": "Product Contract Validation",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "automated-verification",
+      "scope": "Validate product archetype, tasks, states, acceptance criteria, evidence methods, and benchmark references before implementation.",
+      "rationale": "A design cannot be production-grounded when the task model and acceptance evidence are missing or contradictory.",
+      "sourceRefs": ["admission:ztde-kb-84405b81adf83cfa", "admission:ztde-kb-15bdf860754f8177"],
+      "verificationRefs": []
+    },
+    {
+      "id": "ZTDE-MODEL-VERIFY-002",
+      "category": "verification-method",
+      "name": "Browser Runtime Quality Gate",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "automated-verification",
+      "scope": "Run viewport, interaction, source disclosure, accessibility, overflow, clipping, focus, motion, media, network, and journey checks against a live UI.",
+      "rationale": "Rendered behavior catches failures that static code and design prose cannot prove.",
+      "sourceRefs": ["admission:ztde-kb-3c21130405aa3bc5", "admission:ztde-kb-20c7c49684873651"],
+      "verificationRefs": []
+    },
+    {
+      "id": "ZTDE-MODEL-VERIFY-003",
+      "category": "verification-method",
+      "name": "Static Architecture Audit",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "automated-verification",
+      "scope": "Scan source for component size, raw design values, mixed responsibilities, mock production paths, placeholder interactions, and state disclosure problems.",
+      "rationale": "Architecture and anti-slop checks provide deterministic guardrails before browser evidence is available.",
+      "sourceRefs": ["admission:ztde-kb-d5f53820992595c5", "admission:ztde-kb-3c21130405aa3bc5"],
+      "verificationRefs": []
+    },
+    {
+      "id": "ZTDE-MODEL-VERIFY-004",
+      "category": "verification-method",
+      "name": "Structured Review Evaluation",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "human-expert-review",
+      "scope": "Evaluate heuristic, maintainer, human expert, and representative-user review records without substituting one evidence class for another.",
+      "rationale": "Structured review turns subjective feedback into bounded findings, severity, confidence, remediation, and validation methods.",
+      "sourceRefs": ["admission:ztde-kb-bf8c0751ae022e49", "policy:ztothez-design-engineering-policy"],
+      "verificationRefs": []
+    },
+    {
+      "id": "ZTDE-MODEL-CONFLICTPOLICY-001",
+      "category": "conflict-policy",
+      "name": "Accessibility And Truth Override Polish",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "When visual polish conflicts with accessibility, data provenance, or task success, the verified product and accessibility constraints win.",
+      "rationale": "A visually impressive interface is not acceptable when it hides source mode, breaks task completion, or becomes unreadable.",
+      "sourceRefs": ["admission:ztde-kb-5f2511315b7444f2", "admission:ztde-kb-20c7c49684873651", "admission:ztde-kb-a292e8d89bb08d6a"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002", "ZTDE-MODEL-VERIFY-004"]
+    },
+    {
+      "id": "ZTDE-MODEL-EXCEPTION-001",
+      "category": "exception-policy",
+      "name": "Narrow Evidence-Bound Runtime Exemption",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "owner-authored",
+      "scope": "Allow runtime exemptions only on the smallest owning element with separate evidence for permitted tables, code, essential motion, or sampler limitations.",
+      "rationale": "Exemptions explain valid constraints; they must not become global annotations that hide product failures.",
+      "sourceRefs": ["admission:ztde-kb-20c7c49684873651", "policy:ztothez-design-engineering-policy"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-002"]
+    },
+    {
+      "id": "ZTDE-MODEL-ABSTENTION-001",
+      "category": "abstention-policy",
+      "name": "Knowledge Gap Instead Of Private Fallback",
+      "lifecycle": "shadow",
+      "owner": "ZtotheZ",
+      "authorityClass": "project-policy",
+      "evidenceClass": "knowledge-gap",
+      "scope": "Unsupported, ungrounded, unknown-origin, private-source-only, or conflicting requests return an explicit gap instead of invented guidance.",
+      "rationale": "The system must preserve independence and credibility by refusing to fill missing authority from private archives or assumptions.",
+      "sourceRefs": ["policy:ztothez-design-engineering-policy"],
+      "verificationRefs": ["ZTDE-MODEL-VERIFY-001"]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ZTDE-MODEL-REL-001",
+      "type": "activates",
+      "from": "ZTDE-MODEL-ARCHETYPE-001",
+      "to": "ZTDE-MODEL-TASK-001",
+      "rationale": "Operational dashboards activate diagnosis as their primary task."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-002",
+      "type": "requires",
+      "from": "ZTDE-MODEL-TASK-001",
+      "to": "ZTDE-MODEL-STATE-001",
+      "rationale": "Risk diagnosis requires source and recovery state to avoid misleading decisions."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-003",
+      "type": "answers",
+      "from": "ZTDE-MODEL-INFO-001",
+      "to": "ZTDE-MODEL-TASK-001",
+      "rationale": "The answer flow structures what the diagnostic task needs to learn first."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-004",
+      "type": "implemented-by",
+      "from": "ZTDE-MODEL-TASK-001",
+      "to": "ZTDE-MODEL-COMPONENT-001",
+      "rationale": "The task workspace presents task state, outputs, actions, and evidence."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-005",
+      "type": "constrains",
+      "from": "ZTDE-MODEL-TOKEN-001",
+      "to": "ZTDE-MODEL-COMPONENT-001",
+      "rationale": "Components use semantic tokens rather than isolated raw styling."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-006",
+      "type": "verified-by",
+      "from": "ZTDE-MODEL-COMPONENT-001",
+      "to": "ZTDE-MODEL-VERIFY-002",
+      "rationale": "Rendered workflow evidence verifies the component behaves under declared viewports."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-007",
+      "type": "verified-by",
+      "from": "ZTDE-MODEL-COMPONENT-001",
+      "to": "ZTDE-MODEL-VERIFY-003",
+      "rationale": "Static checks verify architecture and anti-slop constraints before release."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-008",
+      "type": "evidenced-by",
+      "from": "ZTDE-MODEL-VERIFY-004",
+      "to": "ZTDE-MODEL-EVIDENCE-001",
+      "rationale": "Review evidence must retain its evidence class and attribution."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-009",
+      "type": "overrides",
+      "from": "ZTDE-MODEL-A11Y-001",
+      "to": "ZTDE-MODEL-VISUAL-001",
+      "rationale": "Accessibility constraints override visual choices that reduce operability."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-010",
+      "type": "overrides",
+      "from": "ZTDE-MODEL-STATE-001",
+      "to": "ZTDE-MODEL-VISUAL-001",
+      "rationale": "Truthful data-origin state overrides visual simplification."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-011",
+      "type": "allows-exception",
+      "from": "ZTDE-MODEL-EXCEPTION-001",
+      "to": "ZTDE-MODEL-A11Y-001",
+      "rationale": "Only narrow evidence-bound exceptions may modify runtime accessibility findings."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-012",
+      "type": "abstains-when",
+      "from": "ZTDE-MODEL-ABSTENTION-001",
+      "to": "ZTDE-MODEL-TASK-001",
+      "rationale": "Unsupported diagnostic tasks must return a gap instead of private fallback guidance."
+    },
+    {
+      "id": "ZTDE-MODEL-REL-013",
+      "type": "activates",
+      "from": "ZTDE-MODEL-ARCHETYPE-002",
+      "to": "ZTDE-MODEL-TASK-002",
+      "rationale": "AI workspaces activate local workflow continuation when they create or transform user artifacts."
+    }
+  ],
+  "conflicts": [
+    {
+      "id": "ZTDE-MODEL-CONFLICT-001",
+      "when": "A visual treatment improves apparent polish but reduces text contrast, focus visibility, target operability, or reduced-motion support.",
+      "higherPriorityEntity": "ZTDE-MODEL-A11Y-001",
+      "lowerPriorityEntity": "ZTDE-MODEL-VISUAL-001",
+      "resolution": "Keep or redesign the visual treatment only if the browser runtime gate and applicable review evidence preserve operability.",
+      "evidenceRequired": ["official-standard", "automated-verification"]
+    },
+    {
+      "id": "ZTDE-MODEL-CONFLICT-002",
+      "when": "A concise layout hides demo mode, data freshness, source limits, failed work, or export provenance.",
+      "higherPriorityEntity": "ZTDE-MODEL-STATE-001",
+      "lowerPriorityEntity": "ZTDE-MODEL-VISUAL-001",
+      "resolution": "Expose the source boundary and recovery state in the task flow before optimizing density.",
+      "evidenceRequired": ["automated-verification", "owner-authored"]
+    }
+  ],
+  "decisionTraces": [
+    {
+      "id": "ZTDE-MODEL-TRACE-001",
+      "taskRef": "ZTDE-MODEL-TASK-001",
+      "orderedEntityRefs": [
+        "ZTDE-MODEL-ARCHETYPE-001",
+        "ZTDE-MODEL-TASK-001",
+        "ZTDE-MODEL-STATE-001",
+        "ZTDE-MODEL-INFO-001",
+        "ZTDE-MODEL-COMPONENT-001",
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VISUAL-001",
+        "ZTDE-MODEL-VERIFY-001",
+        "ZTDE-MODEL-VERIFY-002",
+        "ZTDE-MODEL-VERIFY-003",
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "requiredVerificationRefs": ["ZTDE-MODEL-VERIFY-001", "ZTDE-MODEL-VERIFY-002", "ZTDE-MODEL-VERIFY-003"],
+      "expectedEvidenceClasses": ["automated-verification", "owner-authorized-product-evidence"]
+    },
+    {
+      "id": "ZTDE-MODEL-TRACE-002",
+      "taskRef": "ZTDE-MODEL-TASK-002",
+      "orderedEntityRefs": [
+        "ZTDE-MODEL-ARCHETYPE-002",
+        "ZTDE-MODEL-TASK-002",
+        "ZTDE-MODEL-STATE-001",
+        "ZTDE-MODEL-INFO-001",
+        "ZTDE-MODEL-COMPONENT-001",
+        "ZTDE-MODEL-TOKEN-001",
+        "ZTDE-MODEL-INTERACTION-001",
+        "ZTDE-MODEL-A11Y-001",
+        "ZTDE-MODEL-VERIFY-001",
+        "ZTDE-MODEL-VERIFY-002",
+        "ZTDE-MODEL-EVIDENCE-001"
+      ],
+      "requiredVerificationRefs": ["ZTDE-MODEL-VERIFY-001", "ZTDE-MODEL-VERIFY-002"],
+      "expectedEvidenceClasses": ["automated-verification", "owner-authorized-product-evidence", "human-expert-review"]
+    }
+  ]
+}

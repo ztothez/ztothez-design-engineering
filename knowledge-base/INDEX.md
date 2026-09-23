@@ -32,6 +32,36 @@ Version 2.0 is a pre-publication identity reset, not a compatibility alias layer
 | `provenance.yaml` | Machine-readable ownership, license, transformation, and distribution records | Auditing every shipped knowledge artifact before release |
 | `dependencies.yaml` | Direct dependency role, boundary, license, fallback, and replacement plan | Reviewing supply-chain exposure and local fallback behavior |
 
+The repository-level `governance/public-knowledge-inventory.json` binds every tracked knowledge
+file to its content digest, package and retrieval status, provenance record, ownership basis,
+transformation status, review, classification, and disposition. Validate it with
+`npm run knowledge:inventory` before changing the public knowledge surface.
+
+The repository-level `governance/knowledge-admission.json` is the V5 admission contract for
+public `knowledge-base/` artifacts. It records source identity, source evidence, permission basis,
+transformation method, package and retrieval decisions, official-standard references, and owner
+review status for every admitted knowledge file. Validate it with `npm run knowledge:admission`.
+AI agents may propose records, but they cannot mark legal review, owner authorization, human
+authorization, or consent complete.
+
+The repository-level `governance/public-knowledge-boundary.json` records the removed baseline
+public knowledge files and verifies that they remain outside Git tracking, package output, scoped
+retrieval, admission, runtime fallback, and the current filesystem. Validate it with
+`npm run knowledge:boundary` after changing public knowledge files or release packaging.
+
+The repository-level `model/ztothez-design-engineering-model.json` is the V5 shadow structured
+design-engineering model. It represents project-owned entities, relationships, conflicts,
+exceptions, decision traces, evidence classes, and verification methods without using private
+source material as runtime authority. Validate it with `npm run model:validate` or inspect it
+through `get_design_engineering_model`. During migration, it is explanatory and testable; it does
+not override `SKILL.md` until V5 cutover evidence is accepted.
+
+The repository-level `model/compiled-authority.json` and `governance/rule-registry.json` are the
+V5 deterministic compiler outputs. Validate them with `npm run authority:compile` or inspect them
+through `get_compiled_authority`. MCP document search and exact-read tools use this compiled
+boundary so unsupported questions produce explicit no-match or knowledge-gap behavior without
+falling back to private, removed, or unknown-origin files.
+
 ## Public Knowledge Boundary
 
 Only the maintained files listed above, the benchmark contracts, and the explicit retrieval,
@@ -103,8 +133,10 @@ Product benchmarks supplement the root skill with domain semantics and executabl
 - SceneStart qualified storage and import recovery boundary: `benchmarks/scenestart/interaction-product-contract.yaml` and `benchmarks/scenestart/interaction-journeys.json`.
 - SceneStart evidence boundaries, rejection examples, and calibration: `benchmarks/scenestart/acceptance-criteria.md`, `benchmarks/scenestart/anti-patterns.md`, and `benchmarks/scenestart/CALIBRATION.md`.
 - System corpus manifest, portable schema, provenance, and controlled positive and negative cases: `benchmarks/corpus/corpus.yaml`, `benchmarks/corpus/corpus.schema.yaml`, `benchmarks/corpus/PROVENANCE.md`, and `benchmarks/corpus/cases/`.
+- V5 knowledge-quality benchmark: `benchmarks/knowledge-quality/knowledge-quality.yaml`, `benchmarks/knowledge-quality/knowledge-quality.schema.yaml`, and `benchmarks/knowledge-quality/README.md`.
 - Portable anonymous comparison contracts: `benchmarks/interface-quality/comparison-methodology.schema.yaml`, `benchmarks/interface-quality/comparison-methodology-v1.1.schema.yaml`, `benchmarks/interface-quality/review.schema.yaml`, and `benchmarks/interface-quality/review-session.schema.yaml`.
 - Solo-maintainer engineering continuation rules and claim boundaries: `benchmarks/interface-quality/SOLO-MAINTAINER-TRACK.md`.
+- Public V4 visual calibration without raw reviewer identifiers: `benchmarks/interface-quality/evidence/v4-calibration-report.json` and `benchmarks/interface-quality/evidence/v4-qualitative-calibration.md`.
 - Azure V2 human and interaction review method: `benchmarks/azure-optimizer/v2-human-review-methodology.yaml`. Reviewer-facing evidence remains outside the distributable knowledge corpus under `evidence/interface-quality/azure-v2-review/`.
 - Azure Optimizer locked interaction holdout: `benchmarks/azure-optimizer/interaction-product-contract.yaml` and `benchmarks/azure-optimizer/interaction-journeys.json`.
 - Portable product-task profile, archetype activation rules, and evidence boundary: `benchmarks/portfolio-corpus/PRODUCT-TASK-CONTRACTS.md`, `benchmarks/portfolio-corpus/product-task-profile.schema.yaml`, and `benchmarks/portfolio-corpus/archetype-profiles.yaml`.
@@ -116,6 +148,20 @@ npm run evaluate-corpus
 ```
 
 The corpus reports recommendation relevance, abstention accuracy, architecture integrity, task completeness, anti-slop rejection, and recommendation mean reciprocal rank. Every case declares provenance and expected behavior. A passing corpus covers only its maintained cases and must not be presented as universal design or usability proof.
+
+Use `evaluate_knowledge_quality` after changing admitted knowledge, the V5 model, rule registry, retrieval scope, or archive-removal boundary. CLI fallback:
+
+```bash
+npm run knowledge-quality:check
+```
+
+The knowledge-quality benchmark reports source quality, retrieval quality, rule quality, and product outcome separately. It verifies conflict precedence, source supersession, rule provenance, explicit no-match behavior, and shadow-model parity without relying on private source material.
+
+### Source-Removal Qualification
+
+- `knowledge-base/benchmarks/source-removal/source-removal-qualification.yaml`
+
+Use `qualify_source_removal` through MCP when available, or `npm run source-removal:qualify` through the CLI, after changing admitted knowledge, packaging rules, retrieval scope, or public boundary records. The benchmark verifies that representative architecture, Figma, product-pattern, usability, visual-polish, provenance, and explicit-gap queries still work without non-admitted sources.
 
 Use `validate_product_contract` when MCP is available. CLI fallback:
 

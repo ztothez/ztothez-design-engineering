@@ -119,6 +119,8 @@ The release archive is checked against an explicit distribution allowlist and in
 |---|---|
 | `search_design_knowledge` | Search approved knowledge with deterministic BM25 ranking, source paths, excerpts, confidence, and explicit no-match output. |
 | `evaluate_corpus_benchmark` | Score maintained positive and negative cases for retrieval, abstention, architecture, task completeness, and anti-slop behavior. |
+| `evaluate_knowledge_quality` | Evaluate maintained knowledge for source quality, retrieval quality, rule quality, product outcome, conflicts, supersession, and model parity. |
+| `qualify_source_removal` | Qualify V5 source removal with admitted public knowledge, representative query coverage, explicit gaps, and rollback-boundary evidence. |
 | `get_architecture_spec` | List or read approved architecture guidance. |
 | `get_figma_system_rules` | List or read Figma and design-system guidance. |
 | `get_design_intelligence` | List or read maintained brand, asset, icon, presentation, licensing, and visual-accessibility modules. |
@@ -286,6 +288,58 @@ Run `npm run v4:qualification -- --pilot-evidence-root PATH` only after those br
 It retains command evidence and produces the final local qualification report under the ignored V4
 qualification directory. It does not publish, tag, or push a release.
 
+Validate the tracked public repository surface before publishing a branch or package:
+
+```bash
+npm run public-content:check
+```
+
+This gate scans tracked source in a Git workspace and packaged files in install smoke tests. It
+blocks private evidence roots, raw conversation identifiers, contact details, secret-like values,
+private machine paths, and unclassified public evidence without printing the matched sensitive
+value.
+
+Evaluate maintained knowledge quality before admitting new guidance or changing retrieval scope:
+
+```bash
+npm run knowledge-quality:check
+```
+
+This gate checks approved benchmark cases for explicit no-match behavior, rule provenance,
+conflict precedence, superseded-source handling, and shadow-model parity without reading ignored
+private archives.
+
+Qualify source removal before treating the public knowledge boundary as sufficient:
+
+```bash
+npm run source-removal:qualify
+```
+
+This gate verifies architecture, Figma, product-pattern, usability, visual-polish, provenance, and
+explicit-gap queries against admitted maintained sources. It keeps limitations separate and does not
+activate model cutover.
+
+Run the local V6 shadow comparison against retained pilot and authorized holdout evidence:
+
+```bash
+zz-design shadow-evaluate
+```
+
+This qualifies parity for the agent-facing outputs while keeping V5 authoritative. It writes the
+ignored report to `.ztothez-design-runtime/v6-shadow-cutover/` and never approves or performs a
+cutover.
+
+Prepare the local V5 owner migration packet after all V5 gates are expected to pass:
+
+```bash
+npm run v5:migration
+```
+
+This writes the ignored review packet to `.ztothez-design-runtime/v5-migration/`, including command
+logs, `migration-report.json`, `migration-report.md`, package and public-file lists, a draft release
+note, and an owner approval checklist. It does not commit, push, rewrite history, tag, publish npm,
+create a GitHub release, or deploy the website.
+
 Validate a design-intelligence deliverable:
 
 ```bash
@@ -334,9 +388,9 @@ Compile only reviewer-supplied sessions marked `complete`:
 ```bash
 npm run compile-comparison -- \
   --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-  --base-review evidence/interface-quality/azure-v2-review/review.yaml \
-  --sessions evidence/interface-quality/azure-v2-review/reviewer-packet/completed-sessions \
-  --output evidence/interface-quality/azure-v2-review/review.completed.yaml \
+  --base-review path/to/local-review.yaml \
+  --sessions path/to/local-completed-sessions \
+  --output .ztothez-design-runtime/review.completed.yaml \
   --require-release-ready
 ```
 
@@ -347,8 +401,8 @@ Assess a disclosed maintainer review without claiming independent validation:
 ```bash
 npm run assess-maintainer -- \
   --methodology knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml \
-  --review evidence/interface-quality/azure-v2-review/review.completed.yaml \
-  --output evidence/interface-quality/azure-v2-review/maintainer-assessment.json \
+  --review .ztothez-design-runtime/review.completed.yaml \
+  --output .ztothez-design-runtime/maintainer-assessment.json \
   --require-engineering-ready
 ```
 
@@ -453,6 +507,8 @@ Historical research is outside the supported workflow. It is not a runtime depen
 | `src/product-brief/` | Evidence-backed product intake and generation-readiness validation. |
 | `src/comparison/` | Anonymous comparison, claim-ledger, evidence-integrity, and release-readiness validation. |
 | `src/corpus/` | Versioned corpus loading, deterministic case evaluation, scoring, and reporting. |
+| `src/knowledge-quality/` | Source, retrieval, rule, conflict, supersession, and product-outcome evaluation. |
+| `src/source-removal/` | Archive-free source-removal qualification and representative query coverage. |
 | `src/retrieval/` | Approved-scope Markdown indexing and deterministic BM25 search. |
 | `src/quality-gate/` | Consolidated profile quality gate. |
 | `src/repair/` | Finding-bound generated-fixture repair, rollback, and before/after evidence. |
@@ -477,4 +533,4 @@ The active GitHub workflow also validates clean-room isolation, both benchmark c
 
 ## Project Status
 
-All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. Version `2.0.5` removes obsolete named reference markers from public repository tests and ignore rules, replaces them with explicit approved-path checks, and retains distribution-wide independence scanning. These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.
+All nine V1, V2, and V3 roadmap items are implemented. See [`ROADMAP.md`](ROADMAP.md), [`V2-ROADMAP.md`](V2-ROADMAP.md), [`V3-ROADMAP.md`](V3-ROADMAP.md), and [`V3-HANDOFF.md`](V3-HANDOFF.md) for their evidence boundaries. The current private V3 requalification passes against an owner-authorized 12-project corpus and remains excluded from Git and package output. V2 includes an attributable human visual comparison of five candidates; it calibrates the static visual questions asked and does not claim representative-user interaction testing. All nine V4 items are implemented and qualified, covering evidence-gated product briefs, deterministic planning, contained fixture generation, visual composition checks, bounded repair, interaction and recovery contracts, three delivery pilots, locked holdout evaluation, package installation, offline release, and clean-room independence. V5 is locally implemented through the controlled migration packet; public commit, push, history rewrite, tag, npm publish, GitHub release, and website deployment remain separate owner approvals. Version `2.0.5` removes obsolete named reference markers from public repository tests and ignore rules, replaces them with explicit approved-path checks, and retains distribution-wide independence scanning. These results do not claim representative-user or universal design validation, and publishing the package does not activate the separate website.

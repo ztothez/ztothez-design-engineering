@@ -23,6 +23,7 @@ tests/fixtures/pilots/**/vite.config.d.ts
 .ztothez-design-local/
 .ztothez-design-benchmarks/
 .ztothez-design-generated/
+.ztothez-design-source-removal/
 .ztothez-design-repair/
 .ztothez-design-repair-fixture*/
 .uix-runtime/
@@ -32,6 +33,8 @@ test-results/
 
 # Separate review site and local product runtime captures
 /ReturnReview/
+/evidence/
+/evidence/external-human-feedback.md
 /evidence/scenestart-guided-workshop/
 /evidence/scenestart-learning-persistence/
 /evidence/scenestart-release-provenance/
@@ -80,6 +83,7 @@ __pycache__/
 venv/
 
 # Local-only raw research and design inputs
+/DataForV5/
 /older-design-data/
 /Custom UI_UX Skill Prompt Generation.md
 /The-Complete-Guide-to-Building-Skill-for-Claude.pdf

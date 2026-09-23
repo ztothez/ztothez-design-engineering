@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ztothez.github.io/design-engineering/schemas/compiled-authority.schema.json",
+  "title": "ZtotheZ Compiled Authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "compilerVersion",
+    "product",
+    "authority",
+    "lifecycle",
+    "cutoverStatus",
+    "buildMetadata",
+    "policy",
+    "integrity",
+    "knowledge",
+    "model",
+    "ruleRegistry"
+  ],
+  "properties": {
+    "version": { "const": "1.0" },
+    "compilerVersion": { "const": "1.0.0" },
+    "product": { "const": "ZtotheZ Design Engineering" },
+    "authority": { "const": "SKILL.md" },
+    "lifecycle": { "const": "shadow" },
+    "cutoverStatus": { "const": "not-authoritative-until-v5-item-8" },
+    "buildMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generatedAt", "generatedBy", "privateSourcesIncluded"],
+      "properties": {
+        "generatedAt": { "const": "deterministic-build" },
+        "generatedBy": { "const": "ztothez-design compile-authority" },
+        "privateSourcesIncluded": { "const": false }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "markdownRemainsWorkflowAuthorityDuringMigration",
+        "supportingFilesCannotOverrideSkill",
+        "privateSourcesAreRuntimeFallbacks",
+        "noMatchProducesKnowledgeGap",
+        "projectPolicyIsNotExternalLaw"
+      ],
+      "properties": {
+        "markdownRemainsWorkflowAuthorityDuringMigration": { "const": true },
+        "supportingFilesCannotOverrideSkill": { "const": true },
+        "privateSourcesAreRuntimeFallbacks": { "const": false },
+        "noMatchProducesKnowledgeGap": { "const": true },
+        "projectPolicyIsNotExternalLaw": { "const": true }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "admissionSha256",
+        "modelSha256",
+        "retrievalScopeSha256",
+        "ruleRegistrySha256",
+        "payloadSha256"
+      ],
+      "properties": {
+        "admissionSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "modelSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "retrievalScopeSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "ruleRegistrySha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "payloadSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "knowledge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "admittedFileCount",
+        "retrievalFileCount",
+        "sources",
+        "retrievalDocuments",
+        "exactReadDocuments"
+      ],
+      "properties": {
+        "admittedFileCount": { "type": "integer", "minimum": 0 },
+        "retrievalFileCount": { "type": "integer", "minimum": 0 },
+        "sources": { "type": "array", "items": { "$ref": "#/$defs/source" } },
+        "retrievalDocuments": { "type": "array", "items": { "$ref": "#/$defs/document" } },
+        "exactReadDocuments": { "type": "array", "items": { "$ref": "#/$defs/document" } }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entityCount",
+        "relationshipCount",
+        "conflictCount",
+        "decisionTraceCount",
+        "entityIds"
+      ],
+      "properties": {
+        "entityCount": { "type": "integer", "minimum": 0 },
+        "relationshipCount": { "type": "integer", "minimum": 0 },
+        "conflictCount": { "type": "integer", "minimum": 0 },
+        "decisionTraceCount": { "type": "integer", "minimum": 0 },
+        "entityIds": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^ZTDE-MODEL-[A-Z0-9]+-[0-9]{3}$" }
+        }
+      }
+    },
+    "ruleRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ruleCount", "ruleIds", "sourcePaths"],
+      "properties": {
+        "ruleCount": { "type": "integer", "minimum": 1 },
+        "ruleIds": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^ZTDE-[A-Z0-9-]+-[0-9]{3}$" }
+        },
+        "sourcePaths": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path", "sha256", "sourceRecord", "evidenceClass", "retrieval", "package"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "path": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "sourceRecord": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "evidenceClass": {
+          "enum": [
+            "official-standard",
+            "owner-authored",
+            "owner-authorized-product-evidence",
+            "synthetic-fixture",
+            "automated-verification",
+            "ai-assisted-expert-review",
+            "human-expert-review",
+            "representative-user-testing",
+            "knowledge-gap"
+          ]
+        },
+        "retrieval": { "enum": ["included", "excluded"] },
+        "package": { "const": "approved" }
+      }
+    },
+    "document": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "category", "sourceId", "sha256", "authority"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 512 },
+        "category": {
+          "enum": [
+            "skill",
+            "architecture",
+            "design-intelligence",
+            "ux-patterns",
+            "usability-evaluation"
+          ]
+        },
+        "sourceId": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "authority": { "enum": ["authoritative", "approved"] }
+      }
+    }
+  }
+}

@@ -12,10 +12,6 @@ import {
 } from "../src/contracts/journeys.js";
 import type { ProductContract } from "../src/contracts/schema.js";
 import { validateProductContract } from "../src/contracts/validator.js";
-import {
-  runtimeReportSchema,
-  runtimeScreenshotBaselineSchema,
-} from "../src/runtime/schema.js";
 
 const benchmarkDirectory = resolve(
   process.cwd(),
@@ -26,11 +22,13 @@ const benchmarkDirectory = resolve(
 const contractPath = join(benchmarkDirectory, "product-contract.yaml");
 const journeyPath = join(benchmarkDirectory, "journeys.json");
 const v2JourneyPath = join(benchmarkDirectory, "v2-journeys.json");
-const v2EvidenceDirectory = resolve(
+const v4CalibrationReportPath = resolve(
   process.cwd(),
-  "evidence",
+  "knowledge-base",
+  "benchmarks",
   "interface-quality",
-  "azure-v2",
+  "evidence",
+  "v4-calibration-report.json",
 );
 
 test("Azure Optimizer comparison contract is internally consistent", async () => {
@@ -120,28 +118,60 @@ test("Azure V2 state matrix retains the required product journeys and failure po
   ]);
 });
 
-test("Azure V2 retained evidence is complete and machine-valid", async () => {
-  const baseline = runtimeScreenshotBaselineSchema.parse(
-    JSON.parse(await readFile(join(v2EvidenceDirectory, "screenshot-baseline.json"), "utf8")),
-  );
-  const report = z.object(runtimeReportSchema).parse(
-    JSON.parse(await readFile(join(v2EvidenceDirectory, "final", "runtime-report.json"), "utf8")),
-  );
+test("Azure V4 public calibration summary preserves retained evidence boundaries", async () => {
+  const report = z.object({
+    version: z.literal("1.0"),
+    methodologyPath: z.literal("knowledge-base/benchmarks/azure-optimizer/v2-human-review-methodology.yaml"),
+    reviewPath: z.literal("local-only-retained-review"),
+    passed: z.boolean(),
+    releaseReady: z.boolean(),
+    findings: z.array(z.object({
+      severity: z.enum(["info", "warning", "error"]),
+      message: z.string(),
+    })),
+    summary: z.object({
+      errors: z.number(),
+      warnings: z.number(),
+      requiredStages: z.number(),
+      passedRequiredStages: z.number(),
+      verifiedClaims: z.number(),
+    }),
+    stageResults: z.array(z.object({
+      id: z.string(),
+      required: z.boolean(),
+      status: z.enum(["pass", "partial", "fail", "unverified"]),
+    })),
+    evidenceLevels: z.object({
+      automated: z.number(),
+      aiAssistedExpert: z.number(),
+      humanExpert: z.number(),
+      representativeUser: z.number(),
+    }),
+    humanReview: z.object({
+      requirementsMet: z.boolean(),
+      humanExpertSessions: z.number(),
+      representativeUserSessions: z.number(),
+    }),
+    candidateResults: z.array(z.object({
+      candidate: z.string(),
+      categories: z.array(z.object({
+        category: z.string(),
+        score: z.number(),
+        samples: z.number(),
+      })),
+    })),
+    benchmarkDecision: z.object({
+      configured: z.boolean(),
+      passed: z.boolean(),
+    }),
+  }).parse(JSON.parse(await readFile(v4CalibrationReportPath, "utf8")));
 
-  assert.equal(baseline.screenshots.length, 40);
-  assert.ok(
-    baseline.screenshots.every(
-      (screenshot) => screenshot.dynamicSelectors.length === 1
-        && screenshot.dynamicSelectors[0] === ".dynamic-value",
-    ),
-  );
   assert.equal(report.passed, true);
-  assert.equal(report.journeys.length, 9);
-  assert.ok(report.journeys.every((journey) => journey.passed));
-  assert.equal(report.screenshots.length, 40);
-  assert.equal(report.screenshotRegression.status, "matched");
-  assert.equal(report.screenshotRegression.compared, 40);
-  assert.deepEqual(report.screenshotRegression.mismatches, []);
-  assert.deepEqual(report.findings, []);
-  assert.ok(report.expectedNetwork.every((policy) => policy.satisfied));
+  assert.equal(report.releaseReady, false);
+  assert.equal(report.summary.errors, 0);
+  assert.equal(report.summary.verifiedClaims, 4);
+  assert.equal(report.humanReview.requirementsMet, false);
+  assert.equal(report.evidenceLevels.humanExpert, 1);
+  assert.ok(report.stageResults.some((stage) => stage.id === "human-review" && stage.status === "partial"));
+  assert.ok(report.findings.some((finding) => finding.severity === "warning"));
 });
